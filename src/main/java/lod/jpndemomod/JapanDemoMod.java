@@ -2,7 +2,7 @@ package lod.jpndemomod;
 
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import legend.game.combat.types.BattleStruct18cb0;
+import legend.game.combat.types.BattlePreloadedEntities_18cb0;
 import legend.game.combat.types.CombatantStruct1a8;
 import legend.game.inventory.ItemRegistryEvent;
 import legend.game.modding.Mod;
@@ -163,25 +163,25 @@ public class JapanDemoMod {
 
   @EventListener
   public static void registerAdditionStats(final AdditionHitEvent addition) {
-    int additionId = addition.addition.hits_00[0]._00[6];
+    int additionId = addition.addition.hits_00[0].hitProperty_00[6];
     for (int i = 0; i < 8; i++) {
-      final BattleStruct18cb0.AdditionHitStruct20 hit = addition.addition.hits_00[i];
-      hit._00[0] = Short.parseShort(additionStats.get(additionId * 8 + i)[0]);
-      hit._00[1] = Short.parseShort(additionStats.get(additionId * 8 + i)[1]);
-      hit._00[2] = Short.parseShort(additionStats.get(additionId * 8 + i)[2]);
-      hit._00[3] = Short.parseShort(additionStats.get(additionId * 8 + i)[3]);
-      hit._00[4] = Short.parseShort(additionStats.get(additionId * 8 + i)[4]);
-      hit._00[5] = Short.parseShort(additionStats.get(additionId * 8 + i)[5]);
-      hit._00[6] = Short.parseShort(additionStats.get(additionId * 8 + i)[6]);
-      hit._00[7] = Short.parseShort(additionStats.get(additionId * 8 + i)[7]);
-      hit._00[8] = Short.parseShort(additionStats.get(additionId * 8 + i)[8]);
-      hit._00[9] = Short.parseShort(additionStats.get(additionId * 8 + i)[9]);
-      hit._00[10] = Short.parseShort(additionStats.get(additionId * 8 + i)[10]);
-      hit._00[11] = Short.parseShort(additionStats.get(additionId * 8 + i)[11]);
-      hit._00[12] = Short.parseShort(additionStats.get(additionId * 8 + i)[12]);
-      hit._00[13] = Short.parseShort(additionStats.get(additionId * 8 + i)[13]);
-      hit._00[14] = Short.parseShort(additionStats.get(additionId * 8 + i)[14]);
-      hit._00[15] = Short.parseShort(additionStats.get(additionId * 8 + i)[15]);
+      final BattlePreloadedEntities_18cb0.AdditionHitProperties_20 hit = addition.addition.hits_00[i];
+      hit.hitProperty_00[0] = Short.parseShort(additionStats.get(additionId * 8 + i)[0]);
+      hit.hitProperty_00[1] = Short.parseShort(additionStats.get(additionId * 8 + i)[1]);
+      hit.hitProperty_00[2] = Short.parseShort(additionStats.get(additionId * 8 + i)[2]);
+      hit.hitProperty_00[3] = Short.parseShort(additionStats.get(additionId * 8 + i)[3]);
+      hit.hitProperty_00[4] = Short.parseShort(additionStats.get(additionId * 8 + i)[4]);
+      hit.hitProperty_00[5] = Short.parseShort(additionStats.get(additionId * 8 + i)[5]);
+      hit.hitProperty_00[6] = Short.parseShort(additionStats.get(additionId * 8 + i)[6]);
+      hit.hitProperty_00[7] = Short.parseShort(additionStats.get(additionId * 8 + i)[7]);
+      hit.hitProperty_00[8] = Short.parseShort(additionStats.get(additionId * 8 + i)[8]);
+      hit.hitProperty_00[9] = Short.parseShort(additionStats.get(additionId * 8 + i)[9]);
+      hit.hitProperty_00[10] = Short.parseShort(additionStats.get(additionId * 8 + i)[10]);
+      hit.hitProperty_00[11] = Short.parseShort(additionStats.get(additionId * 8 + i)[11]);
+      hit.hitProperty_00[12] = Short.parseShort(additionStats.get(additionId * 8 + i)[12]);
+      hit.hitProperty_00[13] = Short.parseShort(additionStats.get(additionId * 8 + i)[13]);
+      hit.hitProperty_00[14] = Short.parseShort(additionStats.get(additionId * 8 + i)[14]);
+      hit.hitProperty_00[15] = Short.parseShort(additionStats.get(additionId * 8 + i)[15]);
     }
   }
 
@@ -233,7 +233,7 @@ public class JapanDemoMod {
     spell.element = Integer.parseInt(spellStats.get(spellId)[8]);
     spell.statusType = Integer.parseInt(spellStats.get(spellId)[9]);
     spell.buffType = Integer.parseInt(spellStats.get(spellId)[10]);
-    spell._0B = Integer.parseInt(spellStats.get(spellId)[1]);
+    spell._0b = Integer.parseInt(spellStats.get(spellId)[1]);
   }
 
   @EventListener
