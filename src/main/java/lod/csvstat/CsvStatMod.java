@@ -2,14 +2,14 @@ package lod.csvstat;
 
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import legend.game.combat.types.BattlePreloadedEntities_18cb0;
+import legend.game.combat.environment.BattlePreloadedEntities_18cb0;
 import legend.game.combat.types.CombatantStruct1a8;
 import legend.game.inventory.ItemRegistryEvent;
 import legend.game.modding.Mod;
 import legend.game.modding.events.EventListener;
 import legend.game.modding.events.characters.*;
 import legend.game.modding.events.combat.EnemyRewardsEvent;
-import legend.game.modding.events.combat.EnemyStatsEvent;
+import legend.game.modding.events.combat.MonsterStatsEvent;
 import legend.game.modding.events.combat.SpellStatsEvent;
 import legend.game.modding.events.inventory.EquipmentStatsEvent;
 import legend.game.modding.events.inventory.RepeatItemReturnEvent;
@@ -147,7 +147,7 @@ public class CsvStatMod {
     }
 
     @EventListener
-    public static void registerEnemyStats(final EnemyStatsEvent enemyStats) {
+    public static void registerEnemyStats(final MonsterStatsEvent enemyStats) {
         int ovrId = enemyStats.enemyId;
 
         enemyStats.hp = Integer.parseInt(monsterStats.get(ovrId)[1]);
