@@ -73,7 +73,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,32,64,16,0,0,0,0,176,0,0,0,0,0,14,0,0,0,40,31,0,0,10,0,0,0,0,0,Satori Vest,"Grants immunity§to poison, stun,§and arm blocking."
 0,32,64,7,0,0,0,0,176,0,0,0,0,0,9,0,0,0,32,55,0,0,5,5,0,0,0,0,Rainbow Dress,"Grants immunity§to poison, stun,§and arm blocking."
 0,32,64,3,0,0,0,0,0,0,0,0,8,40,9,0,0,0,10,20,0,0,5,5,40,0,0,0,Angel Robe,30% chance of§reviving from§death.
-0,32,64,247,0,0,0,0,0,0,0,32,0,0,10,0,0,0,0,0,0,0,50,0,0,0,0,0,Armor of Legend,"Reduces phys dmg,§increases DF§per turn."
+0,32,64,247,0,0,0,0,0,0,0,32,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,Armor of Legend,"Reduces phys dmg,§increases DF§per turn."
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, ,
 0,64,64,240,0,0,0,0,0,0,0,0,0,0,16,0,0,3,0,0,100,100,0,0,0,0,0,0,Bandana,
 0,64,64,240,0,0,0,0,0,0,0,0,0,0,18,0,0,8,0,0,110,100,0,0,0,0,0,0,Sallet,Increases hit§chance of physical§attacks by 10%.
@@ -88,7 +88,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 128,64,64,4,0,0,0,0,0,0,0,0,0,0,16,0,0,36,0,0,100,100,0,0,0,0,0,0,Rose's Hair Band,Grants immunity§to instant death.
 0,64,64,247,0,0,0,0,0,0,0,0,0,0,18,0,0,0,0,0,100,100,0,0,0,0,0,0, ,
 0,64,64,247,0,0,0,0,78,0,0,0,0,0,18,0,0,30,0,10,100,100,0,0,0,0,0,0,Phoenix Plume,"Avoids bewitchment,§confusion, fear,§and dispiriting."
-0,64,64,247,0,0,0,0,0,0,0,0,4,0,18,0,0,50,0,0,100,100,0,50,0,0,0,0,Legend Casque,"Reduces magic dmg,§increases MDF§per turn."
+0,64,64,247,0,0,0,0,0,0,0,0,4,0,18,0,0,50,0,0,100,100,0,0,0,0,0,0,Legend Casque,"Reduces magic dmg,§increases MDF§per turn."
 0,64,64,247,0,0,0,0,0,0,0,0,2,50,18,0,0,50,10,0,100,100,0,0,0,0,0,0,Dragon Helm,Raises maximum§HP 50%.
 0,64,64,247,0,0,0,0,0,0,0,0,1,50,17,0,0,50,0,10,100,100,0,0,0,0,0,0,Magical Hat,Raises maximum§MP 50%.
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, ,

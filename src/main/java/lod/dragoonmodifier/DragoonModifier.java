@@ -108,16 +108,16 @@ public class DragoonModifier {
     public static final int burnStackRedEye = 4;
     public static final int burnStackAddition = 1;
     public static boolean faustBattle = false;
+    public static int armorOfLegendTurns = 0;
+    public static int legendCasqueTurns = 0;
 
 
     public DragoonModifier() {
-        System.out.println("[Dragoon Modifier] Constructor");
         loaded = false;
     }
 
     @EventListener
     public static void registerConfig(final ConfigRegistryEvent event) {
-        System.out.println("[Dragoon Modifier] Registry Event");
         CSV_CONFIG_REGISTRAR.registryEvent(event);
     }
 
@@ -202,7 +202,6 @@ public class DragoonModifier {
     @EventListener
     public static void enemyRewards(final EnemyRewardsEvent enemyRewards) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Enemy Rewards] " + enemyRewards.enemyId);
         int enemyId = enemyRewards.enemyId;
         enemyRewards.clear();
         enemyRewards.xp = Integer.parseInt(monstersRewardsStats.get(enemyId)[0]);
@@ -222,7 +221,6 @@ public class DragoonModifier {
     @EventListener
     public static void enemyStats(final MonsterStatsEvent enemyStats) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Monster Stats] " + enemyStats.enemyId);
         int ovrId = enemyStats.enemyId;
         enemyStats.hp = Integer.parseInt(monsterStats.get(ovrId)[1]);
         enemyStats.maxHp = Integer.parseInt(monsterStats.get(ovrId)[1]);
@@ -245,7 +243,6 @@ public class DragoonModifier {
     public static void additionStats(final BattleMapActiveAdditionHitPropertiesEvent addition) {
         if (!loaded) return;
         int additionId = addition.additionHits.hits_00[0].audioFile_0c;
-        System.out.println("[Dragoon Modifier] [Addition Stats] " + additionId);
         for (int i = 0; i < 8; i++) {
             final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
             //hit.flags_00 = Short.parseShort(additionStats.get(additionId * 8 + i)[0]);
@@ -270,7 +267,6 @@ public class DragoonModifier {
     @EventListener
     public static void additionMulti(final AdditionHitMultiplierEvent multiplier) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Addition Multiplier] " + multiplier.additionId);
         multiplier.additionSpMulti = Integer.parseInt(additionMultiStats.get(multiplier.additionId)[(multiplier.additionLevel - 1) * 4]);
         multiplier.additionDmgMulti = Integer.parseInt(additionMultiStats.get(multiplier.additionId)[(multiplier.additionLevel - 1) * 4 + 1]);
     }
@@ -278,14 +274,12 @@ public class DragoonModifier {
     @EventListener
     public static void additionUnlock(final AdditionUnlockEvent unlock) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Addition Unlock] " + unlock.additionId);
         unlock.additionLevel = Integer.parseInt(additionUnlockStats.get(unlock.additionId)[0]);
     }
 
     @EventListener
     public static void characterStats(final CharacterStatsEvent character) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Character Stats] " + character.characterId);
         character.maxHp = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[5]);
         character.bodySpeed = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[0]);
         character.bodyAttack = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[1]);
@@ -305,7 +299,6 @@ public class DragoonModifier {
     @EventListener
     public static void xpNext(final XpToLevelEvent exp) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [EXP] " + exp.charId + "/" + exp.level);
         exp.xp = Integer.parseInt(xpNextStats.get(exp.charId * 61 + exp.level)[0]);
     }
 
@@ -313,7 +306,6 @@ public class DragoonModifier {
     public static void spellStats(final SpellStatsEvent spell) {
         if (!loaded) return;
         int spellId = spell.spellId;
-        System.out.println("[Dragoon Modifier] [Spell Stats] " + spellId);
         if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
             dramodBurnStacks(spellId);
         }
@@ -322,7 +314,6 @@ public class DragoonModifier {
     @EventListener
     public static void shopItem(final ShopItemEvent shopItem) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Shop] " + shopItem.shopId);
         shopItem.itemId = Integer.parseInt(shopItems.get(shopItem.shopId)[shopItem.slotId]);
         shopItem.price = Integer.parseInt(shopPrices.get(shopItem.itemId)[0]) * 2;
     }
@@ -330,7 +321,6 @@ public class DragoonModifier {
     @EventListener
     public static void shopSell(final ShopSellPriceEvent shopItem) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Shop Sell] " + shopItem.shopId);
         shopItem.price = Integer.parseInt(shopPrices.get(shopItem.itemId)[0]);
     }
 
@@ -338,7 +328,6 @@ public class DragoonModifier {
     public static void repeatItems(final RepeatItemReturnEvent item) {
         if (!loaded) return;
         if (modDirectory.equals("Japan Demo")) {
-            System.out.println("[Dragoon Modifier] [Repeat Return] " + item.itemId);
             item.returnItem = item.itemId == 250 ? true : false;
         }
     }
@@ -346,7 +335,6 @@ public class DragoonModifier {
     @EventListener
     public static void attack(final AttackEvent attack) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Attack] " + attack.damage + " " + attack.attackType);
         if (attack.attacker instanceof PlayerBattleObject && attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
             if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, attack.damage)) {
                 attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
@@ -392,7 +380,6 @@ public class DragoonModifier {
     @EventListener
     public static void battleStarted(final BattleStartedEvent battleStarted) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] Battle started...");
         if (faustBattle) {
             final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[0];
             final BattleObject27c bobj = state.innerStruct_00;
@@ -416,13 +403,14 @@ public class DragoonModifier {
         }
 
         burnStacks = 0;
+        armorOfLegendTurns = 0;
+        legendCasqueTurns = 0;
         burnStackMode = false;
     }
 
     @EventListener
     public static void battleEnded(final BattleEndedEvent battleEnded) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] Battle ended...");
         if (faustBattle) {
             faustBattle = false;
             GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()) + 1);
@@ -433,7 +421,6 @@ public class DragoonModifier {
     @EventListener
     public static void inputPressed(final InputPressedEvent input) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Input Pressed] " + input.inputAction.hexCode);
         hotkey.add(input.inputAction);
 
         if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
@@ -444,15 +431,13 @@ public class DragoonModifier {
     @EventListener
     public static void inputReleased(final InputReleasedEvent input) {
         if (!loaded) return;
-        System.out.println("[Dragoon Modifier] [Input Released] " + input.inputAction.hexCode);
         hotkey.remove(input.inputAction);
     }
 
     @EventListener
     public static void gameLoaded(final GameLoadedEvent game) {
-        /*System.out.println("[Dragoon Modifier] [Game Loaded]");
+        System.out.println("[Dragoon Modifier] [Game Loaded]");
         for (int i = 0; i < spellStats.size(); i++) {
-            System.out.println(i);
             Bttl_800c.spellStats_800fa0b8[i] = new SpellStats0c(spellStats.get(i)[12],
                     spellStats.get(i)[13],
                     Integer.parseInt(spellStats.get(i)[0]),
@@ -467,7 +452,7 @@ public class DragoonModifier {
                     Integer.parseInt(spellStats.get(i)[9]),
                     Integer.parseInt(spellStats.get(i)[10]),
                     Integer.parseInt(spellStats.get(i)[11]));
-        }*/
+        }
 
         for (int i = 0; i < 192; i++) {
             ElementSet elementalResistance = new ElementSet();
@@ -594,12 +579,30 @@ public class DragoonModifier {
                     Integer.parseInt(itemStats.get(i)[11])
             );
         }
+    }
 
-        /*for (int x = 0; x < 64; x++) {
-            for (int y = 0; y < 16; y++) {
-                //SMap.shops_800f4930.get(x).item_00.get(y).id_01.set(Integer.parseInt(shopItems.get(x)[y]));
+    @EventListener
+    public static void bobjTurn(BattleObjectTurnEvent turn) {
+        System.out.println("[DRAGOON MODIFIER] " + turn.bobj.charId_272);
+        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
+            if (turn.bobj instanceof PlayerBattleObject) {
+                final PlayerBattleObject player = (PlayerBattleObject) turn.bobj;
+                if (player.equipment2_122 == 74) {
+
+                    armorOfLegendTurns += 1;
+                    if (armorOfLegendTurns <= 40) {
+                        player.defence_38 += 1;
+                    }
+                }
+
+                if (player.equipment1_120 == 89) {
+                    legendCasqueTurns += 1;
+                    if (legendCasqueTurns <= 40) {
+                        player.magicDefence_3a += 1;
+                    }
+                }
             }
-        }*/
+        }
     }
 
     public static void dramodBurnStacks(int spellId) {
@@ -664,7 +667,6 @@ public class DragoonModifier {
         int dlv = dart.dlevel_06;
         burnStacksMax = dlv == 1 ? 3 : dlv == 2 ? 6 : dlv == 3 ? 9 : dlv == 7 ? 15 : 12;
         burnStacks = Math.min(burnStacksMax, burnStacks + stacks);
-        System.out.println("[Dragoon Modifier] [Dart Burn Stacks] " + burnStacks + "/" + burnStacksMax);
     }
 
     public static void dramodHotkeys() {
@@ -672,31 +674,25 @@ public class DragoonModifier {
             if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_UP)) {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._294 > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398._294 = 1;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Exit Dragoon Slot 1");
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_RIGHT)) {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._298 > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398._298 = 1;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Exit Dragoon Slot 2");
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_LEFT)) {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._29c > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398._29c = 1;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Exit Dragoon Slot 3");
                 }
             } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST)) {
                 if (burnStacks > 0) {
                     burnStackMode = !burnStackMode;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Burnstack mode: " + burnStackMode);
                 }
             }
         } else {
             if (hotkey.contains(InputAction.BUTTON_CENTER_1) && hotkey.contains(InputAction.BUTTON_THUMB_1)) {
                 gameState_800babc8.charData_32c[2].partyFlags_04 = 3;
-                System.out.println("[Dragoon Modifier] [Hotkey] Add Shana");
             } else if (hotkey.contains(InputAction.BUTTON_CENTER_1) && hotkey.contains(InputAction.BUTTON_THUMB_2)) {
                 gameState_800babc8.charData_32c[1].partyFlags_04 = 3;
-                System.out.println("[Dragoon Modifier] [Hotkey] Add Lavitz");
             } else if (hotkey.contains(InputAction.BUTTON_SOUTH) && hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1)) {
                 int mapId = submapCut_80052c30.get();
                 if (mapId == 10) {
@@ -717,21 +713,16 @@ public class DragoonModifier {
                     gameState_800babc8.goods_19c[0] ^= 1 << 4;
                     gameState_800babc8.goods_19c[0] ^= 1 << 5;
                     gameState_800babc8.goods_19c[0] ^= 1 << 6;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Hard Mode Start");
                 } else if (mapId == 232) {
                     gameState_800babc8.goods_19c[0] ^= 1 << 0;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Add Red-Eyed Dragoon");
-                } else if (mapId == 424 || mapId == 724) {
+                } else if (mapId == 424 || mapId == 736) {
                     gameState_800babc8.goods_19c[0] ^= 7 << 0;
-                    System.out.println("[Dragoon Modifier] [Hotkey] Add Divine Dragoon");
                 } else if (mapId == 729) {
                     submapCut_80052c30.set(527);
                     smapLoadingStage_800cb430.set(0x4);
-                    System.out.println("[Dragoon Modifier] [Hotkey] Warp off Moon");
                 } else if (mapId == 526 || mapId == 527) { // TODO: Story flag check here
                     submapCut_80052c30.set(730);
                     smapLoadingStage_800cb430.set(0x4);
-                    System.out.println("[Dragoon Modifier] [Hotkey] Warp to Moon");
                 } else if (mapId == 732) {
                     encounterId_800bb0f8.set(420);
 
