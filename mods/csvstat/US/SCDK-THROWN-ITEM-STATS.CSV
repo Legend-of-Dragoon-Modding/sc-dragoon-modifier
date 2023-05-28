@@ -1,29 +1,29 @@
 Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Percentage,UK2,Base Switch,Name,Description,Battle Description
 76,0,0,0,0,0,0,38,0,0,0,0, ,,
 78,0,0,0,0,0,0,38,0,0,0,0,Detonate Rock,Detonates and§attacks all.,Detonates & attacks all.
-76,16,0,0,0,0,0,38,0,0,0,0,Spark Net,Thunder-based§individual attack§(multi).,"S attack(thunder, multi)."
-76,128,0,0,0,0,0,38,0,0,0,0,Burn Out,Fire-based§individual attack§(multi).,"S attack(fire, multi)."
+76,16,64,0,0,0,0,38,0,0,0,0,Spark Net,Thunder-based§individual attack§(multi).,"S attack(thunder, multi)."
+76,128,64,0,0,0,0,38,0,0,0,0,Burn Out,Fire-based§individual attack§(multi).,"S attack(fire, multi)."
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
-76,2,0,0,0,0,0,38,0,0,0,0,Pellet,Earth-based§individual attack§(multi).,"S attack(earth, multi)."
-76,1,0,0,0,0,0,38,0,0,0,0,Spear Frost,Water-based§individual attack§(multi).,"S attack(water, multi)."
-76,64,0,0,0,0,0,38,0,0,0,0,Spinning Gale,Wind-based§individual attack§(multi).,"S attack(wind, multi)."
+76,2,64,0,0,0,0,38,0,0,0,0,Pellet,Earth-based§individual attack§(multi).,"S attack(earth, multi)."
+76,1,64,0,0,0,0,38,0,0,0,0,Spear Frost,Water-based§individual attack§(multi).,"S attack(water, multi)."
+76,64,64,0,0,0,0,38,0,0,0,0,Spinning Gale,Wind-based§individual attack§(multi).,"S attack(wind, multi)."
 76,0,0,0,0,0,0,46,0,0,0,0,Attack Ball,Generates one of §the attack items.,Generates 1 attack item.
-76,32,0,0,0,0,0,38,0,0,0,0,Trans Light,Light-based§individual attack§(multi).,"S attack(light, multi)."
-76,4,0,0,0,0,0,38,0,0,0,0,Dark Mist,Darkness-based§individual attack§(multi).,"S attack(dark, multi)."
+76,32,64,0,0,0,0,38,0,0,0,0,Trans Light,Light-based§individual attack§(multi).,"S attack(light, multi)."
+76,4,64,0,0,0,0,38,0,0,0,0,Dark Mist,Darkness-based§individual attack§(multi).,"S attack(dark, multi)."
 88,0,0,0,0,0,0,33,0,50,0,128,Healing Potion,Recovers half of§maximum value§of HP.,Recovers 1/2 of max HP.
 72,0,0,0,0,0,0,37,1,0,0,8,Depetrifier,Dissolves§petrification.,Dissolves petrification.
 88,0,0,0,0,0,0,37,78,0,0,8,Mind Purifier,"Dissolves fear,§bewitchment, §confusion dispirit.","Dissolves B, C, F, D."
 88,0,0,0,0,0,0,37,176,0,0,8,Body Purifier,Nullifies poison/§stunning/arm §blocking.,"Dissolves P, S, A-Block."
-78,16,128,0,0,0,0,38,0,0,0,0,Thunderbolt,Thunder-based§attack for all§(multi).,"A attack(thndr, multi)."
-78,2,128,0,0,0,0,38,0,0,0,0,Meteor Fall,Earth-based§attack for all§(multi).,"A attack(earth, multi)."
-78,128,128,0,0,0,0,38,0,0,0,0,Gushing Magma,Fire-based§attack for all§(multi).,"A attack(flame, multi)."
-78,32,128,0,0,0,0,38,0,0,0,0,Dancing Ray,Light-based§attack for all§(multi).,"A attack(light, multi)."
+78,16,0,0,0,0,0,38,0,0,0,0,Thunderbolt,Thunder-based§attack for all§(multi).,"A attack(thndr, multi)."
+78,2,0,0,0,0,0,38,0,0,0,0,Meteor Fall,Earth-based§attack for all§(multi).,"A attack(earth, multi)."
+78,128,0,0,0,0,0,38,0,0,0,0,Gushing Magma,Fire-based§attack for all§(multi).,"A attack(flame, multi)."
+78,32,0,0,0,0,0,38,0,0,0,0,Dancing Ray,Light-based§attack for all§(multi).,"A attack(light, multi)."
 72,0,0,0,0,0,0,35,0,100,0,32,Spirit Potion,Recovers 100 pts.§of SP during §combat.,Recovers 100SP in combat.
 76,0,0,0,0,0,0,39,4,0,0,4,Panic Bell,Confuses minor§enemies.,Confuses minor enemy.
-90,0,128,0,0,0,0,0,0,50,0,128, , ,
-78,1,128,0,0,0,0,38,0,0,0,0,Fatal Blizzard,Water-based§attack for all§(multi).,"A attack(water, multi)."
+90,0,0,0,0,0,0,0,0,50,0,128, , ,
+78,1,0,0,0,0,0,38,0,0,0,0,Fatal Blizzard,Water-based§attack for all§(multi).,"A attack(water, multi)."
 76,0,0,0,0,0,0,39,16,0,0,4,Stunning Hammer,Stuns minor§enemies.,Stuns minor enemy.
-78,4,128,0,0,0,0,38,0,0,0,0,Black Rain,Darkness-based§attack for all§(multi).,"A attack(dark, multi)."
+78,4,0,0,0,0,0,38,0,0,0,0,Black Rain,Darkness-based§attack for all§(multi).,"A attack(dark, multi)."
 76,0,0,0,0,0,0,39,128,0,0,4,Poison Needle,Poisons minor§enemies.,Poisons minor enemy.
 76,0,0,0,0,0,0,39,8,0,0,4,Midnight Terror,Frightens minor§enemies.,Frightens minor enemy.
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
@@ -48,16 +48,16 @@ Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Perc
 76,0,0,0,16,0,0,41,0,0,0,0,Speed Down,Halves agility§for 3 turns§(repeat).,Halves agility 3x(rep).
 72,0,0,0,0,0,0,46,0,30,0,128, , ,
 76,0,0,0,0,0,0,46,0,0,0,0,Sachet,Gives subtle§good aroma.,Gives subtle good aroma.
-78,8,0,0,0,0,0,38,0,0,0,0,Psyche Bomb,Unbased§attack for all§(multi).,"A attack(non, multi)."
-78,128,32,0,0,0,0,38,0,0,0,0,Burning Wave,Fire-based§powerful attack §for all.,Powerful A attack(Fire).
-78,1,32,0,0,0,0,38,0,0,0,0,Frozen Jet,Water-based§powerful attack§for all.,Powerful A attack(Water).
-78,64,32,0,0,0,0,38,0,0,0,0,Down Burst,Wind-based§powerful attack§for all.,Powerful A attack(Wind).
-78,2,32,0,0,0,0,38,0,0,0,0,Gravity Grabber,Earth-based§powerful attack§for all.,Powerful A attack(Earth).
-78,32,32,0,0,0,0,38,0,0,0,0,Spectral Flash,Light-based§powerful attack§for all.,Powerful A attack(Light).
-78,4,32,0,0,0,0,38,0,0,0,0,Night Raid,Darkness-based§powerful attack§for all.,Powerful A attack(Dark).
-78,16,32,0,0,0,0,38,0,0,0,0,Flash Hall,Thunder-based§powerful attack§for all.,Powerful A attack(Thndr).
+78,8,8,0,0,0,0,38,0,0,0,0,Psyche Bomb,Unbased§attack for all§(multi).,"A attack(non, multi)."
+78,128,16,0,0,0,0,38,0,0,0,0,Burning Wave,Fire-based§powerful attack §for all.,Powerful A attack(Fire).
+78,1,16,0,0,0,0,38,0,0,0,0,Frozen Jet,Water-based§powerful attack§for all.,Powerful A attack(Water).
+78,64,16,0,0,0,0,38,0,0,0,0,Down Burst,Wind-based§powerful attack§for all.,Powerful A attack(Wind).
+78,2,16,0,0,0,0,38,0,0,0,0,Gravity Grabber,Earth-based§powerful attack§for all.,Powerful A attack(Earth).
+78,32,16,0,0,0,0,38,0,0,0,0,Spectral Flash,Light-based§powerful attack§for all.,Powerful A attack(Light).
+78,4,16,0,0,0,0,38,0,0,0,0,Night Raid,Darkness-based§powerful attack§for all.,Powerful A attack(Dark).
+78,16,16,0,0,0,0,38,0,0,0,0,Flash Hall,Thunder-based§powerful attack§for all.,Powerful A attack(Thndr).
 90,0,0,0,0,0,0,33,0,50,0,128,Healing Breeze,Recover half of§HP for all.,Recovers 1/2HP for all.
-110,8,0,0,0,0,0,38,0,0,0,0,Psyche Bomb X,Unbased attack§for all (multi) §(repeat).,"A attack(non, multi, rep)."
+110,8,32,0,0,0,0,38,0,0,0,0,Psyche Bomb X,Unbased attack§for all (multi) §(repeat).,"A attack(non, multi, rep)."
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
 0,0,0,0,0,0,0,0,0,0,0,0, , ,

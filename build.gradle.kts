@@ -41,7 +41,7 @@ repositories {
 }
 
 dependencies {
-  implementation("legend:lod:1.0-SNAPSHOT") // Uncomment to use mavenLocal version of LoD engine (also comment out next line)
+  implementation("legend:lod:snapshot") // Uncomment to use mavenLocal version of LoD engine (also comment out next line)
 //  implementation("com.github.Legend-of-Dragoon-Modding:Legend-of-Dragoon-Java:main-SNAPSHOT")
   implementation("com.opencsv:opencsv:5.7.1")
   runtimeOnly("org.lwjgl", "lwjgl", classifier = lwjglNatives)

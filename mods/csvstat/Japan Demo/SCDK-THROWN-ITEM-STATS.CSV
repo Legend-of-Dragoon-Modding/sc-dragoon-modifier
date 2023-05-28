@@ -1,6 +1,6 @@
 Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Percentage,UK2,Base Switch,Name,Description,Battle Description
 76,0,0,0,0,0,0,38,0,0,0,0, ,,
-78,0,0,0,0,0,0,38,0,0,0,0,Detonate Rock,Detonates and§attacks all.,Detonates & attacks all.
+78,0,128,0,0,0,0,38,0,0,0,0,Detonate Rock,Detonates and§attacks all.,Detonates & attacks all.
 76,16,0,0,0,0,0,38,0,0,0,0,Spark Net,Thunder-based§individual attack§(multi).,"S attack(thunder, multi)."
 76,128,0,0,0,0,0,38,0,0,0,0,Burn Out,Fire-based§individual attack§(multi).,"S attack(fire, multi)."
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
@@ -18,7 +18,7 @@ Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Perc
 78,2,128,0,0,0,0,38,0,0,0,0,Meteor Fall,Earth-based§attack for all§(multi).,"A attack(earth, multi)."
 78,128,128,0,0,0,0,38,0,0,0,0,Gushing Magma,Fire-based§attack for all§(multi).,"A attack(flame, multi)."
 78,32,128,0,0,0,0,38,0,0,0,0,Dancing Ray,Light-based§attack for all§(multi).,"A attack(light, multi)."
-72,0,0,0,0,0,0,35,0,100,0,32,Spirit Potion,Recovers 100 pts.§of SP during §combat.,Recovers 100SP in combat.
+72,0,0,0,0,0,0,38,0,100,0,32,Spirit Potion,Recovers 100 pts.§of SP during §combat.,Recovers 100SP in combat.
 76,0,0,0,0,0,0,39,4,0,0,4,Panic Bell,Confuses minor§enemies.,Confuses minor enemy.
 90,0,128,0,0,0,0,0,0,50,0,128, , ,
 78,1,128,0,0,0,0,38,0,0,0,0,Fatal Blizzard,Water-based§attack for all§(multi).,"A attack(water, multi)."
@@ -31,7 +31,7 @@ Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Perc
 204,0,0,0,0,0,0,46,0,0,0,0,Total Vanishing,Destroys §minor enemies.,Eliminates minor enemy.
 8,0,0,0,0,0,0,36,0,50,0,16,Angel's Prayer,Revitalizes and §recovers half of§HP.,Revitalizes & Recover 1/2HP.
 80,0,0,0,0,0,0,45,0,0,0,0,Charm Potion,Reduces risk of§encounter.,Avoids minor enemy 3x.
-64,0,0,0,0,0,0,45,0,0,0,0,Pandemonium,Minor enemy only§attacks one ally§3 turns (repeat).,Allow minor enemy attack 3x.
+80,0,0,0,0,0,0,45,0,0,0,0,Pandemonium,Minor enemy only§attacks one ally§3 turns (repeat).,Allow minor enemy attack 3x.
 64,0,0,0,0,0,0,46,0,0,0,0,Recovery Ball,Generates a§recovery item.,Generates 1 recovery item.
 72,0,0,0,192,0,0,42,0,0,0,0, , ,
 72,0,0,0,64,0,0,42,0,0,0,0,Magic Shield,Nullifies magical§attack for 3 turns§(repeat).,Nullify magical attack 3x.
@@ -47,17 +47,17 @@ Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Perc
 72,0,0,0,32,0,0,40,0,0,0,0,Speed Up,Doubles agility§for 3 turns§(repeat).,Doubles agility 3x(rep).
 76,0,0,0,16,0,0,41,0,0,0,0,Speed Down,Halves agility§for 3 turns§(repeat).,Halves agility 3x(rep).
 72,0,0,0,0,0,0,46,0,30,0,128, , ,
-76,0,0,0,0,0,0,46,0,0,0,0,Sachet,Gives subtle§good aroma.,Gives subtle good aroma.
+76,0,0,0,0,0,0,38,0,0,0,0,Sachet,Gives subtle§good aroma.,Gives subtle good aroma.
 78,8,0,0,0,0,0,38,0,0,0,0,Psyche Bomb,Unbased§attack for all§(multi).,"A attack(non, multi)."
-78,128,32,0,0,0,0,38,0,0,0,0,Burning Wave,Fire-based§powerful attack §for all.,Powerful A attack(Fire).
-78,1,32,0,0,0,0,38,0,0,0,0,Frozen Jet,Water-based§powerful attack§for all.,Powerful A attack(Water).
-78,64,32,0,0,0,0,38,0,0,0,0,Down Burst,Wind-based§powerful attack§for all.,Powerful A attack(Wind).
-78,2,32,0,0,0,0,38,0,0,0,0,Gravity Grabber,Earth-based§powerful attack§for all.,Powerful A attack(Earth).
-78,32,32,0,0,0,0,38,0,0,0,0,Spectral Flash,Light-based§powerful attack§for all.,Powerful A attack(Light).
-78,4,32,0,0,0,0,38,0,0,0,0,Night Raid,Darkness-based§powerful attack§for all.,Powerful A attack(Dark).
-78,16,32,0,0,0,0,38,0,0,0,0,Flash Hall,Thunder-based§powerful attack§for all.,Powerful A attack(Thndr).
+78,128,0,0,0,0,0,38,0,0,0,0,Burning Wave,Fire-based§powerful attack §for all.,Powerful A attack(Fire).
+78,1,0,0,0,0,0,38,0,0,0,0,Frozen Jet,Water-based§powerful attack§for all.,Powerful A attack(Water).
+78,64,0,0,0,0,0,38,0,0,0,0,Down Burst,Wind-based§powerful attack§for all.,Powerful A attack(Wind).
+78,2,0,0,0,0,0,38,0,0,0,0,Gravity Grabber,Earth-based§powerful attack§for all.,Powerful A attack(Earth).
+78,32,0,0,0,0,0,38,0,0,0,0,Spectral Flash,Light-based§powerful attack§for all.,Powerful A attack(Light).
+78,4,0,0,0,0,0,38,0,0,0,0,Night Raid,Darkness-based§powerful attack§for all.,Powerful A attack(Dark).
+78,16,0,0,0,0,0,38,0,0,0,0,Flash Hall,Thunder-based§powerful attack§for all.,Powerful A attack(Thndr).
 90,0,0,0,0,0,0,33,0,50,0,128,Healing Breeze,Recover half of§HP for all.,Recovers 1/2HP for all.
-110,8,0,0,0,0,0,38,0,0,0,0,Psyche Bomb X,Unbased attack§for all (multi) §(repeat).,"A attack(non, multi, rep)."
+110,8,0,0,0,0,0,46,0,0,0,0,Psyche Bomb X,Unbased attack§for all (multi) §(repeat).,"A attack(non, multi, rep)."
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
 0,0,0,0,0,0,0,0,0,0,0,0, , ,
