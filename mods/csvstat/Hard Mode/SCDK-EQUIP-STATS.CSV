@@ -162,7 +162,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,128,128,32,2,0,0,0,0,0,31,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,Stone Axe,Earth-based attack.
 0,128,128,2,32,0,0,0,0,0,17,0,0,0,4,0,0,0,0,0,20,0,0,0,0,0,0,0,Spectral Arrow,Light-based attack.
 0,128,128,4,4,0,0,0,0,0,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Void Estoc,Dark-based attack.
-0,128,128,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,Hydro Hammer,Water-based attack.
+0,128,128,1,1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,Hydro Hammer,Water-based attack.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,32,0,30,30,0,0,0,0,0,0,0,0,0,0,Attack Horn,Raises physical§& magical§attack by 30.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,32,0,0,0,30,30,0,0,0,0,0,0,0,0,Defense Horn,Raises physical§& magical§defense by 30.
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, ,
