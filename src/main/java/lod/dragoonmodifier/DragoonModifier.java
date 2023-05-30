@@ -1,5 +1,6 @@
 package lod.dragoonmodifier;
 
+import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import legend.core.Config;
@@ -51,6 +52,7 @@ import java.awt.event.InputEvent;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
@@ -136,67 +138,55 @@ public class DragoonModifier {
         changeModDirectory(modDirectory);
     }
 
-    public static void changeModDirectory(String newDirectory) {
+    public static List<String[]> loadCSV(String path) {
         try {
-            modDirectory = newDirectory;
-            List<String[]> monstersCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-STATS.CSV")).build().readAll();
-            List<String[]> monstersRewardsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-REWARDS.CSV")).build().readAll();
-            List<String[]> additionCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-STATS.CSV")).build().readAll();
-            List<String[]> additionUnlockCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-UNLOCK-LEVELS.CSV")).build().readAll();
-            List<String[]> additionMultiCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-MULTIPLIER-STATS.CSV")).build().readAll();
-            List<String[]> characterStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-CHARACTER-STATS.CSV")).build().readAll();
-            List<String[]> dragoonStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-DRAGOON-STATS.CSV")).build().readAll();
-            List<String[]> xpNextStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-EXP-TABLE.CSV")).build().readAll();
-            List<String[]> spellStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-SPELL-STATS.CSV")).build().readAll();
-            List<String[]> equipStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-EQUIP-STATS.CSV")).build().readAll();
-            List<String[]> itemStatsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-THROWN-ITEM-STATS.CSV")).build().readAll();
-            List<String[]> shopItemsCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-ITEMS.CSV")).build().readAll();
-            List<String[]> shopPricesCsv = new CSVReaderBuilder(new FileReader("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-PRICES.CSV")).build().readAll();
-
-            monstersCsv.remove(0);
-            monstersRewardsCsv.remove(0);
-            additionCsv.remove(0);
-            additionMultiCsv.remove(0);
-            additionUnlockCsv.remove(0);
-            characterStatsCsv.remove(0);
-            dragoonStatsCsv.remove(0);
-            xpNextStatsCsv.remove(0);
-            spellStatsCsv.remove(0);
-            equipStatsCsv.remove(0);
-            itemStatsCsv.remove(0);
-            shopItemsCsv.remove(0);
-            shopPricesCsv.remove(0);
-
-            monsterStats = monstersCsv;
-            monstersRewardsStats = monstersRewardsCsv;
-            additionStats = additionCsv;
-            additionMultiStats = additionMultiCsv;
-            additionUnlockStats = additionUnlockCsv;
-            characterStats = characterStatsCsv;
-            dragoonStats = dragoonStatsCsv;
-            xpNextStats = xpNextStatsCsv;
-            spellStats = spellStatsCsv;
-            equipStats = equipStatsCsv;
-            itemStats = itemStatsCsv;
-            shopItems = shopItemsCsv;
-            shopPrices = shopPricesCsv;
-
-            System.out.println("[Dragoon Modifier] Loaded using directory: " + modDirectory);
-            gameLoaded(null);
-            loaded = true;
-        } catch (FileNotFoundException e) {
-            loaded = false;
-            System.out.println(e.toString());
-            throw new RuntimeException(e);
+            FileReader fr = new FileReader(path, StandardCharsets.UTF_8);
+            CSVReader csv = new CSVReader(fr);
+            List<String[]> list = csv.readAll();
+            list.remove(0);
+            fr.close();
+            csv.close();
+            return list;
         } catch (IOException e) {
-            loaded = false;
-            System.out.println(e.toString());
             throw new RuntimeException(e);
         } catch (CsvException e) {
-            loaded = false;
-            System.out.println(e.toString());
             throw new RuntimeException(e);
         }
+    }
+
+    public static void changeModDirectory(String newDirectory) {
+        modDirectory = newDirectory;
+        List<String[]> monstersCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-STATS.CSV");
+        List<String[]> monstersRewardsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-REWARDS.CSV");
+        List<String[]> additionCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-STATS.CSV");
+        List<String[]> additionUnlockCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-UNLOCK-LEVELS.CSV");
+        List<String[]> additionMultiCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-MULTIPLIER-STATS.CSV");
+        List<String[]> characterStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-CHARACTER-STATS.CSV");
+        List<String[]> dragoonStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-DRAGOON-STATS.CSV");
+        List<String[]> xpNextStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-EXP-TABLE.CSV");
+        List<String[]> spellStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SPELL-STATS.CSV");
+        List<String[]> equipStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-EQUIP-STATS.CSV");
+        List<String[]> itemStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-THROWN-ITEM-STATS.CSV");
+        List<String[]> shopItemsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-ITEMS.CSV");
+        List<String[]> shopPricesCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-PRICES.CSV");
+
+        monsterStats = monstersCsv;
+        monstersRewardsStats = monstersRewardsCsv;
+        additionStats = additionCsv;
+        additionMultiStats = additionMultiCsv;
+        additionUnlockStats = additionUnlockCsv;
+        characterStats = characterStatsCsv;
+        dragoonStats = dragoonStatsCsv;
+        xpNextStats = xpNextStatsCsv;
+        spellStats = spellStatsCsv;
+        equipStats = equipStatsCsv;
+        itemStats = itemStatsCsv;
+        shopItems = shopItemsCsv;
+        shopPrices = shopPricesCsv;
+
+        System.out.println("[Dragoon Modifier] Loaded using directory: " + modDirectory);
+        gameLoaded(null);
+        loaded = true;
     }
 
     @EventListener
@@ -454,132 +444,6 @@ public class DragoonModifier {
                     Integer.parseInt(spellStats.get(i)[11]));
         }
 
-        /*for (int i = 0; i < 192; i++) {
-            ElementSet elementalResistance = new ElementSet();
-            ElementSet elementalImmunity = new ElementSet();
-            ElementSet attackElement = new ElementSet();
-            int special1 = Integer.parseInt(equipStats.get(i)[11]);
-            int special2 = Integer.parseInt(equipStats.get(i)[12]);
-            int specialAmount = Integer.parseInt(equipStats.get(i)[13]);
-            int mpPerMagicalHit = (special1 & 0x1) != 0 ? specialAmount : 0;
-            int spPerMagicalHit = (special1 & 0x2) != 0 ? specialAmount : 0;
-            int mpPerPhysicalHit = (special1 & 0x4) != 0 ? specialAmount : 0;
-            int spPerPhysicalHit = (special1 & 0x8) != 0 ? specialAmount : 0;
-            int spMultiplier = (special1 & 0x10) != 0 ? specialAmount : 0;
-            boolean physicalResistance = (special1 & 0x20) != 0;
-            boolean magicalImmunity = (special1 & 0x40) != 0;
-            boolean physicalImmunity = (special1 & 0x80) != 0;
-            int mpMultiplier = (special2 & 0x1) != 0 ? specialAmount : 0;
-            int hpMultiplier = (special2 & 0x2) != 0 ? specialAmount : 0;
-            boolean magicalResistance = (special2 & 0x4) != 0;
-            int revive = (special2 & 0x8) != 0 ? specialAmount : 0;
-            int spRegen = (special2 & 0x10) != 0 ? specialAmount : 0;
-            int mpRegen = (special2 & 0x20) != 0 ? specialAmount : 0;
-            int hpRegen = (special2 & 0x40) != 0 ? specialAmount : 0;
-            int special2Flag80 = (special2 & 0x80) != 0 ? specialAmount : 0;
-
-            attackElement.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[4])));
-            if (Integer.parseInt(equipStats.get(i)[6]) > 0)
-                elementalResistance.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[6])));
-            if (Integer.parseInt(equipStats.get(i)[7]) > 0)
-                elementalImmunity.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[7])));
-
-            SItem.equipmentStats_80111ff0[i].name = equipStats.get(i)[28];
-            SItem.equipmentStats_80111ff0[i].description = equipStats.get(i)[29].replace('\u00A7', '\n');
-            SItem.equipmentStats_80111ff0[i].flags_00 = Integer.parseInt(equipStats.get(i)[0]);
-            SItem.equipmentStats_80111ff0[i].type_01 = Integer.parseInt(equipStats.get(i)[1]);
-            SItem.equipmentStats_80111ff0[i]._02 = Integer.parseInt(equipStats.get(i)[2]);
-            SItem.equipmentStats_80111ff0[i].equipableFlags_03 = Integer.parseInt(equipStats.get(i)[3]);
-            SItem.equipmentStats_80111ff0[i].attackElement_04 = attackElement;
-            SItem.equipmentStats_80111ff0[i]._05 = Integer.parseInt(equipStats.get(i)[5]);
-            SItem.equipmentStats_80111ff0[i].mpPerPhysicalHit = mpPerPhysicalHit;
-            SItem.equipmentStats_80111ff0[i].spPerPhysicalHit = spPerPhysicalHit;
-            SItem.equipmentStats_80111ff0[i].mpPerMagicalHit = mpPerMagicalHit;
-            SItem.equipmentStats_80111ff0[i].spPerMagicalHit = spPerMagicalHit;
-            SItem.equipmentStats_80111ff0[i].hpMultiplier = hpMultiplier;
-            SItem.equipmentStats_80111ff0[i].mpMultiplier = mpMultiplier;
-            SItem.equipmentStats_80111ff0[i].spMultiplier = spMultiplier;
-            SItem.equipmentStats_80111ff0[i].magicalResistance = magicalResistance;
-            SItem.equipmentStats_80111ff0[i].physicalResistance = physicalResistance;
-            SItem.equipmentStats_80111ff0[i].magicalImmunity = magicalImmunity;
-            SItem.equipmentStats_80111ff0[i].physicalImmunity = physicalImmunity;
-            SItem.equipmentStats_80111ff0[i].revive = revive;
-            SItem.equipmentStats_80111ff0[i].hpRegen = hpRegen;
-            SItem.equipmentStats_80111ff0[i].mpRegen = mpRegen;
-            SItem.equipmentStats_80111ff0[i].spRegen = spRegen;
-            SItem.equipmentStats_80111ff0[i].special2Flag80 = special2Flag80;
-            SItem.equipmentStats_80111ff0[i].elementalResistance_06 = elementalResistance;
-            SItem.equipmentStats_80111ff0[i].elementalImmunity_07 = elementalImmunity;
-            SItem.equipmentStats_80111ff0[i].statusResist_08 = Integer.parseInt(equipStats.get(i)[8]);
-            SItem.equipmentStats_80111ff0[i]._09 = Integer.parseInt(equipStats.get(i)[9]);
-            SItem.equipmentStats_80111ff0[i].attack1_0a = Integer.parseInt(equipStats.get(i)[10]);
-            SItem.equipmentStats_80111ff0[i].icon_0e = Integer.parseInt(equipStats.get(i)[14]);
-            SItem.equipmentStats_80111ff0[i].speed_0f = Integer.parseInt(equipStats.get(i)[15]);
-            SItem.equipmentStats_80111ff0[i].attack2_10 = Integer.parseInt(equipStats.get(i)[16]);
-            SItem.equipmentStats_80111ff0[i].magicAttack_11 = Integer.parseInt(equipStats.get(i)[17]);
-            SItem.equipmentStats_80111ff0[i].defence_12 = Integer.parseInt(equipStats.get(i)[18]);
-            SItem.equipmentStats_80111ff0[i].magicDefence_13 = Integer.parseInt(equipStats.get(i)[19]);
-            SItem.equipmentStats_80111ff0[i].attackHit_14 = Integer.parseInt(equipStats.get(i)[20]);
-            SItem.equipmentStats_80111ff0[i].magicHit_15 = Integer.parseInt(equipStats.get(i)[21]);
-            SItem.equipmentStats_80111ff0[i].attackAvoid_16 = Integer.parseInt(equipStats.get(i)[22]);
-            SItem.equipmentStats_80111ff0[i].magicAvoid_17 = Integer.parseInt(equipStats.get(i)[23]);
-            SItem.equipmentStats_80111ff0[i].onHitStatusChance_18 = Integer.parseInt(equipStats.get(i)[24]);
-            SItem.equipmentStats_80111ff0[i]._19 = Integer.parseInt(equipStats.get(i)[25]);
-            SItem.equipmentStats_80111ff0[i]._1a = Integer.parseInt(equipStats.get(i)[26]);
-            SItem.equipmentStats_80111ff0[i].onHitStatus_1b = Integer.parseInt(equipStats.get(i)[27]);
-        }
-
-        for (int i = 0; i < 64; i++) {
-            int special1 = Integer.parseInt(itemStats.get(i)[3]);
-            int special2 = Integer.parseInt(itemStats.get(i)[4]);
-            int specialAmount = Integer.parseInt(itemStats.get(i)[6]);
-            int powerDefence = (special1 & 0x80) != 0 ? specialAmount : 0;
-            int powerMagicDefence = (special1 & 0x40) != 0 ? specialAmount : 0;
-            int powerAttack = (special1 & 0x20) != 0 ? specialAmount : 0;
-            int powerMagicAttack = (special1 & 0x10) != 0 ? specialAmount : 0;
-            int powerAttackHit = (special1 & 0x8) != 0 ? specialAmount : 0;
-            int powerMagicAttackHit = (special1 & 0x4) != 0 ? specialAmount : 0;
-            int powerAttackAvoid = (special1 & 0x2) != 0 ? specialAmount : 0;
-            int powerMagicAttackAvoid = (special1 & 0x1) != 0 ? specialAmount : 0;
-            boolean physicalImmunity = (special2 & 0x80) != 0;
-            boolean magicalImmunity = (special2 & 0x40) != 0;
-            int speedUp = (special2 & 0x20) != 0 ? 100 : 0;
-            int speedDown = (special2 & 0x10) != 0 ? -50 : 0;
-            int spPerPhysicalHit = (special2 & 0x8) != 0 ? specialAmount : 0;
-            int mpPerPhysicalHit = (special2 & 0x4) != 0 ? specialAmount : 0;
-            int spPerMagicalHit = (special2 & 0x2) != 0 ? specialAmount : 0;
-            int mpPerMagicalHit = (special2 & 0x1) != 0 ? specialAmount : 0;
-
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].name = itemStats.get(i)[12];
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].description = itemStats.get(i)[13].replace('\u00A7', '\n');
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].combatDescription = itemStats.get(i)[14];
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].target_00 = Integer.parseInt(itemStats.get(i)[0]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].element_01 = Element.fromFlag(Integer.parseInt(itemStats.get(i)[1]));
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].damageMultiplier_02 = Integer.parseInt(itemStats.get(i)[2]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerDefence = powerDefence;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerMagicDefence = powerMagicDefence;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerAttack = powerAttack;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerMagicAttack = powerMagicAttack;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerAttackHit = powerAttackHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerMagicAttackHit = powerMagicAttackHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerAttackAvoid = powerAttackAvoid;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].powerMagicAttackAvoid = powerMagicAttackAvoid;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].physicalImmunity = physicalImmunity;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].magicalImmunity = magicalImmunity;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].speedUp = speedUp;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].speedDown = speedDown;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].spPerPhysicalHit = spPerPhysicalHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].mpPerPhysicalHit = mpPerPhysicalHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].spPerMagicalHit = spPerMagicalHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].mpPerMagicalHit = mpPerMagicalHit;
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].damage_05 = Integer.parseInt(itemStats.get(i)[5]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].icon_07 = Integer.parseInt(itemStats.get(i)[7]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].status_08 = Integer.parseInt(itemStats.get(i)[8]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].percentage_09 = Integer.parseInt(itemStats.get(i)[9]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].uu2_0a = Integer.parseInt(itemStats.get(i)[10]);
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i].type_0b = Integer.parseInt(itemStats.get(i)[11]);
-        }*/
-
         for (int i = 0; i < 192; i++) {
             ElementSet elementalResistance = new ElementSet();
             ElementSet elementalImmunity = new ElementSet();
@@ -715,7 +579,6 @@ public class DragoonModifier {
             if (turn.bobj instanceof PlayerBattleObject) {
                 final PlayerBattleObject player = (PlayerBattleObject) turn.bobj;
                 if (player.equipment2_122 == 74) {
-
                     armorOfLegendTurns += 1;
                     if (armorOfLegendTurns <= 40) {
                         player.defence_38 += 1;
@@ -737,7 +600,6 @@ public class DragoonModifier {
             if (burnStackMode && burnStacks > 0) {
                 int damage = Integer.parseInt(spellStats.get(spellId)[3]);
                 String newDescription = spellStats.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (burnStacks * dmgPerBurn))));
-
 
                 if (burnStacks == burnStacksMax) {
                     if (spellId == 0) {
@@ -858,7 +720,6 @@ public class DragoonModifier {
                         FUN_800e5534(-1, 0);
                     } else if(mainCallbackIndex_8004dd20.get() == 8) {
                         combatStage_800bb0f4.set(78);
-
                         gameState_800babc8.areaIndex_4de = areaIndex_800c67aa.get();
                         gameState_800babc8.pathIndex_4d8 = pathIndex_800c67ac.get();
                         gameState_800babc8.dotIndex_4da = dotIndex_800c67ae.get();
