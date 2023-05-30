@@ -391,7 +391,11 @@ public class DragoonModifier {
         if (!loaded) return;
         if (faustBattle) {
             faustBattle = false;
-            GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) + 1));
+            try {
+                GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) + 1));
+            } catch (NumberFormatException ex) {
+                GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(1));
+            }
             System.out.println("[Dragoon Modifier] Faust Defeated: " + GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()));
         }
     }
