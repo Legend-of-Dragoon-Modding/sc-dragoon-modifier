@@ -843,7 +843,7 @@ public class DragoonModifier {
                 } else if (mapId == 232) {
                     gameState_800babc8.goods_19c[0] ^= 1 << 0;
                 } else if (mapId == 424 || mapId == 736) {
-                    gameState_800babc8.goods_19c[0] ^= 7 << 0;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 7;
                 } else if (mapId == 729) {
                     submapCut_80052c30.set(527);
                     smapLoadingStage_800cb430.set(0x4);
