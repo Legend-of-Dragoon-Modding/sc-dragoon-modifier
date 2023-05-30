@@ -4,7 +4,7 @@ UPPER LEFT SHOULDER + DPAD LEFT      - (Battle) Exit Dragoon in slot 3 (L1+Left)
 FACE NORTH + FACE LEFT               - (Battle) Activates Dart's Burn Stacks (Triangle+Square)
 CENTER LEFT + JOYSTICK LEFT          - (Field) Adds Shana to the party (Select+L3)
 CENTER LEFT + JOYSTICK RIGHT         - (Field) Adds Lavitz to the party (Select+R3)
-FACE SOUTH + UPPER LEFT              - (Field) (CROSS+L1)
+FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
 	**ON MAP 10**
 		On the first map where you can control Dart press this hotkey to add everyone to the party at level 1.
 		Press it again to toggle Dragoon Spirits on/off.
@@ -25,3 +25,11 @@ FACE SOUTH + UPPER LEFT              - (Field) (CROSS+L1)
 US + Hard Mode/Hard Mode Notes
 -All equips can not nullifiy elements.
 -The special Faust through the hotkey will grant Armor of Legend and Legend Casque after 40 battles.
+-Burn Stacks has a maximum stacks based on Dragoon Level. 
+ You can currently check burnstacks by opening the Spell Menu and checking the multiplier. 
+ You can press the hotkey again to not use the stacks if you are just checking.
+ Dragoon Lv1 -  3 Burn Stacks Max
+ Dragoon Lv2 -  6 Burn Stacks Max
+ Dragoon Lv3 -  9 Burn Stacks Max
+ Dragoon Lv4 - 12 Burn Stacks Max
+ Dragoon Lv5 - 12 Burn Stacks Max

@@ -1,9 +1,7 @@
 package lod.dragoonmodifier;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import legend.core.Config;
 import legend.core.GameEngine;
 import legend.game.SItem;
 import legend.game.SMap;
@@ -14,17 +12,14 @@ import legend.game.characters.ElementSet;
 import legend.game.characters.VitalsStat;
 import legend.game.combat.Bttl_800c;
 import legend.game.combat.bobj.AttackEvent;
-import legend.game.combat.bobj.BattleEvent;
 import legend.game.combat.bobj.BattleObject27c;
 import legend.game.combat.bobj.PlayerBattleObject;
 import legend.game.combat.environment.BattlePreloadedEntities_18cb0;
 import legend.game.combat.types.AttackType;
 import legend.game.combat.types.CombatantStruct1a8;
 import legend.game.input.InputAction;
-import legend.game.inventory.ItemRegistryEvent;
 import legend.game.modding.Mod;
 import legend.game.modding.coremod.CoreMod;
-import legend.game.modding.coremod.elements.NoElement;
 import legend.game.modding.events.EventListener;
 import legend.game.modding.events.battle.*;
 import legend.game.modding.events.characters.*;
@@ -32,39 +27,33 @@ import legend.game.modding.events.config.ConfigLoadedEvent;
 import legend.game.modding.events.gamestate.GameLoadedEvent;
 import legend.game.modding.events.input.InputPressedEvent;
 import legend.game.modding.events.input.InputReleasedEvent;
-import legend.game.modding.events.inventory.EquipmentStatsEvent;
 import legend.game.modding.events.inventory.RepeatItemReturnEvent;
 import legend.game.modding.events.inventory.ShopItemEvent;
 import legend.game.modding.events.inventory.ShopSellPriceEvent;
 import legend.game.modding.registries.Registrar;
 import legend.game.modding.registries.RegistryDelegate;
-import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
 import legend.game.scripting.ScriptState;
 import legend.game.types.EquipmentStats1c;
 import legend.game.types.ItemStats0c;
 import legend.game.types.SpellStats0c;
-import legend.game.types.WMapAreaData08;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.awt.event.InputEvent;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static legend.game.SMap.*;
+import static legend.game.SMap.FUN_800e5534;
+import static legend.game.SMap.smapLoadingStage_800cb430;
 import static legend.game.Scus94491BpeSegment_8004.mainCallbackIndex_8004dd20;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.WMap.*;
-import static legend.game.WMap.facing_800c67b4;
 import static legend.game.combat.Bttl_800c.allBobjCount_800c66d0;
 
 @Mod(id = DragoonModifier.MOD_ID)
@@ -139,13 +128,10 @@ public class DragoonModifier {
     }
 
     public static List<String[]> loadCSV(String path) {
-        try {
-            FileReader fr = new FileReader(path, StandardCharsets.UTF_8);
-            CSVReader csv = new CSVReader(fr);
+        try (FileReader fr = new FileReader(path, StandardCharsets.UTF_8);
+             CSVReader csv = new CSVReader(fr);) {
             List<String[]> list = csv.readAll();
             list.remove(0);
-            fr.close();
-            csv.close();
             return list;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -156,19 +142,19 @@ public class DragoonModifier {
 
     public static void changeModDirectory(String newDirectory) {
         modDirectory = newDirectory;
-        List<String[]> monstersCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-STATS.CSV");
-        List<String[]> monstersRewardsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-MONSTER-REWARDS.CSV");
-        List<String[]> additionCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-STATS.CSV");
-        List<String[]> additionUnlockCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-UNLOCK-LEVELS.CSV");
-        List<String[]> additionMultiCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-ADDITION-MULTIPLIER-STATS.CSV");
-        List<String[]> characterStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-CHARACTER-STATS.CSV");
-        List<String[]> dragoonStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-DRAGOON-STATS.CSV");
-        List<String[]> xpNextStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-EXP-TABLE.CSV");
-        List<String[]> spellStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SPELL-STATS.CSV");
-        List<String[]> equipStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-EQUIP-STATS.CSV");
-        List<String[]> itemStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-THROWN-ITEM-STATS.CSV");
-        List<String[]> shopItemsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-ITEMS.CSV");
-        List<String[]> shopPricesCsv = loadCSV("./mods/csvstat/" + modDirectory + "/SCDK-SHOP-PRICES.CSV");
+        List<String[]> monstersCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-monster-stats.csv");
+        List<String[]> monstersRewardsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-monster-rewards.csv");
+        List<String[]> additionCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-addition-stats.csv");
+        List<String[]> additionUnlockCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-addition-unlock-levels.csv");
+        List<String[]> additionMultiCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-addition-multiplier-stats.csv");
+        List<String[]> characterStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-character-stats.csv");
+        List<String[]> dragoonStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-dragoon-stats.csv");
+        List<String[]> xpNextStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-exp-table.csv");
+        List<String[]> spellStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-spell-stats.csv");
+        List<String[]> equipStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-equip-stats.csv");
+        List<String[]> itemStatsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-thrown-item-stats.csv");
+        List<String[]> shopItemsCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-shop-items.csv");
+        List<String[]> shopPricesCsv = loadCSV("./mods/csvstat/" + modDirectory + "/scdk-shop-prices.csv");
 
         monsterStats = monstersCsv;
         monstersRewardsStats = monstersRewardsCsv;
@@ -186,7 +172,6 @@ public class DragoonModifier {
 
         System.out.println("[Dragoon Modifier] Loaded using directory: " + modDirectory);
         gameLoaded(null);
-        loaded = true;
     }
 
     @EventListener
@@ -199,9 +184,9 @@ public class DragoonModifier {
         enemyRewards.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(monstersRewardsStats.get(enemyId)[2]), Integer.parseInt(monstersRewardsStats.get(enemyId)[3])));
         if (faustBattle == true && enemyRewards.enemyId == 344) {
             enemyRewards.clear();
-            enemyRewards.xp = 60000;
+            enemyRewards.xp = 30000;
             enemyRewards.gold = 250;
-            if (GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()) == 40) {
+            if (Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) == 39) {
                 enemyRewards.add(new CombatantStruct1a8.ItemDrop(100, 74));
                 enemyRewards.add(new CombatantStruct1a8.ItemDrop(100, 89));
             }
@@ -403,7 +388,7 @@ public class DragoonModifier {
         if (!loaded) return;
         if (faustBattle) {
             faustBattle = false;
-            GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()) + 1);
+            GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) + 1));
             System.out.println("[Dragoon Modifier] Faust Defeated: " + GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()));
         }
     }
@@ -413,9 +398,7 @@ public class DragoonModifier {
         if (!loaded) return;
         hotkey.add(input.inputAction);
 
-        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
-            dramodHotkeys();
-        }
+        dramodHotkeys();
     }
 
     @EventListener
@@ -426,150 +409,155 @@ public class DragoonModifier {
 
     @EventListener
     public static void gameLoaded(final GameLoadedEvent game) {
-        System.out.println("[Dragoon Modifier] [Game Loaded]");
-        for (int i = 0; i < spellStats.size(); i++) {
-            Bttl_800c.spellStats_800fa0b8[i] = new SpellStats0c(spellStats.get(i)[12],
-                    spellStats.get(i)[13],
-                    Integer.parseInt(spellStats.get(i)[0]),
-                    Integer.parseInt(spellStats.get(i)[1]),
-                    Integer.parseInt(spellStats.get(i)[2]),
-                    Integer.parseInt(spellStats.get(i)[3]),
-                    Integer.parseInt(spellStats.get(i)[4]),
-                    Integer.parseInt(spellStats.get(i)[5]),
-                    Integer.parseInt(spellStats.get(i)[6]),
-                    Integer.parseInt(spellStats.get(i)[7]),
-                    Element.fromFlag(Integer.parseInt(spellStats.get(i)[8])),
-                    Integer.parseInt(spellStats.get(i)[9]),
-                    Integer.parseInt(spellStats.get(i)[10]),
-                    Integer.parseInt(spellStats.get(i)[11]));
-        }
+        System.out.println("[Dragoon Modifier] [Game Loaded] ...");
+        if (game != null || loaded) {
+            for (int i = 0; i < spellStats.size(); i++) {
+                Bttl_800c.spellStats_800fa0b8[i] = new SpellStats0c(spellStats.get(i)[12],
+                        spellStats.get(i)[13],
+                        Integer.parseInt(spellStats.get(i)[0]),
+                        Integer.parseInt(spellStats.get(i)[1]),
+                        Integer.parseInt(spellStats.get(i)[2]),
+                        Integer.parseInt(spellStats.get(i)[3]),
+                        Integer.parseInt(spellStats.get(i)[4]),
+                        Integer.parseInt(spellStats.get(i)[5]),
+                        Integer.parseInt(spellStats.get(i)[6]),
+                        Integer.parseInt(spellStats.get(i)[7]),
+                        Element.fromFlag(Integer.parseInt(spellStats.get(i)[8])),
+                        Integer.parseInt(spellStats.get(i)[9]),
+                        Integer.parseInt(spellStats.get(i)[10]),
+                        Integer.parseInt(spellStats.get(i)[11]));
+            }
 
-        for (int i = 0; i < 192; i++) {
-            ElementSet elementalResistance = new ElementSet();
-            ElementSet elementalImmunity = new ElementSet();
-            int special1 = Integer.parseInt(equipStats.get(i)[11]);
-            int special2 = Integer.parseInt(equipStats.get(i)[12]);
-            int specialAmount = Integer.parseInt(equipStats.get(i)[13]);
-            int mpPerMagicalHit = (special1 & 0x1) != 0 ? specialAmount : 0;
-            int spPerMagicalHit = (special1 & 0x2) != 0 ? specialAmount : 0;
-            int mpPerPhysicalHit = (special1 & 0x4) != 0 ? specialAmount : 0;
-            int spPerPhysicalHit = (special1 & 0x8) != 0 ? specialAmount : 0;
-            int spMultiplier = (special1 & 0x10) != 0 ? specialAmount : 0;
-            boolean physicalResistance = (special1 & 0x20) != 0;
-            boolean magicalImmunity = (special1 & 0x40) != 0;
-            boolean physicalImmunity = (special1 & 0x80) != 0;
-            int mpMultiplier = (special2 & 0x1) != 0 ? specialAmount : 0;
-            int hpMultiplier = (special2 & 0x2) != 0 ? specialAmount : 0;
-            boolean magicalResistance = (special2 & 0x4) != 0;
-            int revive = (special2 & 0x8) != 0 ? specialAmount : 0;
-            int spRegen = (special2 & 0x10) != 0 ? specialAmount : 0;
-            int mpRegen = (special2 & 0x20) != 0 ? specialAmount : 0;
-            int hpRegen = (special2 & 0x40) != 0 ? specialAmount : 0;
-            int special2Flag80 = (special2 & 0x80) != 0 ? specialAmount : 0;
+            for (int i = 0; i < 192; i++) {
+                ElementSet elementalResistance = new ElementSet();
+                ElementSet elementalImmunity = new ElementSet();
+                int special1 = Integer.parseInt(equipStats.get(i)[11]);
+                int special2 = Integer.parseInt(equipStats.get(i)[12]);
+                int specialAmount = Integer.parseInt(equipStats.get(i)[13]);
+                int mpPerMagicalHit = (special1 & 0x1) != 0 ? specialAmount : 0;
+                int spPerMagicalHit = (special1 & 0x2) != 0 ? specialAmount : 0;
+                int mpPerPhysicalHit = (special1 & 0x4) != 0 ? specialAmount : 0;
+                int spPerPhysicalHit = (special1 & 0x8) != 0 ? specialAmount : 0;
+                int spMultiplier = (special1 & 0x10) != 0 ? specialAmount : 0;
+                boolean physicalResistance = (special1 & 0x20) != 0;
+                boolean magicalImmunity = (special1 & 0x40) != 0;
+                boolean physicalImmunity = (special1 & 0x80) != 0;
+                int mpMultiplier = (special2 & 0x1) != 0 ? specialAmount : 0;
+                int hpMultiplier = (special2 & 0x2) != 0 ? specialAmount : 0;
+                boolean magicalResistance = (special2 & 0x4) != 0;
+                int revive = (special2 & 0x8) != 0 ? specialAmount : 0;
+                int spRegen = (special2 & 0x10) != 0 ? specialAmount : 0;
+                int mpRegen = (special2 & 0x20) != 0 ? specialAmount : 0;
+                int hpRegen = (special2 & 0x40) != 0 ? specialAmount : 0;
+                int special2Flag80 = (special2 & 0x80) != 0 ? specialAmount : 0;
 
-            if (Integer.parseInt(equipStats.get(i)[6]) > 0)
-                elementalResistance.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[6])));
-            if (Integer.parseInt(equipStats.get(i)[7]) > 0)
-                elementalImmunity.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[7])));
+                if (Integer.parseInt(equipStats.get(i)[6]) > 0)
+                    elementalResistance.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[6])));
+                if (Integer.parseInt(equipStats.get(i)[7]) > 0)
+                    elementalImmunity.add(Element.fromFlag(Integer.parseInt(equipStats.get(i)[7])));
 
-            SItem.equipmentStats_80111ff0[i] = new EquipmentStats1c(
-                    equipStats.get(i)[28],
-                    equipStats.get(i)[29].replace('\u00A7', '\n'),
-                    Integer.parseInt(equipStats.get(i)[0]),
-                    Integer.parseInt(equipStats.get(i)[1]),
-                    Integer.parseInt(equipStats.get(i)[2]),
-                    Integer.parseInt(equipStats.get(i)[3]),
-                    Element.fromFlag(Integer.parseInt(equipStats.get(i)[4])),
-                    Integer.parseInt(equipStats.get(i)[5]),
-                    elementalResistance,
-                    elementalImmunity,
-                    Integer.parseInt(equipStats.get(i)[8]),
-                    Integer.parseInt(equipStats.get(i)[9]),
-                    0,
-                    mpPerPhysicalHit,
-                    spPerPhysicalHit,
-                    mpPerMagicalHit,
-                    spPerMagicalHit,
-                    hpMultiplier,
-                    mpMultiplier,
-                    spMultiplier,
-                    SItem.equipmentStats_80111ff0[i].magicalResistance,
-                    SItem.equipmentStats_80111ff0[i].physicalResistance,
-                    SItem.equipmentStats_80111ff0[i].magicalImmunity,
-                    SItem.equipmentStats_80111ff0[i].physicalImmunity,
-                    revive,
-                    hpRegen,
-                    mpRegen,
-                    spRegen,
-                    SItem.equipmentStats_80111ff0[i].special2Flag80,
-                    Integer.parseInt(equipStats.get(i)[14]),
-                    Integer.parseInt(equipStats.get(i)[15]),
-                    Integer.parseInt(equipStats.get(i)[16]) + Integer.parseInt(equipStats.get(i)[10]),
-                    Integer.parseInt(equipStats.get(i)[17]),
-                    Integer.parseInt(equipStats.get(i)[18]),
-                    Integer.parseInt(equipStats.get(i)[19]),
-                    Integer.parseInt(equipStats.get(i)[20]),
-                    Integer.parseInt(equipStats.get(i)[21]),
-                    Integer.parseInt(equipStats.get(i)[22]),
-                    Integer.parseInt(equipStats.get(i)[23]),
-                    Integer.parseInt(equipStats.get(i)[24]),
-                    Integer.parseInt(equipStats.get(i)[25]),
-                    Integer.parseInt(equipStats.get(i)[26]),
-                    Integer.parseInt(equipStats.get(i)[27])
-            );
-        }
+                SItem.equipmentStats_80111ff0[i] = new EquipmentStats1c(
+                        equipStats.get(i)[28],
+                        equipStats.get(i)[29].replace('\u00A7', '\n'),
+                        Integer.parseInt(equipStats.get(i)[0]),
+                        Integer.parseInt(equipStats.get(i)[1]),
+                        Integer.parseInt(equipStats.get(i)[2]),
+                        Integer.parseInt(equipStats.get(i)[3]),
+                        Element.fromFlag(Integer.parseInt(equipStats.get(i)[4])),
+                        Integer.parseInt(equipStats.get(i)[5]),
+                        elementalResistance,
+                        elementalImmunity,
+                        Integer.parseInt(equipStats.get(i)[8]),
+                        Integer.parseInt(equipStats.get(i)[9]),
+                        0,
+                        mpPerPhysicalHit,
+                        spPerPhysicalHit,
+                        mpPerMagicalHit,
+                        spPerMagicalHit,
+                        hpMultiplier,
+                        mpMultiplier,
+                        spMultiplier,
+                        SItem.equipmentStats_80111ff0[i].magicalResistance,
+                        SItem.equipmentStats_80111ff0[i].physicalResistance,
+                        SItem.equipmentStats_80111ff0[i].magicalImmunity,
+                        SItem.equipmentStats_80111ff0[i].physicalImmunity,
+                        revive,
+                        hpRegen,
+                        mpRegen,
+                        spRegen,
+                        SItem.equipmentStats_80111ff0[i].special2Flag80,
+                        Integer.parseInt(equipStats.get(i)[14]),
+                        Integer.parseInt(equipStats.get(i)[15]),
+                        Integer.parseInt(equipStats.get(i)[16]) + Integer.parseInt(equipStats.get(i)[10]),
+                        Integer.parseInt(equipStats.get(i)[17]),
+                        Integer.parseInt(equipStats.get(i)[18]),
+                        Integer.parseInt(equipStats.get(i)[19]),
+                        Integer.parseInt(equipStats.get(i)[20]),
+                        Integer.parseInt(equipStats.get(i)[21]),
+                        Integer.parseInt(equipStats.get(i)[22]),
+                        Integer.parseInt(equipStats.get(i)[23]),
+                        Integer.parseInt(equipStats.get(i)[24]),
+                        Integer.parseInt(equipStats.get(i)[25]),
+                        Integer.parseInt(equipStats.get(i)[26]),
+                        Integer.parseInt(equipStats.get(i)[27])
+                );
+            }
 
-        for (int i = 0; i < 64; i++) {
-            int special1 = Integer.parseInt(itemStats.get(i)[3]);
-            int special2 = Integer.parseInt(itemStats.get(i)[4]);
-            int specialAmount = Integer.parseInt(itemStats.get(i)[6]);
-            int powerDefence = (special1 & 0x80) != 0 ? specialAmount : 0;
-            int powerMagicDefence = (special1 & 0x40) != 0 ? specialAmount : 0;
-            int powerAttack = (special1 & 0x20) != 0 ? specialAmount : 0;
-            int powerMagicAttack = (special1 & 0x10) != 0 ? specialAmount : 0;
-            int powerAttackHit = (special1 & 0x8) != 0 ? specialAmount : 0;
-            int powerMagicAttackHit = (special1 & 0x4) != 0 ? specialAmount : 0;
-            int powerAttackAvoid = (special1 & 0x2) != 0 ? specialAmount : 0;
-            int powerMagicAttackAvoid = (special1 & 0x1) != 0 ? specialAmount : 0;
-            boolean physicalImmunity = (special2 & 0x80) != 0;
-            boolean magicalImmunity = (special2 & 0x40) != 0;
-            int speedUp = (special2 & 0x20) != 0 ? 100 : 0;
-            int speedDown = (special2 & 0x10) != 0 ? -50 : 0;
-            int spPerPhysicalHit = (special2 & 0x8) != 0 ? specialAmount : 0;
-            int mpPerPhysicalHit = (special2 & 0x4) != 0 ? specialAmount : 0;
-            int spPerMagicalHit = (special2 & 0x2) != 0 ? specialAmount : 0;
-            int mpPerMagicalHit = (special2 & 0x1) != 0 ? specialAmount : 0;
+            for (int i = 0; i < 64; i++) {
+                int special1 = Integer.parseInt(itemStats.get(i)[3]);
+                int special2 = Integer.parseInt(itemStats.get(i)[4]);
+                int specialAmount = Integer.parseInt(itemStats.get(i)[6]);
+                int powerDefence = (special1 & 0x80) != 0 ? specialAmount : 0;
+                int powerMagicDefence = (special1 & 0x40) != 0 ? specialAmount : 0;
+                int powerAttack = (special1 & 0x20) != 0 ? specialAmount : 0;
+                int powerMagicAttack = (special1 & 0x10) != 0 ? specialAmount : 0;
+                int powerAttackHit = (special1 & 0x8) != 0 ? specialAmount : 0;
+                int powerMagicAttackHit = (special1 & 0x4) != 0 ? specialAmount : 0;
+                int powerAttackAvoid = (special1 & 0x2) != 0 ? specialAmount : 0;
+                int powerMagicAttackAvoid = (special1 & 0x1) != 0 ? specialAmount : 0;
+                boolean physicalImmunity = (special2 & 0x80) != 0;
+                boolean magicalImmunity = (special2 & 0x40) != 0;
+                int speedUp = (special2 & 0x20) != 0 ? 100 : 0;
+                int speedDown = (special2 & 0x10) != 0 ? -50 : 0;
+                int spPerPhysicalHit = (special2 & 0x8) != 0 ? specialAmount : 0;
+                int mpPerPhysicalHit = (special2 & 0x4) != 0 ? specialAmount : 0;
+                int spPerMagicalHit = (special2 & 0x2) != 0 ? specialAmount : 0;
+                int mpPerMagicalHit = (special2 & 0x1) != 0 ? specialAmount : 0;
 
-            Scus94491BpeSegment_8004.itemStats_8004f2ac[i] = new ItemStats0c(
-                    itemStats.get(i)[12],
-                    itemStats.get(i)[13].replace('\u00A7', '\n'),
-                    itemStats.get(i)[14],
-                    Integer.parseInt(itemStats.get(i)[0]),
-                    Scus94491BpeSegment_8004.itemStats_8004f2ac[i].element_01,
-                    Integer.parseInt(itemStats.get(i)[2]),
-                    powerDefence,
-                    powerMagicDefence,
-                    powerAttack,
-                    powerMagicAttack,
-                    powerAttackHit,
-                    powerMagicAttackHit,
-                    powerAttackAvoid,
-                    powerMagicAttackAvoid,
-                    Scus94491BpeSegment_8004.itemStats_8004f2ac[i].physicalImmunity,
-                    Scus94491BpeSegment_8004.itemStats_8004f2ac[i].magicalImmunity,
-                    speedUp,
-                    speedDown,
-                    spPerPhysicalHit,
-                    mpPerPhysicalHit,
-                    spPerMagicalHit,
-                    mpPerMagicalHit,
-                    Integer.parseInt(itemStats.get(i)[5]),
-                    Integer.parseInt(itemStats.get(i)[7]),
-                    Integer.parseInt(itemStats.get(i)[8]),
-                    Integer.parseInt(itemStats.get(i)[9]),
-                    Integer.parseInt(itemStats.get(i)[10]),
-                    Integer.parseInt(itemStats.get(i)[11])
-            );
+                Scus94491BpeSegment_8004.itemStats_8004f2ac[i] = new ItemStats0c(
+                        itemStats.get(i)[12],
+                        itemStats.get(i)[13].replace('\u00A7', '\n'),
+                        itemStats.get(i)[14],
+                        Integer.parseInt(itemStats.get(i)[0]),
+                        Scus94491BpeSegment_8004.itemStats_8004f2ac[i].element_01,
+                        Integer.parseInt(itemStats.get(i)[2]),
+                        powerDefence,
+                        powerMagicDefence,
+                        powerAttack,
+                        powerMagicAttack,
+                        powerAttackHit,
+                        powerMagicAttackHit,
+                        powerAttackAvoid,
+                        powerMagicAttackAvoid,
+                        Scus94491BpeSegment_8004.itemStats_8004f2ac[i].physicalImmunity,
+                        Scus94491BpeSegment_8004.itemStats_8004f2ac[i].magicalImmunity,
+                        speedUp,
+                        speedDown,
+                        spPerPhysicalHit,
+                        mpPerPhysicalHit,
+                        spPerMagicalHit,
+                        mpPerMagicalHit,
+                        Integer.parseInt(itemStats.get(i)[5]),
+                        Integer.parseInt(itemStats.get(i)[7]),
+                        Integer.parseInt(itemStats.get(i)[8]),
+                        Integer.parseInt(itemStats.get(i)[9]),
+                        Integer.parseInt(itemStats.get(i)[10]),
+                        Integer.parseInt(itemStats.get(i)[11])
+                );
+            }
+
+            loaded = true;
+            System.out.println("[Dragoon Modifier] [Game Loaded] Done");
         }
     }
 
@@ -672,7 +660,7 @@ public class DragoonModifier {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._29c > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398._29c = 1;
                 }
-            } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST)) {
+            } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST) && (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode"))) {
                 if (burnStacks > 0) {
                     burnStackMode = !burnStackMode;
                 }
