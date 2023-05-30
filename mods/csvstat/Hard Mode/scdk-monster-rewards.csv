@@ -145,7 +145,7 @@ EXP,Gold,Drop Rate,Item,UK1,UK2,Name
 0,0,0,0,0,0,Madman
 165,24,8,206,0,0,Madman
 165,24,8,206,0,0,Madman
-14,6,8,205,0,0,Red Hot	
+14,6,8,205,0,0,Red Hot
 14,6,8,205,0,0,Red Hot
 11,6,10,206,0,0,Madman
 11,6,10,206,0,0,Madman
@@ -348,9 +348,9 @@ EXP,Gold,Drop Rate,Item,UK1,UK2,Name
 11000,250,100,45,0,0,Windigo
 0,0,0,255,0,0,Auto Complete
 0,0,0,255,0,0,Heart
-6000,200,0,255,0,0,Polter Helm
+6000,200,100,7,0,0,Polter Helm
 0,0,100,230,0,0,Polter Armor
-0,0,100,7,0,0,Polter Sword
+0,0,100,158,0,0,Polter Sword
 8000,400,100,248,0,0,Auto Complete
 6000,300,100,243,0,0,Auto Complete
 4000,200,100,244,0,0,Auto Complete
