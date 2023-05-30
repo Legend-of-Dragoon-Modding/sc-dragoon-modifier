@@ -98,6 +98,7 @@ public class DragoonModifier {
     public static final int burnStackFinalBurst = 3;
     public static final int burnStackRedEye = 4;
     public static final int burnStackAddition = 1;
+    public static boolean burnAdded = false;
     public static boolean faustBattle = false;
     public static int armorOfLegendTurns = 0;
     public static int legendCasqueTurns = 0;
@@ -334,7 +335,7 @@ public class DragoonModifier {
                     burnStacks = 0;
                     burnStackMode = false;
                 } else {
-                    if (attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
+                    if (attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS && !burnAdded) {
                         if (player.spellId_4e == 0) {
                             addBurnStacks(player, burnStackFlameShot);
                         } else if (player.spellId_4e == 1) {
@@ -344,8 +345,10 @@ public class DragoonModifier {
                         } else if (player.spellId_4e == 3) {
                             addBurnStacks(player, burnStackRedEye);
                         }
+                        burnAdded = true;
                     } else if (attack.attackType == AttackType.PHYSICAL && player.isDragoon()) {
                         addBurnStacks(player, burnStackAddition);
+                        burnAdded = true;
                     }
                 }
             }
@@ -578,6 +581,10 @@ public class DragoonModifier {
                     if (legendCasqueTurns <= 40) {
                         player.magicDefence_3a += 1;
                     }
+                }
+
+                if (player.charId_272 == 0) {
+                    burnAdded = false;
                 }
             }
         }
