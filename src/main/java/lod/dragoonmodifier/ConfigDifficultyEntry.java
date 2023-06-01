@@ -3,6 +3,7 @@ package lod.dragoonmodifier;
 import legend.core.GameEngine;
 import legend.core.IoHelper;
 import legend.game.inventory.screens.controls.Dropdown;
+import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
 
@@ -37,10 +38,10 @@ public class ConfigDifficultyEntry extends ConfigEntry<String> {
     }
 
     @Override
-    public void onChange(final String oldValue, final String newValue) {
+    public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
         System.out.println("[CSV Stat Mod] Mod Changed: " + oldValue + " -> " + newValue);
-        super.onChange(oldValue, newValue);
+        super.onChange(configCollection, oldValue, newValue);
 
-        GameEngine.EVENTS.postEvent(new DifficultyChangedEvent(newValue));
+        GameEngine.EVENTS.postEvent(new DifficultyChangedEvent(configCollection, newValue));
     }
 }

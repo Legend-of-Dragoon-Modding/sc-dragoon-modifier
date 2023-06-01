@@ -63,7 +63,6 @@ public class DragoonModifier {
     public static final String MOD_ID = "dragoon-modifier";
 
     private GameState52c gameState;
-    public String modDirectory = "";
     public final List<String[]> monsterStats = new ArrayList<>();
     public final List<String[]> monstersRewardsStats = new ArrayList<>();
     public final List<String[]> additionStats = new ArrayList<>();
@@ -119,22 +118,19 @@ public class DragoonModifier {
 
     @EventListener
     public void configLoaded(final ConfigLoadedEvent event) {
-        System.out.println("[Dragoon Modifier] Config Loaded Event");
-        try {
-            System.out.println("[Dragoon Modifier] Directory Test: " + GameEngine.CONFIG.getConfig(DIFFICULTY.get()).strip());
-            modDirectory = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
-            System.out.println("[Dragoon Modifier] Mod already initialized...");
-        } catch (Exception ex) {
-            System.out.println("[Dragoon Modifier] Mod not initialized...");
-            modDirectory = "US";
+        if(event.storageLocation == DIFFICULTY.get().storageLocation) {
+            System.out.println("[Dragoon Modifier] Config Loaded Event");
+            loadAllCsvs(event.configCollection.getConfig(DIFFICULTY.get()));
         }
-
-        changeModDirectory(modDirectory);
     }
 
     @EventListener
     public void difficultyChanged(final DifficultyChangedEvent event) {
-        this.changeModDirectory(event.difficulty);
+        this.loadAllCsvs(event.difficulty);
+
+        if(this.gameState != null) {
+            this.overwriteTables();
+        }
     }
 
     public List<String[]> loadCSV(String path) {
@@ -148,37 +144,31 @@ public class DragoonModifier {
         }
     }
 
-    private void loadCsvIntoList(final List<String[]> list, final String file) {
+    private void loadCsvIntoList(final String difficulty, final List<String[]> list, final String file) {
         list.clear();
-        list.addAll(loadCSV("./mods/csvstat/" + modDirectory + '/' + file));
+        list.addAll(loadCSV("./mods/csvstat/" + difficulty + '/' + file));
     }
 
-    public void changeModDirectory(String newDirectory) {
-        modDirectory = newDirectory;
+    private void loadAllCsvs(final String difficulty) {
+        this.loadCsvIntoList(difficulty, monsterStats, "scdk-monster-stats.csv");
+        this.loadCsvIntoList(difficulty, monstersRewardsStats, "scdk-monster-rewards.csv");
+        this.loadCsvIntoList(difficulty, additionStats, "scdk-addition-stats.csv");
+        this.loadCsvIntoList(difficulty, additionUnlockStats, "scdk-addition-unlock-levels.csv");
+        this.loadCsvIntoList(difficulty, additionMultiStats, "scdk-addition-multiplier-stats.csv");
+        this.loadCsvIntoList(difficulty, characterStats, "scdk-character-stats.csv");
+        this.loadCsvIntoList(difficulty, dragoonStats, "scdk-dragoon-stats.csv");
+        this.loadCsvIntoList(difficulty, xpNextStats, "scdk-exp-table.csv");
+        this.loadCsvIntoList(difficulty, spellStats, "scdk-spell-stats.csv");
+        this.loadCsvIntoList(difficulty, equipStats, "scdk-equip-stats.csv");
+        this.loadCsvIntoList(difficulty, itemStats, "scdk-thrown-item-stats.csv");
+        this.loadCsvIntoList(difficulty, shopItems, "scdk-shop-items.csv");
+        this.loadCsvIntoList(difficulty, shopPrices, "scdk-shop-prices.csv");
 
-        if(this.gameState != null) {
-            this.loadCsvIntoList(monsterStats, "scdk-monster-stats.csv");
-            this.loadCsvIntoList(monstersRewardsStats, "scdk-monster-rewards.csv");
-            this.loadCsvIntoList(additionStats, "scdk-addition-stats.csv");
-            this.loadCsvIntoList(additionMultiStats, "scdk-addition-unlock-levels.csv");
-            this.loadCsvIntoList(additionUnlockStats, "scdk-addition-multiplier-stats.csv");
-            this.loadCsvIntoList(characterStats, "scdk-character-stats.csv");
-            this.loadCsvIntoList(dragoonStats, "scdk-dragoon-stats.csv");
-            this.loadCsvIntoList(xpNextStats, "scdk-exp-table.csv");
-            this.loadCsvIntoList(spellStats, "scdk-spell-stats.csv");
-            this.loadCsvIntoList(equipStats, "scdk-equip-stats.csv");
-            this.loadCsvIntoList(itemStats, "scdk-thrown-item-stats.csv");
-            this.loadCsvIntoList(shopItems, "scdk-shop-items.csv");
-            this.loadCsvIntoList(shopPrices, "scdk-shop-prices.csv");
-
-            System.out.println("[Dragoon Modifier] Loaded using directory: " + modDirectory);
-            this.overwriteTables();
-        }
+        System.out.println("[Dragoon Modifier] Loaded using directory: " + difficulty);
     }
 
     @EventListener
     public void enemyRewards(final EnemyRewardsEvent enemyRewards) {
-//        if (gameState == null) return;
         int enemyId = enemyRewards.enemyId;
         enemyRewards.clear();
         enemyRewards.xp = Integer.parseInt(monstersRewardsStats.get(enemyId)[0]);
@@ -197,7 +187,6 @@ public class DragoonModifier {
 
     @EventListener
     public void enemyStats(final MonsterStatsEvent enemyStats) {
-//        if (gameState == null) return;
         int ovrId = enemyStats.enemyId;
         enemyStats.hp = Integer.parseInt(monsterStats.get(ovrId)[1]);
         enemyStats.maxHp = Integer.parseInt(monsterStats.get(ovrId)[1]);
@@ -218,7 +207,6 @@ public class DragoonModifier {
 
     @EventListener
     public void additionStats(final BattleMapActiveAdditionHitPropertiesEvent addition) {
-//        if (gameState == null) return;
         int additionId = addition.additionHits.hits_00[0].audioFile_0c;
         for (int i = 0; i < 8; i++) {
             final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
@@ -243,20 +231,17 @@ public class DragoonModifier {
 
     @EventListener
     public void additionMulti(final AdditionHitMultiplierEvent multiplier) {
-//        if (gameState == null) return;
         multiplier.additionSpMulti = Integer.parseInt(additionMultiStats.get(multiplier.additionId)[(multiplier.additionLevel - 1) * 4]);
         multiplier.additionDmgMulti = Integer.parseInt(additionMultiStats.get(multiplier.additionId)[(multiplier.additionLevel - 1) * 4 + 1]);
     }
 
     @EventListener
     public void additionUnlock(final AdditionUnlockEvent unlock) {
-//        if (gameState == null) return;
         unlock.additionLevel = Integer.parseInt(additionUnlockStats.get(unlock.additionId)[0]);
     }
 
     @EventListener
     public void characterStats(final CharacterStatsEvent character) {
-//        if (gameState == null) return;
         character.maxHp = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[5]);
         character.bodySpeed = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[0]);
         character.bodyAttack = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[1]);
@@ -275,50 +260,51 @@ public class DragoonModifier {
 
     @EventListener
     public void xpNext(final XpToLevelEvent exp) {
-//        if (gameState == null) return;
         exp.xp = Integer.parseInt(xpNextStats.get(exp.charId * 61 + exp.level)[0]);
     }
 
     @EventListener
     public void spellStats(final SpellStatsEvent spell) {
-//        if (gameState == null) return;
         int spellId = spell.spellId;
-        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
+
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             dramodBurnStacks(spellId);
         }
     }
 
     @EventListener
     public void shopItem(final ShopItemEvent shopItem) {
-//        if (gameState == null) return;
         shopItem.itemId = Integer.parseInt(shopItems.get(shopItem.shopId)[shopItem.slotId]);
         shopItem.price = Integer.parseInt(shopPrices.get(shopItem.itemId)[0]) * 2;
     }
 
     @EventListener
     public void shopSell(final ShopSellPriceEvent shopItem) {
-//        if (gameState == null) return;
         shopItem.price = Integer.parseInt(shopPrices.get(shopItem.itemId)[0]);
     }
 
     @EventListener
     public void repeatItems(final RepeatItemReturnEvent item) {
-//        if (gameState == null) return;
-        if (modDirectory.equals("Japan Demo")) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+        if (difficulty.equals("Japan Demo")) {
             item.returnItem = item.itemId == 250;
         }
     }
 
     @EventListener
     public void attack(final AttackEvent attack) {
-//        if (gameState == null) return;
         if (attack.attacker instanceof PlayerBattleObject && attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
             if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, attack.damage)) {
                 attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
             }
         }
 
-        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             if (attack.attacker instanceof PlayerBattleObject player && attack.attacker.charId_272 == 0) {
                 if (burnStackMode) {
                     if (burnStacks == burnStacksMax) {
@@ -357,7 +343,6 @@ public class DragoonModifier {
 
     @EventListener
     public void battleStarted(final BattleStartedEvent battleStarted) {
-//        if (gameState == null) return;
         if (faustBattle) {
             final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[0];
             final BattleObject27c bobj = state.innerStruct_00;
@@ -370,7 +355,9 @@ public class DragoonModifier {
             bobj.magicDefence_3a = 200;
         }
 
-        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
                 final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
                 final BattleObject27c bobj = state.innerStruct_00;
@@ -388,7 +375,6 @@ public class DragoonModifier {
 
     @EventListener
     public void battleEnded(final BattleEndedEvent battleEnded) {
-//        if (gameState == null) return;
         if (faustBattle) {
             faustBattle = false;
             try {
@@ -402,7 +388,6 @@ public class DragoonModifier {
 
     @EventListener
     public void inputPressed(final InputPressedEvent input) {
-        if (gameState == null) return;
         hotkey.add(input.inputAction);
 
         dramodHotkeys();
@@ -410,14 +395,14 @@ public class DragoonModifier {
 
     @EventListener
     public void inputReleased(final InputReleasedEvent input) {
-        if (gameState == null) return;
         hotkey.remove(input.inputAction);
     }
 
     @EventListener
     public void gameLoaded(final GameLoadedEvent game) {
         this.gameState = game.gameState;
-        overwriteTables();
+        this.loadAllCsvs(GameEngine.CONFIG.getConfig(DIFFICULTY.get()));
+        this.overwriteTables();
     }
 
     private void overwriteTables() {
@@ -571,8 +556,10 @@ public class DragoonModifier {
     }
 
     @EventListener
-    public void bobjTurn(BattleObjectTurnEvent turn) {
-        if (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode")) {
+    public void bobjTurn(final BattleObjectTurnEvent<?> turn) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             if (turn.bobj instanceof PlayerBattleObject player) {
                 if (player.equipment2_122 == 74) {
                     armorOfLegendTurns += 1;
@@ -659,6 +646,8 @@ public class DragoonModifier {
     }
 
     public void dramodHotkeys() {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
         if (SMap.encounterAccumulator_800c6ae8.get() < 0) {
             if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_UP)) {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._294 > 0) {
@@ -672,7 +661,7 @@ public class DragoonModifier {
                 if (Scus94491BpeSegment_8006.battleState_8006e398._29c > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398._29c = 1;
                 }
-            } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST) && (modDirectory.equals("Hard Mode") || modDirectory.equals("US + Hard Mode"))) {
+            } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST) && (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode"))) {
                 if (burnStacks > 0) {
                     burnStackMode = !burnStackMode;
                 }
