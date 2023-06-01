@@ -6,7 +6,7 @@ plugins {
   id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-group = "example-mod"
+group = "scdk-csv-stat-changer"
 version = "1.0-SNAPSHOT"
 
 java {

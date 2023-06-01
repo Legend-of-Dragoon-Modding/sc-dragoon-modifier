@@ -1,8 +1,13 @@
-/saves
 *.rom
 *.mcr
 *.ddmp
 *.conf
+*.dcnf
+
+
+
+/.idea/gradle.xml
+/.idea/misc.xml
 
 
 
@@ -47,3 +52,8 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+
+
+# Mac
+.DS_STORE
