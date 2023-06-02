@@ -29,6 +29,7 @@ US + Hard Mode/Hard Mode Notes (Not listed in game for one reason or another)
 -All Characters
  Dragoon AT/MAT is set to 100/100 for all levels as the dataset will only use the spell multiplier which you can see in game unless otherwise stated below.
  Dragoon DF/MDF is set to 180/180 for all levels unless otherwise stated below.
+ Dragoon Space Special will grant 1.5x Dragoon Attack to the user of matching element.
  
 -Dart
  Burn Stacks has a maximum stacks based on Dragoon Level. 

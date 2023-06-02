@@ -54,6 +54,7 @@ import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.WMap.*;
 import static legend.game.combat.Bttl_800c.allBobjCount_800c66d0;
+import static legend.game.combat.Bttl_800c.dragoonSpaceElement_800c6b64;
 
 @Mod(id = DragoonModifier.MOD_ID)
 public class DragoonModifier {
@@ -383,7 +384,6 @@ public class DragoonModifier {
 
                     int level = player.level_04;
                     if (player.charId_272 == 2 || player.charId_272 == 8) { //Shana AT Boost
-                        player.dragoonAttack_ac = 365;
 
                         double boost = 1;
                         if (player.equipment0_11e == 32) {
@@ -642,6 +642,12 @@ public class DragoonModifier {
 
                 if (player.charId_272 == 0) {
                     burnAdded = false;
+                }
+
+                if (player.isDragoon() && player.element == dragoonSpaceElement_800c6b64) {
+                    player.dragoonAttack_ac = (int) Math.round(Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]) * 1.5);
+                } else {
+                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]);
                 }
             }
         }
