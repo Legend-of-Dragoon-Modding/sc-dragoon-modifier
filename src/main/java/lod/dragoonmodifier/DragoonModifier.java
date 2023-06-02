@@ -411,7 +411,7 @@ public class DragoonModifier {
                         player.defence_38 = (int) Math.round(player.defence_38 * 1.26d);
                     }
 
-                    if (player.charId_272 == 7) { //Shana
+                    if (player.charId_272 == 7) { //Kongol
                         final ActiveStatsa0 stats = stats_800be5f8[player.charId_272];
                         player.stats.getStat(CoreMod.SPEED_STAT.get()).setRaw(stats.bodySpeed_69 + (int) Math.round(stats.equipmentSpeed_86 / 2d));
                     }
@@ -628,14 +628,14 @@ public class DragoonModifier {
             if (turn.bobj instanceof PlayerBattleObject player) {
                 if (player.equipment2_122 == 74) {
                     armorOfLegendTurns += 1;
-                    if (armorOfLegendTurns <= 40) {
+                    if (armorOfLegendTurns % 2 == 0 && armorOfLegendTurns <= 80) {
                         player.defence_38 += 1;
                     }
                 }
 
                 if (player.equipment1_120 == 89) {
                     legendCasqueTurns += 1;
-                    if (legendCasqueTurns <= 40) {
+                    if (legendCasqueTurns % 2 == 0 && legendCasqueTurns <= 80) {
                         player.magicDefence_3a += 1;
                     }
                 }
