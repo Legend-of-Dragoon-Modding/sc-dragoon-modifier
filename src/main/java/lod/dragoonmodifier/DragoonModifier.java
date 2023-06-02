@@ -294,7 +294,7 @@ public class DragoonModifier {
     @EventListener
     public void attack(final AttackEvent attack) {
         if (attack.attacker instanceof PlayerBattleObject && attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
-            if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, attack.damage)) {
+            if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, attack.damage) && Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[4]) == 0) {
                 attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
             }
         }
