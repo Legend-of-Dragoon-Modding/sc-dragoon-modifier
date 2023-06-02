@@ -148,9 +148,9 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,8,32,247,0,0,0,0,0,0,0,8,0,20,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Emerald Earring,Gain 20 SP when§damaged physically.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0, ,
 0,8,32,247,0,0,0,0,0,0,0,4,0,10,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Platinum Collar,Gain 10% MP when§damaged physically.
-0,8,32,247,0,0,0,0,0,0,0,32,4,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Phantom Shield,Halves damage§from all attacks.
-0,8,32,247,0,0,0,0,0,0,0,32,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Dragon Shield,Halves physical§damage.
-0,8,32,247,0,0,0,0,0,0,0,0,4,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,Angel Scarf,Halves magical§damage.
+0,8,32,247,0,0,0,0,0,0,0,32,4,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Phantom Shield,Halves damage§from all attacks butdecreases DF/MDF.
+0,8,32,247,0,0,0,0,0,0,0,32,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Dragon Shield,Halves physical§damage but§decreases DF.
+0,8,32,247,0,0,0,0,0,0,0,0,4,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,Angel Scarf,Halves magical§damage but§decreases MDF.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,Bracelet,
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,5,0,0,0,0,0,0,0,0,0,0,0,Fake Power Wrist,Raises physical§attack by 5.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,0,0,5,0,0,0,0,0,0,0,0,0,Fake Shield,Raises physical§defense by 5.

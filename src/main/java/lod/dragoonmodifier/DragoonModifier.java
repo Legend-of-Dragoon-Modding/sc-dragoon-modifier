@@ -35,10 +35,7 @@ import legend.game.modding.registries.RegistryDelegate;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
 import legend.game.scripting.ScriptState;
-import legend.game.types.EquipmentStats1c;
-import legend.game.types.GameState52c;
-import legend.game.types.ItemStats0c;
-import legend.game.types.SpellStats0c;
+import legend.game.types.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.FileReader;
@@ -338,6 +335,25 @@ public class DragoonModifier {
                     }
                 }
             }
+
+            if (attack.attacker instanceof PlayerBattleObject player && attack.attacker.charId_272 == 3) {
+                if (player.spellId_4e == 15) {
+                    for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
+                        final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
+                        final BattleObject27c bobj = state.innerStruct_00;
+                        if (bobj instanceof PlayerBattleObject) {
+                            PlayerBattleObject playerHealed = (PlayerBattleObject) bobj;
+                            int playerHealedHP = bobj.stats.getStat(CoreMod.HP_STAT.get()).getCurrent();
+                            int roseMaxHP = player.stats.getStat(CoreMod.HP_STAT.get()).getMax();
+                            if (playerHealedHP > 0) {
+                                bobj.stats.getStat(CoreMod.HP_STAT.get()).setCurrent((int) Math.min(bobj.stats.getStat(CoreMod.HP_STAT.get()).getMax(), (playerHealedHP + Math.round(roseMaxHP * player.dlevel_06 * 0.05d))));
+                            }
+                        }
+                    }
+                } else if (player.spellId_4e == 19) {
+                    player.stats.getStat(CoreMod.HP_STAT.get()).setCurrent((int) Math.min(player.stats.getStat(CoreMod.HP_STAT.get()).getMax(),  player.stats.getStat(CoreMod.HP_STAT.get()).getCurrent() + attack.damage * 0.1d));
+                }
+            }
         }
     }
 
@@ -362,7 +378,56 @@ public class DragoonModifier {
                 final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
                 final BattleObject27c bobj = state.innerStruct_00;
                 if (bobj instanceof PlayerBattleObject) {
-                    bobj.equipmentElementalImmunity_22.clear();
+                    PlayerBattleObject player = (PlayerBattleObject) bobj;
+                    player.equipmentElementalImmunity_22.clear();
+
+                    int level = player.level_04;
+                    if (player.charId_272 == 2 || player.charId_272 == 8) { //Shana AT Boost
+                        player.dragoonAttack_ac = 365;
+
+                        double boost = 1;
+                        if (player.equipment0_11e == 32) {
+                            boost = 1.4;
+                        } else if (level >= 28) {
+                            boost = 2.15;
+                        } else if (level >= 20) {
+                            boost = 1.9;
+                        } else if (level >= 10) {
+                            boost = 1.6;
+                        }
+
+                        player.attack_34 = (int) Math.round(player.attack_34 * boost);
+
+                        if (level >= 30) {
+                            player.defence_38 = (int) Math.round(player.defence_38 * 1.12d);
+                        }
+                    }
+
+                    if (player.charId_272 == 3 && level >= 30) { //Rose
+                        player.defence_38 = (int) Math.round(player.defence_38 * 1.1d);
+                    }
+
+                    if (player.charId_272 == 6 && level >= 30) { //Meru
+                        player.defence_38 = (int) Math.round(player.defence_38 * 1.26d);
+                    }
+
+                    if (player.charId_272 == 7) { //Shana
+                        final ActiveStatsa0 stats = stats_800be5f8[player.charId_272];
+                        player.stats.getStat(CoreMod.SPEED_STAT.get()).setRaw(stats.bodySpeed_69 + (int) Math.round(stats.equipmentSpeed_86 / 2d));
+                    }
+
+                    if (player.equipment4_126 == 149) { //Phantom Shield
+                        player.defence_38 = (int) Math.round(player.defence_38 * 0.6d);
+                        player.magicDefence_3a = (int) Math.round(player.magicDefence_3a * 0.6d);
+                    }
+
+                    if (player.equipment4_126 == 150) { // Dragon Shield
+                        player.defence_38 = (int) Math.round(player.defence_38 * 0.6d);
+                    }
+
+                    if (player.equipment4_126 == 150) { // Angel Scarf
+                        player.magicDefence_3a = (int) Math.round(player.magicDefence_3a * 0.6d);
+                    }
                 }
             }
         }

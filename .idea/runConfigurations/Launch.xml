@@ -1,7 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Launch" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="legend.game.Main" />
-    <module name="scdk-csv-stat-changer.main" />
+    <module name="scdk-japan-demo-mod.scdk-csv-stat-changer.main" />
     <option name="PROGRAM_PARAMETERS" value="-Xmx1g -Xms1g -ea" />
     <option name="VM_PARAMETERS" value="-Dscdk=true" />
     <method v="2">

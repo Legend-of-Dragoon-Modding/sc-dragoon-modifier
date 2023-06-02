@@ -39,7 +39,7 @@ public class ConfigDifficultyEntry extends ConfigEntry<String> {
 
     @Override
     public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
-        System.out.println("[CSV Stat Mod] Mod Changed: " + oldValue + " -> " + newValue);
+        System.out.println("[Dragoon Modifier] Mod Changed: " + oldValue + " -> " + newValue);
         super.onChange(configCollection, oldValue, newValue);
 
         GameEngine.EVENTS.postEvent(new DifficultyChangedEvent(configCollection, newValue));

@@ -5,6 +5,7 @@ import legend.game.input.GlfwController;
 import legend.game.input.Input;
 import legend.game.inventory.screens.controls.Dropdown;
 import legend.game.inventory.screens.controls.Label;
+import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
 
@@ -29,8 +30,8 @@ public class ConfigFaustDefeated extends ConfigEntry<String> {
     }
 
     @Override
-    public void onChange(final String oldValue, final String newValue) {
-        super.onChange(oldValue, newValue);
+    public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
+        super.onChange(configCollection, oldValue, newValue);
     }
 
 }
