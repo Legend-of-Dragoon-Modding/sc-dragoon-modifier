@@ -303,6 +303,12 @@ public class DragoonModifier {
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
         if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+            if (attack.attacker instanceof PlayerBattleObject player) {
+                if (player.isDragoon() && attack.attackType.isPhysical() && player.element == dragoonSpaceElement_800c6b64) {
+                    attack.damage *= 1.5;
+                }
+            }
+
             if (attack.attacker instanceof PlayerBattleObject player && attack.attacker.charId_272 == 0) {
                 if (burnStackMode) {
                     if (burnStacks == burnStacksMax) {
@@ -642,12 +648,6 @@ public class DragoonModifier {
 
                 if (player.charId_272 == 0) {
                     burnAdded = false;
-                }
-
-                if (player.isDragoon() && player.element == dragoonSpaceElement_800c6b64) {
-                    player.dragoonAttack_ac = (int) Math.round(Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]) * 1.5);
-                } else {
-                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]);
                 }
             }
         }
