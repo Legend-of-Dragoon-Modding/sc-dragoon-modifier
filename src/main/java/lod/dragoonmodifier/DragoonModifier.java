@@ -295,7 +295,7 @@ public class DragoonModifier {
     @EventListener
     public void attack(final AttackEvent attack) {
         if (attack.attacker instanceof PlayerBattleObject && attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
-            if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, attack.damage) && Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[4]) == 0) {
+            if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3])) && Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[4]) == 0) {
                 attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
             }
         }
@@ -648,6 +648,42 @@ public class DragoonModifier {
 
                 if (player.charId_272 == 0) {
                     burnAdded = false;
+                }
+            }
+        }
+    }
+
+    @EventListener
+    public void dragonBlockStaffOn(final DragonBlockStaffOnEvent event) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+            for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
+                final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
+                final BattleObject27c bobj = state.innerStruct_00;
+                if (bobj instanceof PlayerBattleObject) {
+                    PlayerBattleObject player = (PlayerBattleObject) bobj;
+                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]) * 8;
+                    player.dragoonMagic_ae = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[4]) * 8;
+                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[5]) * 8;
+                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[6]) * 8;
+                }
+            }
+        }
+    }
+
+    @EventListener
+    public void dragonBlockStaffOff(final DragonBlockStaffOffEvent event) {
+        final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+            for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
+                final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
+                final BattleObject27c bobj = state.innerStruct_00;
+                if (bobj instanceof PlayerBattleObject) {
+                    PlayerBattleObject player = (PlayerBattleObject) bobj;
+                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]);
+                    player.dragoonMagic_ae = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[4]);
+                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[5]);
+                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[6]);
                 }
             }
         }
