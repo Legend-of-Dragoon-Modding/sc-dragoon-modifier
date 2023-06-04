@@ -206,6 +206,7 @@ public class DragoonModifier {
     @EventListener
     public void additionStats(final BattleMapActiveAdditionHitPropertiesEvent addition) {
         int additionId = addition.additionHits.hits_00[0].audioFile_0c;
+        System.out.println("additionId: " + additionId);
         for (int i = 0; i < 8; i++) {
             final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
             //hit.flags_00 = Short.parseShort(additionStats.get(additionId * 8 + i)[0]);
@@ -224,6 +225,15 @@ public class DragoonModifier {
             //hit._1a = Short.parseShort(additionStats.get(additionId * 8 + i)[13]);
             //hit.framesPostFailure_1c = Short.parseShort(additionStats.get(additionId * 8 + i)[14]);
             //hit.overlayStartingFrameOffset_1e = Short.parseShort(additionStats.get(additionId * 8 + i)[15]);
+        }
+        if (additionId == 0) {
+            additionId = 42;
+
+            for (int i = 0; i < 8; i++) {
+                final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
+                hit.damageMultiplier_08 = Short.parseShort(additionStats.get(additionId * 8 + i)[4]);
+                hit.spValue_0a = Short.parseShort(additionStats.get(additionId * 8 + i)[5]);
+            }
         }
     }
 
@@ -294,9 +304,24 @@ public class DragoonModifier {
 
     @EventListener
     public void attack(final AttackEvent attack) {
-        if (attack.attacker instanceof PlayerBattleObject && attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
-            if (!ArrayUtils.contains(new int[]{1, 2, 4, 8, 16, 32, 64, 128}, Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3])) && Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[4]) == 0) {
-                attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
+        if (attack.attacker instanceof PlayerBattleObject) {
+            if (attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
+                if (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[4]) == 0) {
+                    switch (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3])) {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 4:
+                        case 8:
+                        case 16:
+                        case 32:
+                        case 64:
+                        case 128:
+                            break;
+                        default:
+                            attack.damage *= (Integer.parseInt(spellStats.get(attack.attacker.spellId_4e)[3]) / 100d);
+                    }
+                }
             }
         }
 
@@ -305,7 +330,11 @@ public class DragoonModifier {
         if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             if (attack.attacker instanceof PlayerBattleObject player) {
                 if (player.isDragoon() && attack.attackType.isPhysical() && player.element == dragoonSpaceElement_800c6b64) {
-                    attack.damage *= 1.5;
+                    if (player.charId_272 == 7) {
+                        attack.damage *= 1.2;
+                    } else {
+                        attack.damage *= 1.5;
+                    }
                 }
             }
 
@@ -802,6 +831,9 @@ public class DragoonModifier {
                     gameState_800babc8.goods_19c[0] ^= 1 << 0;
                 } else if (mapId == 424 || mapId == 736) {
                     gameState_800babc8.goods_19c[0] ^= 1 << 7;
+                    if (mapId == 736) {
+                        gameState_800babc8.goods_19c[0] |= 1 << 0;
+                    }
                 } else if (mapId == 729) {
                     submapCut_80052c30.set(527);
                     smapLoadingStage_800cb430.set(0x4);

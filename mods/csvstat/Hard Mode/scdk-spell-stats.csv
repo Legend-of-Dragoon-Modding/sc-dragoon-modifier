@@ -13,10 +13,10 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 128,4,2,0,100,100,10,0,32,0,0,0,Moon Light,Single 100% HP 50% RV
 136,4,2,0,50,100,30,0,32,0,0,0,Gates of Heaven,All 50% HP & 50% RV
 200,2,0,865,0,100,80,0,32,0,0,0,White Silver Dragon,Light STR 865% & 100% HP
-200,0,0,440,0,100,20,0,64,0,0,0,Wing Blaster (Albert),Wind STR 440%
+200,0,0,440,0,100,20,0,64,0,0,0,Wing Blaster,Wind STR 440%
 192,2,0,590,0,100,10,0,4,0,0,0,Astral Drain,Dark STR 590% & HP
 200,0,32,395,0,100,20,100,4,8,0,0,Death Dimension,Dark STR 395%
-192,0,0,990,0,100,30,0,64,0,0,0,Gaspless (Albert),Wind STR 990%
+192,0,0,990,0,100,30,0,64,0,0,0,Gaspless,Wind STR 990%
 200,128,0,0,0,100,30,100,4,0,0,0,Demon's Gate,Lethal attack for all
 192,0,0,1680,0,100,80,0,4,0,0,0,Dark Dragon,Dark STR 1680% & HP
 192,0,0,330,0,100,10,0,16,0,0,0,Atomic Mind,Thunder STR 330%
