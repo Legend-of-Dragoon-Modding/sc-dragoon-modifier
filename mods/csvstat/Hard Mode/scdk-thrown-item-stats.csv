@@ -43,7 +43,7 @@ Target Type,Element,Damage,Special1,Special2,UK1,Special Amount,Icon,Status,Perc
 90,0,0,0,0,0,0,33,0,100,0,128,Healing Rain,Completely§recovers HP§for all.,Recovers 100% HP for all
 90,0,0,0,0,0,0,34,0,100,0,64,Moon Serenade,Completely§recovers MP§for all.,Recovers 100% MP for all
 72,0,0,240,0,0,50,40,0,0,0,0,Power Up,Increases strength§for 3 turns§(repeat).,Increases power for 3 turns(rep)
-76,0,0,240,0,0,206,41,0,0,0,0,Power Down,Weakens enemy§for 3 turns§(repeat).,Decreases power for 3 turns(rep)
+76,0,0,240,0,0,-50,41,0,0,0,0,Power Down,Weakens enemy§for 3 turns§(repeat).,Decreases power for 3 turns(rep)
 72,0,0,0,32,0,0,40,0,0,0,0,Speed Up,Doubles speed§for 3 turns§(repeat).,Doubles SPD for 3 turns(rep)
 76,0,0,0,16,0,0,41,0,0,0,0,Speed Down,Halves speed§for 3 turns§(repeat).,Halves SPD for 3 turns(rep)
 72,0,0,0,0,0,0,46,0,30,0,128, , ,
