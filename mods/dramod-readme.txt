@@ -10,7 +10,7 @@ FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
 		Press it again to toggle Dragoon Spirits on/off.
 		You must have Hard Mode or US Hard Mode selected for this hotkey to work.
 	**ON MAP 232**
-		On the map where you lose Red-Eyed spirit you can add it back.
+		On the map where you lose Red-Eyed spirit in Barrens you can add it back.
 	**ON MAP 424/736**
 		On the corpse of the dragon and the final map you can toggle the Divine spirit on Hard Mode or US Hard Mode.
 	**ON MAP 729**
@@ -39,7 +39,7 @@ US + Hard Mode/Hard Mode Notes (Not listed in game for one reason or another)
  You can currently check Burn Stacks by opening the Spell Menu and checking the multiplier via the hotkey. 
  FACE NORTH + FACE LEFT               - (Battle) Activates Dart's Burn Stacks (Triangle+Square)
  You can press the hotkey again to not use the stacks if you are just checking.
- To use a Burn Stack make sure the hotkey has activated via the Spell Menu (the multiplier at the end will change).
+ To use all Burn Stacks make sure the hotkey has activated via the Spell Menu (the multiplier at the end will change).
    Dart's Dragoon Addition and Magic will be increased by 10% per Burn Stack.
  Dart will gain the following amount of Burn Stacks when using different attacks
    Dart Dragoon Addition - +1 Burn Stack

@@ -36,7 +36,6 @@ import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
 import legend.game.scripting.ScriptState;
 import legend.game.types.*;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -205,16 +204,14 @@ public class DragoonModifier {
 
     @EventListener
     public void additionStats(final BattleMapActiveAdditionHitPropertiesEvent addition) {
-        int additionId = addition.additionHits.hits_00[0].audioFile_0c;
-        System.out.println("additionId: " + additionId);
         for (int i = 0; i < 8; i++) {
             final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
             //hit.flags_00 = Short.parseShort(additionStats.get(additionId * 8 + i)[0]);
             //hit.totalFrames_02 = Short.parseShort(additionStats.get(additionId * 8 + i)[1]);
             //hit.overlayHitFrameOffset_04 = Short.parseShort(additionStats.get(additionId * 8 + i)[2]);
             //hit.totalSuccessFrames_06 = Short.parseShort(additionStats.get(additionId * 8 + i)[3]);
-            hit.damageMultiplier_08 = Short.parseShort(additionStats.get(additionId * 8 + i)[4]);
-            hit.spValue_0a = Short.parseShort(additionStats.get(additionId * 8 + i)[5]);
+            hit.damageMultiplier_08 = Short.parseShort(additionStats.get(addition.additionIndex * 8 + i)[4]);
+            hit.spValue_0a = Short.parseShort(additionStats.get(addition.additionIndex * 8 + i)[5]);
             //hit.audioFile_0c = Short.parseShort(additionStats.get(additionId * 8 + i)[6]);
             //hit.isFinalHit_0e = Short.parseShort(additionStats.get(additionId * 8 + i)[7]);
             //hit._10 = Short.parseShort(additionStats.get(additionId * 8 + i)[8]);
@@ -225,15 +222,6 @@ public class DragoonModifier {
             //hit._1a = Short.parseShort(additionStats.get(additionId * 8 + i)[13]);
             //hit.framesPostFailure_1c = Short.parseShort(additionStats.get(additionId * 8 + i)[14]);
             //hit.overlayStartingFrameOffset_1e = Short.parseShort(additionStats.get(additionId * 8 + i)[15]);
-        }
-        if (additionId == 0) {
-            additionId = 42;
-
-            for (int i = 0; i < 8; i++) {
-                final BattlePreloadedEntities_18cb0.AdditionHitProperties20 hit = addition.additionHits.hits_00[i];
-                hit.damageMultiplier_08 = Short.parseShort(additionStats.get(additionId * 8 + i)[4]);
-                hit.spValue_0a = Short.parseShort(additionStats.get(additionId * 8 + i)[5]);
-            }
         }
     }
 
@@ -329,11 +317,17 @@ public class DragoonModifier {
 
         if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
             if (attack.attacker instanceof PlayerBattleObject player) {
-                if (player.isDragoon() && attack.attackType.isPhysical() && player.element == dragoonSpaceElement_800c6b64) {
-                    if (player.charId_272 == 7) {
-                        attack.damage *= 1.2;
+                if (player.isDragoon() && attack.attackType.isPhysical()) {
+                    if (player.element == dragoonSpaceElement_800c6b64) {
+                        if (player.charId_272 == 7) {
+                            attack.damage *= 1.2;
+                        } else {
+                            attack.damage *= 1.5;
+                        }
                     } else {
-                        attack.damage *= 1.5;
+                        if (player.element == Element.fromFlag(0x80) && dragoonSpaceElement_800c6b64 == Element.fromFlag(0x8)) {
+                            attack.damage *= 1.5;
+                        }
                     }
                 }
             }
