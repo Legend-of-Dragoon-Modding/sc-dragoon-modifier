@@ -3,21 +3,27 @@ package lod.dragoonmodifier;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import legend.core.GameEngine;
-import legend.game.SItem;
-import legend.game.SMap;
-import legend.game.Scus94491BpeSegment_8004;
-import legend.game.Scus94491BpeSegment_8006;
+import legend.core.MathHelper;
+import legend.core.gpu.ModelLoader;
+import legend.core.gpu.Renderable;
+import legend.core.gpu.VramTextureLoader;
+import legend.game.*;
 import legend.game.characters.Element;
 import legend.game.characters.ElementSet;
 import legend.game.characters.VitalsStat;
 import legend.game.combat.Bttl_800c;
+import legend.game.combat.Bttl_800e;
+import legend.game.combat.Bttl_800f;
 import legend.game.combat.bobj.AttackEvent;
 import legend.game.combat.bobj.BattleObject27c;
 import legend.game.combat.bobj.PlayerBattleObject;
 import legend.game.combat.environment.BattlePreloadedEntities_18cb0;
 import legend.game.combat.types.AttackType;
 import legend.game.combat.types.CombatantStruct1a8;
+import legend.game.combat.ui.BattleDisplayStats144;
+import legend.game.combat.ui.BattleDisplayStats144Sub10;
 import legend.game.input.InputAction;
+import legend.game.inventory.screens.TextColour;
 import legend.game.modding.Mod;
 import legend.game.modding.coremod.CoreMod;
 import legend.game.modding.events.EventListener;
@@ -40,20 +46,20 @@ import legend.game.types.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.nio.file.Path;
+import java.util.*;
 
 import static legend.game.SMap.FUN_800e5534;
 import static legend.game.SMap.smapLoadingStage_800cb430;
+import static legend.game.Scus94491BpeSegment.*;
+import static legend.game.Scus94491BpeSegment.displayHeight_1f8003e4;
 import static legend.game.Scus94491BpeSegment_8004.mainCallbackIndex_8004dd20;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.WMap.*;
-import static legend.game.combat.Bttl_800c.allBobjCount_800c66d0;
-import static legend.game.combat.Bttl_800c.dragoonSpaceElement_800c6b64;
+import static legend.game.combat.Bttl_800c.*;
+import static legend.game.combat.Bttl_800f.drawUiTextureElement;
 
 @Mod(id = DragoonModifier.MOD_ID)
 public class DragoonModifier {
@@ -102,10 +108,23 @@ public class DragoonModifier {
     public boolean faustBattle = false;
     public int armorOfLegendTurns = 0;
     public int legendCasqueTurns = 0;
+    private final Renderable[] burnStacksGfx = new Renderable[4];
 
 
     public DragoonModifier() {
         GameEngine.EVENTS.register(this);
+        for (int i = 0; i < 4; i++) {
+            this.burnStacksGfx[i] = ModelLoader.quad(
+                            "burnstacks" + i,
+                            0, 0, 0, 28, 36,
+                            0, 0, 28, 36,
+                            0, 0, 0,
+                            0x80, 0x80, 0x80,
+                            null
+                    )
+                    .texture(VramTextureLoader.textureFromPng(Path.of("mods", "csvstat", "burnstacks-" + ((i + 1) * 25) + ".png")))
+                    .build();
+        }
     }
 
     @EventListener
@@ -457,6 +476,10 @@ public class DragoonModifier {
                     if (player.equipment4_126 == 150) { // Angel Scarf
                         player.magicDefence_3a = (int) Math.round(player.magicDefence_3a * 0.6d);
                     }
+
+                    if (player.equipment4_126 == 130 && player.equipment2_122 == 73) { //Holy Ahnk + Angel Robe
+                        player.revive_13a -= 20;
+                    }
                 }
             }
         }
@@ -657,20 +680,42 @@ public class DragoonModifier {
             if (turn.bobj instanceof PlayerBattleObject player) {
                 if (player.equipment2_122 == 74) {
                     armorOfLegendTurns += 1;
-                    if (armorOfLegendTurns % 2 == 0 && armorOfLegendTurns <= 80) {
+                    if (armorOfLegendTurns <= 40) {
                         player.defence_38 += 1;
                     }
                 }
 
                 if (player.equipment1_120 == 89) {
                     legendCasqueTurns += 1;
-                    if (legendCasqueTurns % 2 == 0 && legendCasqueTurns <= 80) {
+                    if (legendCasqueTurns <= 40) {
                         player.magicDefence_3a += 1;
                     }
                 }
 
                 if (player.charId_272 == 0) {
                     burnAdded = false;
+                }
+            }
+        }
+    }
+
+    @EventListener
+    public void statDisplay(final StatDisplayEvent event) {
+        if (event.player.charId_272 == 0) {
+            int z = 99;
+            if (currentTurnBobj_800c66c8 == battleState_8006e398.charBobjs_e40[event.charSlot]) {
+                z = 0;
+            }
+            double currentBurnState = (double) burnStacks / (double) burnStacksMax;
+            if (burnStacksMax > 0 && currentBurnState > 0) {
+                if (currentBurnState <= 0.25) {
+                    burnStacksGfx[0].render(event.charSlot * 94 + -143, 64, z);
+                } else if (currentBurnState <= 0.50) {
+                    burnStacksGfx[1].render(event.charSlot * 94 + -143, 64, z);
+                } else if (currentBurnState <= 0.99) {
+                    burnStacksGfx[2].render(event.charSlot * 94 + -143, 64, z);
+                } else {
+                    burnStacksGfx[3].render(event.charSlot * 94 + -143, 64, z);
                 }
             }
         }
@@ -851,6 +896,10 @@ public class DragoonModifier {
                     }
 
                     faustBattle = true;
+                }
+            } else if (hotkey.contains(InputAction.BUTTON_SOUTH) && hotkey.contains(InputAction.BUTTON_THUMB_2)) {
+                for (int i = 0; i < 9; i++) {
+                    gameState_800babc8.charData_32c[i].partyFlags_04 = 3;
                 }
             }
         }

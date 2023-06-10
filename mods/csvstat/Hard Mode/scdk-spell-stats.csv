@@ -23,11 +23,11 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 192,0,32,660,0,100,20,100,16,16,0,0,Thunder Kid,Thunder STR 660%
 192,0,0,990,0,100,30,0,16,0,0,0,Thunder God,Thunder STR 990%
 192,0,0,1495,0,100,80,0,16,0,0,0,Violet Dragon,Thunder STR 1495%
-192,0,0,510,0,100,10,0,1,0,0,0,Freezing Ring,Water STR 510%
+192,0,0,765,0,100,20,0,1,0,0,0,Freezing Ring,Water STR 765%
 136,4,2,0,50,100,20,0,1,0,0,0,Rainbow Breath,HP Recv & Cure - All
 136,4,16,0,0,100,20,0,64,0,192,0,Rose Storm,Damage Resist 50% Dur 3
-200,0,0,528,0,100,30,0,1,0,0,0,Diamond Dust,Water STR 530%
-192,0,0,1400,0,100,80,0,1,0,0,0,Blue Sea Dragon,Water STR 1400%
+200,0,0,530,0,100,30,0,1,0,0,0,Diamond Dust,Water STR 530%
+192,0,0,1460,0,100,80,0,1,0,0,0,Blue Sea Dragon,Water STR 1460%
 200,0,0,675,0,100,20,0,2,0,0,0,Grand Stream,Earth STR 675%
 200,0,0,1120,0,100,30,0,2,0,0,0,Meteor Strike,Earth STR 1120%
 200,0,0,2220,0,100,80,0,2,0,0,0,Golden Dragon,Earth STR 2220%
