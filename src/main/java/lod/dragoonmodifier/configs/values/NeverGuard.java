@@ -1,4 +1,4 @@
-package lod.dragoonmodifier;
+package lod.dragoonmodifier.configs.values;
 
 public enum NeverGuard {
     OFF("Off"),

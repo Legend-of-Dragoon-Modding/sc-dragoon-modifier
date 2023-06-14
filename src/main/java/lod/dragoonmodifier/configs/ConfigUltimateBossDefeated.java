@@ -1,4 +1,4 @@
-package lod.dragoonmodifier;
+package lod.dragoonmodifier.configs;
 
 import legend.core.IoHelper;
 import legend.core.MathHelper;
@@ -6,13 +6,13 @@ import legend.game.inventory.screens.controls.NumberSpinner;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
 
-public class ConfigUltimateBoss extends ConfigEntry<Integer> {
-    public ConfigUltimateBoss() {
-        super(1, ConfigStorageLocation.CAMPAIGN, ConfigUltimateBoss::serializer, ConfigUltimateBoss::deserializer);
+public class ConfigUltimateBossDefeated extends ConfigEntry<Integer> {
+    public ConfigUltimateBossDefeated() {
+        super(1, ConfigStorageLocation.SAVE, ConfigUltimateBossDefeated::serializer, ConfigUltimateBossDefeated::deserializer);
 
         this.setEditControl((number, gameState) -> {
             final NumberSpinner<Integer> spinner = NumberSpinner.intSpinner(number, 1, 40);
-            spinner.onChange(val -> gameState.setConfig(this, val));
+            spinner.setDisabled(true);
             return spinner;
         });
     }
@@ -28,6 +28,6 @@ public class ConfigUltimateBoss extends ConfigEntry<Integer> {
             return IoHelper.readInt(data, 0);
         }
 
-        return 0;
+        return 1;
     }
 }

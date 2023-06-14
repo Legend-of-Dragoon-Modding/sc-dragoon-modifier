@@ -3,27 +3,23 @@ package lod.dragoonmodifier;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import legend.core.GameEngine;
-import legend.core.MathHelper;
 import legend.core.gpu.ModelLoader;
 import legend.core.gpu.Renderable;
 import legend.core.gpu.VramTextureLoader;
 import legend.game.*;
 import legend.game.characters.Element;
 import legend.game.characters.ElementSet;
+import legend.game.characters.StatType;
 import legend.game.characters.VitalsStat;
 import legend.game.combat.Bttl_800c;
-import legend.game.combat.Bttl_800e;
-import legend.game.combat.Bttl_800f;
 import legend.game.combat.bobj.AttackEvent;
 import legend.game.combat.bobj.BattleObject27c;
+import legend.game.combat.bobj.MonsterBattleObject;
 import legend.game.combat.bobj.PlayerBattleObject;
 import legend.game.combat.environment.BattlePreloadedEntities_18cb0;
 import legend.game.combat.types.AttackType;
 import legend.game.combat.types.CombatantStruct1a8;
-import legend.game.combat.ui.BattleDisplayStats144;
-import legend.game.combat.ui.BattleDisplayStats144Sub10;
 import legend.game.input.InputAction;
-import legend.game.inventory.screens.TextColour;
 import legend.game.modding.Mod;
 import legend.game.modding.coremod.CoreMod;
 import legend.game.modding.events.EventListener;
@@ -42,6 +38,12 @@ import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
 import legend.game.scripting.ScriptState;
 import legend.game.types.*;
+import lod.dragoonmodifier.configs.ConfigDifficultyEntry;
+import lod.dragoonmodifier.configs.ConfigEnrageMode;
+import lod.dragoonmodifier.configs.ConfigFaustDefeated;
+import lod.dragoonmodifier.configs.ConfigMonsterHPNames;
+import lod.dragoonmodifier.configs.values.MonsterHPNames;
+import lod.dragoonmodifier.events.DifficultyChangedEvent;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -49,17 +51,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
 
+import static legend.game.SItem.*;
 import static legend.game.SMap.FUN_800e5534;
 import static legend.game.SMap.smapLoadingStage_800cb430;
-import static legend.game.Scus94491BpeSegment.*;
-import static legend.game.Scus94491BpeSegment.displayHeight_1f8003e4;
 import static legend.game.Scus94491BpeSegment_8004.mainCallbackIndex_8004dd20;
+import static legend.game.Scus94491BpeSegment_8005.combatants_8005e398;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.WMap.*;
 import static legend.game.combat.Bttl_800c.*;
-import static legend.game.combat.Bttl_800f.drawUiTextureElement;
 
 @Mod(id = DragoonModifier.MOD_ID)
 public class DragoonModifier {
@@ -71,21 +72,27 @@ public class DragoonModifier {
     public final List<String[]> additionStats = new ArrayList<>();
     public final List<String[]> additionMultiStats = new ArrayList<>();
     public final List<String[]> additionUnlockStats = new ArrayList<>();
-    public final List<String[]> characterStats = new ArrayList<>();
-    public final List<String[]> dragoonStats = new ArrayList<>();
+    public final List<String[]> characterStatsTable = new ArrayList<>();
+    public final List<String[]> dragoonStatsTable = new ArrayList<>();
     public final List<String[]> xpNextStats = new ArrayList<>();
+    public final List<String[]> dxpNextStats = new ArrayList<>();
     public final List<String[]> spellStats = new ArrayList<>();
     public final List<String[]> equipStats = new ArrayList<>();
     public final List<String[]> itemStats = new ArrayList<>();
     public final List<String[]> shopItems = new ArrayList<>();
     public final List<String[]> shopPrices = new ArrayList<>();
+    public final List<String[]> levelCaps = new ArrayList<>();
+    public int maxCharacterLevel = 60;
+    public int maxDragoonLevel = 5;
+    public int[] enrageMode = new int[10];
 
-    public final Registrar<ConfigEntry<?>, ConfigRegistryEvent> CSV_CONFIG_REGISTRAR = new Registrar<>(GameEngine.REGISTRIES.config, MOD_ID);
-    public final RegistryDelegate<ConfigDifficultyEntry> DIFFICULTY = CSV_CONFIG_REGISTRAR.register("difficulty", ConfigDifficultyEntry::new);
-    public final RegistryDelegate<ConfigFaustDefeated> FAUST_DEFEATED = CSV_CONFIG_REGISTRAR.register("faust_defeated", ConfigFaustDefeated::new);
+    public final Registrar<ConfigEntry<?>, ConfigRegistryEvent> DRAMOD_CONFIG_REGISTRAR = new Registrar<>(GameEngine.REGISTRIES.config, MOD_ID);
+    public final RegistryDelegate<ConfigDifficultyEntry> DIFFICULTY = DRAMOD_CONFIG_REGISTRAR.register("difficulty", ConfigDifficultyEntry::new);
+    public final RegistryDelegate<ConfigFaustDefeated> FAUST_DEFEATED = DRAMOD_CONFIG_REGISTRAR.register("faust_defeated", ConfigFaustDefeated::new);
+    public final RegistryDelegate<ConfigMonsterHPNames> MONSTER_HP_NAMES = DRAMOD_CONFIG_REGISTRAR.register("hp_names", ConfigMonsterHPNames::new);
+    public final RegistryDelegate<ConfigEnrageMode> ENRAGE_MODE = DRAMOD_CONFIG_REGISTRAR.register("enrage_mode", ConfigEnrageMode::new);
 
-    /*public final RegistryDelegate<ConfigEnrageMode> ENRAGE_MODE = CSV_CONFIG_REGISTRAR.register("enrage_mode", ConfigEnrageMode::new);
-    public final RegistryDelegate<ConfigElementalBomb> ELEMENTAL_BOMB = CSV_CONFIG_REGISTRAR.register("elemental_bomb", ConfigElementalBomb::new);
+    /*public final RegistryDelegate<ConfigElementalBomb> ELEMENTAL_BOMB = CSV_CONFIG_REGISTRAR.register("elemental_bomb", ConfigElementalBomb::new);
     public final RegistryDelegate<ConfigNeverGuard> NEVER_GUARD = CSV_CONFIG_REGISTRAR.register("never_guard", ConfigNeverGuard::new);
     public final RegistryDelegate<ConfigTurnBattleMode> TURN_BATTLE = CSV_CONFIG_REGISTRAR.register("turn_battle", ConfigTurnBattleMode::new);
     public final RegistryDelegate<ConfigUltimateBoss> ULTIMATE_BOSS = CSV_CONFIG_REGISTRAR.register("ultimate_boss", ConfigUltimateBoss::new);
@@ -129,7 +136,7 @@ public class DragoonModifier {
 
     @EventListener
     public void registerConfig(final ConfigRegistryEvent event) {
-        CSV_CONFIG_REGISTRAR.registryEvent(event);
+        DRAMOD_CONFIG_REGISTRAR.registryEvent(event);
     }
 
     @EventListener
@@ -171,14 +178,18 @@ public class DragoonModifier {
         this.loadCsvIntoList(difficulty, additionStats, "scdk-addition-stats.csv");
         this.loadCsvIntoList(difficulty, additionUnlockStats, "scdk-addition-unlock-levels.csv");
         this.loadCsvIntoList(difficulty, additionMultiStats, "scdk-addition-multiplier-stats.csv");
-        this.loadCsvIntoList(difficulty, characterStats, "scdk-character-stats.csv");
-        this.loadCsvIntoList(difficulty, dragoonStats, "scdk-dragoon-stats.csv");
+        this.loadCsvIntoList(difficulty, characterStatsTable, "scdk-character-stats.csv");
+        this.loadCsvIntoList(difficulty, dragoonStatsTable, "scdk-dragoon-stats.csv");
         this.loadCsvIntoList(difficulty, xpNextStats, "scdk-exp-table.csv");
+        this.loadCsvIntoList(difficulty, dxpNextStats, "scdk-dragoon-exp-table.csv");
         this.loadCsvIntoList(difficulty, spellStats, "scdk-spell-stats.csv");
         this.loadCsvIntoList(difficulty, equipStats, "scdk-equip-stats.csv");
         this.loadCsvIntoList(difficulty, itemStats, "scdk-thrown-item-stats.csv");
         this.loadCsvIntoList(difficulty, shopItems, "scdk-shop-items.csv");
         this.loadCsvIntoList(difficulty, shopPrices, "scdk-shop-prices.csv");
+        this.loadCsvIntoList(difficulty, levelCaps, "scdk-level-caps.csv");
+        maxCharacterLevel = Integer.parseInt(levelCaps.get(0)[0]);
+        maxDragoonLevel = Integer.parseInt(levelCaps.get(0)[1]);
 
         System.out.println("[Dragoon Modifier] Loaded using directory: " + difficulty);
     }
@@ -257,25 +268,25 @@ public class DragoonModifier {
 
     @EventListener
     public void characterStats(final CharacterStatsEvent character) {
-        character.maxHp = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[5]);
-        character.bodySpeed = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[0]);
-        character.bodyAttack = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[1]);
-        character.bodyMagicAttack = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[2]);
-        character.bodyDefence = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[3]);
-        character.bodyMagicDefence = Short.parseShort(characterStats.get(character.characterId * 61 + character.level)[4]);
+        /*character.maxHp = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[5]);
+        character.bodySpeed = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[0]);
+        character.bodyAttack = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[1]);
+        character.bodyMagicAttack = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[2]);
+        character.bodyDefence = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[3]);
+        character.bodyMagicDefence = Short.parseShort(characterStats.get(character.characterId * (maxCharacterLevel + 1) + character.level)[4]);
 
         if (character.dlevel > 0) {
-            character.maxMp = Integer.parseInt(dragoonStats.get(character.characterId * 6 + character.dlevel)[0]);
-            character.dragoonAttack = Integer.parseInt(dragoonStats.get(character.characterId * 6 + character.dlevel)[3]);
-            character.dragoonMagicAttack = Integer.parseInt(dragoonStats.get(character.characterId * 6 + character.dlevel)[4]);
-            character.dragoonDefence = Integer.parseInt(dragoonStats.get(character.characterId * 6 + character.dlevel)[5]);
-            character.dragoonMagicDefence = Integer.parseInt(dragoonStats.get(character.characterId * 6 + character.dlevel)[6]);
-        }
+            character.maxMp = Integer.parseInt(dragoonStats.get(character.characterId * (maxDragoonLevel + 1) + character.dlevel)[0]);
+            character.dragoonAttack = Integer.parseInt(dragoonStats.get(character.characterId * (maxDragoonLevel + 1) + character.dlevel)[3]);
+            character.dragoonMagicAttack = Integer.parseInt(dragoonStats.get(character.characterId * (maxDragoonLevel + 1) + character.dlevel)[4]);
+            character.dragoonDefence = Integer.parseInt(dragoonStats.get(character.characterId * (maxDragoonLevel + 1) + character.dlevel)[5]);
+            character.dragoonMagicDefence = Integer.parseInt(dragoonStats.get(character.characterId * (maxDragoonLevel + 1) + character.dlevel)[6]);
+        }*/
     }
 
     @EventListener
     public void xpNext(final XpToLevelEvent exp) {
-        exp.xp = Integer.parseInt(xpNextStats.get(exp.charId * 61 + exp.level)[0]);
+        exp.xp = Integer.parseInt(xpNextStats.get(exp.charId * (maxCharacterLevel + 1) + exp.level)[0]);
     }
 
     @EventListener
@@ -404,6 +415,9 @@ public class DragoonModifier {
                 }
             }
         }
+
+        UpdateMonsterHPNames(attack);
+        UpdateEnrageMode(attack);
     }
 
     @EventListener
@@ -484,10 +498,71 @@ public class DragoonModifier {
             }
         }
 
+        for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
+            final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
+            final BattleObject27c bobj = state.innerStruct_00;
+            if (bobj instanceof PlayerBattleObject) {
+                PlayerBattleObject player = (PlayerBattleObject) bobj;
+                int x;
+                for (x = 0; x < player.dlevel_06; x++) {
+                    int charIndex = player.charId_272;
+                    if(player.charId_272 == 0 && (gameState_800babc8.goods_19c[0] & 0xff) >>> 7 != 0) {
+                        charIndex = 9; // Divine dragoon
+                    }
+                    //System.out.println("Spell IndeX: " + dragoonSpells_800c6960.get(player.charId_272).spellIndex_01.get(x));
+                    int spellId = Integer.parseInt(dragoonStatsTable.get(charIndex * (maxDragoonLevel + 1) + x + 1)[1]);
+                    //dragoonSpells_800c6960.get(player.charId_272).spellIndex_01.get(x).set(spellId == 255 ? 0xFFFFFFFF : spellId);
+                    //System.out.println("Spell IndeX: " + dragoonSpells_800c6960.get(player.charId_272).spellIndex_01.get(x));
+                }
+            }
+        }
+
+        UpdateMonsterHPNames(null);
+
         burnStacks = 0;
         armorOfLegendTurns = 0;
         legendCasqueTurns = 0;
         burnStackMode = false;
+        Arrays.fill(enrageMode, 0);
+    }
+
+    public void UpdateMonsterHPNames(final AttackEvent attack) {
+        if (GameEngine.CONFIG.getConfig(MONSTER_HP_NAMES.get()) == MonsterHPNames.ON) {
+            for (int i = 0; i < 10; i++) {
+                final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
+                if (state != null) {
+                    final BattleObject27c bobj = state.innerStruct_00;
+                    if (bobj instanceof MonsterBattleObject) {
+                        int hp = bobj.stats.getStat(CoreMod.HP_STAT.get()).getCurrent();
+                        if (attack != null) {
+                            hp = bobj == attack.defender ? bobj.stats.getStat(CoreMod.HP_STAT.get()).getCurrent() - attack.damage : hp;
+                        }
+                        currentEnemyNames_800c69d0.get(bobj.charSlot_276).set(String.valueOf(hp));
+                    }
+                }
+            }
+        }
+    }
+
+    public void UpdateEnrageMode(final AttackEvent attack) {
+        for(int i = 0; i < monsterCount_800c6768.get(); i++) {
+            final MonsterBattleObject monster = battleState_8006e398.monsterBobjs_e50[i].innerStruct_00;
+            int hp = monster.stats.getStat(CoreMod.HP_STAT.get()).getCurrent();
+            int maxHp = monster.stats.getStat(CoreMod.HP_STAT.get()).getMax();
+            if (hp <= maxHp / 2 && enrageMode[i] == 0) {
+                monster.attack_34 = (int) Math.round(monster.attack_34 * 1.1d);
+                monster.magicAttack_36 = (int) Math.round(monster.magicAttack_36 * 1.1d);
+                monster.defence_38 = (int) Math.round(monster.defence_38 * 1.1d);
+                monster.magicDefence_3a = (int) Math.round(monster.magicDefence_3a * 1.1d);
+                enrageMode[i] = 1;
+            } else if (hp <= maxHp / 4 && enrageMode[i] == 1) {
+                monster.attack_34 = (int) Math.round(monster.attack_34 * 1.136365d);
+                monster.magicAttack_36 = (int) Math.round(monster.magicAttack_36 * 1.136365d);
+                monster.defence_38 = (int) Math.round(monster.defence_38 * 1.136365d);
+                monster.magicDefence_3a = (int) Math.round(monster.magicDefence_3a * 1.136365d);
+                enrageMode[2] = 1;
+            }
+        }
     }
 
     @EventListener
@@ -500,6 +575,23 @@ public class DragoonModifier {
                 GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(1));
             }
             System.out.println("[Dragoon Modifier] Faust Defeated: " + GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get()));
+        }
+    }
+
+    @EventListener
+    public void DragoonDEFFEvent(final DragoonDEFFLoadedEvent event) {
+        System.out.println("DEFF Event: " + event.scriptId);
+        if (event.scriptId == 4308) {
+            new Thread(() -> {
+                for (int i = 0; i < 20; i++) {
+                    try {
+                        scriptEffect_800bb140.type_00.set(0);
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }).start();
         }
     }
 
@@ -669,6 +761,36 @@ public class DragoonModifier {
             );
         }
 
+        for (int i = 0; i < 9; i++) {
+            xpTables[i] = new int[maxCharacterLevel + 1];
+            characterStats[i] = new LevelStuff08[maxCharacterLevel + 1];
+            for (int x = 0; x < xpTables[i].length; x++) {
+                xpTables[i][x] = Integer.parseInt(xpNextStats.get((maxCharacterLevel + 1) * i + x)[0]);
+                characterStats[i][x] = new LevelStuff08(Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[5]), Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[6]),
+                        Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[0]), Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[1]),
+                        Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[2]), Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[3]),
+                        Integer.parseInt(characterStatsTable.get((maxCharacterLevel + 1) * i + x)[4]));
+            }
+        }
+
+        for (int i = 0; i < 9; i++) {
+            dxpTables[i] = new int[maxDragoonLevel + 1];
+            dragoonStats[i] = new MagicStuff08[maxDragoonLevel + 1];
+            for (int x = 0; x < dxpTables[i].length - 1; x++) {
+                dxpTables[i][x] = Integer.parseInt(dxpNextStats.get(i)[x]);
+            }
+            for (int x = 0; x < dragoonStats[i].length; x++) {
+                int spellIndex = Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[1]);
+                dragoonStats[i][x] = new MagicStuff08(Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[0]), spellIndex == 255 ? (byte) -1 : (byte) spellIndex,
+                        Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[2]), Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[3]),
+                        Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[4]), Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[5]),
+                        Integer.parseInt(dragoonStatsTable.get((maxDragoonLevel + 1) * i + x)[6]));
+                if (i == 0) {
+                    System.out.println("TEST2: " + dragoonStats[i][x].spellIndex_02);
+                }
+            }
+        }
+
         System.out.println("[Dragoon Modifier] [Game Loaded] Done");
     }
 
@@ -730,10 +852,10 @@ public class DragoonModifier {
                 final BattleObject27c bobj = state.innerStruct_00;
                 if (bobj instanceof PlayerBattleObject) {
                     PlayerBattleObject player = (PlayerBattleObject) bobj;
-                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]) * 8;
-                    player.dragoonMagic_ae = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[4]) * 8;
-                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[5]) * 8;
-                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[6]) * 8;
+                    player.dragoonAttack_ac = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[3]) * 8;
+                    player.dragoonMagic_ae = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[4]) * 8;
+                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[5]) * 8;
+                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[6]) * 8;
                 }
             }
         }
@@ -748,10 +870,10 @@ public class DragoonModifier {
                 final BattleObject27c bobj = state.innerStruct_00;
                 if (bobj instanceof PlayerBattleObject) {
                     PlayerBattleObject player = (PlayerBattleObject) bobj;
-                    player.dragoonAttack_ac = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[3]);
-                    player.dragoonMagic_ae = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[4]);
-                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[5]);
-                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStats.get(player.charId_272 * 6 + player.dlevel_06)[6]);
+                    player.dragoonAttack_ac = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[3]);
+                    player.dragoonMagic_ae = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[4]);
+                    player.dragoonDefence_b0 = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[5]);
+                    player.dragoonMagicDefence_b2 = Integer.parseInt(dragoonStatsTable.get(player.charId_272 * (maxDragoonLevel + 1) + player.dlevel_06)[6]);
                 }
             }
         }

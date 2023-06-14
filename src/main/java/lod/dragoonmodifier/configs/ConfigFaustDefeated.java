@@ -1,16 +1,10 @@
-package lod.dragoonmodifier;
+package lod.dragoonmodifier.configs;
 
 import legend.core.IoHelper;
-import legend.game.input.GlfwController;
-import legend.game.input.Input;
-import legend.game.inventory.screens.controls.Dropdown;
 import legend.game.inventory.screens.controls.Label;
 import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static legend.core.GameEngine.CONFIG;
 

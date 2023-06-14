@@ -2,3 +2,9 @@
 dragoon-modifier.name=Dragoon Modifier
 dragoon-modifier.config.difficulty.label=DraMod-Difficulty Mode
 dragoon-modifier.config.faust_defeated.label=DraMod-Fausts Defeated
+dragoon-modifier.config.hp_names.label=DraMod-HP Names
+dragoon-modifier.config.hp_names.ON=On
+dragoon-modifier.config.hp_names.OFF=Off
+dragoon-modifier.config.enrage_mode.label=DraMod-Enrage
+dragoon-modifier.config.enrage_mode.ON=On
+dragoon-modifier.config.enrage_mode.OFF=Off

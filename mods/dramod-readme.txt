@@ -1,12 +1,17 @@
+===============================================================================
 Difficulty Modes
-US             - US Retail
-Japan          - Japan Retail
-Japan Demo     - Japan Demo 
-US + Hard Mode - Hard Mode character enhancements active. US Retail for normal encounters, Hard Mode for boss encounters.
-Hard Mode      - Hard Mode character enhancements and all enemies have upgraded stats.
+===============================================================================
+US               - US Retail
+Japan            - Japan Retail
+Japan Demo       - Japan Demo 
+US + Hard Mode   - Hard Mode character enhancements active. US Retail for normal encounters, Hard Mode for boss encounters.
+Hard Mode        - Hard Mode character enhancements and all enemies have upgraded stats.
+Hard + Hell Mode - Hell Mode character enhancements active. Hard Mode for normal enocunters, Hell Mode for boss encounters.
+Hell Mode        - Hell Mode character enhancements and all enemies have upgraded stats.
 
-
+===============================================================================
 Hotkeys
+===============================================================================
 UPPER LEFT SHOULDER + DPAD UP        - (Battle) Exit Dragoon in slot 1 (L1+Up)
 UPPER LEFT SHOULDER + DPAD RIGHT     - (Battle) Exit Dragoon in slot 2 (L1+Right)
 UPPER LEFT SHOULDER + DPAD LEFT      - (Battle) Exit Dragoon in slot 3 (L1+Left)
@@ -35,8 +40,11 @@ FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
 		On the 40th time you will be rewarded with Armor of Legend/Legend Casque.
 		This is on US + Hard Mode / Hard Mode only.
 		
-		
-US + Hard Mode/Hard Mode Notes (Not listed in game for one reason or another)
+===============================================================================		
+US + Hard Mode/Hard Mode Notes 
+(That are listed in game for one reason or another)
+===============================================================================
+-Please note that Hard Mode is not intended to start with all characters or dragoons at the start of the game.
 -All equips can not nullifiy elements.
 -The special Faust through the hotkey will grant Armor of Legend and Legend Casque after 40 battles.
 

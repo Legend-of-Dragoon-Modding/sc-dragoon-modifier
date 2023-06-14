@@ -1,4 +1,4 @@
-package lod.dragoonmodifier;
+package lod.dragoonmodifier.configs;
 
 import legend.core.GameEngine;
 import legend.core.IoHelper;
@@ -6,6 +6,7 @@ import legend.game.inventory.screens.controls.Dropdown;
 import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
+import lod.dragoonmodifier.events.DifficultyChangedEvent;
 
 import java.io.File;
 import java.nio.file.Path;
