@@ -6,13 +6,13 @@ import legend.core.GameEngine;
 import legend.core.gpu.ModelLoader;
 import legend.core.gpu.Renderable;
 import legend.core.gpu.VramTextureLoader;
-import legend.game.*;
+import legend.game.SItem;
+import legend.game.SMap;
+import legend.game.Scus94491BpeSegment_8004;
 import legend.game.characters.Element;
 import legend.game.characters.ElementSet;
-import legend.game.characters.StatType;
 import legend.game.characters.VitalsStat;
 import legend.game.combat.Bttl_800c;
-import legend.game.combat.bobj.AttackEvent;
 import legend.game.combat.bobj.BattleObject27c;
 import legend.game.combat.bobj.MonsterBattleObject;
 import legend.game.combat.bobj.PlayerBattleObject;
@@ -23,8 +23,23 @@ import legend.game.input.InputAction;
 import legend.game.modding.Mod;
 import legend.game.modding.coremod.CoreMod;
 import legend.game.modding.events.EventListener;
-import legend.game.modding.events.battle.*;
-import legend.game.modding.events.characters.*;
+import legend.game.modding.events.battle.AttackEvent;
+import legend.game.modding.events.battle.AttackSpGainEvent;
+import legend.game.modding.events.battle.BattleEndedEvent;
+import legend.game.modding.events.battle.BattleObjectTurnEvent;
+import legend.game.modding.events.battle.BattleStartedEvent;
+import legend.game.modding.events.battle.DragonBlockStaffOffEvent;
+import legend.game.modding.events.battle.DragonBlockStaffOnEvent;
+import legend.game.modding.events.battle.DragoonDEFFLoadedEvent;
+import legend.game.modding.events.battle.EnemyRewardsEvent;
+import legend.game.modding.events.battle.MonsterStatsEvent;
+import legend.game.modding.events.battle.SpellStatsEvent;
+import legend.game.modding.events.battle.StatDisplayEvent;
+import legend.game.modding.events.characters.AdditionHitMultiplierEvent;
+import legend.game.modding.events.characters.AdditionUnlockEvent;
+import legend.game.modding.events.characters.BattleMapActiveAdditionHitPropertiesEvent;
+import legend.game.modding.events.characters.CharacterStatsEvent;
+import legend.game.modding.events.characters.XpToLevelEvent;
 import legend.game.modding.events.config.ConfigLoadedEvent;
 import legend.game.modding.events.gamestate.GameLoadedEvent;
 import legend.game.modding.events.input.InputPressedEvent;
@@ -37,7 +52,13 @@ import legend.game.modding.registries.RegistryDelegate;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
 import legend.game.scripting.ScriptState;
-import legend.game.types.*;
+import legend.game.types.ActiveStatsa0;
+import legend.game.types.EquipmentStats1c;
+import legend.game.types.GameState52c;
+import legend.game.types.ItemStats0c;
+import legend.game.types.LevelStuff08;
+import legend.game.types.MagicStuff08;
+import legend.game.types.SpellStats0c;
 import lod.dragoonmodifier.configs.ConfigDifficultyEntry;
 import lod.dragoonmodifier.configs.ConfigEnrageMode;
 import lod.dragoonmodifier.configs.ConfigFaustDefeated;
@@ -49,18 +70,37 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import static legend.game.SItem.*;
+import static legend.game.SItem.characterStats;
+import static legend.game.SItem.dragoonStats;
+import static legend.game.SItem.dxpTables;
+import static legend.game.SItem.xpTables;
 import static legend.game.SMap.FUN_800e5534;
 import static legend.game.SMap.smapLoadingStage_800cb430;
 import static legend.game.Scus94491BpeSegment_8004.mainCallbackIndex_8004dd20;
-import static legend.game.Scus94491BpeSegment_8005.combatants_8005e398;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
-import static legend.game.Scus94491BpeSegment_800b.*;
-import static legend.game.WMap.*;
-import static legend.game.combat.Bttl_800c.*;
+import static legend.game.Scus94491BpeSegment_800b.combatStage_800bb0f4;
+import static legend.game.Scus94491BpeSegment_800b.encounterId_800bb0f8;
+import static legend.game.Scus94491BpeSegment_800b.gameState_800babc8;
+import static legend.game.Scus94491BpeSegment_800b.pregameLoadingStage_800bb10c;
+import static legend.game.Scus94491BpeSegment_800b.scriptEffect_800bb140;
+import static legend.game.Scus94491BpeSegment_800b.stats_800be5f8;
+import static legend.game.WMap.areaIndex_800c67aa;
+import static legend.game.WMap.dotIndex_800c67ae;
+import static legend.game.WMap.dotOffset_800c67b0;
+import static legend.game.WMap.facing_800c67b4;
+import static legend.game.WMap.pathIndex_800c67ac;
+import static legend.game.combat.Bttl_800c.allBobjCount_800c66d0;
+import static legend.game.combat.Bttl_800c.currentEnemyNames_800c69d0;
+import static legend.game.combat.Bttl_800c.currentTurnBobj_800c66c8;
+import static legend.game.combat.Bttl_800c.dragoonSpaceElement_800c6b64;
+import static legend.game.combat.Bttl_800c.monsterCount_800c6768;
 
 @Mod(id = DragoonModifier.MOD_ID)
 public class DragoonModifier {
@@ -947,16 +987,16 @@ public class DragoonModifier {
 
         if (SMap.encounterAccumulator_800c6ae8.get() < 0) {
             if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_UP)) {
-                if (Scus94491BpeSegment_8006.battleState_8006e398._294 > 0) {
-                    Scus94491BpeSegment_8006.battleState_8006e398._294 = 1;
+                if (battleState_8006e398.dragoonTurnsSlot1_294 > 0) {
+                    battleState_8006e398.dragoonTurnsSlot1_294 = 1;
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_RIGHT)) {
-                if (Scus94491BpeSegment_8006.battleState_8006e398._298 > 0) {
-                    Scus94491BpeSegment_8006.battleState_8006e398._298 = 1;
+                if (battleState_8006e398.dragoonTurnsSlot2_298 > 0) {
+                    battleState_8006e398.dragoonTurnsSlot2_298 = 1;
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_LEFT)) {
-                if (Scus94491BpeSegment_8006.battleState_8006e398._29c > 0) {
-                    Scus94491BpeSegment_8006.battleState_8006e398._29c = 1;
+                if (battleState_8006e398.dragoonTurnsSlot3_29c > 0) {
+                    battleState_8006e398.dragoonTurnsSlot3_29c = 1;
                 }
             } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST) && (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode"))) {
                 if (burnStacks > 0) {
@@ -1023,6 +1063,26 @@ public class DragoonModifier {
                 for (int i = 0; i < 9; i++) {
                     gameState_800babc8.charData_32c[i].partyFlags_04 = 3;
                 }
+            }
+        }
+    }
+
+    @EventListener
+    public void handleAttackSpGain(final AttackSpGainEvent event) {
+        final PlayerBattleObject bobj = event.bobj;
+
+        if(bobj.charId_272 == 2 || bobj.charId_272 == 8) {
+            final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+
+            if(difficulty.equals("Hard Mode") || difficulty.equals("Hell Mode")) {
+                switch(bobj.dlevel_06) {
+                    case 6 -> event.sp = 150;
+                    case 7 -> event.sp = 175;
+                }
+            }
+
+            if(difficulty.equals("Hell Mode")) {
+                event.sp = (int)Math.ceil(event.sp / 2.0f);
             }
         }
     }
