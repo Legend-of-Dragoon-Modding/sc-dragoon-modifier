@@ -9,6 +9,7 @@ import legend.core.gpu.VramTextureLoader;
 import legend.game.SItem;
 import legend.game.SMap;
 import legend.game.Scus94491BpeSegment_8004;
+import legend.game.Scus94491BpeSegment_8006;
 import legend.game.characters.Element;
 import legend.game.characters.ElementSet;
 import legend.game.characters.VitalsStat;
@@ -335,7 +336,7 @@ public class DragoonModifier {
 
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             dramodBurnStacks(spellId);
         }
     }
@@ -385,7 +386,7 @@ public class DragoonModifier {
 
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             if (attack.attacker instanceof PlayerBattleObject player) {
                 if (player.isDragoon() && attack.attackType.isPhysical()) {
                     if (player.element == dragoonSpaceElement_800c6b64) {
@@ -415,8 +416,6 @@ public class DragoonModifier {
                     } else {
                         attack.damage *= 1 + (burnStacks * dmgPerBurn);
                     }
-                    burnStacks = 0;
-                    burnStackMode = false;
                 } else {
                     if (attack.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS && !burnAdded) {
                         if (player.spellId_4e == 0) {
@@ -476,7 +475,7 @@ public class DragoonModifier {
 
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
                 final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
                 final BattleObject27c bobj = state.innerStruct_00;
@@ -621,17 +620,35 @@ public class DragoonModifier {
     @EventListener
     public void DragoonDEFFEvent(final DragoonDEFFLoadedEvent event) {
         System.out.println("DEFF Event: " + event.scriptId);
-        if (event.scriptId == 4308) {
-            new Thread(() -> {
-                for (int i = 0; i < 20; i++) {
-                    try {
-                        scriptEffect_800bb140.type_00.set(0);
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+        switch (event.scriptId) {
+            case 4206: //Transform?
+            case 4236: //Dart Attack
+            case 4238: //Lavitz Attack
+            case 4242: //Rose Attack
+            case 4244: //Haschel Attack
+            case 4246: //Albert Attack
+            case 4248: //Meru Attack
+            case 4250: //Kongol Attack
+            case 4254: //Divine Attack
+            case 4308: //Burn Out
+            case 4312: //Spark Net
+            case 4316: //???
+            case 4318: //Pellet
+            case 4320: //Spear Frost
+            case 4322: //Spinning Gale
+            case 4326: //Trans Light
+            case 4328: //Dark Mist
+                new Thread(() -> {
+                    for (int i = 0; i < 80; i++) {
+                        try {
+                            scriptEffect_800bb140.type_00.set(0);
+                            Thread.sleep(125);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
-            }).start();
+                }).start();
+            break;
         }
     }
 
@@ -838,7 +855,7 @@ public class DragoonModifier {
     public void bobjTurn(final BattleObjectTurnEvent<?> turn) {
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             if (turn.bobj instanceof PlayerBattleObject player) {
                 if (player.equipment2_122 == 74) {
                     armorOfLegendTurns += 1;
@@ -856,6 +873,11 @@ public class DragoonModifier {
 
                 if (player.charId_272 == 0) {
                     burnAdded = false;
+
+                    if (burnStackMode) {
+                        burnStacks = 0;
+                        burnStackMode = false;
+                    }
                 }
             }
         }
@@ -886,7 +908,7 @@ public class DragoonModifier {
     @EventListener
     public void dragonBlockStaffOn(final DragonBlockStaffOnEvent event) {
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
                 final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
                 final BattleObject27c bobj = state.innerStruct_00;
@@ -904,7 +926,7 @@ public class DragoonModifier {
     @EventListener
     public void dragonBlockStaffOff(final DragonBlockStaffOffEvent event) {
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
-        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode")) {
+        if (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses")) {
             for(int i = 0; i < allBobjCount_800c66d0.get(); i++) {
                 final ScriptState<? extends BattleObject27c> state = battleState_8006e398.allBobjs_e0c[i];
                 final BattleObject27c bobj = state.innerStruct_00;
@@ -987,20 +1009,52 @@ public class DragoonModifier {
 
         if (SMap.encounterAccumulator_800c6ae8.get() < 0) {
             if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_UP)) {
-                if (battleState_8006e398.dragoonTurnsSlot1_294 > 0) {
-                    battleState_8006e398.dragoonTurnsSlot1_294 = 1;
+                if (Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294 > 0) {
+                    Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294 = 1;
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_RIGHT)) {
-                if (battleState_8006e398.dragoonTurnsSlot2_298 > 0) {
-                    battleState_8006e398.dragoonTurnsSlot2_298 = 1;
+                if (Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot2_298 > 0) {
+                    Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot2_298 = 1;
                 }
             } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_LEFT)) {
-                if (battleState_8006e398.dragoonTurnsSlot3_29c > 0) {
-                    battleState_8006e398.dragoonTurnsSlot3_29c = 1;
+                if (Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c > 0) {
+                    Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c = 1;
                 }
-            } else if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST) && (difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Mode"))) {
-                if (burnStacks > 0) {
-                    burnStackMode = !burnStackMode;
+            }
+            if ((difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses"))) {
+                if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST)) {
+                    if (burnStacks > 0) {
+                        burnStackMode = !burnStackMode;
+                    }
+                } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_2) && hotkey.contains(InputAction.DPAD_UP)) {
+                    PlayerBattleObject player = battleState_8006e398.charBobjs_e40[0].innerStruct_00;
+                    int dragoonTurns = Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294;
+                    int sp = player.stats.getStat(CoreMod.SP_STAT.get()).getCurrent();
+                    if (player.isDragoon() && player.dlevel_06 >= 6 && dragoonTurns > 1 && sp >= 100) {
+                        Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294 -= 1;
+                        player.stats.getStat(CoreMod.SP_STAT.get()).setCurrent(sp - 100);
+                        player.guard_54 = 1;
+                    }
+                } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_2) && hotkey.contains(InputAction.DPAD_RIGHT)) {
+                    PlayerBattleObject player = battleState_8006e398.charBobjs_e40[1].innerStruct_00;
+                    int dragoonTurns = Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot2_298;
+                    int sp = player.stats.getStat(CoreMod.SP_STAT.get()).getCurrent();
+                    if (player.isDragoon() && player.dlevel_06 >= 6 && dragoonTurns > 1 && sp >= 100) {
+                        Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot2_298 -= 1;
+                        player.stats.getStat(CoreMod.SP_STAT.get()).setCurrent(sp - 100);
+                        player.guard_54 = 1;
+                    }
+                } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_2) && hotkey.contains(InputAction.DPAD_LEFT)) {
+                    PlayerBattleObject player = battleState_8006e398.charBobjs_e40[2].innerStruct_00;
+                    int dragoonTurns = Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c;
+                    int sp = player.stats.getStat(CoreMod.SP_STAT.get()).getCurrent();
+                    if (player.isDragoon() && player.dlevel_06 >= 6 && dragoonTurns > 1 && sp >= 100) {
+                        Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c -= 1;
+                        player.stats.getStat(CoreMod.SP_STAT.get()).setCurrent(sp - 100);
+                        player.guard_54 = 1;
+                    }
+                } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_RIGHT_2) && hotkey.contains(InputAction.BUTTON_NORTH)) {
+                    //TODO
                 }
             }
         } else {
@@ -1008,6 +1062,17 @@ public class DragoonModifier {
                 gameState_800babc8.charData_32c[2].partyFlags_04 = 3;
             } else if (hotkey.contains(InputAction.BUTTON_CENTER_1) && hotkey.contains(InputAction.BUTTON_THUMB_2)) {
                 gameState_800babc8.charData_32c[1].partyFlags_04 = 3;
+            } else if (hotkey.contains(InputAction.BUTTON_SOUTH) && hotkey.contains(InputAction.BUTTON_SHOULDER_RIGHT_1)) {
+                int mapId = submapCut_80052c30.get();
+                if (mapId == 10) {
+                    gameState_800babc8.goods_19c[0] ^= 1 << 0;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 1;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 2;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 3;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 4;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 5;
+                    gameState_800babc8.goods_19c[0] ^= 1 << 6;
+                }
             } else if (hotkey.contains(InputAction.BUTTON_SOUTH) && hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1)) {
                 int mapId = submapCut_80052c30.get();
                 if (mapId == 10) {
