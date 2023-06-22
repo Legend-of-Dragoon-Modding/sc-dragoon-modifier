@@ -91,6 +91,7 @@ import static legend.game.Scus94491BpeSegment_800b.encounterId_800bb0f8;
 import static legend.game.Scus94491BpeSegment_800b.gameState_800babc8;
 import static legend.game.Scus94491BpeSegment_800b.pregameLoadingStage_800bb10c;
 import static legend.game.Scus94491BpeSegment_800b.scriptEffect_800bb140;
+import static legend.game.Scus94491BpeSegment_800b.scriptStatePtrArr_800bc1c0;
 import static legend.game.Scus94491BpeSegment_800b.stats_800be5f8;
 import static legend.game.WMap.areaIndex_800c67aa;
 import static legend.game.WMap.dotIndex_800c67ae;
@@ -1007,7 +1008,7 @@ public class DragoonModifier {
     public void dramodHotkeys() {
         final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
-        if (SMap.encounterAccumulator_800c6ae8.get() < 0) {
+        if (mainCallbackIndex_8004dd20.get() == 6) { // Combat
             if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_1) && hotkey.contains(InputAction.DPAD_UP)) {
                 if (Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294 > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot1_294 = 1;
@@ -1020,6 +1021,8 @@ public class DragoonModifier {
                 if (Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c > 0) {
                     Scus94491BpeSegment_8006.battleState_8006e398.dragoonTurnsSlot3_29c = 1;
                 }
+            } else if (hotkey.contains(InputAction.BUTTON_SHOULDER_LEFT_2) && hotkey.contains(InputAction.BUTTON_SHOULDER_RIGHT_2)) {
+                scriptStatePtrArr_800bc1c0[7].offset_18 = 0x2050; //TODO NOT THIS
             }
             if ((difficulty.equals("Hard Mode") || difficulty.equals("US + Hard Bosses"))) {
                 if (hotkey.contains(InputAction.BUTTON_NORTH) && hotkey.contains(InputAction.BUTTON_WEST)) {
