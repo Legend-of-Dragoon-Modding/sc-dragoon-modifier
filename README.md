@@ -1,66 +1,68 @@
-Like what you see? Send me a tip! You can also subscribe to our [YouTube channel](https://www.youtube.com/@legend-of-dragoon).
+For more information about modding with the Severed Chains platform view https://legendofdragoon.org/modding/
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W4HFVW9)
+# About
+[Severed Chains](https://legendofdragoon.org/projects/severed-chains/) - Dragoon Modifier is the port of the emulation modding tool [Dragoon Modifier](https://github.com/Legend-of-Dragoon-Modding/Dragoon-Modifier). 
+Dragoon Modifier is a simple tool that anyone can use with a spreadsheet editor to make their own custom difficulties. 
+It comes with my prepackaged difficulty preset with additional mods.
 
-For more information about modding within Severed Chains https://legendofdragoon.org/modding/
+Dragoon Modifier is currently only supported for Severed Chains Recommended Build #2.
 
-# Legend of Dragoon Java
+### Installation
 
-A project to reverse engineer Legend of Dragoon into a high-level language with a modding API. This is not an emulator, but assembly code disassembled and rewritten in Java.
+Drag and drop it into the Servered Chains/mods folder.
 
-### Current Progress
+### Mods
+**Note** Mod folders labeled US + Hard Mode or Hard Mode will also execute mods exclusive to Dragoon Modifier.
+**Note** Japan Demo mod folder will make all repeat items non repeatable except Psyche Bomb X
 
-- Game engine is mostly functional with a few major graphical glitches that don't negatively affect gameplay
-- Currently uses a simple software renderer that is not very efficient but runs at full FPS even on fairly weak hardware
-- No music support yet (sound effects work with some issues)
-- Playable most of the way through the fourth disk (up to Three Executioners fight)
+Dragoon Modifier has several spreadsheets you can edit.
+1.  Addition Base Stats Multipliers (scdk-addition-multiplier-stats.csv)
+    Changes additions base stats. These stats are not reflected in game yet.
+2.  Addition Stats Per Level (scdk-addition-stats.csv)
+    Changes additions stats per level. These will multiply the stats you give in the base state CSV. These stats are not reflected in game yet.
+3.  Addition Level Unlock(scdk-addition-unlock-levels.csv)
+    Changes what level the addition should unlock.
+4.  Character Stats (scdk-character-stats.csv)
+    Changes character base stats.
+5.  Dragoon EXP Table (scdk-dragoon-exp-table.csv)
+    Changes when Dragoons level up.
+6.  Equip Stats (scdk-equip-stats.csv)
+    Changes Equipment stats.
+7.  Character EXP Table (scdk-exp-table.csv)
+    Changes the EXP required to level up.
+8.  Monster Rewards (scdk-monster-rewards.csv)
+    Changes the monsters EXP/Gold/Item Drop & Chance per Monster
+9.  Monster Stats (scdk-monster-stats.csv)
+    Changes the monsters stats.
+10. Shop Prices (scdk-shop-prices.csv)
+    Changes the shop prices **Note** this table is using the retail extraction method so these are SELL prices not BUY prices which are 2x sell prices.
+11. Spell Stats (scdk-spell-stats.csv)
+    Changes dragoon spell stats.
+12. Use Item Stats (scdk-thrown-item-stats.csv)
+    Changes thrown item stats.
 
-### Interested in playing?
+**Note** For spell stats and thrown item stats damage is using both retail and not retail methods.
+You can set a spell to mostly any percentage you want it to be at. 
+However, if you use the following values (0,1,2,4,8,16,32,64,128) they will all mean something else.
+This will be removed at a later date.
+0   = 100
+1   = 800
+2   = 600
+4   = 500
+8   = 400
+16  = 300
+32  = 200
+64  = 150
+128 = 50
 
-Visit our player guide here! https://legendofdragoon.org/projects/severed-chains/
-
-### Interested in the code?
-
-Visit our discord and drop into the [#modding channel](https://discord.com/channels/307164262063669248/318595603636551701)!
-
-A strong knowledge of Java and MIPS assembly is recommended. If you are interested in contributing (or just curious), the following steps should get you up and running:
-1. Install a git client and ensure the installation includes command line integration
-2. Clone this repository to your local computer using git
-3. Copy your ISOs of the LoD disks into the `isos` directory and rename them to `1.iso`, `2.iso`, etc. Note: if you have BINs instead of ISOs, it's very likely you can change the file extension to ISO and they will work.
-4. Open your local copy of this repository in your IDE (IntelliJ recommended)
-5. Gradle should automatically attempt to configure the project and download all dependencies. If it doesn't, expand the gradle tab and click refresh. This process should succeed; resolve any errors if it does not. (lack of command line git can cause issues here)
-6. Run the project
-
-Note: Java 17 is required. It is **strongly** recommended to run with assertions enabled.
-
-### Controls ###
-
-Controls are currently hardcoded to the keyboard.
-
-Ingame/combat:
-- D-pad - arrow keys
-- Shape buttons - WASD
-- Start - enter
-- Select - space
-- L1 - Q
-- L2 - 1
-- L3 - Z
-- R1 - E
-- R2 - 3
-- R3 - C
-- F12 - open debug tools (developer feature - can easily cause crashes)
-
-Menus:
-- Mouse only (for now)
-- Escape key to return to previous menu
-- Left/right arrow keys to switch characters on equipment menu
-
-To use a controller, open the config.conf file and set controller_config=true. The next time the code is run, it will list all controllers it detects and will prompt you to select the one you wish to use. Only one controller can be registered for use at any given time. If the game crashes after setting up a controller, delete its GUID from the config file and restart the game.
-
-**NOTE**: For now, only Xbox controllers are officially supported. Other controllers may work but are not guaranteed. More work will be done here in the future.
-
-
-
-### Copyright Information
-
-Even though it is not an emulator, Legend of Dragoon Java can not be played without the user providing the LoD ISOs. Assets are extracted from the ROMs at runtime. This codebase does not include any official Legend of Dragoon code or assets.
+### Upcoming/TODO
+Level Cap unlock 
+Dragoon Level cap unlock
+Hell Mode 
+Hard + Hell Mode Bosses
+Elemental Bomb
+Damage Tracker
+Monster Names as HP
+Hard and Hell Mode with Dragoon level 6 & 7
+Ultimate Boss Challenge Mode
+A table with what each value means
