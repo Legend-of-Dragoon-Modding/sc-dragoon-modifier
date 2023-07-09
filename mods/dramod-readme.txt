@@ -1,3 +1,6 @@
+For more information about modding within Severed Chains please head over to
+https://legendofdragoon.org/modding/
+
 ===========================================================================================================================================================
 Difficulty Modes
 ===========================================================================================================================================================
@@ -101,10 +104,11 @@ If Detonate Arrow is not equipped
  x1.6 when level is above 10
 Shana's final DF stat has an additional 12% value when she is above level 30.
 Shana, if she has cast Star Children during her Dragoon form, will heal 100% HP on her next Human form turn.
-When Shana surpasses 100 MP Gates of Heaven will be based upon 30% of her maximum MP with ceiling round to nearest 10. 
+When Shana surpasses 100 MP in Hell Modes, Gates of Heaven will be based upon 30% of her maximum MP with ceiling rounding to nearest 10. 
 If party members are dead there is a healing penality for Gates of Heaven.
 	 -5% per party member in Hard Modes
 	-12% per party member in Hell Modes
+At Dragoon Level 6 Shana has access to the hotkey 
 
 **********
 ***Rose***
@@ -123,7 +127,7 @@ All additions except Whip Smack have changed.
 *************
 ***Haschel***
 *************
-Haschel has a special mechanic called Thunder Charge, only active if Hashcel has his Dragoon.
+Haschel has a special mechanic called Thunder Charge.
 Thunder Charge can be applied to enemies. 
 Each time a thunder based magic attack is used a Thunder Charge is applied to an enemy. 
 When a Thunder Charge is gained it may generate a Spark Net or Thunderbolt item magic.
@@ -152,11 +156,14 @@ All additions have changes.
 ===========================================================================================================================================================
 Hotkeys
 ===========================================================================================================================================================
-[HARD/HELL MODE KEY] = You must have [US + Hard Bosses][Hard Mode][Hard + Hell Boss][Hell Mode] selected.
+[HARD/HELL MODE KEY] = You must have [US + Hard Bosses][Hard Mode][Hard + Hell Bosses][Hell Mode] selected.
 
 UPPER LEFT SHOULDER + DPAD UP        - (Battle) Exit Dragoon in slot 1 (L1+Up)
 UPPER LEFT SHOULDER + DPAD RIGHT     - (Battle) Exit Dragoon in slot 2 (L1+Right)
 UPPER LEFT SHOULDER + DPAD LEFT      - (Battle) Exit Dragoon in slot 3 (L1+Left)
+BOTTOM LEFT SHOULDER + DPAD UP       - (Battle) [HARD/HELL] Guards at the cost of 100 SP when you have 200 SP or more at Dragoon Level 6 or above in slot 1 (L2+Up)
+BOTTOM LEFT SHOULDER + DPAD RIGHT    - (Battle) [HARD/HELL] Guards at the cost of 100 SP when you have 200 SP or more at Dragoon Level 6 or above in slot 2 (L2+Right)
+BOTTOM LEFT SHOULDER + DPAD LEFT     - (Battle) [HARD/HELL] Guards at the cost of 100 SP when you have 200 SP or more at Dragoon Level 6 or above in slot 3 (L2+Left)
 CENTER LEFT + JOYSTICK LEFT          - (Field) Adds Shana to the party (Select+L3)
 CENTER LEFT + JOYSTICK RIGHT         - (Field) Adds Lavitz to the party (Select+R3)
 FACE SOUTH + JOYSTICK RIGHT          - (Field) Adds all party members back (CROSS+R3) (Intended to be used with all party start below)
@@ -181,15 +188,10 @@ FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
 		On the burning Seles screen map (before last SVirage) use this hotkey to battle a special version of Faust.
 		On the 40th time you will be rewarded with Armor of Legend/Legend Casque.
 		This is on US + Hard Mode / Hard Mode only.
-FACE NORTH + FACE LEFT               - (Battle) [HARD/HELL MODE KEY] Activates Dart's Burn Stacks (Triangle+Square)
-FACE NORTH + LOWER RIGHT SHOULDER    - (Battle) [HARD/HELL MODE KEY] Shana/Meru Dragoon Level 7/6 hotkey
-	**WHEN SHANA/??? IS THE ACTIVE PARTY MEMBER IN DRAGOON**
-		At Dragoon Level 7, use this hotkey to enhance her Dragoon Attack with Light Element. 
-		This costs 100 MP.
-	**WHEN MERU THE ACTIVE PARTY MEMBER IN DRAGOON**
-		At Dragoon Level 6, Meru can triple her Max HP for 5 turns. Healing to Meru is nullified.
-		This costs 60 MP and 100 SP. You must have 200 SP or more to use this.
-		
+FACE NORTH + FACE LEFT               - (Battle) [HARD/HELL] Activates Dart's Burn Stacks (Triangle+Square)
+FACE SOUTH + UPPER LEFT SHOULDER     - (Battle) [HARD/HELL] At the cost of 20 MP, sets Shana's normal Dragoon attack to Rapid Fire at Dragoon level 6 and above (Cross+L1)
+FACE SOUTH + UPPER RIGHT SHOULDER    - (Battle) [HARD/HELL] When used with the hotkey above, press this key multiple times after to allow Shana to shoot two additional arrows (Cross+R1)
+BOTTOM LEFT & RIGHT SHOULDER         - (Battle) [HARD/HELL] At the cost of 100 MP, sets Meru to triple max HP, 10% damage boost, and nullify healing for 5 turns.
 		
 ===========================================================================================================================================================
 Ultimate Boss

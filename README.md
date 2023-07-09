@@ -1,6 +1,8 @@
-Like what you see? Send me a tip! You can also subscribe to our [YouTube channel](https://www.youtube.com/@legend-of-dragoon). We do livestreams every Friday at 9:00 Atlantic Time.
+Like what you see? Send me a tip! You can also subscribe to our [YouTube channel](https://www.youtube.com/@legend-of-dragoon).
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W4HFVW9)
+
+For more information about modding within Severed Chains https://legendofdragoon.org/modding/
 
 # Legend of Dragoon Java
 
