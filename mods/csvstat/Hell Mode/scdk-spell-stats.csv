@@ -85,7 +85,7 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 64,0,32,0,0,100,0,100,0,1,0,0, ,
 64,0,32,0,0,100,0,100,0,2,0,0,Burn Out,Fire STR 150% x Multi
 64,0,32,0,0,100,0,100,0,4,0,0, ,
-64,0,32,0,0,100,0,100,0,8,0,0,Spark Net,Thunder STR 150% x Multi
+64,0,32,0,0,100,10,100,0,8,0,0,Spark Net,Thunder STR 150% x Multi
 64,0,32,0,0,100,0,100,0,16,0,0, ,
 64,0,32,0,0,100,0,100,0,32,0,0, ,
 64,0,32,0,0,100,0,100,0,64,0,0,Pellet,Earth STR 150% x Multi

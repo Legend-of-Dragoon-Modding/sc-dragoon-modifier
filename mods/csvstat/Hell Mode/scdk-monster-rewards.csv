@@ -351,7 +351,7 @@ EXP,Gold,Drop Rate,Item,UK1,UK2,Name
 6000,200,0,255,0,0,Polter Helm
 0,0,100,230,0,0,Polter Armor
 0,0,100,7,0,0,Polter Sword
-8000,400,100,248,0,0,Auto Complete
+8000,2000,100,248,0,0,Auto Complete
 6000,300,100,243,0,0,Auto Complete
 4000,200,100,244,0,0,Auto Complete
 0,0,0,255,0,0,Missing (Melbu Texture)

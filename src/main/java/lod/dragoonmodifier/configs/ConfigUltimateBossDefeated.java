@@ -2,32 +2,30 @@ package lod.dragoonmodifier.configs;
 
 import legend.core.IoHelper;
 import legend.core.MathHelper;
+import legend.game.inventory.screens.controls.Label;
 import legend.game.inventory.screens.controls.NumberSpinner;
+import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
 
-public class ConfigUltimateBossDefeated extends ConfigEntry<Integer> {
-    public ConfigUltimateBossDefeated() {
-        super(1, ConfigStorageLocation.SAVE, ConfigUltimateBossDefeated::serializer, ConfigUltimateBossDefeated::deserializer);
+import static legend.core.GameEngine.CONFIG;
 
-        this.setEditControl((number, gameState) -> {
-            final NumberSpinner<Integer> spinner = NumberSpinner.intSpinner(number, 1, 40);
-            spinner.setDisabled(true);
-            return spinner;
+public class ConfigUltimateBossDefeated extends ConfigEntry<String> {
+    public ConfigUltimateBossDefeated() {
+        super(
+                "0",
+                ConfigStorageLocation.SAVE,
+                str -> IoHelper.stringToBytes(str, 4),
+                bytes -> IoHelper.stringFromBytes(bytes, 4, "0")
+        );
+
+        this.setEditControl((current, gameState) -> {
+            return new Label(CONFIG.getConfig(this).toString());
         });
     }
 
-    private static byte[] serializer(final int val) {
-        final byte[] data = new byte[2];
-        MathHelper.set(data, 0, 2, val);
-        return data;
-    }
-
-    private static int deserializer(final byte[] data) {
-        if(data.length == 4) {
-            return IoHelper.readInt(data, 0);
-        }
-
-        return 1;
+    @Override
+    public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
+        super.onChange(configCollection, oldValue, newValue);
     }
 }

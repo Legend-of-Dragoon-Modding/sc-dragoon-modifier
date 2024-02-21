@@ -168,18 +168,21 @@ CENTER LEFT + JOYSTICK LEFT          - (Field) Adds Shana to the party (Select+L
 CENTER LEFT + JOYSTICK RIGHT         - (Field) Adds Lavitz to the party (Select+R3)
 FACE SOUTH + JOYSTICK RIGHT          - (Field) Adds all party members back (CROSS+R3) (Intended to be used with all party start below)
 FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+R1) On map 10 toggle all dragoons. (Intended for Hell Mode start)
-FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
+
+FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1) This hotkey has different usages based on the map ID...
 	**ON MAP 10**
 		On the first map where you can control Dart press this hotkey to add everyone to the party at level 1.
 		This is intended if you want to start the game with a different character.
 		When characters rejoin the party they may be a lower level than usual.
-		To add characters back to the parth use the below hotkey instead.
-		  FACE SOUTH + JOYSTICK RIGHT (CROSS+R3)
 		Press it again to toggle Dragoon Spirits on/off.
+		
+		When characters go missing from the party to add characters them back use the below hotkey instead.
+		You can use this hotkey on any map.
+			FACE SOUTH + JOYSTICK RIGHT (CROSS+R3)
 	**ON MAP 232**
 		On the map where you lose Red-Eyed spirit in Barrens you can add it back.
 	**ON MAP 424/736** [HARD/HELL MODE KEY]
-		On the corpse of the dragon and the final map you can toggle the Divine spirit.
+		On the corpse of the divine dragon and the final map you can toggle the Divine spirit.
 	**ON MAP 729**
 		On the lift to the inner lunar core you can use this to warp out to the explorable overworld.
 	**ON MAP 526/527**
@@ -188,6 +191,8 @@ FACE SOUTH + UPPER LEFT SHOULDER     - (Field) (CROSS+L1)
 		On the burning Seles screen map (before last SVirage) use this hotkey to battle a special version of Faust.
 		On the 40th time you will be rewarded with Armor of Legend/Legend Casque.
 		This is on US + Hard Mode / Hard Mode only.
+		
+
 FACE NORTH + FACE LEFT               - (Battle) [HARD/HELL] Activates Dart's Burn Stacks (Triangle+Square)
 FACE SOUTH + UPPER LEFT SHOULDER     - (Battle) [HARD/HELL] At the cost of 20 MP, sets Shana's normal Dragoon attack to Rapid Fire at Dragoon level 6 and above (Cross+L1)
 FACE SOUTH + UPPER RIGHT SHOULDER    - (Battle) [HARD/HELL] When used with the hotkey above, press this key multiple times after to allow Shana to shoot two additional arrows (Cross+R1)
@@ -199,14 +204,17 @@ Ultimate Boss
 
 Ultimate Boss
 From Chapter 4 you can go back to The Forbidden Land to fight tougher versions of bosses. 
+Each zone rewards you a certain amount of gold.
 You must be in the correct map per zone and each zone has a reommended level. 
-You can gain lots of Gold from these bosses starting from Zone 3. 
-Each boss is detailed below. 
-The equips are for Hard and Hell mode only.
+The equips are for Hard and Hell modes only.
+
+If you are overleveled by a certain amount for the zone you will have a HP, and Damage Reduction.
+Monsters will also deal more damage.
 
 
 
-Zone 1 - Level 30
+Zone 1 - Level 30 - 1000 Gold
+(The first two maps)
 ===========================================================================================================================================================
 1. Commander - 64,000 HP
 Drops Sabre, a +70 AT weapon for Rose.
@@ -218,7 +226,7 @@ Defeating this boss will increase your inventory to 36 Slots.
 
 
 
-Zone 2 - Level 40
+Zone 2 - Level 40 - 3000 Gold
 ===========================================================================================================================================================
 4. Sandora Elite - 159,600 HP
 
@@ -236,75 +244,75 @@ This boss has MP Attack on summon. Defeating this boss will increase your invent
 
 
 
-Zone 3 - Level 50
+Zone 3 - Level 50 - 5000 Gold
 ===========================================================================================================================================================
-9. Ghost Feyrbrand - 320,000 HP | 3,000 Gold
+9. Ghost Feyrbrand - 320,000 HP
 
-10. Mappi - 128,000 HP | 3,000 Gold
+10. Mappi - 128,000 HP
 
-11. Gehrich - 200,000 HP | Mappi - 128,000 HP | 3,000 Gold
+11. Gehrich - 200,000 HP | Mappi - 128,000 HP
 This boss has Zero SP start.
 
-12. Ghost Commander - 221,000 HP | 3,000 Gold
+12. Ghost Commander - 221,000 HP
 This boss has Wound Damage on slash attack. This boss has Health Steal on life sap attack.
 
-13. Kamuy - 300,000 HP | 3,000 Gold
+13. Kamuy - 300,000 HP
 This boss does SP damage.
 
-14. Ghost Regole - 336,000 HP | 3,000 Gold
+14. Ghost Regole - 336,000 HP
 
-15. Grand Jewel - 260,000 HP | 9,000 Gold
+15. Grand Jewel - 260,000 HP
 This boss has a Magic Change every 10%.
 This boss has elemental shift.
 This Boss has Reverse Dragon Block Staff.
 
-16. Windigo - 700,000 HP | 9,000 Gold
+16. Windigo - 700,000 HP
 This boss has Armor Break when heart is damaged.
 
-17. Polter Armor - 666.666 HP | 9,000 Gold
+17. Polter Armor - 666.666 HP
 This boss has Shared HP.
 
-18. The Last Kraken - 360,000 HP | 12,000 Gold
+18. The Last Kraken - 360,000 HP
 This boss is actually centered.
 
-19. Vector - 180,000 HP | Selebus - 135,000 HP | Kubila - 157,500 HP | 12,000 Gold
+19. Vector - 180,000 HP | Selebus - 135,000 HP | Kubila - 157,500 HP
 
-20. Caterpillar - 120,000 HP | Pupa - 180,000 HP | Imago - 240,000 HP | 12,000 Gold
+20. Caterpillar - 120,000 HP | Pupa - 180,000 HP | Imago - 240,000 HP
 
-21. Zackwell - 360,000 HP | 15,000 Gold
+21. Zackwell - 360,000 HP
 
-22. Ghost Divine Dragon - 400,000 HP | 18,000 Gold
+22. Ghost Divine Dragon - 400,000 HP
 Defeating this boss will increase your inventory to 48 Slots.
 
 
 
-Zone 4 - Level 60
+Zone 4 - Level 60 - 10000 Gold unless otherwise specified
 ===========================================================================================================================================================
-23. Virage I | Head - 360,000 HP | Body - 360,000 HP | Arm - 60,000  HP | 15,000 Gold
+23. Virage I | Head - 360,000 HP | Body - 360,000 HP | Arm - 60,000  HP
 
-24. Kongol - 420,000 HP | 20,000 Gold
+24. Kongol - 420,000 HP
 
-25. Lenus - 525,000 HP | 20,000 Gold
+25. Lenus - 525,000 HP
 This boss has a Magic Change every 5%.
 
-26. Syuveil - 500,000 HP | 25,000 Gold
+26. Syuveil - 500,000 HP
 This boss has Turn Point damage on all Dragoon magic attacks.
 
-27. Virage II | Head - 1,280,000 HP | Body - 540,000 HP | Arm - 54,000 HP | 30,000 Gold
+27. Virage II | Head - 1,280,000 HP | Body - 540,000 HP | Arm - 54,000 HP
 This boss has body damage.
 
-28. Feyrbrand - 288,000 HP | Greham - 210,000 HP | 35,000 Gold
+28. Feyrbrand - 288,000 HP | Greham - 210,000 HP
 This boss has Dragoon Bond.
 This boss will remove resistances.
 
-29. Damia - 360,000 HP | 35,000 Gold
+29. Damia - 360,000 HP
 This boss has a custom status effect, Menu Block on all magic attacks. 
 Will block all menu actions, Dragoons are immune.
 
 30. Regole - 300,000 HP | Dragoon Lenus - 300,000 HP | 40,000 Gold
 This boss has Dragoon Bond.
 
-31. Belzac - 608,000 HP | 40,000 Gold
+31. Belzac - 608,000 HP
 This boss has custom status effects, each with a random chance of activation. 
 30% accuracy loss on Grand Stream. Power Down DF/MDF on Meteor Strike. Speed Down on Golden Dragoon.
 
@@ -315,13 +323,13 @@ For every 40,000 damage, countdown increases.
 For each countdown increase you get 1,000 Gold each. 
 Killing a body part grants the following gold: 45,000 Gold for the head, 15,000 Gold for the body, 10,000 Gold for the arm.
 
-33. Kanzas - 396,000 HP | 45,000 Gold
+33. Kanzas - 396,000 HP
 This boss has Electric Charges, with a maximum of 30 charges. 
 Each charge is released all at once and can be released at any time, each charge grants 5% power on the next attack. 
 Dragoon Addition grants 1 charge. Atomic Mind grants 3 charges and attack down for 3 turns. 
 Thunder Kid grants 5 charges and defense down for 3 turns. Violet Dragon grants 15 charges and instantly releases all charges for this attack and grants power down for 3 turns.
 
-34. Emperor Doel - 250,000 HP | Dragoon Doel - 750,000 HP | 100,000 Gold
+34. Emperor Doel - 250,000 HP | Dragoon Doel - 750,000 HP | 15,000 Gold
 This boss has Inventory Refresh.
 This boss has Ultimate Enrage Mode.
 This Boss has a Magic Change. Doel can now cast any magic when he is below 75,000 HP and will use elemental weaknesses to his advantage.
@@ -329,33 +337,34 @@ This boss has Enhanced Shield. Doel's Shield when it is about to appear will gra
 Defeating this boss will increase your inventory to 64 Slots.
 If you are on Hell Mode you will unlock Divine Red-Eyed Dragon mode.
 
-35. S Virage II | Head - 333,333 HP | Body - 222,222 HP | Arm 666,666 | 60,000 Gold
+35. S Virage II | Head - 333,333 HP | Body - 222,222 HP | Arm 666,666 | 15,000 Gold
 This boss has a modified Shared HP. Attacking the head heals the arm. 
 Each attack to a body part will do 2x damage. 
 Each part healed will recieve 1x HP. Attacking the arm heals the head. 
 Attacking the head heals the body.
 This boss has an enhanced Final Attack.
 
-36. Divine Dragon - 10,000 HP | 70,000 Gold
+36. Divine Dragon - 10,000 HP | 15,000 Gold
 This boss has Armor Guard.
 This Boss has Reverse Dragon Block Staff.
 This boss has Ultimate Enrage Mode.
 
-37. Lloyd - 666,666 HP | 80,000 Gold
+37. Lloyd - 666,666 HP | 15,000 Gold
 This boss has modified Ultimate Enrage Mode, Lloyd will increase his AT/MAT stats but lower his DF/MDF stats.
 Dying by his Dragoon Buster attack will lower his stats, but each time you die Lloyd's base stats increase.
 This boss will remove resistances.
 This boss has a Magic Change every 7%.
 
-38. Magician Faust - 1,000,000 HP | 120,000 Gold
+38. Magician Faust - 1,000,000 HP | 30,000 Gold
 This boss has Dragoon Guard.
 This boss has any magic and will play to your weakness and strengths depending on the phase.
 
-39. Zieg - 720,000 HP | 100,000 Gold
+39. Zieg - 720,000 HP | 30,000 Gold
 This boss unlocks unused attacks.
 This boss has enhanced damage on Explosion.
 
-40. Melbu Frahma - ??? HP - Unfinished.
+40. Melbu Frahma - ??? HP | 0 Gold
+For this fight only, Rose can not heal more than 25% HP from Astral Drain.
 
 Zero SP                    - Start the battle with zero SP.
 Guard Break                - Removes guard status on a certain attack.
@@ -378,28 +387,40 @@ Reverse Dragon Block Staff - Dragoons will operate at 80%.
 Armor Guard                - Significant increase to defenses when Guarding, overwrites Power Up/Down DF/MDF effects.
 Dragoon Guard              - Adds Guard to the menu in Dragoon regardless of Dragoon level.
 
-Equips
-Sabre              - +70 AT - A weapon for Rose.
-Spirit Eater       - +75 AT +50 MAT - A weapon for Dart. Removes 35 SP per turn unless full. Removes 15 SP instead in Hell Mode.
-Harpoon            - +100 AT - A weapon for Lavitz/Albert. Triples Dragoon powers at the cost of 300 SP. You can only use this when you have 400 SP or more. Casts Speed Down upon Dragoon exit.
-Element Arrow      - +50 AT +50 MAT - A weapon for Shana/Miranda. Changes element and uses 100G to restock that element's single target magic item every 3 turns. Change Element in Enhancements II tab.
-Dragon Beater      - +130 AT - A weapon for Rose. Enhances Dragoon magic by using hotkey (CIRCLE + RIGHT) in battle. Rose will consume more MP, do more damage and heal 30% more from Dark Dragon but deal less damage. Return to normal by pressing hotkey (CIRCLE + RIGHT) again.
-Battery Glove      - +80 AT +20 MAT - A weapon for Haschel. Charges for an attack that deals 250% physical damage and unleashes it automatically every 7 attacks.
-Jeweled Hammer     - +40 AT +40 MAT - A weapon for Meru. Enhances Dragoon magic by using hotkey (CIRCLE + DOWN) in battle. Meru will consume more MP, do more damage and Rainbow Breath will add an additional 65% HP that can go over Max HP. Guarding will remove the additional HP. Return to normal by pressing hotkey (CIRCLE + DOWN) again.
-Giant Axe          - +100 AT +10 MAT - A weapon for Kongol. Has a 20% chance to add Guard after attacking.
-Soa's Light        - +200 AT +140 MAT +100 SP Regen Per Turn - Reduces other party members defenses by 30%. Removes all SP gain from additions.
-Fake Legend Casque - +30 MDF - Has a 30% chance to add +40 MDF while Guarding.
-Soa's Helm         - +200 MDF +20 MP Regen Per Turn - Reduces other party members attack for 30%.
-Fake Legend Armor  - +30 DF - Has a 30% chance to add +40 DF while Guarding.
-Divine DG Armor    - +50 DF +50 MDF +20 SP on all hits +10 MP on all hits.
-Soa's Armor        - +200 DF +20% HP Regen Per Turn - Reduces other party members MAT by 30%.
-Lloyd's Boots      - +15 SPD +15 A-AV +15 M-AV
-Winged Shoes       - +25 SPD
-Soa's Greaves      - +40 SPD - Reduces other party members speed by 25.
-Heal Ring          - +7% HP Regen Per Turn, +7 MP Regen Per Turn, +7 SP Regen Per Turn
-Soa's Sash         - Double SP Gain - Reduces other party members SP gain by half.
-Soa's Ahnk         - 100% Revive - Always revive but kills another party member in the process. Grants 50% revive in Solo Mode.
-Soa's Health Ring  - Doubles Max HP - Reduces other party members Max HP by 25%. Max HP is capped at 32767.
-Soa's Mage Ring    - Triples Max MP - Reduces other party members Max MP by 50%.
-Soa's Shield Ring  - Sets DF/MDF to 1, Sets A-AV and M-AV to 90, overwrites all equips - Reduces other party members hit accuracy by 20%.
-Soa's Siphon Ring  - Doubles MAT stats, reduces Dragoon Magic by 70% - Reduces other party members MAT by 20%.
+Equips (All items are 10,000 Gold except Crystal Set for 40,000 Gold and Firebrand for 25,000 Gold )
+Sabre              - +70 AT           - A weapon for Rose.
+Spirit Eater       - +75 AT  +25 MAT  - A weapon for Dart. Decays 20 SP per turn unless full or in Dragoon. 
+                                        However 40 Total SP Gained (the total of SP gained in battle) is added per turn.
+Firebrand          - +50 AT  +50 MAT  - A weapon for Dart. Fire/Divine element based attacks.
+Giant Axe          - +110 AT          - A weapon for Kongol. After a physical type attack is made, has 20% chance to also cast Guard. 
+                                        Guard can be cast in Dragoon even without level 6.
+Dragon Beater      - +80 AT  +25 MAT  - A weapon for Rose. Grants life and SP steal effect on physical attacks. Rose will heal 1% of the damage dealt up to a maximum of 1000 HP. Rose will gain 1% of SP of the damage dealt up to a maximum of 100 SP. This SP counts towards total SP gained.
+Ouroboros          - +82 AT           - A weapon for Lavitz/Albert. While in Dragoon with over 200 SP, use 200 SP per turn to do double damage. When exiting Dragoon Speed Down is cast for 3 turns on the next turn in human form.
+Elemental Arrow    - +33 AT  +33 MAT  - A weapon for Shana/???. Shana physical arrows will have a possibility changing to an element available out of both players and monsters. 
+                                        If the opposing element is available when attack a monster that will be used instead. 
+									    If Dragoon Space is active that element will be used. 
+										On physical attack a Trans Light has a 40% chance to be produced if inventory space is available. 
+									    If Divine Dragoon is in the party Shana has access to both Fire and Divine elements.
+									    Shana will gain 100 SP when using any items while this is equipped in human form. This will not count towards total SP gained.
+Magic Hammer       - +80 MAT          - A weapon for Meru. All Meru's physical attacks will deal 0 damage. 
+                                        On all hits, Meru will gain 8 MP. On turn start Meru will recover 8 MP.
+Overcharge Glove   - +69 AT           - A weapon for Haschel. Thunder-based attack that will deal more damage to thunder based opponents. 
+Crystal Set        - +5 All  +1 AV/SP - Crystal Armor/Hat/Boots/Ring provided a bonus for how many Crystal labeled items are equipped. The stats below are the final total not what is displayed on status screen.
+                                        1 Crystal Set +5  AT/MAT/DF/MDF/AHIT/MHIT / +1  A-AV/M-AV/SPD / +5/15%  SP/MP on All Hits
+									    2 Crystal Set +15 AT/MAT/DF/MDF/AHIT/MHIT / +4  A-AV/M-AV/SPD / +10/15% SP/MP on All Hits
+									    3 Crystal Set +45 AT/MAT/DF/MDF/AHIT/MHIT / +9  A-AV/M-AV/SPD / +15/15% SP/MP on All Hits / +4%  HP/MP Regen on turn / +40 SP on turn
+									    4 Crystal Set +80 AT/MAT/DF/MDF/AHIT/MHIT / +16 A-AV/M-AV/SPD / +20/20% SP/MP on All Hits / +10% HP/MP Regen on turn / +100 SP on turn
+Halo of Balance    - Raises Max HP/MP by 30%
+Divine DG Armor    - +60 DF +60 MDF   - Recovers 20 SP and 10 MP on hit.
+Lloyd's Boots      - +10 SPD +10 AVD  - Lloyd's boots.
+Winged Shoes       - +20 AVD          - 
+Ring of Reversal   - Flips physical and magical defense of the user. If DF is higher after the flip HP is multiplied by 1.5x. If MDF is higher after the flip HP is divided by 1.5x attacks generate 35% more SP. These changes are applied after other changes.
+Ring of Healing    - 7% HP/MP Regen and 7 SP Regen on turn
+Ring of Power      - +60 AT
+Ring of Magic      - +60 MAT
+Ring of Defense    - +60 DF
+Ring of Block      - +60 MDF
+Ring of Shielding  - Chance to protect from instant death by providing Perfect Shield status effect.
+Ring of Elements   - Extends Dragoon Space for each turn started as a Dragoon form in Dragoon Space (special) of the matching element in Dragoon Space. There is a 50/50 chance the extension will take off two turns per rotation. Ex: DLV7 Dragoons can extend Dragoon Space by a maximum of 5 turns and a minimum of 2 turns. 
+The One Ring       - Sets Max HP to 1. Sets avoid to 80%. 
+Super Spirit Ring  - Grants 100 SP per turn, however all SP gained for additions is removed.

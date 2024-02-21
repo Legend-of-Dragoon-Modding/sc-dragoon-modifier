@@ -117,7 +117,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,20,20,0,0,0,0,0,0,0,0,0,0,Attack Badge,Raises physical§& magical§attack by 20.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,0,0,20,20,0,0,0,0,0,0,0,0,Guard Badge,Raises physical§& magical§defense by 20.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,23,0,20,0,20,0,0,0,0,0,0,0,0,0,Giganto Ring,Raises physical§attack & defense§by 20.
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,20,0,0,0,0,0,Elude Cloak,Increases escape§chance from phys.§attacks by 20%.
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,100,0,0,0,0,0,Elude Cloak,Increases escape§chance from phys.§attacks by 20%.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,0,20,0,0,0,0,Spirit Cloak,Increases escape§chance from magical§attacks by 20%.
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,0,0,20,20,0,0,0,0,Sage's Cloak,Increases escape§chance from phys./§mag. attacks by 20%
 0,8,32,247,0,0,0,0,0,0,0,0,2,50,23,0,0,0,0,0,0,0,0,0,0,0,0,0,Physical Ring,Raises maximum§HP 50%.

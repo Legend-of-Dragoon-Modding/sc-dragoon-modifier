@@ -6,7 +6,7 @@ import legend.game.inventory.screens.controls.Dropdown;
 import legend.game.saves.ConfigCollection;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigStorageLocation;
-import lod.dragoonmodifier.events.DifficultyChangedEvent;
+import lod.dragoonmodifier.configs.events.DifficultyChangedEvent;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -30,8 +30,8 @@ public class ConfigDifficultyEntry extends ConfigEntry<String> {
                     if (directory.getName().equals(gameState.getConfig(this))) {
                         dropdown.setSelectedIndex(i);
                     }
+                    i++;
                 }
-                i++;
             }
 
             dropdown.onSelection(index -> gameState.setConfig(this, dropdown.getSelectedOption()));

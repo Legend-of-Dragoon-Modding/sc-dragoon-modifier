@@ -19,7 +19,7 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 192,0,0,16,0,100,30,0,64,0,0,0,Gaspless,Wind STR 300% Single
 200,128,0,0,0,100,30,100,4,0,0,0,Demon's Gate,Lethal attack for all
 192,0,0,8,0,100,80,0,4,0,0,0,Dark Dragon,Dark STR 400% Single
-192,0,0,0,0,100,10,0,16,0,0,0,Atmoic Mind,Thunder STR 100% Single
+192,0,0,0,0,100,10,0,16,0,0,0,Atomic Mind,Thunder STR 100% Single
 192,0,32,32,0,100,20,100,16,16,0,0,Thunder Kid,Thunder STR 200% Single
 192,0,0,16,0,100,30,0,16,0,0,0,Thunder God,Thunder STR 300% Single
 192,0,0,8,0,100,80,0,16,0,0,0,Violet Dragon,Thunder STR 400% Single
