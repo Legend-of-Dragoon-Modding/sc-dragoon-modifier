@@ -101,7 +101,7 @@ EXP,Gold,Drop Rate,Item,UK1,UK2,Name
 32,24,2,lod:bemusing_arrow,0,0,Arrow Shooter
 14,6,8,lod:mind_purifier,0,0,Red Hot
 170,30,8,lod:midnight_terror,0,0,Specter
-30,30,32,lod:gushing_magma,0,0,Sandora Elite
+0,100,100,lod:healing_fog,0,0,Sandora Elite
 24,15,20,lod:healing_potion,0,0,Knight of Sandora
 11,6,10,lod:body_purifier,0,0,Slime
 16,9,8,lod:mind_purifier,0,0,Fowl Fighter
