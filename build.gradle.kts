@@ -27,7 +27,7 @@ configurations.all {
 repositories {
   mavenCentral()
   mavenLocal() // Uncomment to use mavenLocal version of LoD engine
-//  maven { url = uri("https://jitpack.io") }
+  maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -38,6 +38,7 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-api:2.14.1")
   implementation("org.apache.logging.log4j:log4j-core:2.17.1")
   implementation("com.google.code.findbugs:jsr305:3.0.2")
+  implementation("com.github.JnCrMx:discord-game-sdk4j:v0.5.5")
   api("org.legendofdragoon:mod-loader:3.0.4")
   api("org.legendofdragoon:script-recompiler:0.5.5")
 }
