@@ -6,12 +6,10 @@ import legend.core.GameEngine;
 import legend.core.QueuedModelStandard;
 import legend.core.gpu.Bpp;
 import legend.core.gte.MV;
-import legend.core.gte.Transforms;
 import legend.core.opengl.Obj;
 import legend.core.opengl.QuadBuilder;
 import legend.core.opengl.Texture;
 import legend.game.EngineStateEnum;
-import legend.game.SItem;
 import legend.game.Scus94491BpeSegment_8002;
 import legend.game.Scus94491BpeSegment_8007;
 import legend.game.Scus94491BpeSegment_800b;
@@ -32,7 +30,6 @@ import legend.game.combat.types.AdditionHitProperties10;
 import legend.game.combat.types.AdditionHits80;
 import legend.game.combat.types.AttackType;
 import legend.game.combat.types.CombatantStruct1a8;
-import legend.game.combat.ui.BattleHud;
 import legend.game.i18n.I18n;
 import legend.game.input.InputAction;
 import legend.game.inventory.Equipment;
@@ -45,7 +42,7 @@ import legend.game.inventory.screens.FontOptions;
 import legend.game.inventory.screens.ShopScreen;
 import legend.game.inventory.screens.TextColour;
 import legend.game.modding.coremod.CoreMod;
-import legend.game.modding.events.battle.AttackSpGainEvent;
+import legend.game.modding.events.battle.ArcherSpEvent;
 import legend.game.modding.events.battle.BattleEndedEvent;
 import legend.game.modding.events.battle.BattleEntityTurnEvent;
 import legend.game.modding.events.battle.BattleStartedEvent;
@@ -53,7 +50,6 @@ import legend.game.modding.events.battle.DragonBlockStaffOffEvent;
 import legend.game.modding.events.battle.DragonBlockStaffOnEvent;
 import legend.game.modding.events.battle.DragoonDeffEvent;
 import legend.game.modding.events.battle.EnemyRewardsEvent;
-import legend.game.modding.events.battle.ItemIdEvent;
 import legend.game.modding.events.battle.MonsterStatsEvent;
 import legend.game.modding.events.battle.SelectedItemEvent;
 import legend.game.modding.events.battle.SetBentStatEvent;
@@ -2480,7 +2476,7 @@ public class DragoonModifier {
     }
   }
 
-  @EventListener public void attackSpGainEvent(final AttackSpGainEvent event) {
+  @EventListener public void archerSpEvent(final ArcherSpEvent event) {
     final PlayerBattleEntity bent = event.bent;
 
     if(bent.charId_272 == 2 || bent.charId_272 == 8) {
