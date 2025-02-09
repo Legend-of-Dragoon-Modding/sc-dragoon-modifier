@@ -85,7 +85,7 @@ public class DRP implements Runnable {
 
   @Override
   public void run() {
-    Core.init(new File("S:\\Sauce\\scdk-csv-stat-changer\\libs\\discord_game_sdk.dll"));
+    Core.init(new File("E:\\Sauce\\sc-dragoon-modifier\\libs\\discord_game_sdk.dll"));
 
     try(final CreateParams params = new CreateParams()) {
       params.setClientID(1324511938138345566L);
