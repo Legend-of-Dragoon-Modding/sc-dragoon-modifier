@@ -36,7 +36,7 @@ public class DifficultyEntryConfig extends ConfigEntry<String> {
         }
       }
 
-      dropdown.onSelection(index -> gameState.setConfig(this, dropdown.getSelectedOption()));
+      dropdown.onSelection(index -> gameState.setConfig(this, dropdown.getSelectedOption().toString()));
 
       return dropdown;
     });
