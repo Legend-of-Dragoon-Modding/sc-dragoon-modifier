@@ -39,8 +39,8 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-core:2.17.1")
   implementation("com.google.code.findbugs:jsr305:3.0.2")
   implementation("com.github.JnCrMx:discord-game-sdk4j:v0.5.5")
-  api("org.legendofdragoon:mod-loader:3.0.4")
-  api("org.legendofdragoon:script-recompiler:0.5.5")
+  api("org.legendofdragoon:mod-loader:4.1.0")
+  api("org.legendofdragoon:script-recompiler:0.5.6")
 }
 
 sourceSets {
