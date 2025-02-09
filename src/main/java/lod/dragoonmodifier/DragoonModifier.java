@@ -195,7 +195,7 @@ import static legend.lodmod.LodMod.THUNDER_ELEMENT;
 import static legend.lodmod.LodMod.WATER_ELEMENT;
 import static legend.lodmod.LodMod.WIND_ELEMENT;
 
-@Mod(id = DragoonModifier.MOD_ID)
+@Mod(id = DragoonModifier.MOD_ID, version = "^3.0.0")
 public class DragoonModifier {
   public static final String MOD_ID = "dragoon_modifier";
   public static boolean DEBUG_MODE = true;
