@@ -18,6 +18,11 @@ public class HellFlowerStormConfig extends ConfigEntry<Integer> {
     });
   }
 
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
+
   private static byte[] serializer(final int val) {
     final byte[] data = new byte[4];
     MathHelper.set(data, 0, 4, val);

@@ -29,4 +29,8 @@ public class FaustDefeatedConfig extends ConfigEntry<String> {
     super.onChange(configCollection, oldValue, newValue);
   }
 
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
 }

@@ -9,4 +9,9 @@ public class DamageTrackerConfig extends EnumConfigEntry<DamageTracker> {
   public DamageTrackerConfig() {
     super(DamageTracker.class, DamageTracker.OFF, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY);
   }
+
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
 }

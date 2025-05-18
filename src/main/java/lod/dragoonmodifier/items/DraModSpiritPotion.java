@@ -1,6 +1,7 @@
 package lod.dragoonmodifier.items;
 
 import legend.game.combat.bent.BattleEntity27c;
+import legend.game.inventory.ItemIcon;
 import legend.game.scripting.ScriptFile;
 import legend.game.scripting.ScriptStackFrame;
 import legend.game.scripting.ScriptState;
@@ -12,7 +13,7 @@ import java.nio.file.Path;
 public class DraModSpiritPotion extends SpiritPotionItem {
   final String location;
 
-  public DraModSpiritPotion(final int icon, final int price, final boolean targetAll, final int percentage, final String location) {
+  public DraModSpiritPotion(final ItemIcon icon, final int price, final boolean targetAll, final int percentage, final String location) {
     super(icon, price, targetAll, percentage);
     this.location = location;
   }

@@ -9,4 +9,9 @@ public class ElementalBombConfig extends EnumConfigEntry<ElementalBomb> {
   public ElementalBombConfig() {
     super(ElementalBomb.class, ElementalBomb.OFF, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY);
   }
+
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
 }

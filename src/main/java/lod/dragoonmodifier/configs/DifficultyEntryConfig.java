@@ -49,4 +49,9 @@ public class DifficultyEntryConfig extends ConfigEntry<String> {
 
     GameEngine.EVENTS.postEvent(new DifficultyChangedEvent(configCollection, newValue));
   }
+
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
 }

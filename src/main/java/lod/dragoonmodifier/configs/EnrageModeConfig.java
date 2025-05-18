@@ -9,4 +9,9 @@ public class EnrageModeConfig extends EnumConfigEntry<EnrageMode> {
   public EnrageModeConfig() {
     super(EnrageMode.class, EnrageMode.OFF, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY);
   }
+
+  @Override
+  public boolean hasHelp() {
+    return true;
+  }
 }
