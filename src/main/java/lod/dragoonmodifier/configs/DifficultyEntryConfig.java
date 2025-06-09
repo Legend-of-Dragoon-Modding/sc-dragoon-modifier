@@ -42,7 +42,8 @@ public class DifficultyEntryConfig extends ConfigEntry<String> {
     });
   }
 
-  @Override public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
+  @Override
+  public void onChange(final ConfigCollection configCollection, final String oldValue, final String newValue) {
     System.out.println("[DRAGOON MODIFIER] Mod Changed: " + oldValue + " -> " + newValue);
 
     super.onChange(configCollection, oldValue, newValue);

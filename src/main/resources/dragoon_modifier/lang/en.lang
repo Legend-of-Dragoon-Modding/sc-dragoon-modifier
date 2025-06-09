@@ -1,20 +1,25 @@
 # Config
 dragoon_modifier.name=Dragoon Modifier
 dragoon_modifier.config.difficulty.label=[DM]Difficulty Mode
+dragoon_modifier.config.difficulty.help=In order of difficulty\nJapan Demo - This is the pre-release version of JP region stats.\nUS - The retail version of NA region LoD.\nJapan - The retail version of JP region LoD.\nUS + Hard - Retail NA Region LoD + Hard Mode bosses.\nHard Mode - Casual improved difficulty.\nHard + Hell - Hard Mode + Hell Mode bosses.\nHell - Demon Souls for LoD.
 dragoon_modifier.config.faust_defeated.label=[DM]Fausts Defeated
-dragoon_modifier.config.hp_names.label=[DM]HP Names
-dragoon_modifier.config.hp_names.ON=On
-dragoon_modifier.config.hp_names.OFF=Off
+dragoon_modifier.config.faust_defeated.help=The number of special Faust defeated for EXP farming.\nSomething might happen if you beat enough of them...
+dragoon_modifier.config.hp_bar.label=[DM]Monster HP Bars
+dragoon_modifier.config.hp_bar.help=Monster HP will be displayed when targeting one target.
 dragoon_modifier.config.enrage_mode.label=[DM]Enrage
+dragoon_modifier.config.enrage_mode.help=Enrage increases stats by 10%%/25%% when reaching 50%%/25%% HP remaining.
 dragoon_modifier.config.enrage_mode.ON=On
 dragoon_modifier.config.enrage_mode.OFF=Off
 dragoon_modifier.config.flower_storm.label=[DM]Flower Storm Turns
+dragoon_modifier.config.flower_storm.help=(Hell Mode only)\nChanges Flower Storm duration by 1 turn per 20 MP.
 dragoon_modifier.config.elemental_bomb.label=[DM]Elemental Bomb
+dragoon_modifier.config.elemental_bomb.help=When using powerful magic items,\nmonsters will be infused with that element for a limited time.
 dragoon_modifier.config.elemental_bomb.ON=On
 dragoon_modifier.config.elemental_bomb.OFF=Off
 dragoon_modifier.config.ultimate_boss.label=[DM]Ultimate Boss
 dragoon_modifier.config.ultimate_boss_defeated.label=[DM]Ultimates Done
 dragoon_modifier.config.damage_tracker.label=[DM]Damage Tracker
+dragoon_modifier.config.damage_tracker.help=Creates a damage report in the mods/dragoon_modifier/Damage Tracker folder.
 dragoon_modifier.config.damage_tracker.ON=On
 dragoon_modifier.config.damage_tracker.OFF=Off
 
@@ -107,6 +112,20 @@ dragoon_modifier.equipment.protection_helmet.name=Protection Helmet
 dragoon_modifier.equipment.protection_helmet.description=Negates damage up\nto 25%% Max HP\nper battle.
 dragoon_modifier.equipment.protection_armor.name=Protection Armor
 dragoon_modifier.equipment.protection_armor.description=Negates damage up\nto 50%% Max HP\nper battle.
+dragoon_modifier.equipment.fire_arrow.name=Fire Arrow
+dragoon_modifier.equipment.fire_arrow.description=Fire-based attack.
+dragoon_modifier.equipment.water_arrow.name=Water Arrow
+dragoon_modifier.equipment.water_arrow.description=Water-based attack.
+dragoon_modifier.equipment.wind_arrow.name=Wind Arrow
+dragoon_modifier.equipment.wind_arrow.description=Wind-based attack.
+dragoon_modifier.equipment.earth_arrow.name=Earth Arrow
+dragoon_modifier.equipment.earth_arrow.description=Earth-based attack.
+dragoon_modifier.equipment.dark_arrow.name=Dark Arrow
+dragoon_modifier.equipment.dark_arrow.description=Dark-based attack.
+dragoon_modifier.equipment.light_arrow.name=Light Arrow
+dragoon_modifier.equipment.light_arrow.description=Light-based attack.
+dragoon_modifier.equipment.thunder_arrow.name=Thunder Arrow
+dragoon_modifier.equipment.thunder_arrow.description=Thunder-based attack.
 
 # Items
 dragoon_modifier.items.rock_fireflies.name=Rock Fireflies
