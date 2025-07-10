@@ -340,7 +340,7 @@ EXP,Gold,Drop Rate,Item,UK1,UK2,Name
 0,0,0,Nothing,0,0,Virage(arm)
 0,0,0,Nothing,0,0,Kamuys tree
 6000,200,100,lod:night_raid,0,0,Ghost Commander
-0,0,0,Nothing,0,0,Ghost Knight
+0,0,50,lod:spirit_potion,0,0,Ghost Knight
 0,0,0,Nothing,0,0,Mazo
 8000,0,100,lod:darkness_stone,0,0,Kamuy
 20000,10000,100,lod:phantom_shield,0,0,Faust
