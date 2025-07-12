@@ -1,15 +1,18 @@
 package lod.dragoonmodifier.screens;
 
 import legend.core.GameEngine;
+import legend.core.QueuedModelStandard;
 import legend.core.gte.MV;
 import legend.game.inventory.screens.*;
 import legend.game.inventory.screens.controls.Button;
+import legend.game.types.Translucency;
 import lod.dragoonmodifier.DragoonModifier;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import static legend.core.GameEngine.RENDERER;
 import static legend.game.Scus94491BpeSegment_8002.playMenuSound;
 import static legend.game.Scus94491BpeSegment_8002.renderText;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
@@ -47,6 +50,8 @@ public class DraMenu extends MenuScreen {
       addButton("Add Dart Dragoon", DragoonModifier::addDartDragoon);
     } else if(submapCut_80052c30 == 424 || submapCut_80052c30 == 736) {
       addButton("Dart Dragoon Swap", DragoonModifier::swapRedEyedAndDivineSpirit);
+    } else if(submapCut_80052c30 >= 393 && submapCut_80052c30 <= 405) {
+      addButton("Wingly Shop", DragoonModifier::forbiddenLandShop);
     }
 
     //Black Castle Accessway
@@ -71,6 +76,15 @@ public class DraMenu extends MenuScreen {
     renderText("Ultimate Boss", 276, 165, this.textOptions);
     renderText(String.valueOf(this.selectedBoss) + "/3", 276, 180, this.textOptions);
     renderText(draMenuMessage, 184, 226, this.textOptions);
+
+    final MV draMenuTransforms = new MV();
+    draMenuTransforms.transfer.set(0, 0, 999.0f);
+    draMenuTransforms.scaling(368.0f, 240.0f, 999.0f);
+
+    RENDERER
+      .queueOrthoModel(RENDERER.opaqueQuad, draMenuTransforms, QueuedModelStandard.class)
+      .monochrome(0.0f)
+      .translucency(Translucency.HALF_B_PLUS_HALF_F);
   }
 
   public void addButton(final String text, final Runnable onClick) {
