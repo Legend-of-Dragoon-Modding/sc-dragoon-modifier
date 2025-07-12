@@ -126,6 +126,18 @@ dragoon_modifier.equipment.light_arrow.name=Light Arrow
 dragoon_modifier.equipment.light_arrow.description=Light-based attack.
 dragoon_modifier.equipment.thunder_arrow.name=Thunder Arrow
 dragoon_modifier.equipment.thunder_arrow.description=Thunder-based attack.
+dragoon_modifier.equipment.fake_solitary_ring.name=Fake Solitary Ring
+dragoon_modifier.equipment.fake_solitary_ring.description=Raises all stats\nwhen alone in\nbattle.
+dragoon_modifier.equipment.solitary_ring.name=Solitary Ring
+dragoon_modifier.equipment.solitary_ring.description=Raises all stats\nwhen alone in\nbattle.
+dragoon_modifier.equipment.fake_plague_boots.name=Fake Plague Boots
+dragoon_modifier.equipment.fake_plague_boots.description=Raises status chance\nby 20%%.
+dragoon_modifier.equipment.plague_boots.name=Plague Boots
+dragoon_modifier.equipment.plague_boots.description=Raises status chance\nby 40%%.
+dragoon_modifier.equipment.magical_sollerets.name=Magicial Sollerets
+dragoon_modifier.equipment.magical_sollerets.description=
+dragoon_modifier.equipment.magical_chausses.name=Magical Chausses
+dragoon_modifier.equipment.magical_chausses.description=Raises evasion\nby 15%%.
 
 # Items
 dragoon_modifier.items.rock_fireflies.name=Rock Fireflies
