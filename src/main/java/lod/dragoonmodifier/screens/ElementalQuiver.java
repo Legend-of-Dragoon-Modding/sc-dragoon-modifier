@@ -17,7 +17,7 @@ import static legend.game.Scus94491BpeSegment_8002.renderText;
 
 public class ElementalQuiver extends ListMenu {
   private final FontOptions fontOptions = new FontOptions().colour(TextColour.WHITE);
-  private final String[] displayList = {"Fire Arrow", "Water Arrow", "Wind Arrow", "Earth Arrow", "Dark Arrow", "Light Arrow", "Thunder Arrow"};
+  private final String[] displayList = {"Fire Arrow", "Water Arrow", "Wind Arrow", "Earth Arrow", "Dark Arrow", "Light Arrow", "Thunder Arrow", "Normal Arrow"};
 
   public ElementalQuiver(final BattleHud hud, final PlayerBattleEntity activePlayer, final ListPosition lastPosition, final Runnable onClose) {
     super(hud, activePlayer, 186, getLastPosition(lastPosition), onClose);
