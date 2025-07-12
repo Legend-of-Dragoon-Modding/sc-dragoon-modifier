@@ -12,6 +12,7 @@ import legend.game.scripting.ScriptState;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
+import java.time.Instant;
 
 import static legend.game.SItem.submapNames_8011c108;
 import static legend.game.SItem.worldMapNames_8011c1ec;
@@ -34,6 +35,7 @@ public class DRP implements Runnable {
   String submap = "";
   String world = "";
   int lastHP = 0;
+  Instant stateTimestamp = Instant.now();
 
   public static final String[] charNames = {"Dart", "Lavitz", "Shana", "Rose", "Haschel", "Albert", "Meru", "Kongol", "???"};
 
@@ -85,8 +87,6 @@ public class DRP implements Runnable {
 
   @Override
   public void run() {
-    Core.init(new File("E:\\Sauce\\sc-dragoon-modifier\\libs\\discord_game_sdk.dll"));
-
     try(final CreateParams params = new CreateParams()) {
       params.setClientID(1324511938138345566L);
       params.setFlags(CreateParams.getDefaultFlags());
@@ -110,8 +110,10 @@ public class DRP implements Runnable {
                 case FINAL_FMV_11 -> state = "Watching Ending FMV";
                 default -> state = "";
               }
+              this.stateTimestamp = Instant.now();
               activity.setDetails(state);
               core.activityManager().updateActivity(activity);
+              activity.timestamps().setStart(this.stateTimestamp);
               this.lastHP = 0;
             }
             this.engineState = engineState_8004dd20;
@@ -124,6 +126,7 @@ public class DRP implements Runnable {
                     gameState_800babc8.stardust_9c + "S " +
                     gameState_800babc8._b4 + "B " +
                     gameState_800babc8._b8 + 'T');
+                  activity.timestamps().setStart(this.stateTimestamp);
                   core.activityManager().updateActivity(activity);
                 } catch(final Exception ignored) {}
               }
@@ -158,6 +161,7 @@ public class DRP implements Runnable {
                     try {
                       activity.setDetails(battleType);
                       activity.setState(party.substring(0, party.length() - 1) + " LV " + partyLevel.substring(0, partyLevel.length() - 1));
+                      activity.timestamps().setStart(this.stateTimestamp);
                       core.activityManager().updateActivity(activity);
                     } catch(final Exception ignored) {
                     }
@@ -171,7 +175,7 @@ public class DRP implements Runnable {
           core.runCallbacks();
           try {
             // Sleep a bit to save CPU
-            Thread.sleep(250);
+            Thread.sleep(5000);
           } catch(final InterruptedException e) {
             core.close();
             e.printStackTrace();
