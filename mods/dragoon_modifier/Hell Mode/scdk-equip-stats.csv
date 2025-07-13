@@ -72,7 +72,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,32,64,224,0,0,0,0,176,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,10,0,0,0,35,35,0,0,0,0,0,0,0,0,250,Armor of Yore,"Grants immunity§to poison, stun,§and arm blocking.",lod:armor_of_yore
 0,32,64,16,0,0,0,0,176,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,14,0,0,0,40,31,0,0,10,0,0,0,0,0,250,Satori Vest,"Grants immunity§to poison, stun,§and arm blocking.",lod:satori_vest
 0,32,64,7,0,0,0,0,176,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,9,0,0,0,32,55,0,0,5,5,0,0,0,0,250,Rainbow Dress,"Grants immunity§to poison, stun,§and arm blocking.",lod:rainbow_dress
-0,32,64,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,40,0,0,0,0,9,0,0,0,10,20,0,0,5,5,40,0,0,0,250,Angel Robe,30% chance of§reviving from§death.,lod:angel_robe
+0,32,64,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,40,0,0,0,0,9,0,0,0,10,20,0,0,5,5,40,0,0,0,250,Angel Robe,40% chance of§reviving from§death.,lod:angel_robe
 0,32,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,true,false,false,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,30000,Armor of Legend,"Reduces phys dmg,§increases DF§per turn.",lod:armor_of_legend
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1, ,,lod:_
 0,64,64,240,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,16,0,0,3,0,0,100,100,0,0,0,0,0,0,5,Bandana,,lod:bandana
