@@ -367,11 +367,17 @@ public class DragoonModifier {
   private final MenuStack menuStack = new MenuStack();
   private boolean draMenuOpen;
 
+  private boolean startThreads;
+
   //region Startup
   public DragoonModifier() {
     GameEngine.EVENTS.register(this);
-    //new Thread(new DRP()).start();
-    //new Thread(new scriptFlagTracker()).start();
+
+    if(!this.startThreads) {
+      //new Thread(new DRP()).start();
+      new Thread(new scriptFlagTracker()).start();
+      this.startThreads = true;
+    }
   }
 
   public RegistryId id(final String entryId) {
@@ -3219,7 +3225,7 @@ public class DragoonModifier {
     final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
     if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
       if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof final MonsterBattleEntity monster) {
-        if((player.charId_272 == 2 || player.charId_272 == 8) && player.item_d4 != null) {
+        if((player.charId_272 == 2 || player.charId_272 == 8) && player.item_d4 != null && !player.isDragoon()) {
           final int sp = player.getStat(BattleEntityStat.CURRENT_SP);
           final int gain = !this.isItemArrow ? 50 : player.dlevel_06 > 0 ? Integer.parseInt(shanaSpGain.getFirst()[player.dlevel_06 - 1]) : 0;
           spGained_800bc950[player.charSlot_276] += gain;
