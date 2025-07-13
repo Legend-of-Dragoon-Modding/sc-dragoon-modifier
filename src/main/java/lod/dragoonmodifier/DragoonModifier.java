@@ -51,6 +51,7 @@ import legend.game.modding.events.input.InputPressedEvent;
 import legend.game.modding.events.input.InputReleasedEvent;
 import legend.game.modding.events.input.RegisterDefaultInputBindingsEvent;
 import legend.game.modding.events.inventory.AddGoldEvent;
+import legend.game.modding.events.inventory.DescriptionEvent;
 import legend.game.modding.events.inventory.EquipmentCanEquipEvent;
 import legend.game.modding.events.inventory.EquipmentStatsEvent;
 import legend.game.modding.events.inventory.GiveEquipmentEvent;
@@ -617,6 +618,17 @@ public class DragoonModifier {
     return null;
   }
 
+  public String getEquipDescription(final String key) {
+    final String[] keySplit = key.split("\\.");
+    final String registryId = keySplit[0] + ':' + keySplit[2];
+    for(final String[] equip : equipStats) {
+      if(equip[44].equals(registryId)) {
+        return equip[43].replaceAll("§", "\n");
+      }
+    }
+    return "";
+  }
+
   public Item getItemFromRegistry(final RegistryId id) {
     for(final var entry : registryItems.entrySet()) {
       if(entry.getKey().equals(id)) {
@@ -633,6 +645,17 @@ public class DragoonModifier {
       }
     }
     return null;
+  }
+
+  public String getItemDescription(final String key) {
+    final String[] keySplit = key.split("\\.");
+    final String registryId = keySplit[0] + ':' + keySplit[2];
+    for(final String[] item : itemStats) {
+      if(item[36].equals(registryId)) {
+        return item[28].replaceAll("§", "\n");
+      }
+    }
+    return "";
   }
 
   public int getItemRowFromTable(final String id) {
@@ -1200,6 +1223,19 @@ public class DragoonModifier {
   public void addGoldEvent(final AddGoldEvent event) {
     if(submapCut_80052c30 == 333 && this.isBitSet(28, 26)) {
       event.gold *= 5;
+    }
+  }
+
+
+  @EventListener
+  public void descriptionEvent(final DescriptionEvent event) {
+    final String type = event.translationKey.split("\\.")[1];
+    if("lod".equals(event.translationKey.split("\\.")[0])) {
+      if("equipment".equals(type)) {
+        event.description = this.getEquipDescription(event.translationKey);
+      } else {
+        event.description = this.getItemDescription(event.translationKey);
+      }
     }
   }
   //endregion
