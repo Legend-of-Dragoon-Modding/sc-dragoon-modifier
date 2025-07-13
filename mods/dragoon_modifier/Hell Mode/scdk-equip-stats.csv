@@ -129,7 +129,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,24,0,0,0,0,0,20,20,0,0,0,0,0,0,250,Wargod's Amulet,Increases hit rate§for mag./phys.§attacks by 20%.,lod:wargods_amulet
 128,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,24,0,0,0,0,0,0,0,0,0,0,0,0,0,250,Talisman,Grants immunity§to instant death.,lod:talisman
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,250, ,,lod:_
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,40,0,0,0,0,27,0,0,0,0,0,0,0,0,0,40,0,0,0,250,Holy Ankh,30% chance of§reviving from§death.,lod:holy_ankh
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,40,0,0,0,0,27,0,0,0,0,0,0,0,0,0,40,0,0,0,250,Holy Ankh,40% chance of§reviving from§death.,lod:holy_ankh
 0,8,32,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,20,0,0,0,0,0,0,0,0,0,0,0,0,2500,Dancer's Ring,Raises speed§by 20.,lod:dancers_ring
 0,8,32,247,0,0,0,0,255,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,250, ,,lod:_
 0,8,32,240,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,20,0,0,0,0,0,0,0,0,0,0,0,0,2500,Bandit's Ring,Raises speed§by 20.,lod:bandits_ring
