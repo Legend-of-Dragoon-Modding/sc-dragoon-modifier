@@ -652,7 +652,11 @@ public class DragoonModifier {
     final String registryId = keySplit[0] + ':' + keySplit[2];
     for(final String[] item : itemStats) {
       if(item[36].equals(registryId)) {
-        return item[28].replaceAll("§", "\n");
+        if(engineState_8004dd20 == EngineStateEnum.COMBAT_06) {
+          return item[29];
+        } else {
+          return item[28].replaceAll("§", "\n");
+        }
       }
     }
     return "";
