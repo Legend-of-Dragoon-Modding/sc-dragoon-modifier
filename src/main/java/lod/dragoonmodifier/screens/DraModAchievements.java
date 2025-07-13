@@ -25,7 +25,7 @@ public class DraModAchievements extends MenuScreen {
 
   @Override
   protected void render() {
-    renderText(this.message, 0, 234, new FontOptions().colour(TextColour.WHITE).shadowColour(TextColour.BLACK).horizontalAlign(HorizontalAlign.LEFT).size(0.5f));
+    renderText(this.message, 0, 234, this.font);
     this.ui.render(255, 255, 0);
   }
 }
