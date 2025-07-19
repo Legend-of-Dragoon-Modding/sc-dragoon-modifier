@@ -26,7 +26,8 @@ public class DraMenu extends MenuScreen {
   final List<Button> menuButtons = new ArrayList<>();
   final FontOptions textOptions;
   final MV transforms = new MV();
-  int selectedBoss = 1;
+  int ultimateBossStage = 1;
+  int ultimateBossDefeated = 1;
 
   public DraMenu() {
     this.textOptions = new FontOptions().horizontalAlign(HorizontalAlign.CENTRE).colour(TextColour.WHITE).shadowColour(TextColour.BLACK);
@@ -52,6 +53,10 @@ public class DraMenu extends MenuScreen {
       addButton("Dart Dragoon Swap", DragoonModifier::swapRedEyedAndDivineSpirit);
     } else if(submapCut_80052c30 >= 393 && submapCut_80052c30 <= 405) {
       addButton("Wingly Shop", DragoonModifier::forbiddenLandShop);
+      if(DragoonModifier.isBitSet(8, 14)) {
+        addButton("Next Ultimate Boss", DragoonModifier::nextUltimateBoss);
+        addButton("Ultimate Boss", DragoonModifier::startUltimateBoss);
+      }
     }
 
     //Black Castle Accessway
@@ -69,12 +74,14 @@ public class DraMenu extends MenuScreen {
     renderText("DraMod Menu", 184, 2, this.textOptions);
     this.transforms.transfer.set(0, 0, 0.0f);
     this.transforms.scaling(368.0f, 240.0f, 0.0f);
-    renderText("Battles", 276, 55, this.textOptions);
-    renderText(String.valueOf(gameState_800babc8._b4), 276, 70, this.textOptions);
-    renderText("Turns Taken", 276, 110, this.textOptions);
-    renderText(String.valueOf(gameState_800babc8._b8), 276, 125, this.textOptions);
-    renderText("Ultimate Boss", 276, 165, this.textOptions);
-    renderText(String.valueOf(this.selectedBoss) + "/3", 276, 180, this.textOptions);
+    renderText("Battles", 276, 45, this.textOptions);
+    renderText(String.valueOf(gameState_800babc8._b4), 276, 60, this.textOptions);
+    renderText("Turns Taken", 276, 80, this.textOptions);
+    renderText(String.valueOf(gameState_800babc8._b8), 276, 95, this.textOptions);
+    renderText("Ultimate Boss Defeated", 276, 135, this.textOptions);
+    renderText(String.valueOf(this.ultimateBossDefeated), 276, 150, this.textOptions);
+    renderText("Ultimate Boss Selected", 276, 170, this.textOptions);
+    renderText(String.valueOf(this.ultimateBossStage), 276, 185, this.textOptions);
     renderText(draMenuMessage, 184, 226, this.textOptions);
 
     final MV draMenuTransforms = new MV();
@@ -87,7 +94,7 @@ public class DraMenu extends MenuScreen {
       .translucency(Translucency.HALF_B_PLUS_HALF_F);
   }
 
-  public void addButton(final String text, final Runnable onClick) {
+  private void addButton(final String text, final Runnable onClick) {
     final int index = this.menuButtons.size();
 
     final Button button = this.addControl(new Button(text));
@@ -142,5 +149,13 @@ public class DraMenu extends MenuScreen {
     this.getStack().pushScreen(screen.apply(() -> {
       this.getStack().popScreen();
     }));
+  }
+
+  public void setUltimateBossStage(final int stage) {
+    this.ultimateBossStage = stage;
+  }
+
+  public void setUltimateBossDefeated(final int defeated) {
+    this.ultimateBossDefeated = defeated;
   }
 }

@@ -46,7 +46,10 @@ import legend.game.modding.events.battle.*;
 import legend.game.modding.events.characters.AdditionUnlockEvent;
 import legend.game.modding.events.characters.XpToLevelEvent;
 import legend.game.modding.events.config.ConfigLoadedEvent;
+import legend.game.modding.events.gamestate.DeleteSaveEvent;
+import legend.game.modding.events.gamestate.LoadGameEvent;
 import legend.game.modding.events.gamestate.NewGameEvent;
+import legend.game.modding.events.gamestate.SaveGameEvent;
 import legend.game.modding.events.input.InputPressedEvent;
 import legend.game.modding.events.input.InputReleasedEvent;
 import legend.game.modding.events.input.RegisterDefaultInputBindingsEvent;
@@ -111,6 +114,8 @@ import lod.dragoonmodifier.items.DraModItemDeffPackage;
 import lod.dragoonmodifier.events.HellModeAdjustmentEvent;
 import lod.dragoonmodifier.items.DraModShieldItem;
 import lod.dragoonmodifier.items.DraModSpiritPotion;
+import lod.dragoonmodifier.saves.DraModSaveFile;
+import lod.dragoonmodifier.saves.SaveFile;
 import lod.dragoonmodifier.screens.DraMenu;
 import lod.dragoonmodifier.screens.DraModAchievements;
 import lod.dragoonmodifier.screens.ElementalQuiver;
@@ -234,11 +239,11 @@ public class DragoonModifier {
   public int[] elementalBombTurns = new int[10];
   public boolean swappedEXP;
   public int[] swapEXPParty = new int[3];
-  public int[][] ultimateEncounter = {{487, 10}, {386, 3}, {414, 8},
+  public static int[][] ultimateEncounter = {{487, 10}, {386, 3}, {414, 8},
     {461, 21}, {412, 16}, {413, 70}, {387, 5}, {415, 12},
     {449, 68}, {402, 23}, {403, 29}, {417, 31}, {418, 41}, {448, 68}, {416, 38}, {422, 42}, {423, 47}, {432, 69}, {430, 67}, {433, 56}, {431, 54}, {447, 68}
   };
-  public boolean ultimateBattle;
+  public static boolean ultimateBattle;
   public int ultimateLevelCap = 30;
   public double[][] ultimatePenality = new double[3][2];
   public boolean[] bonusItemSP = new boolean[3];
@@ -298,12 +303,10 @@ public class DragoonModifier {
 
   public static final Registrar<ConfigEntry<?>, ConfigRegistryEvent> DRAMOD_CONFIG_REGISTRAR = new Registrar<>(REGISTRIES.config, MOD_ID);
   public static final RegistryDelegate<DifficultyEntryConfig> DIFFICULTY = DRAMOD_CONFIG_REGISTRAR.register("difficulty", DifficultyEntryConfig::new);
-  public static final RegistryDelegate<FaustDefeatedConfig> FAUST_DEFEATED = DRAMOD_CONFIG_REGISTRAR.register("faust_defeated", FaustDefeatedConfig::new);
   public static final RegistryDelegate<BoolConfigEntry> MONSTER_HP_BAR = DRAMOD_CONFIG_REGISTRAR.register("hp_bar", MonsterHPBarConfig::new);
   public static final RegistryDelegate<EnrageModeConfig> ENRAGE_MODE = DRAMOD_CONFIG_REGISTRAR.register("enrage_mode", EnrageModeConfig::new);
   public static final RegistryDelegate<HellFlowerStormConfig> FLOWER_STORM = DRAMOD_CONFIG_REGISTRAR.register("flower_storm", HellFlowerStormConfig::new);
   public static final RegistryDelegate<UltimateBossConfig> ULTIMATE_BOSS = DRAMOD_CONFIG_REGISTRAR.register("ultimate_boss", UltimateBossConfig::new);
-  public static final RegistryDelegate<UltimateBossDefeatedConfig> ULTIMATE_BOSS_DEFEATED = DRAMOD_CONFIG_REGISTRAR.register("ultimate_boss_defeated", UltimateBossDefeatedConfig::new);
   public static final RegistryDelegate<ElementalBombConfig> ELEMENTAL_BOMB = DRAMOD_CONFIG_REGISTRAR.register("elemental_bomb", ElementalBombConfig::new);
   public static final RegistryDelegate<DamageTrackerConfig> DAMAGE_TRACKER = DRAMOD_CONFIG_REGISTRAR.register("damage_tracker", DamageTrackerConfig::new);
 
@@ -312,6 +315,8 @@ public class DragoonModifier {
   public static final Registrar<InputAction, InputActionRegistryEvent> DRAMOD_INPUT_REGISTRAR = new Registrar<>(REGISTRIES.inputActions, MOD_ID);
 
   public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAMENU = DRAMOD_INPUT_REGISTRAR.register("dramenu_open", InputAction::fixed);
+
+  public static DraModSaveFile draModSave;
 
   public static String draMenuMessage = "";
 
@@ -366,7 +371,7 @@ public class DragoonModifier {
   private Obj battleHudOverlay;*/
 
   private final MenuStack menuStack = new MenuStack();
-  private boolean draMenuOpen;
+  private static boolean draMenuOpen;
 
   private boolean startThreads;
 
@@ -1244,20 +1249,32 @@ public class DragoonModifier {
   }
   //endregion
 
+  //region Save Data
+  @EventListener
+  public void saveGame(final SaveGameEvent event) {
+    final String saveLocation = event.state.campaign.path.resolve(event.fileName) + ".dragoon_modifier";
+    SaveFile.save(draModSave, saveLocation);
+    this.print("[SAVE] " + saveLocation);
+  }
+
+  @EventListener
+  public void loadGame(final LoadGameEvent event) {
+    final String saveLocation = event.save.state.campaign.path.resolve(event.save.fileName).toString() + ".dragoon_modifier";
+    this.print("[LOAD] " + saveLocation);
+    draModSave = SaveFile.load(saveLocation);
+  }
+
+  @EventListener
+  public void deleteGame(final DeleteSaveEvent event) {
+    final String saveLocation = event.campaign.path.resolve(event.fileName).toString() + ".dragoon_modifier";
+    this.print("[DELETE] " + saveLocation);
+    SaveFile.delete(event.campaign.path, event.fileName);
+  }
+  //endregion
+
   //region Inventory Battle
   /*@EventListener public void itemId(final ItemIdEvent event) { // Not needed anymore
   }/*
-
-  /* TODO Combat description events
-   @EventListener public void battleDescription(final BattleDescriptionEvent event) {
-    this.print("Description: " + event.textType + '/' + event.textIndex);
-    if(event.textType == 4) {
-      if(selectedItemId > -1) {
-        event.string = itemStats.get(selectedItemId)[15];
-      }
-    }
-    lastSelectedMenuType = event.textType;
-  }*/
 
 /*
   @EventListener public void temporaryItemStats(final TemporaryItemStatsEvent event) {
@@ -1446,25 +1463,30 @@ public class DragoonModifier {
     final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
 
     event.clear();
-    if(this.ultimateBattle) {
-      for(int i = 0; i < 86; i++) {
-        if(enemyId == Integer.parseInt(ultimateData.get(i)[0])) {
-          final String item = monstersRewardsStats.get(enemyId)[27];
+    if(ultimateBattle) {
+      event.xp = 0;
+      event.gold = 0;
 
-          event.xp = Integer.parseInt(ultimateData.get(i)[25]);
-          event.gold = Integer.parseInt(ultimateData.get(i)[26]);
-          if(!item.startsWith("lod:_") && !item.startsWith("lod:None")) {
-            try {
-              event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(monstersRewardsStats.get(enemyId)[2]), REGISTRIES.equipment.getEntry(item).get()));
-            } catch(final Exception ignored) {
-            }
+      if(draModSave.ultimateBossStage + 1 == CONFIG.getConfig(ULTIMATE_BOSS.get())) {
+        for(int i = 0; i < 86; i++) {
+          if(enemyId == Integer.parseInt(ultimateData.get(i)[0])) {
+            final String item = ultimateData.get(i)[27];
 
-            try {
-              event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(monstersRewardsStats.get(enemyId)[2]), REGISTRIES.items.getEntry(item).get()));
-            } catch(final Exception ignored) {
+            event.xp = Integer.parseInt(ultimateData.get(i)[25]);
+            event.gold = Integer.parseInt(ultimateData.get(i)[26]);
+            if(!item.startsWith("lod:_") && !item.startsWith("lod:None")) {
+              try {
+                event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(ultimateData.get(i)[28]), REGISTRIES.equipment.getEntry(item).get()));
+              } catch(final Exception ignored) {
+              }
+
+              try {
+                event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(ultimateData.get(i)[28]), REGISTRIES.items.getEntry(item).get()));
+              } catch(final Exception ignored) {
+              }
             }
+            break;
           }
-          break;
         }
       }
     } else {
@@ -1540,7 +1562,7 @@ public class DragoonModifier {
         event.clear();
         event.xp = 30000;
         event.gold = 250;
-        if(Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) == 39) {
+        if(draModSave.faustDefeated == 39) {
           event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.equipment.getEntry("lod:armor_of_legend").get()));
           event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.equipment.getEntry("lod:legend_casque").get()));
         }
@@ -2039,7 +2061,7 @@ public class DragoonModifier {
       }
     }
 
-    if(this.ultimateBattle) {
+    if(ultimateBattle) {
       for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
         final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c[i];
         final BattleEntity27c bobj = state.innerStruct_00;
@@ -2954,7 +2976,7 @@ public class DragoonModifier {
       }
     }
 
-    if(this.ultimateBattle) {
+    if(ultimateBattle) {
       if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof MonsterBattleEntity) {
         if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultiamte boss
           event.damage /= this.ultimatePenality[player.charSlot_276][1];
@@ -2983,7 +3005,7 @@ public class DragoonModifier {
             } catch (Exception ignored) {}
         }*/
 
-    if(this.ultimateBattle) { //Ultimate Boss effects per attack
+    if(ultimateBattle) { //Ultimate Boss effects per attack
       if(event.attacker instanceof final MonsterBattleEntity monster) {
         this.ultimateGuardBreak((PlayerBattleEntity)event.defender, monster, event);
         this.ultimateMPAttack((PlayerBattleEntity)event.defender, monster, event);
@@ -3240,7 +3262,7 @@ public class DragoonModifier {
     return item == LodItems.BURNING_WAVE.get() || item == LodItems.FROZEN_JET.get() || item == LodItems.DOWN_BURST.get() || item == LodItems.GRAVITY_GRABBER.get() || item == LodItems.SPECTRAL_FLASH.get() || item == LodItems.NIGHT_RAID.get() || item == LodItems.FLASH_HALL.get() || item == LodItems.PSYCHE_BOMB.get() || item == LodItems.PSYCHE_BOMB_X.get();
   }
 
-  public void updateElementalBomb(final AttackEvent event) { //TODO item registries
+  public void updateElementalBomb(final AttackEvent event) {
     if(GameEngine.CONFIG.getConfig(ELEMENTAL_BOMB.get()) == ElementalBomb.ON) {
       if(event.attacker instanceof final PlayerBattleEntity player) {
         try {
@@ -3522,53 +3544,19 @@ public class DragoonModifier {
 
     if(this.faustBattle) {
       this.faustBattle = false;
-      try {
-        GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(Integer.parseInt(GameEngine.CONFIG.getConfig(FAUST_DEFEATED.get())) + 1));
-      } catch(final NumberFormatException ex) {
-        GameEngine.CONFIG.setConfig(FAUST_DEFEATED.get(), String.valueOf(1));
-      }
+      draModSave.faustDefeated += 1;
     }
 
-    if(this.ultimateBattle) {
-      this.ultimateBattle = false;
+    if(ultimateBattle) {
+      ultimateBattle = false;
 
-      final int ultimateBossesDefeated = Integer.parseInt(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS_DEFEATED.get()));
-      int ultimateBossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1;
-      final int mapId = submapCut_80052c30;
-
-      if(mapId >= 393 && mapId <= 394) {
-        if(ultimateBossSelected > 2 && ultimateBossesDefeated > 2) {
-          ultimateBossSelected = 2;
-        } else {
-          if(ultimateBossSelected > ultimateBossesDefeated) {
-            ultimateBossSelected = ultimateBossesDefeated;
-          }
-        }
-      } else if(mapId >= 395 && mapId <= 397) {
-        if(ultimateBossSelected > 7 && ultimateBossesDefeated > 7) {
-          ultimateBossSelected = 7;
-        } else {
-          if(ultimateBossSelected > ultimateBossesDefeated) {
-            ultimateBossSelected = ultimateBossesDefeated;
-          }
-        }
-      } else if(mapId >= 398 && mapId <= 400) {
-        if(ultimateBossSelected > 21 && ultimateBossesDefeated > 21) {
-          ultimateBossSelected = 21;
-        } else {
-          if(ultimateBossSelected > ultimateBossesDefeated) {
-            ultimateBossSelected = ultimateBossesDefeated;
-          }
-        }
+      if(draModSave.ultimateBossStage + 1 == GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get())) {
+        draModSave.ultimateBossStage += 1;
       }
 
-      if(ultimateBossesDefeated == ultimateBossSelected) {
-        GameEngine.CONFIG.setConfig(ULTIMATE_BOSS_DEFEATED.get(), String.valueOf(Integer.parseInt(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS_DEFEATED.get())) + 1));
-      }
-
-      if(Integer.parseInt(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS_DEFEATED.get())) == 3) {
+      if(draModSave.ultimateBossStage == 3) {
         GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 36);
-      } else if(Integer.parseInt(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS_DEFEATED.get())) == 8) {
+      } else if(draModSave.ultimateBossStage == 8) {
         GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 40);
       }
     }
@@ -3598,7 +3586,7 @@ public class DragoonModifier {
         pw.printf("===========================================================================================================%n");
         pw.printf("| Name     | Weapon           | Helmet           | Armor            | Shoes            | Accessory        |%n");
         pw.printf("-----------------------------------------------------------------------------------------------------------%n");
-        for(int i = 0; i < this.damageTrackerEquips.length; i++) { //TODO damage tracker registries
+        for(int i = 0; i < this.damageTrackerEquips.length; i++) {
           pw.printf("| %-8s | %-16s | %-16s | %-16s | %-16s | %-16s |%n", charNames[gameState_800babc8.charIds_88[i]], I18n.translate(this.damageTrackerEquips[i][0]), I18n.translate(this.damageTrackerEquips[i][1]), I18n.translate(this.damageTrackerEquips[i][2]), I18n.translate(this.damageTrackerEquips[i][3]), I18n.translate(this.damageTrackerEquips[i][4]));
         }
         pw.printf("===========================================================================================================%n%n");
@@ -3819,6 +3807,30 @@ public class DragoonModifier {
   //region Scripting
   @EventListener
   public void DrgnFileEvent(final DrgnFileEvent event) {
+    this.print("[FILE] " + event.location + " - " + event.deffPath);
+
+
+    if(!event.loadDeff) {
+      if(ultimateBattle && event.location.startsWith("SECT/DRGN1.BIN")) {
+        final Path ultimateMonster = Loader.resolveMods("dragoon_modifier/scripts/mobs/" + event.location.split("/")[2]);
+
+        if(Files.exists(ultimateMonster)) {
+          this.print("[OVERRIDE] " + ultimateMonster);
+          event.overrideLoad = true;
+          Loader.loadFile(ultimateMonster, event.onCompletion);
+        }
+      }
+    } else {
+      if(event.deffPath.toString().contains("DRGN0.BIN\\5216\\1")) {
+        final Path attack = Loader.resolveMods("dragoon_modifier/scripts/mobs/5216.1");
+        if(Files.exists(attack)) {
+          try {
+            this.print("[OVERRIDE] 5216.1");
+            event.fileData = Files.readAllBytes(attack);
+          } catch(final IOException ignored) {}
+        }
+      }
+    }
   }
 
   @EventListener
@@ -3826,27 +3838,24 @@ public class DragoonModifier {
     File file = new File("scriptDump\\" + submapCut_80052c30 + "mainScript");
     try {
       file.createNewFile();
-    } catch(IOException ex) {
-      { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
-    }
+    } catch(IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
+
     try(FileOutputStream fos = new FileOutputStream(file)) {
       fos.write(event.submapScript.data);
-    } catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
+    } catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
 
     for(int i = 0; i < event.submapObjects.size(); i++) {
       file = new File("scriptDump\\" + submapCut_80052c30 + "objectScript" +  "-" + i);
       try {
         file.createNewFile();
-      } catch(IOException ex) {
-        { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
-      }
+      } catch(IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
       try(FileOutputStream fos = new FileOutputStream(file)) {
         fos.write(event.submapObjects.get(i).script.data);
-      } catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
+      } catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
     }
 
     if(submapCut_80052c30 == 177) {
-      event.submapObjects.add(event.submapObjects.get(1));
+      //event.submapObjects.add(event.submapObjects.get(1));
       //try {
       //  event.submapObjects.getFirst().script = new ScriptFile("NEW NPC TEST", Files.readAllBytes(Path.of("mods", "dragoon_modifier", "scripts", "npcs", "177.0")));
       //} catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
@@ -3870,19 +3879,29 @@ public class DragoonModifier {
 
   public void dramodHotkeys() {
     if(this.hotkey.contains(INPUT_ACTION_DRAMENU.get())) {
-      if(!this.draMenuOpen) {
+      if(!draMenuOpen) {
         if(engineState_8004dd20 == EngineStateEnum.SUBMAP_05) {
           draMenuMessage = "";
           SCRIPTS.pause();
           final DraMenu menu = new DraMenu();
+
+
+          int ultimateBossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get());
+          if(ultimateBossSelected > draModSave.ultimateBossStage + 1) {
+            ultimateBossSelected = draModSave.ultimateBossStage + 1;
+            GameEngine.CONFIG.setConfig(DragoonModifier.ULTIMATE_BOSS.get(), ultimateBossSelected);
+          }
+
+          menu.setUltimateBossDefeated(draModSave.ultimateBossStage);
+          menu.setUltimateBossStage(ultimateBossSelected);
           this.menuStack.pushScreen(menu);
           playMenuSound(2);
-          this.draMenuOpen = true;
+          draMenuOpen = true;
         }
       } else {
         this.menuStack.reset();
         playMenuSound(3);
-        this.draMenuOpen = false;
+        draMenuOpen = false;
         SCRIPTS.resume();
       }
 
@@ -3987,7 +4006,7 @@ public class DragoonModifier {
   public static void swapRedEyedAndDivineSpirit() {
     final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
     if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
-      if(Integer.parseInt(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS_DEFEATED.get())) >= 34) {
+      if(draModSave.ultimateBossStage >= 34) {
         gameState_800babc8.goods_19c[0] ^= 1 << 7;
         if(submapCut_80052c30 == 736) {
           gameState_800babc8.goods_19c[0] |= 1 << 0;
@@ -4032,10 +4051,6 @@ public class DragoonModifier {
     draMenuMessage = "???";
   }
 
-  public static void startUltimateBoss() {
-
-  }
-
   public static void removeSecondSlot() {
     gameState_800babc8.charIds_88[1] = -1;
   }
@@ -4045,10 +4060,59 @@ public class DragoonModifier {
   }
 
   public static void forbiddenLandShop() {
-    if(currentEngineState_8004dd04 instanceof final SMap smap) {
-      shopId_8007a3b4 = 19;
-      smap.mapTransition(-1, 0x3fe);
-    }
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        shopId_8007a3b4 = 19;
+        smap.mapTransition(-1, 0x3fe);
+      }
+    }).start();
+  }
+
+  public static void nextUltimateBoss() {
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        ultimateBattle = true;
+        CONFIG.setConfig(ULTIMATE_BOSS.get(), draModSave.ultimateBossStage + 1);
+        smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
+        battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
+        smap.mapTransition(-1, 0);
+      }
+    }).start();
+  }
+
+  public static void startUltimateBoss() {
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        ultimateBattle = true;
+        smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
+        battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
+        smap.mapTransition(-1, 0);
+      }
+    }).start();
   }
 
   @EventListener
@@ -4070,7 +4134,7 @@ public class DragoonModifier {
   }
   //endregion
 
-  public boolean isBitSet(final int index, final int bit) {
+  public static boolean isBitSet(final int index, final int bit) {
     return (gameState_800babc8.scriptFlags2_bc.getRaw(index) & bit) != 1;
   }
 }
