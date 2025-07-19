@@ -209,6 +209,6 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,50,Fake Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:fake_solitary_ring
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,10000,Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:solitary_ring
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,8,8,0,0,0,0,0,0,0,0,50,Fake Plague Boots,Raises status chance§by 20%.,dragoon_modifier:fake_plague_boots
-0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,12,12,0,0,0,0,0,0,0,0,150,Plague Boots,Raises status chance§by 40%.,dragoon_modifier:plague_boots
+0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,12,12,0,0,0,0,0,0,0,0,300,Plague Boots,Raises status chance§by 40%.,dragoon_modifier:plague_boots
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,5,0,0,18,18,0,0,0,0,0,0,0,0,2000,Magicial Sollerets,,dragoon_modifier:magical_sollerets
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,0,0,0,0,15,15,0,0,0,0,2000,Magical Chausses,Raises evasion§by 15%.,dragoon_modifier:magical_chausses
