@@ -4107,8 +4107,8 @@ public class DragoonModifier {
 
       if(currentEngineState_8004dd04 instanceof final SMap smap) {
         int bossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1;
-        if(bossSelected <= 0) {
-          bossSelected = 1;
+        if(bossSelected < 0) {
+          bossSelected = 0;
         }
         ultimateBattle = true;
         smap.submap.prepareEncounter(ultimateEncounter[bossSelected][0], false);
