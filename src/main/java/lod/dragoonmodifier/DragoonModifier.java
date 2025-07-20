@@ -2977,20 +2977,6 @@ public class DragoonModifier {
       }
     }
 
-    if(ultimateBattle) {
-      if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof MonsterBattleEntity) {
-        if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultiamte boss
-          event.damage /= this.ultimatePenality[player.charSlot_276][1];
-        }
-      }
-
-      if(event.attacker instanceof MonsterBattleEntity && event.defender instanceof final PlayerBattleEntity player) {
-        if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultiamte boss
-          event.damage *= this.ultimatePenality[player.charSlot_276][1];
-        }
-      }
-    }
-
         /*if(event.attacker instanceof MonsterBattleEntity monster && event.defender instanceof PlayerBattleEntity player) {
             try {
                 System.out.println("-------------------------------");
@@ -3007,6 +2993,18 @@ public class DragoonModifier {
         }*/
 
     if(ultimateBattle) { //Ultimate Boss effects per attack
+      if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof MonsterBattleEntity) {
+        if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultimate boss
+          event.damage /= this.ultimatePenality[player.charSlot_276][1];
+        }
+      }
+
+      if(event.attacker instanceof MonsterBattleEntity && event.defender instanceof final PlayerBattleEntity player) {
+        if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultimate boss
+          event.damage *= this.ultimatePenality[player.charSlot_276][1];
+        }
+      }
+
       if(event.attacker instanceof final MonsterBattleEntity monster) {
         this.ultimateGuardBreak((PlayerBattleEntity)event.defender, monster, event);
         this.ultimateMPAttack((PlayerBattleEntity)event.defender, monster, event);
