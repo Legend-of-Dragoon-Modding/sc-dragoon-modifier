@@ -1625,6 +1625,7 @@ public class DragoonModifier {
     Arrays.fill(this.previousBurnStacks, 0);
     Arrays.fill(this.enrageMode, 0);
     Arrays.fill(this.enrageModeProtection, 0);
+    Arrays.fill(this.elementalBombTurns, 0);
     Arrays.fill(this.windMark, 0);
     Arrays.fill(this.thunderCharge, 0);
     Arrays.fill(this.burnStackMode, false);
