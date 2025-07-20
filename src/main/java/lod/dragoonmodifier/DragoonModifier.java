@@ -2403,7 +2403,7 @@ public class DragoonModifier {
 
           if(this.kongolCounterStance[player.charSlot_276]) {
             this.kongolCounterStanceTurns[this.currentPlayerSlot] -= 1;
-            player.setStat(BattleEntityStat.CURRENT_HP, (int)(player.getStat(BattleEntityStat.CURRENT_HP) + player.getStat(BattleEntityStat.MAX_HP) * 0.03));
+            player.setStat(BattleEntityStat.CURRENT_HP, (int)(player.getStat(BattleEntityStat.CURRENT_HP) + player.getStat(BattleEntityStat.MAX_HP) * 0.02));
           }
         }
       } else {
