@@ -2272,7 +2272,7 @@ public class DragoonModifier {
           final int currentMP = player.getStat(BattleEntityStat.CURRENT_MP);
           if(currentMP >= 10) {
             player.setStat(BattleEntityStat.CURRENT_MP, currentMP - 10);
-          } else if(currentMP == 0) {
+          } else {
             this.meruWinglyMagic[player.charSlot_276] = false;
           }
         }
