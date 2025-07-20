@@ -1130,7 +1130,7 @@ public class DragoonModifier {
     event.register(this.id("wind_barrier"), new ModMenu("Wind Barrier"));
     event.register(this.id("arrow_swap"), new ModMenu("Arrow Swap"));
     event.register(this.id("siphon_overflow"), new ModMenu("Siphon Overflow"));
-    event.register(this.id("staic_charge"), new ModMenu("Static Charge"));
+    event.register(this.id("static_charge"), new ModMenu("Static Charge"));
     event.register(this.id("magic_state"), new ModMenu("Magic State"));
     event.register(this.id("counter_stance"), new ModMenu("Counter Stance"));
   }
@@ -2190,7 +2190,7 @@ public class DragoonModifier {
                 menuEntry.get().disable();
               }
             } else if(player.charId_272 == 4) {
-              if(text.contains("staic_charge")) {
+              if(text.contains("static_charge")) {
                 menuEntry.get().enable();
               } else {
                 menuEntry.get().disable();
@@ -2509,7 +2509,7 @@ public class DragoonModifier {
           }
         }
 
-        if(player.spellId_4e >= 84) { //Item Spells In Dragoon
+        if(player.spellId_4e >= 84 && player.spellId_4e <= 94) { //Item Spells In Dragoon
           if(player.charId_272 != 4) {
             this.bonusItemSP[player.charSlot_276] = true;
           }
@@ -4107,9 +4107,13 @@ public class DragoonModifier {
       }
 
       if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        int bossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1;
+        if(bossSelected <= 0) {
+          bossSelected = 1;
+        }
         ultimateBattle = true;
-        smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
-        battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
+        smap.submap.prepareEncounter(ultimateEncounter[bossSelected][0], false);
+        battleStage_800bb0f4 = ultimateEncounter[bossSelected][1];
         smap.mapTransition(-1, 0);
       }
     }).start();

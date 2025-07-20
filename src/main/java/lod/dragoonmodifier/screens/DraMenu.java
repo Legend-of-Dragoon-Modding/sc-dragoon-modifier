@@ -34,7 +34,6 @@ public class DraMenu extends MenuScreen {
     addButton("Level Sync", DragoonModifier::levelSync);
     addButton("Remove Second Slot", DragoonModifier::removeSecondSlot);
     addButton("Remove Third Slot", DragoonModifier::removeThirdSlot);
-    addButton("Add Everyone", DragoonModifier::addAllPartyMembers);
 
     if(gameState_800babc8.scriptFlags2_bc.get(0, 7)) {
       addButton("Swap Lavitz", DragoonModifier::addLavitz);
@@ -42,6 +41,10 @@ public class DraMenu extends MenuScreen {
 
     if(gameState_800babc8.scriptFlags2_bc.get(0, 10)) {
       addButton("Swap Shana", DragoonModifier::addShana);
+    }
+
+    if(submapCut_80052c30 != 10) {
+      addButton("Add Everyone", DragoonModifier::addAllPartyMembers);
     }
 
     if(submapCut_80052c30 == 10) {

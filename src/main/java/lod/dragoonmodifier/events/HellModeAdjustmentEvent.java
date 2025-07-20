@@ -11,10 +11,10 @@ import org.legendofdragoon.modloader.events.Event;
 public class HellModeAdjustmentEvent extends Event {
   public HellModeAdjustmentEvent() {
     //TODO Ultiamte Boss
-    //int ultimateBossesDefeated = Integer.parseInt(GameEngine.CONFIG.getConfig(DragoonModifier.ULTIMATE_BOSS_DEFEATED.get()));
-    //if(ultimateBossesDefeated < 3) {
+    int ultimateBossesDefeated = DragoonModifier.draModSave.ultimateBossStage;
+    if(ultimateBossesDefeated < 3) {
       GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 32);
-    /*} else if(ultimateBossesDefeated < 8) {
+    } else if(ultimateBossesDefeated < 8) {
       GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 36);
     } else if(ultimateBossesDefeated < 22) {
       GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 40);
@@ -22,7 +22,7 @@ public class HellModeAdjustmentEvent extends Event {
       GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 48);
     } else if(ultimateBossesDefeated >= 34) {
       GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 64);
-    }*/
+    }
     GameEngine.CONFIG.setConfig(DragoonModifier.ENRAGE_MODE.get(), EnrageMode.ON);
     GameEngine.CONFIG.setConfig(DragoonModifier.ELEMENTAL_BOMB.get(), ElementalBomb.ON);
     GameEngine.CONFIG.setConfig(CoreMod.DRAGOON_DETRANSFORMATION_CONFIG.get(), DragoonDetransformationMode.AFTER_TURN);
