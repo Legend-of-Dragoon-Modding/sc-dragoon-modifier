@@ -162,6 +162,7 @@ import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_8007.shopId_8007a3b4;
 import static legend.game.Scus94491BpeSegment_800b.*;
+import static legend.game.combat.Battle.spellStats_800fa0b8_Monster;
 import static legend.game.combat.Battle.spellStats_800fa0b8_Player;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
@@ -1124,7 +1125,7 @@ public class DragoonModifier {
         Integer.parseInt(spellStatsPlayer.get(i)[11]));
     }
     for(int i = 0; i < spellStatsMonster.size(); i++) {
-      spellStats_800fa0b8_Player[i] = new SpellStats0c(spellStatsMonster.get(i)[12],
+      spellStats_800fa0b8_Monster[i] = new SpellStats0c(spellStatsMonster.get(i)[12],
         spellStatsMonster.get(i)[13],
         Integer.parseInt(spellStatsMonster.get(i)[0]),
         Integer.parseInt(spellStatsMonster.get(i)[1]),
