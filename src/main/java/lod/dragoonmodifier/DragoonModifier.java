@@ -162,9 +162,8 @@ import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_8007.shopId_8007a3b4;
 import static legend.game.Scus94491BpeSegment_800b.*;
-import static legend.game.combat.Battle.spellStats_800fa0b8;
+import static legend.game.combat.Battle.spellStats_800fa0b8_Player;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
-import static legend.game.unpacker.Loader.loadFile;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
 import static legend.lodmod.LodMod.DIVINE_ELEMENT;
 import static legend.lodmod.LodMod.EARTH_ELEMENT;
@@ -193,7 +192,8 @@ public class DragoonModifier {
   public static final List<String[]> dragoonStatsTable = new ArrayList<>();
   public static final List<String[]> xpNextStats = new ArrayList<>();
   public static final List<String[]> dxpNextStats = new ArrayList<>();
-  public static final List<String[]> spellStats = new ArrayList<>();
+  public static final List<String[]> spellStatsPlayer = new ArrayList<>();
+  public static final List<String[]> spellStatsMonster = new ArrayList<>();
   public static final List<String[]> equipStats = new ArrayList<>();
   public static final List<String[]> itemStats = new ArrayList<>();
   public static final List<String[]> shopItems = new ArrayList<>();
@@ -244,7 +244,7 @@ public class DragoonModifier {
     {449, 68}, {402, 23}, {403, 29}, {417, 31}, {418, 41}, {448, 68}, {416, 38}, {422, 42}, {423, 47}, {432, 69}, {430, 67}, {433, 56}, {431, 54}, {447, 68}
   };
   public static boolean ultimateBattle;
-  public int ultimateLevelCap = 30;
+  public static int ultimateLevelCap = 30;
   public double[][] ultimatePenality = new double[3][2];
   public boolean[] bonusItemSP = new boolean[3];
   public boolean[] ouroboros = new boolean[3];
@@ -446,7 +446,8 @@ public class DragoonModifier {
     this.loadCsvIntoList(difficulty, dragoonStatsTable, "scdk-dragoon-stats.csv");
     this.loadCsvIntoList(difficulty, xpNextStats, "scdk-exp-table.csv");
     this.loadCsvIntoList(difficulty, dxpNextStats, "scdk-dragoon-exp-table.csv");
-    this.loadCsvIntoList(difficulty, spellStats, "scdk-spell-stats.csv");
+    this.loadCsvIntoList(difficulty, spellStatsPlayer, "scdk-player-spell-stats.csv");
+    this.loadCsvIntoList(difficulty, spellStatsMonster, "scdk-monster-spell-stats.csv");
     this.loadCsvIntoList(difficulty, equipStats, "scdk-equip-stats.csv");
     this.loadCsvIntoList(difficulty, itemStats, "scdk-thrown-item-stats.csv");
     this.loadCsvIntoList(difficulty, shopItems, "scdk-shop-items.csv");
@@ -1106,21 +1107,37 @@ public class DragoonModifier {
 
   @EventListener
   public void spellRegistry(final SpellRegistryEvent event) {
-    for(int i = 0; i < spellStats.size(); i++) {
-      spellStats_800fa0b8[i] = new SpellStats0c(spellStats.get(i)[12],
-        spellStats.get(i)[13],
-        Integer.parseInt(spellStats.get(i)[0]),
-        Integer.parseInt(spellStats.get(i)[1]),
-        Integer.parseInt(spellStats.get(i)[2]),
-        Integer.parseInt(spellStats.get(i)[3]),
-        Integer.parseInt(spellStats.get(i)[4]),
-        Integer.parseInt(spellStats.get(i)[5]),
-        Integer.parseInt(spellStats.get(i)[6]),
-        Integer.parseInt(spellStats.get(i)[7]),
-        Element.fromFlag(Integer.parseInt(spellStats.get(i)[8])),
-        Integer.parseInt(spellStats.get(i)[9]),
-        Integer.parseInt(spellStats.get(i)[10]),
-        Integer.parseInt(spellStats.get(i)[11]));
+    for(int i = 0; i < spellStatsPlayer.size(); i++) {
+      spellStats_800fa0b8_Player[i] = new SpellStats0c(spellStatsPlayer.get(i)[12],
+        spellStatsPlayer.get(i)[13],
+        Integer.parseInt(spellStatsPlayer.get(i)[0]),
+        Integer.parseInt(spellStatsPlayer.get(i)[1]),
+        Integer.parseInt(spellStatsPlayer.get(i)[2]),
+        Integer.parseInt(spellStatsPlayer.get(i)[3]),
+        Integer.parseInt(spellStatsPlayer.get(i)[4]),
+        Integer.parseInt(spellStatsPlayer.get(i)[5]),
+        Integer.parseInt(spellStatsPlayer.get(i)[6]),
+        Integer.parseInt(spellStatsPlayer.get(i)[7]),
+        Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(i)[8])),
+        Integer.parseInt(spellStatsPlayer.get(i)[9]),
+        Integer.parseInt(spellStatsPlayer.get(i)[10]),
+        Integer.parseInt(spellStatsPlayer.get(i)[11]));
+    }
+    for(int i = 0; i < spellStatsMonster.size(); i++) {
+      spellStats_800fa0b8_Player[i] = new SpellStats0c(spellStatsMonster.get(i)[12],
+        spellStatsMonster.get(i)[13],
+        Integer.parseInt(spellStatsMonster.get(i)[0]),
+        Integer.parseInt(spellStatsMonster.get(i)[1]),
+        Integer.parseInt(spellStatsMonster.get(i)[2]),
+        Integer.parseInt(spellStatsMonster.get(i)[3]),
+        Integer.parseInt(spellStatsMonster.get(i)[4]),
+        Integer.parseInt(spellStatsMonster.get(i)[5]),
+        Integer.parseInt(spellStatsMonster.get(i)[6]),
+        Integer.parseInt(spellStatsMonster.get(i)[7]),
+        Element.fromFlag(Integer.parseInt(spellStatsMonster.get(i)[8])),
+        Integer.parseInt(spellStatsMonster.get(i)[9]),
+        Integer.parseInt(spellStatsMonster.get(i)[10]),
+        Integer.parseInt(spellStatsMonster.get(i)[11]));
     }
   }
 
@@ -1874,20 +1891,20 @@ public class DragoonModifier {
               flowerStorm = 26;
             }
             if(flowerStorm > 0) {
-              spellStats_800fa0b8[flowerStorm] = new SpellStats0c(spellStats.get(flowerStorm)[12],
-                spellStats.get(flowerStorm)[13].substring(0, spellStats.get(flowerStorm)[13].length() - 1) + GameEngine.CONFIG.getConfig(FLOWER_STORM.get()),
-                Integer.parseInt(spellStats.get(flowerStorm)[0]),
-                Integer.parseInt(spellStats.get(flowerStorm)[1]),
-                Integer.parseInt(spellStats.get(flowerStorm)[2]),
-                Integer.parseInt(spellStats.get(flowerStorm)[3]),
-                Integer.parseInt(spellStats.get(flowerStorm)[4]),
-                Integer.parseInt(spellStats.get(flowerStorm)[5]),
+              spellStats_800fa0b8_Player[flowerStorm] = new SpellStats0c(spellStatsPlayer.get(flowerStorm)[12],
+                spellStatsPlayer.get(flowerStorm)[13].substring(0, spellStatsPlayer.get(flowerStorm)[13].length() - 1) + GameEngine.CONFIG.getConfig(FLOWER_STORM.get()),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[0]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[1]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[2]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[3]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[4]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[5]),
                 GameEngine.CONFIG.getConfig(FLOWER_STORM.get()) * 20,
-                Integer.parseInt(spellStats.get(flowerStorm)[7]),
-                Element.fromFlag(Integer.parseInt(spellStats.get(flowerStorm)[8])),
-                Integer.parseInt(spellStats.get(flowerStorm)[9]),
-                Integer.parseInt(spellStats.get(flowerStorm)[10]),
-                Integer.parseInt(spellStats.get(flowerStorm)[11]));
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[7]),
+                Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(flowerStorm)[8])),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[9]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[10]),
+                Integer.parseInt(spellStatsPlayer.get(flowerStorm)[11]));
             }
           }
 
@@ -2003,35 +2020,35 @@ public class DragoonModifier {
                 gatesOfHeaven = 67;
               }
 
-              spellStats_800fa0b8[moonLight] = new SpellStats0c(spellStats.get(moonLight)[12],
-                spellStats.get(moonLight)[13],
-                Integer.parseInt(spellStats.get(moonLight)[0]),
-                Integer.parseInt(spellStats.get(moonLight)[1]),
-                Integer.parseInt(spellStats.get(moonLight)[2]),
-                Integer.parseInt(spellStats.get(moonLight)[3]),
-                Integer.parseInt(spellStats.get(moonLight)[4]),
-                Integer.parseInt(spellStats.get(moonLight)[5]),
+              spellStats_800fa0b8_Player[moonLight] = new SpellStats0c(spellStatsPlayer.get(moonLight)[12],
+                spellStatsPlayer.get(moonLight)[13],
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[0]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[1]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[2]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[3]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[4]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[5]),
                 20,
-                Integer.parseInt(spellStats.get(moonLight)[7]),
-                Element.fromFlag(Integer.parseInt(spellStats.get(moonLight)[8])),
-                Integer.parseInt(spellStats.get(moonLight)[9]),
-                Integer.parseInt(spellStats.get(moonLight)[10]),
-                Integer.parseInt(spellStats.get(moonLight)[11]));
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[7]),
+                Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(moonLight)[8])),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[9]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[10]),
+                Integer.parseInt(spellStatsPlayer.get(moonLight)[11]));
               if(player.dlevel_06 >= 4 && player.stats.getStat(MP_STAT.get()).getMax() >= 120) {
-                spellStats_800fa0b8[gatesOfHeaven] = new SpellStats0c(spellStats.get(gatesOfHeaven)[12],
-                  spellStats.get(gatesOfHeaven)[13],
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[0]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[1]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[2]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[3]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[4]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[5]),
+                spellStats_800fa0b8_Player[gatesOfHeaven] = new SpellStats0c(spellStatsPlayer.get(gatesOfHeaven)[12],
+                  spellStatsPlayer.get(gatesOfHeaven)[13],
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[0]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[1]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[2]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[3]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[4]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[5]),
                   player.stats.getStat(MP_STAT.get()).getMax() / 3,
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[7]),
-                  Element.fromFlag(Integer.parseInt(spellStats.get(gatesOfHeaven)[8])),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[9]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[10]),
-                  Integer.parseInt(spellStats.get(gatesOfHeaven)[11]));
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[7]),
+                  Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[8])),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[9]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[10]),
+                  Integer.parseInt(spellStatsPlayer.get(gatesOfHeaven)[11]));
               }
             }
 
@@ -2070,7 +2087,7 @@ public class DragoonModifier {
           this.ultimatePenality[player.charSlot_276][0] = 1;
           this.ultimatePenality[player.charSlot_276][1] = 1;
 
-          if(player.level_04 > this.ultimateLevelCap) {
+          if(player.level_04 > ultimateLevelCap) {
             final int levelDifference = player.level_04 - this.ultimateLevelCap;
 
             if(this.ultimateLevelCap == 30) {
@@ -2438,8 +2455,8 @@ public class DragoonModifier {
 
     if(event.attacker instanceof PlayerBattleEntity) {
       if(event.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
-        if(Integer.parseInt(spellStats.get(event.attacker.spellId_4e)[4]) == 0) {
-          switch(Integer.parseInt(spellStats.get(event.attacker.spellId_4e)[3])) {
+        if(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[4]) == 0) {
+          switch(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[3])) {
             case 0:
             case 1:
             case 2:
@@ -2451,7 +2468,7 @@ public class DragoonModifier {
             case 128:
               break;
             default:
-              event.damage *= (int)(Integer.parseInt(spellStats.get(event.attacker.spellId_4e)[3]) / 100d);
+              event.damage *= (int)(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[3]) / 100d);
           }
         }
       }
@@ -2545,9 +2562,9 @@ public class DragoonModifier {
           if(this.burnStackMode[event.attacker.charSlot_276]) {
             if(this.burnStacks[event.attacker.charSlot_276] == this.burnStacksMax[event.attacker.charSlot_276]) {
               if(player.spellId_4e == 0) {
-                event.damage *= (1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn)) * (Integer.parseInt(spellStats.get(2)[3]) / Integer.parseInt(spellStats.get(0)[3])) * 1.5;
+                event.damage *= (1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn)) * (Integer.parseInt(spellStatsPlayer.get(2)[3]) / Integer.parseInt(spellStatsPlayer.get(0)[3])) * 1.5;
               } else if(player.spellId_4e == 1) {
-                event.damage *= (1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn)) * Integer.parseInt(spellStats.get(3)[3]) / Integer.parseInt(spellStats.get(1)[3]);
+                event.damage *= (1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn)) * Integer.parseInt(spellStatsPlayer.get(3)[3]) / Integer.parseInt(spellStatsPlayer.get(1)[3]);
               } else if(player.spellId_4e == 2) {
                 event.damage *= (1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn)) * 1.5;
               } else {
@@ -2982,10 +2999,10 @@ public class DragoonModifier {
                 System.out.println("-------------------------------");
                 if(event.attackType.isPhysical()) {
                     System.out.println("[DRAMODTEST] ID:  " + monster.spellId_4e);
-                    System.out.println("[DRAMODTEST] DMG: " + spellStats_800fa0b8[monster.spellId_4e].multi_04);
+                    System.out.println("[DRAMODTEST] DMG: " + spellStats_800fa0b8_Player[monster.spellId_4e].multi_04);
                 } else {
                     System.out.println("[DRAMODTEST] ID:  " + monster.spellId_4e);
-                    System.out.println("[DRAMODTEST] DMG: " + spellStats_800fa0b8[monster.spellId_4e].multi_04);
+                    System.out.println("[DRAMODTEST] DMG: " + spellStats_800fa0b8_Player[monster.spellId_4e].multi_04);
                     System.out.println("[DRAMODTEST] IID: " + monster.itemId_52);
                     System.out.println("[DRAMODTEST] ITM: " + monster.item_d4.damage_05);
                 }
@@ -3092,19 +3109,19 @@ public class DragoonModifier {
   public void dramodBurnStacks(final int spellId) {
     if(spellId >= 0 && spellId <= 3) {
       if(this.burnStackMode[this.currentPlayerSlot] && this.burnStacks[this.currentPlayerSlot] > 0) {
-        int damage = Integer.parseInt(spellStats.get(spellId)[3]);
-        String newDescription = spellStats.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn))));
+        int damage = Integer.parseInt(spellStatsPlayer.get(spellId)[3]);
+        String newDescription = spellStatsPlayer.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn))));
 
         if(this.burnStacks[this.currentPlayerSlot] == this.burnStacksMax[this.currentPlayerSlot]) {
           if(spellId == 0) {
-            damage *= (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * (Integer.parseInt(spellStats.get(2)[3]) / Integer.parseInt(spellStats.get(0)[3])) * 1.5;
-            newDescription = spellStats.get(spellId)[13].replace("1.00", String.format("%.2f", ((1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * (Integer.parseInt(spellStats.get(2)[3]) / Integer.parseInt(spellStats.get(0)[3])) * 1.5)));
+            damage *= (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * (Integer.parseInt(spellStatsPlayer.get(2)[3]) / Integer.parseInt(spellStatsPlayer.get(0)[3])) * 1.5;
+            newDescription = spellStatsPlayer.get(spellId)[13].replace("1.00", String.format("%.2f", ((1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * (Integer.parseInt(spellStatsPlayer.get(2)[3]) / Integer.parseInt(spellStatsPlayer.get(0)[3])) * 1.5)));
           } else if(spellId == 1) {
-            damage *= (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * Integer.parseInt(spellStats.get(3)[3]) / Integer.parseInt(spellStats.get(1)[3]);
-            newDescription = spellStats.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * Integer.parseInt(spellStats.get(3)[3]) / Integer.parseInt(spellStats.get(1)[3])));
+            damage *= (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * Integer.parseInt(spellStatsPlayer.get(3)[3]) / Integer.parseInt(spellStatsPlayer.get(1)[3]);
+            newDescription = spellStatsPlayer.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * Integer.parseInt(spellStatsPlayer.get(3)[3]) / Integer.parseInt(spellStatsPlayer.get(1)[3])));
           } else if(spellId == 2) {
             damage *= (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * 1.5;
-            newDescription = spellStats.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * 1.5));
+            newDescription = spellStatsPlayer.get(spellId)[13].replace("1.00", String.format("%.2f", (1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn)) * 1.5));
           } else {
             damage *= 1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn);
           }
@@ -3112,38 +3129,38 @@ public class DragoonModifier {
           damage *= 1 + (this.burnStacks[this.currentPlayerSlot] * this.dmgPerBurn);
         }
 
-        spellStats_800fa0b8[spellId] = new SpellStats0c(
-          spellStats.get(spellId)[12],
+        spellStats_800fa0b8_Player[spellId] = new SpellStats0c(
+          spellStatsPlayer.get(spellId)[12],
           newDescription,
-          Integer.parseInt(spellStats.get(spellId)[0]),
-          Integer.parseInt(spellStats.get(spellId)[1]),
-          Integer.parseInt(spellStats.get(spellId)[2]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[0]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[1]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[2]),
           damage,
-          Integer.parseInt(spellStats.get(spellId)[4]),
-          Integer.parseInt(spellStats.get(spellId)[5]),
-          this.burnStacks[this.currentPlayerSlot] == this.burnStacksMax[this.currentPlayerSlot] ? 0 : Integer.parseInt(spellStats.get(spellId)[6]),
-          Integer.parseInt(spellStats.get(spellId)[7]),
-          Element.fromFlag(Integer.parseInt(spellStats.get(spellId)[8])),
-          Integer.parseInt(spellStats.get(spellId)[9]),
-          Integer.parseInt(spellStats.get(spellId)[10]),
-          Integer.parseInt(spellStats.get(spellId)[11])
+          Integer.parseInt(spellStatsPlayer.get(spellId)[4]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[5]),
+          this.burnStacks[this.currentPlayerSlot] == this.burnStacksMax[this.currentPlayerSlot] ? 0 : Integer.parseInt(spellStatsPlayer.get(spellId)[6]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[7]),
+          Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(spellId)[8])),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[9]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[10]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[11])
         );
       } else {
-        spellStats_800fa0b8[spellId] = new SpellStats0c(
-          spellStats.get(spellId)[12],
-          spellStats.get(spellId)[13],
-          Integer.parseInt(spellStats.get(spellId)[0]),
-          Integer.parseInt(spellStats.get(spellId)[1]),
-          Integer.parseInt(spellStats.get(spellId)[2]),
-          Integer.parseInt(spellStats.get(spellId)[3]),
-          Integer.parseInt(spellStats.get(spellId)[4]),
-          Integer.parseInt(spellStats.get(spellId)[5]),
-          Integer.parseInt(spellStats.get(spellId)[6]),
-          Integer.parseInt(spellStats.get(spellId)[7]),
-          Element.fromFlag(Integer.parseInt(spellStats.get(spellId)[8])),
-          Integer.parseInt(spellStats.get(spellId)[9]),
-          Integer.parseInt(spellStats.get(spellId)[10]),
-          Integer.parseInt(spellStats.get(spellId)[11])
+        spellStats_800fa0b8_Player[spellId] = new SpellStats0c(
+          spellStatsPlayer.get(spellId)[12],
+          spellStatsPlayer.get(spellId)[13],
+          Integer.parseInt(spellStatsPlayer.get(spellId)[0]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[1]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[2]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[3]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[4]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[5]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[6]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[7]),
+          Element.fromFlag(Integer.parseInt(spellStatsPlayer.get(spellId)[8])),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[9]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[10]),
+          Integer.parseInt(spellStatsPlayer.get(spellId)[11])
         );
       }
     }
@@ -3155,8 +3172,10 @@ public class DragoonModifier {
 
     final String difficulty = CONFIG.getConfig(DIFFICULTY.get());
 
-    if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
-      this.dramodBurnStacks(spellId);
+    if(spell.bent instanceof PlayerBattleEntity) {
+      if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
+        this.dramodBurnStacks(spellId);
+      }
     }
   }
 
@@ -4076,46 +4095,70 @@ public class DragoonModifier {
   }
 
   public static void nextUltimateBoss() {
-    new Thread(() -> {
-      while(draMenuOpen) {
-        try {
-          Thread.sleep(20);
-        } catch(InterruptedException e) {
-          throw new RuntimeException(e);
+    final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+    if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
+      new Thread(() -> {
+        while(draMenuOpen) {
+          try {
+            Thread.sleep(20);
+          } catch(InterruptedException e) {
+            throw new RuntimeException(e);
+          }
         }
-      }
 
-      if(currentEngineState_8004dd04 instanceof final SMap smap) {
-        ultimateBattle = true;
-        CONFIG.setConfig(ULTIMATE_BOSS.get(), draModSave.ultimateBossStage + 1);
-        smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
-        battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
-        smap.mapTransition(-1, 0);
-      }
-    }).start();
+        if(currentEngineState_8004dd04 instanceof final SMap smap) {
+          ultimateBattle = true;
+          CONFIG.setConfig(ULTIMATE_BOSS.get(), draModSave.ultimateBossStage + 1);
+          setUltimateLevelCap(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1);
+          smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
+          battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
+          smap.mapTransition(-1, 0);
+        }
+      }).start();
+    } else {
+      draMenuMessage = "Ultimate Boss is only for Hard/Hell modes.";
+    }
   }
 
   public static void startUltimateBoss() {
-    new Thread(() -> {
-      while(draMenuOpen) {
-        try {
-          Thread.sleep(20);
-        } catch(InterruptedException e) {
-          throw new RuntimeException(e);
+    final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+    if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
+      new Thread(() -> {
+        while(draMenuOpen) {
+          try {
+            Thread.sleep(20);
+          } catch(InterruptedException e) {
+            throw new RuntimeException(e);
+          }
         }
-      }
 
-      if(currentEngineState_8004dd04 instanceof final SMap smap) {
-        int bossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1;
-        if(bossSelected < 0) {
-          bossSelected = 0;
+        if(currentEngineState_8004dd04 instanceof final SMap smap) {
+          int bossSelected = GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1;
+          if(bossSelected < 0) {
+            bossSelected = 0;
+          }
+          ultimateBattle = true;
+          setUltimateLevelCap(bossSelected);
+          smap.submap.prepareEncounter(ultimateEncounter[bossSelected][0], false);
+          battleStage_800bb0f4 = ultimateEncounter[bossSelected][1];
+          smap.mapTransition(-1, 0);
         }
-        ultimateBattle = true;
-        smap.submap.prepareEncounter(ultimateEncounter[bossSelected][0], false);
-        battleStage_800bb0f4 = ultimateEncounter[bossSelected][1];
-        smap.mapTransition(-1, 0);
-      }
-    }).start();
+      }).start();
+    } else {
+      draMenuMessage = "Ultimate Boss is only for Hard/Hell modes.";
+    }
+  }
+
+  public static void setUltimateLevelCap(final int bossSelected) {
+    if(bossSelected >= 22) {
+      ultimateLevelCap = 60;
+    } else if(bossSelected >= 8) {
+      ultimateLevelCap = 50;
+    } else if(bossSelected >= 3) {
+      ultimateLevelCap = 40;
+    } else {
+      ultimateLevelCap = 30;
+    }
   }
 
   @EventListener
