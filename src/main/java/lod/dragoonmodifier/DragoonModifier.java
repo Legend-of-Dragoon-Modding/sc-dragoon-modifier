@@ -86,6 +86,7 @@ import legend.lodmod.RetailDeffPackage;
 import legend.lodmod.items.AngelsPrayerItem;
 import legend.lodmod.items.AttackBallItem;
 import legend.lodmod.items.AttackItem;
+import legend.lodmod.items.BattleItem;
 import legend.lodmod.items.BodyPurifierItem;
 import legend.lodmod.items.BuffItem;
 import legend.lodmod.items.CauseStatusItem;
@@ -1320,15 +1321,12 @@ public class DragoonModifier {
 
   @EventListener
   public void spellItemDeff(final SpellItemDeffEvent event) {
-    if(selectedItemId != -1 && lastSelectedMenuType == 4) {
-      final int deffScriptId = Integer.parseInt(itemStats.get(selectedItemId)[16]);
-      if(deffScriptId != -1) {
-        event.scriptId = deffScriptId;
-        event.s0 = 0;
+    if(ultimateBattle) {
+      if(encounterId_800bb0f8 == 412) {
+        //if(event.tims.contains("4401")) {
+        //}
       }
     }
-
-    this.print("Item/Spell DEFF: " + event.scriptId + '+' + event.s0);
   }
 
   @EventListener
@@ -1457,23 +1455,48 @@ public class DragoonModifier {
   //region Battle Monster
   @EventListener
   public void monsterStats(final MonsterStatsEvent event) {
-    final int ovrId = event.enemyId;
-    event.hp = Integer.parseInt(monsterStats.get(ovrId)[1]);
-    event.maxHp = Integer.parseInt(monsterStats.get(ovrId)[1]);
-    event.attack = Integer.parseInt(monsterStats.get(ovrId)[3]);
-    event.magicAttack = Integer.parseInt(monsterStats.get(ovrId)[4]);
-    event.speed = Integer.parseInt(monsterStats.get(ovrId)[5]);
-    event.defence = Integer.parseInt(monsterStats.get(ovrId)[6]);
-    event.magicDefence = Integer.parseInt(monsterStats.get(ovrId)[7]);
-    event.attackAvoid = Integer.parseInt(monsterStats.get(ovrId)[8]);
-    event.magicAvoid = Integer.parseInt(monsterStats.get(ovrId)[9]);
-    event.specialEffectFlag = Integer.parseInt(monsterStats.get(ovrId)[10]);
-    event.elementFlag = Element.fromFlag(Integer.parseInt(monsterStats.get(ovrId)[12])).get();
-    event.elementalImmunityFlag.clear();
-    if(Integer.parseInt(monsterStats.get(ovrId)[13]) > 0) {
-      event.elementalImmunityFlag.add(Element.fromFlag(Integer.parseInt(monsterStats.get(ovrId)[13])).get());
+    if(ultimateBattle) {
+      final int ovrId = event.enemyId;
+      for(int x = 0; x < 86; x++) {
+        if(ovrId == Integer.parseInt(ultimateData.get(x)[0])) {
+          event.hp = Integer.parseInt(ultimateData.get(x)[1]);
+          event.maxHp = Integer.parseInt(ultimateData.get(x)[1]);
+          event.attack = Integer.parseInt(ultimateData.get(x)[3]);
+          event.magicAttack = Integer.parseInt(ultimateData.get(x)[4]);
+          event.speed = Integer.parseInt(ultimateData.get(x)[5]);
+          event.defence = Integer.parseInt(ultimateData.get(x)[6]);
+          event.magicDefence = Integer.parseInt(ultimateData.get(x)[7]);
+          event.attackAvoid = Integer.parseInt(ultimateData.get(x)[8]);
+          event.magicAvoid = Integer.parseInt(ultimateData.get(x)[9]);
+          event.specialEffectFlag = Integer.parseInt(ultimateData.get(x)[10]);
+          event.elementFlag = Element.fromFlag(Integer.parseInt(ultimateData.get(x)[12])).get();
+          event.elementalImmunityFlag.clear();
+          if(Integer.parseInt(ultimateData.get(x)[13]) > 0) {
+            event.elementalImmunityFlag.add(Element.fromFlag(Integer.parseInt(ultimateData.get(x)[13])).get());
+          }
+          event.statusResistFlag = Integer.parseInt(ultimateData.get(x)[14]);
+          break;
+        }
+      }
+    } else {
+      final int ovrId = event.enemyId;
+      event.hp = Integer.parseInt(monsterStats.get(ovrId)[1]);
+      event.maxHp = Integer.parseInt(monsterStats.get(ovrId)[1]);
+      event.attack = Integer.parseInt(monsterStats.get(ovrId)[3]);
+      event.magicAttack = Integer.parseInt(monsterStats.get(ovrId)[4]);
+      event.speed = Integer.parseInt(monsterStats.get(ovrId)[5]);
+      event.defence = Integer.parseInt(monsterStats.get(ovrId)[6]);
+      event.magicDefence = Integer.parseInt(monsterStats.get(ovrId)[7]);
+      event.attackAvoid = Integer.parseInt(monsterStats.get(ovrId)[8]);
+      event.magicAvoid = Integer.parseInt(monsterStats.get(ovrId)[9]);
+      event.specialEffectFlag = Integer.parseInt(monsterStats.get(ovrId)[10]);
+      event.elementFlag = Element.fromFlag(Integer.parseInt(monsterStats.get(ovrId)[12])).get();
+      event.elementalImmunityFlag.clear();
+      if(Integer.parseInt(monsterStats.get(ovrId)[13]) > 0) {
+        event.elementalImmunityFlag.add(Element.fromFlag(Integer.parseInt(monsterStats.get(ovrId)[13])).get());
+      }
+      event.statusResistFlag = Integer.parseInt(monsterStats.get(ovrId)[14]);
     }
-    event.statusResistFlag = Integer.parseInt(monsterStats.get(ovrId)[14]);
   }
 
   @EventListener
@@ -2125,30 +2148,6 @@ public class DragoonModifier {
           }
 
           this.ultimateZeroSPStart(player);
-        } else if(bobj instanceof final MonsterBattleEntity monster) {
-          final int enemyId = monster.charId_272;
-          for(int x = 0; x < 86; x++) {
-            if(enemyId == Integer.parseInt(ultimateData.get(x)[0])) {
-              monster.stats.getStat(HP_STAT.get()).setMaxRaw(Integer.parseInt(ultimateData.get(x)[1]));
-              monster.stats.getStat(HP_STAT.get()).setCurrent(Integer.parseInt(ultimateData.get(x)[1]));
-              monster.attack_34 = Integer.parseInt(ultimateData.get(x)[3]);
-              monster.magicAttack_36 = Integer.parseInt(ultimateData.get(x)[4]);
-              monster.stats.getStat(SPEED_STAT.get()).setRaw(Integer.parseInt(ultimateData.get(x)[5]));
-              monster.defence_38 = Integer.parseInt(ultimateData.get(x)[6]);
-              monster.magicDefence_3a = Integer.parseInt(ultimateData.get(x)[7]);
-              monster.attackAvoid_40 = Integer.parseInt(ultimateData.get(x)[8]);
-              monster.magicAvoid_42 = Integer.parseInt(ultimateData.get(x)[9]);
-              monster.specialEffectFlag_14 = Integer.parseInt(ultimateData.get(x)[10]);
-              monster.element = Element.fromFlag(Integer.parseInt(ultimateData.get(x)[12])).get();
-              monster.equipmentStatusResist_24 = Integer.parseInt(ultimateData.get(x)[13]);
-              monster.monsterElementalImmunity_74.clear();
-              if(Integer.parseInt(ultimateData.get(x)[13]) > 0) {
-                monster.monsterElementalImmunity_74.add(Element.fromFlag(Integer.parseInt(ultimateData.get(x)[13])).get());
-              }
-              monster.monsterStatusResistFlag_76 = Integer.parseInt(ultimateData.get(x)[14]);
-              break;
-            }
-          }
         }
       }
     }
