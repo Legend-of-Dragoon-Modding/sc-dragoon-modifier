@@ -227,6 +227,7 @@ public class DragoonModifier {
   public boolean[] elementalAttack = new boolean[3];
   public int[] windMark = new int[10];
   public int[] thunderCharge = new int[10];
+  public int[] staticCharge = new int[3];
   public boolean flowerStormOverride;
   public boolean[] shanaStarChildrenHeal = new boolean[3];
   public boolean[] shanaRapidFireContinue = new boolean[3];
@@ -2757,23 +2758,29 @@ public class DragoonModifier {
           if(event.defender instanceof final MonsterBattleEntity monster) { //Haschel in party thunder charge
             try {
               if(event.attacker.spell_94.element_08.get() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
-                this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                if(this.staticCharge[event.attacker.charSlot_276] == 0) {
+                  this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
+                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                }
               }
             } catch(final Exception ignored) {
             }
 
             try {
               if(event.attacker.item_d4.getAttackElement() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
-                this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                if(this.staticCharge[event.attacker.charSlot_276] == 0) {
+                  this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
+                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                }
               }
             } catch(final Exception ignored) {
             }
 
             if(event.attackType.isPhysical() && player.equipmentAttackElements_1c.contains(THUNDER_ELEMENT.get()) && new Random().nextBoolean()) {
-              this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-              this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+              if(this.staticCharge[event.attacker.charSlot_276] == 0) {
+                this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
+                this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+              }
             }
           }
 
@@ -2783,23 +2790,35 @@ public class DragoonModifier {
                 if(event.attackType.isPhysical()) {
                   if(player.isDragoon()) {
                     if(new Random().nextBoolean() || new Random().nextBoolean()) {
-                      this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                      this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                      if(this.staticCharge[event.attacker.charSlot_276] == 0) {
+                        this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
+                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                      }
                     }
                   } else {
                     if(new Random().nextBoolean()) {
-                      this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                      this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                      if(this.staticCharge[event.attacker.charSlot_276] == 0) {
+                        this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
+                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                      }
                     }
                   }
                 } else {
                   if(player.isDragoon() && player.spellId_4e == 86) {
                     if(this.thunderCharge[monster.charSlot_276] == 10) {
+                      final double thunderDamage = 7.07 + ((player.dlevel_06 - 1) * 1.01);
                       this.thunderCharge[monster.charSlot_276] = 0;
-                      event.damage *= (int)(monster.getElement() == THUNDER_ELEMENT.get() ? 8.8 : 2.93333);
+                      event.damage *= (int)(monster.getElement() == THUNDER_ELEMENT.get() ? thunderDamage : 3.5);
                     }
                   }
                 }
+              }
+
+              if(this.staticCharge[player.charSlot_276] > 0) {
+                final int transferCharge = Math.min(10, this.staticCharge[player.charSlot_276]) - this.thunderCharge[monster.charSlot_276];
+                this.thunderCharge[monster.charSlot_276] += transferCharge;
+                this.staticCharge[player.charSlot_276] -= transferCharge;
+                this.displayNumbers(11 + monster.charSlot_276, transferCharge, 10, 1500);
               }
             }
           }
@@ -2820,7 +2839,7 @@ public class DragoonModifier {
         if(player.charId_272 == 6) {
           if(event.damage > 0 && this.meruWinglyMagic[player.charSlot_276]) {
             this.meruIceShield[player.charSlot_276] = (int)Math.min(this.meruIceShieldMax, Math.min(this.meruIceShieldMax * 0.1 + this.meruIceShield[player.charSlot_276], this.meruIceShield[player.charSlot_276] + event.damage * 0.1));
-            this.displayNumbers(6 + player.charSlot_276, this.meruIceShield[player.charSlot_276], 1, 1500);
+            this.displayNumbers(6 + player.charSlot_276, this.meruIceShield[player.charSlot_276], 1, 2500);
           }
         }
 
@@ -2974,11 +2993,11 @@ public class DragoonModifier {
         if(defender.charId_272 == 6) {
           if(event.damage > 0 && this.meruIceShield[defender.charSlot_276] > 0) {
             if(event.damage <= this.meruIceShield[defender.charSlot_276]) {
-              this.displayNumbers(6 + defender.charSlot_276, event.damage, 1, 1500);
+              this.displayNumbers(6 + defender.charSlot_276, event.damage, 1, 2500);
               this.meruIceShield[defender.charSlot_276] -= event.damage;
               event.damage = 0;
             } else {
-              this.displayNumbers(6 + defender.charSlot_276, this.meruIceShield[defender.charSlot_276], 1, 1500);
+              this.displayNumbers(6 + defender.charSlot_276, this.meruIceShield[defender.charSlot_276], 1, 2500);
               event.damage -= this.meruIceShield[defender.charSlot_276];
               this.meruIceShield[defender.charSlot_276] = 0;
             }
@@ -3540,6 +3559,9 @@ public class DragoonModifier {
           /*this.transforms.transfer.set(battle.hud.activePartyBattleHudCharacterDisplays_800c6c40[bent.charSlot_276].x_08 - 46, battle.hud.activePartyBattleHudCharacterDisplays_800c6c40[bent.charSlot_276].y_0a - 24, 1);
           RENDERER.queueOrthoModel(this.battleHudOverlay, this.transforms, QueuedModelStandard.class).texture(this.thunderChargesGfx[this.thunderCharge[event.monster.charSlot_276]]);*/
           this.renderCharacterBar(player, 0.5f, 0.0f, 1.0f, this.thunderCharge[event.monster.charSlot_276] == 10 ? 1.0f : this.thunderCharge[event.monster.charSlot_276] / 10.0f, false);
+          if(this.staticCharge[player.charSlot_276] > 0) {
+            this.renderCharacterBar(player, 0.0f, 0.8f, 1.0f, this.staticCharge[player.charSlot_276] == 20 ? 1.0f : this.staticCharge[player.charSlot_276] / 20.0f, true);
+          }
         }
       }
     }
@@ -3764,6 +3786,24 @@ public class DragoonModifier {
       }
     } else if("dragoon_modifier:siphon_overflow".equals(menuAction)) {
       this.roseSiphonActivated[this.currentPlayerSlot] = this.roseSiphon[this.currentPlayerSlot] == this.roseSiphonMax;
+    } else if("dragoon_modifier:static_charge".equals(menuAction)) {
+      int allStaticCharges = 0;
+      for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
+        final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c[i];
+        final BattleEntity27c bobj = state.innerStruct_00;
+        if(bobj instanceof final MonsterBattleEntity monster) {
+          if(this.thunderCharge[monster.charSlot_276] > 0) {
+            allStaticCharges += this.thunderCharge[monster.charSlot_276];
+            this.thunderCharge[monster.charSlot_276] = 0;
+          }
+        }
+      }
+
+      if(allStaticCharges > 20) {
+        allStaticCharges = 20;
+      }
+
+      this.staticCharge[this.currentPlayerSlot] = allStaticCharges;
     } else if("dragoon_modifier:magic_state".equals(menuAction)) {
       final int currentMP = this.currentPlayer.getStat(BattleEntityStat.CURRENT_MP);
       if(!this.meruWinglyMagic[this.currentPlayerSlot]) {
