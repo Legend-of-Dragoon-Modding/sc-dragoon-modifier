@@ -1031,11 +1031,11 @@ public class DragoonModifier {
                           break;
                         case "DraModShieldItem":
                           DRAMOD_ITEM_REGISTRAR.register(item[36].split(":")[1], () -> new DraModShieldItem(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), Integer.parseInt(item[34]), Boolean.parseBoolean(item[11]), Boolean.parseBoolean(item[12]), item[31]));
-                          registryItems.put(this.idCore(item[36].split(":")[1]), new ShieldItem(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), Integer.parseInt(item[34]), Boolean.parseBoolean(item[11]), Boolean.parseBoolean(item[12])));
+                          registryItems.put(item[36].startsWith("lod") ? (this.idCore(item[36].split(":")[1])) : (this.id(item[36].split(":")[1])), new ShieldItem(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), Integer.parseInt(item[34]), Boolean.parseBoolean(item[11]), Boolean.parseBoolean(item[12])));
                           break;
                         case "DraModSpiritPotionItem":
                           DRAMOD_ITEM_REGISTRAR.register(item[36].split(":")[1], () -> new DraModSpiritPotion(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), targetAll, Integer.parseInt(item[22]), item[31]));
-                          registryItems.put(this.idCore(item[36].split(":")[1]), new DraModSpiritPotion(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), targetAll, Integer.parseInt(item[22]), item[31]));
+                          registryItems.put(item[36].startsWith("lod") ? (this.idCore(item[36].split(":")[1])) : (this.id(item[36].split(":")[1])), new DraModSpiritPotion(this.getIconFromId(Integer.parseInt(item[20])), Integer.parseInt(item[26]), targetAll, Integer.parseInt(item[22]), item[31]));
                           break;
                         default:
                           throw new Exception("Invalid item type found: " + item[30]);
