@@ -6,7 +6,7 @@ ID,HP,MP,AT,MAT,SPD,DF,MDF,A-AV,M-AV,SPECIAL,UK,Element,Element Null,Status Resi
 260,10000,0,120,200,50,100,100,0,0,128,0,128,0,255,2,13,1,8,5,2,1,9,0,0,0,0,lod:_,0,Senior Warden
 332,61600,0,176,176,50,160,120,0,0,144,0,2,0,255,3,10,0,0,0,5,5,6,0,0,0,700,lod:_,0,Urobolus
 102,130000,0,196,175,80,100,120,10,0,128,0,4,0,255,3,11,0,8,6,2,2,8,0,0,3000,1000,dragoon_modifier:super_spirit_pot,100,Sandora Elite
-325,148000,0,200,170,70,80,80,0,0,144,0,64,0,255,3,13,0,0,0,2,2,8,0,0,0,1000,dragoon_modifier:weak_shield,100,Drake the Bandit
+325,148000,0,200,170,70,80,80,0,0,144,0,64,0,255,3,13,0,0,0,2,2,8,0,0,3000,1000,dragoon_modifier:weak_shield,100,Drake the Bandit
 326,9600,0,91,91,50,120,80,0,0,144,0,16,0,255,0,8,0,0,0,1,0,7,0,0,0,0,dragoon_modifier:weak_shield,100,Wire
 327,10240,0,450,450,70,150,50,0,0,144,0,8,0,255,0,3,0,0,0,1,0,1,0,0,0,0,dragoon_modifier:weak_shield,100,Bursting Ball
 329,204800,0,196,153,50,160,80,0,0,144,0,2,0,255,11,20,0,0,0,5,11,20,0,0,3000,1000,dragoon_modifier:weak_shield,0,Jiango
