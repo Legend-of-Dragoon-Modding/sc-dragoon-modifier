@@ -1429,11 +1429,18 @@ public class DragoonModifier {
       } else if(event.arrowIndex == 6) {
         arrow = "dragoon_modifier:thunder_arrow";
       } else {
+        this.shanaArrowCount[this.currentPlayerSlot] = 0;
+        this.shanaMaxArrowCount[this.currentPlayerSlot] = 0;
+        this.currentPlayer.equipment_11e.put(EquipmentSlot.WEAPON, REGISTRIES.equipment.getEntry(this.shanaPreviousArrow[this.currentPlayerSlot]).get());
         return;
       }
 
       this.shanaMaxArrowCount[this.currentPlayerSlot] = this.shanaArrowCount[this.currentPlayerSlot];
       this.currentPlayer.equipment_11e.put(EquipmentSlot.WEAPON, this.getEquipFromRegistry(arrow));
+    } else {
+      this.shanaArrowCount[this.currentPlayerSlot] = 0;
+      this.shanaMaxArrowCount[this.currentPlayerSlot] = 0;
+      this.currentPlayer.equipment_11e.put(EquipmentSlot.WEAPON, REGISTRIES.equipment.getEntry(this.shanaPreviousArrow[this.currentPlayerSlot]).get());
     }
   }
 
@@ -1444,6 +1451,7 @@ public class DragoonModifier {
         gameState_800babc8.equipment_1e8.remove(i);
         this.shanaArrowCount[this.currentPlayerSlot]--;
         if(this.shanaArrowCount[this.currentPlayerSlot] == 0) {
+          this.shanaMaxArrowCount[this.currentPlayerSlot] = 0;
           this.currentPlayer.equipment_11e.put(EquipmentSlot.WEAPON, REGISTRIES.equipment.getEntry(this.shanaPreviousArrow[this.currentPlayerSlot]).get());
         }
         return;
@@ -2148,6 +2156,7 @@ public class DragoonModifier {
           }
 
           this.ultimateZeroSPStart(player);
+          this.ultimateStatusChanceResist(player);
         }
       }
     }
@@ -3377,6 +3386,13 @@ public class DragoonModifier {
 
     if(encounterId == 413 || encounterId == 415 || encounterId == 403) {
       player.stats.getStat(SP_STAT.get()).setCurrent(0);
+    }
+  }
+
+  public void ultimateStatusChanceResist(final PlayerBattleEntity player) {
+    final int encounterId = encounterId_800bb0f8;
+    if(encounterId == 387) {
+      player.onHitStatusChance_44 /= 2;
     }
   }
 
