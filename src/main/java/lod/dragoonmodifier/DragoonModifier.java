@@ -2526,7 +2526,11 @@ public class DragoonModifier {
                 event.damage = (int)Math.round(event.damage * 0.8d);
               }
             } else {
-              event.damage = (int)Math.round(event.damage * 0.4d);
+              if(!player.isDragoon()) {
+                event.damage = (int)Math.round(event.damage * 0.4d);
+              } else {
+                event.damage = (int)Math.round(event.damage * 0.55d);
+              }
             }
             this.removeArrow();
           }
@@ -3330,7 +3334,10 @@ public class DragoonModifier {
       if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof final MonsterBattleEntity monster) {
         if((player.charId_272 == 2 || player.charId_272 == 8) && player.item_d4 != null && !player.isDragoon()) {
           final int sp = player.getStat(BattleEntityStat.CURRENT_SP);
-          final int gain = !this.isItemArrow ? 50 : player.dlevel_06 > 0 ? Integer.parseInt(shanaSpGain.getFirst()[player.dlevel_06 - 1]) : 0;
+          int gain = !this.isItemArrow ? 50 : player.dlevel_06 > 0 ? Integer.parseInt(shanaSpGain.getFirst()[player.dlevel_06 - 1]) : 0;
+          if(this.isItemArrow) {
+            gain *= (1d + (player.spMultiplier_128 / 100d));
+          }
           spGained_800bc950[player.charSlot_276] += gain;
           player.setStat(BattleEntityStat.CURRENT_SP, sp + gain);
           this.recaluteBentDragoonTurns(player);
