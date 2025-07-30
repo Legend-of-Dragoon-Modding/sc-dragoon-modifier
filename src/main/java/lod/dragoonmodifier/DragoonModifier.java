@@ -385,7 +385,7 @@ public class DragoonModifier {
 
     if(!this.startThreads) {
       //new Thread(new DRP()).start();
-      new Thread(new scriptFlagTracker()).start();
+      //new Thread(new scriptFlagTracker()).start();
       this.startThreads = true;
     }
   }
