@@ -159,6 +159,7 @@ import static legend.game.SItem.getXpToNextLevel;
 import static legend.game.Scus94491BpeSegment_8002.playMenuSound;
 import static legend.game.Scus94491BpeSegment_8004.currentEngineState_8004dd04;
 import static legend.game.Scus94491BpeSegment_8004.engineState_8004dd20;
+import static legend.game.Scus94491BpeSegment_8005.spells_80052734;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_8007.shopId_8007a3b4;
@@ -1321,12 +1322,6 @@ public class DragoonModifier {
 
   @EventListener
   public void spellItemDeff(final SpellItemDeffEvent event) {
-    if(ultimateBattle) {
-      if(encounterId_800bb0f8 == 412) {
-        //if(event.tims.contains("4401")) {
-        //}
-      }
-    }
   }
 
   @EventListener
@@ -3855,10 +3850,8 @@ public class DragoonModifier {
     final int encounterId = encounterId_800bb0f8;
 
     if(encounterId == 415) {
-      if(!attack.attackType.isPhysical()) {
-        if(monster.spellId_4e == 117) {
-          player.guard_54 = 0;
-        }
+      if(monster.spellId_4e == 117) {
+        player.guard_54 = 0;
       }
     }
   }
@@ -3868,10 +3861,9 @@ public class DragoonModifier {
 
     if(attack.damage > 0) {
       if(encounterId == 415) {
-        if(attack.attackType.isPhysical()) {
-          if(monster.spellId_4e == 33) {
-            player.stats.getStat(MP_STAT.get()).setCurrent(Math.max(0, player.stats.getStat(MP_STAT.get()).getCurrent() - 10));
-          }
+        final SpellStats0c spell = spellStats_800fa0b8_Monster[monster.spellId_4e];
+        if(monster.spellId_4e == 38) {
+          player.stats.getStat(MP_STAT.get()).setCurrent(Math.max(0, player.stats.getStat(MP_STAT.get()).getCurrent() - 10));
         }
       }
     }
