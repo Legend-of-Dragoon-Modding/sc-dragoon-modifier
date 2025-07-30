@@ -1226,7 +1226,7 @@ public class DragoonModifier {
   @EventListener
   public void iconDisplayEvent(final IconDisplayEvent event) {
     final String[] key = event.key.toString().split(" ");
-    if("Equipment".equals(key[0]) || "UltimateWargodEquipment".equals(key[0]) || "WargodCallingEquipment".equals(key[0])) {
+    if("Equipment".equals(key[0]) || "UltimateWargodEquipment".equals(key[0]) || "WargodCallingEquipment".equals(key[0]) || "DestroyerMaceEquipment".equals(key[0]) || "DetonateArrowEquipment".equals(key[0]) ) {
       event.icon = this.getEquipFromRegistry(key[1]).icon_0e;
     } else {
       event.icon = this.getItemFromRegistry(key[1]).icon;
