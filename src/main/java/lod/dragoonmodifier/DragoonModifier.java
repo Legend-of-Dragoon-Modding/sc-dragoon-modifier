@@ -1241,10 +1241,30 @@ public class DragoonModifier {
       final Equipment equip = this.getEquipFromRegistry(shop[i]);
       final Item item = this.getItemFromRegistry(shop[i]);
       if(equip != null) {
-        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(shop[i]).get(), equip.getPrice() * 2));
+        if(shopId_8007a3b4 == 26) {
+          if(shop[i].contains("arrow")) {
+            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(shop[i]).get(), 100));
+          } else {
+            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(shop[i]).get(), equip.getPrice() * 2));
+          }
+        } else {
+          event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(shop[i]).get(), equip.getPrice() * 2));
+        }
       }
       if(item != null) {
-        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), item.getPrice() * 2));
+        if(shopId_8007a3b4 == 40) {
+          if("lod:healing_rain".equals(shop[i])) {
+            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 600));
+          } else if("lod:total_vanishing".equals(shop[i])) {
+            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 400));
+          } else if("lod:spirit_potion".equals(shop[i])) {
+            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 200));
+          }
+        } else if(shopId_8007a3b4 == 41) {
+          event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 800));
+        } else {
+          event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), item.getPrice() * 2));
+        }
       }
     }
   }
@@ -4144,6 +4164,40 @@ public class DragoonModifier {
 
       if(currentEngineState_8004dd04 instanceof final SMap smap) {
         shopId_8007a3b4 = 19;
+        smap.mapTransition(-1, 0x3fe);
+      }
+    }).start();
+  }
+
+  public static void heroCompetitionShop() {
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        shopId_8007a3b4 = 40;
+        smap.mapTransition(-1, 0x3fe);
+      }
+    }).start();
+  }
+
+  public static void elementalBombShop() {
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        shopId_8007a3b4 = 41;
         smap.mapTransition(-1, 0x3fe);
       }
     }).start();

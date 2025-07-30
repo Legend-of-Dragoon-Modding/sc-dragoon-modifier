@@ -62,6 +62,11 @@ public class DraMenu extends MenuScreen {
       }
     }
 
+    if(DragoonModifier.isBitSet(29, 26)) {
+      addButton("Hero Shop", DragoonModifier::heroCompetitionShop);
+      addButton("Ele. Bomb Shop", DragoonModifier::elementalBombShop);
+    }
+
     //Black Castle Accessway
     //Warp out of Moon
     //Warp to Moon
