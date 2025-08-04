@@ -22,6 +22,8 @@ dragoon_modifier.config.damage_tracker.label=[DM]Damage Tracker
 dragoon_modifier.config.damage_tracker.help=Creates a damage report in the mods/dragoon_modifier/Damage Tracker folder.
 dragoon_modifier.config.damage_tracker.ON=On
 dragoon_modifier.config.damage_tracker.OFF=Off
+dragoon_modifier.config.show_achievements.label=[DM]Show Achievements
+dragoon_modifier.config.show_achievements.help=Shows all hidden achievements.
 
 # Equips
 dragoon_modifier.equipment.thiefs_shoes.name=Thief's Shoes

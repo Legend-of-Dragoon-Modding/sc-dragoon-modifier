@@ -5,8 +5,10 @@ import com.opencsv.exceptions.CsvException;
 import legend.core.GameEngine;
 import legend.core.QueuedModelStandard;
 import legend.core.gte.MV;
+import legend.core.platform.input.ButtonInputActivation;
 import legend.core.platform.input.InputAction;
 import legend.core.platform.input.InputActionRegistryEvent;
+import legend.core.platform.input.InputButton;
 import legend.core.platform.input.InputKey;
 import legend.core.platform.input.ScancodeInputActivation;
 import legend.game.EngineStateEnum;
@@ -66,15 +68,16 @@ import legend.game.modding.events.scripting.DrgnFileEvent;
 import legend.game.modding.events.submap.SubmapLoadEvent;
 import legend.game.modding.events.submap.SubmapWarpEvent;
 import legend.game.saves.BoolConfigEntry;
+import legend.game.saves.ConfigCategory;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
+import legend.game.saves.ConfigStorageLocation;
 import legend.game.scripting.ScriptFile;
-import legend.game.scripting.ScriptStackFrame;
 import legend.game.scripting.ScriptState;
 import legend.game.submap.SMap;
+import legend.game.submap.SubmapState;
 import legend.game.types.ActiveStatsa0;
 import legend.game.types.EquipmentSlot;
-import legend.game.types.Flags;
 import legend.game.types.LevelStuff08;
 import legend.game.types.MagicStuff08;
 import legend.game.types.SpellStats0c;
@@ -86,7 +89,6 @@ import legend.lodmod.RetailDeffPackage;
 import legend.lodmod.items.AngelsPrayerItem;
 import legend.lodmod.items.AttackBallItem;
 import legend.lodmod.items.AttackItem;
-import legend.lodmod.items.BattleItem;
 import legend.lodmod.items.BodyPurifierItem;
 import legend.lodmod.items.BuffItem;
 import legend.lodmod.items.CauseStatusItem;
@@ -115,16 +117,17 @@ import lod.dragoonmodifier.items.DraModItemDeffPackage;
 import lod.dragoonmodifier.events.HellModeAdjustmentEvent;
 import lod.dragoonmodifier.items.DraModShieldItem;
 import lod.dragoonmodifier.items.DraModSpiritPotion;
+import lod.dragoonmodifier.saves.DraModAchievements;
 import lod.dragoonmodifier.saves.DraModSaveFile;
 import lod.dragoonmodifier.saves.SaveFile;
 import lod.dragoonmodifier.screens.DraMenu;
-import lod.dragoonmodifier.screens.DraModAchievements;
+import lod.dragoonmodifier.screens.DraModAchievementsScreen;
+import lod.dragoonmodifier.screens.DraModNotification;
 import lod.dragoonmodifier.screens.ElementalQuiver;
 import lod.dragoonmodifier.values.DamageTracker;
 import lod.dragoonmodifier.values.ElementalBomb;
 import lod.dragoonmodifier.values.EnrageMode;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.logging.log4j.core.util.FileUtils;
 import org.legendofdragoon.modloader.Mod;
 import org.legendofdragoon.modloader.events.EventListener;
 import org.legendofdragoon.modloader.registries.DuplicateRegistryIdException;
@@ -141,7 +144,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,7 +161,6 @@ import static legend.game.SItem.getXpToNextLevel;
 import static legend.game.Scus94491BpeSegment_8002.playMenuSound;
 import static legend.game.Scus94491BpeSegment_8004.currentEngineState_8004dd04;
 import static legend.game.Scus94491BpeSegment_8004.engineState_8004dd20;
-import static legend.game.Scus94491BpeSegment_8005.spells_80052734;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_8006.battleState_8006e398;
 import static legend.game.Scus94491BpeSegment_8007.shopId_8007a3b4;
@@ -245,7 +246,7 @@ public class DragoonModifier {
   public int[] swapEXPParty = new int[3];
   public static int[][] ultimateEncounter = {{487, 10}, {386, 3}, {414, 8},
     {461, 21}, {412, 16}, {413, 70}, {387, 5}, {415, 12},
-    {449, 68}, {402, 23}, {403, 29}, {417, 31}, {418, 41}, {448, 68}, {416, 38}, {422, 42}, {423, 47}, {432, 69}, {430, 67}, {433, 56}, {431, 54}, {447, 68}
+    /*{449, 68}, {402, 23}, {403, 29}, {417, 31}, {418, 41}, {448, 68}, {416, 38}, {422, 42}, {423, 47}, {432, 69}, {430, 67}, {433, 56}, {431, 54}, {447, 68}*/
   };
   public static boolean ultimateBattle;
   public static int ultimateLevelCap = 30;
@@ -276,7 +277,7 @@ public class DragoonModifier {
   public final int burnStackRedEye = 4;
   public final int burnStackAddition = 1;
   public boolean[] burnAdded = new boolean[3];
-  public boolean faustBattle;
+  public static boolean faustBattle;
   public int armorOfLegendTurns;
   public int legendCasqueTurns;
   public int[] protectionShield = new int[3];
@@ -302,6 +303,7 @@ public class DragoonModifier {
   public int[] shanaMaxArrowCount = new int[3];
   public RegistryId[] shanaPreviousArrow = new RegistryId[3];
   public boolean isItemArrow;
+  public int trackGold = 0;
 
   private final FontOptions fontOptions = new FontOptions().colour(TextColour.WHITE);
 
@@ -313,12 +315,14 @@ public class DragoonModifier {
   public static final RegistryDelegate<UltimateBossConfig> ULTIMATE_BOSS = DRAMOD_CONFIG_REGISTRAR.register("ultimate_boss", UltimateBossConfig::new);
   public static final RegistryDelegate<ElementalBombConfig> ELEMENTAL_BOMB = DRAMOD_CONFIG_REGISTRAR.register("elemental_bomb", ElementalBombConfig::new);
   public static final RegistryDelegate<DamageTrackerConfig> DAMAGE_TRACKER = DRAMOD_CONFIG_REGISTRAR.register("damage_tracker", DamageTrackerConfig::new);
+  public static final RegistryDelegate<BoolConfigEntry> SHOW_ACHIEVEMENTS = DRAMOD_CONFIG_REGISTRAR.register("show_achievements", () -> new BoolConfigEntry(false, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
 
   public static final Registrar<Item, ItemRegistryEvent> DRAMOD_ITEM_REGISTRAR = new Registrar<>(REGISTRIES.items, MOD_ID);
   public static final Registrar<DeffPackage, RegisterDeffsEvent> DRAMOD_ITEM_DEFF_REGISTRAR = new Registrar<>(REGISTRIES.deff, MOD_ID);
   public static final Registrar<InputAction, InputActionRegistryEvent> DRAMOD_INPUT_REGISTRAR = new Registrar<>(REGISTRIES.inputActions, MOD_ID);
 
   public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAMENU = DRAMOD_INPUT_REGISTRAR.register("dramenu_open", InputAction::fixed);
+  public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAACHIEVEMENTS = DRAMOD_INPUT_REGISTRAR.register("draachievements_open", InputAction::fixed);
 
   public static DraModSaveFile draModSave;
 
@@ -374,8 +378,10 @@ public class DragoonModifier {
   private final Texture[] thunderChargesGfx = new Texture[11];
   private Obj battleHudOverlay;*/
 
-  private final MenuStack menuStack = new MenuStack();
+  private final static MenuStack menuStack = new MenuStack();
   private static boolean draMenuOpen;
+  private static boolean draAchievementsOpen;
+  private static boolean draNotificationOpen;
 
   private boolean startThreads;
 
@@ -501,6 +507,120 @@ public class DragoonModifier {
         gameState_800babc8.goods_19c[0] ^= 1 << 5;
         gameState_800babc8.goods_19c[0] ^= 1 << 6;
       }
+    }
+
+    if(gameState_800babc8.stardust_9c >= 50) {
+      addAchievement(75);
+    } 
+    if(gameState_800babc8.stardust_9c >= 40) {
+      addAchievement(74);
+    } 
+    if(gameState_800babc8.stardust_9c >= 30) {
+      addAchievement(73);
+    } 
+    if(gameState_800babc8.stardust_9c >= 20) {
+      addAchievement(72);
+    } 
+    if(gameState_800babc8.stardust_9c >= 10) {
+      addAchievement(71);
+    }
+    if(gameState_800babc8.gold_94 >= 20000) {
+      addAchievement(66);
+    }
+
+    if(submapCut_80052c30 == 190) {
+      if(isBitSet(3, 0)) {
+        addAchievement(28);
+      }
+    }
+
+    if(submapCut_80052c30 == 195) {
+      if(isBitSet(3, 0)) {
+        this.trackGold = gameState_800babc8.gold_94;
+      }
+    }
+
+    if(this.trackGold != gameState_800babc8.gold_94 && (submapCut_80052c30 == 189 || submapCut_80052c30 == 196)) {
+      addAchievement(70);
+    }
+
+    for(int i = 0; i < 9; i++) {
+      if(gameState_800babc8.charData_32c[i].dlevel_13 >= 6) {
+        addAchievement(55);
+      } else if(gameState_800babc8.charData_32c[i].dlevel_13 >= 4) {
+        addAchievement(54);
+      }
+    }
+
+    if(gameState_800babc8.charData_32c[0].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[4] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[5] >= 5 &&
+      gameState_800babc8.charData_32c[0].additionLevels_1a[6] >= 5 &&
+      gameState_800babc8.charData_32c[0].dlevel_13 == 7) {
+      addAchievement(56);
+    }
+
+    if(gameState_800babc8.charData_32c[1].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[1].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[1].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[1].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[1].additionLevels_1a[4] >= 5 &&
+      gameState_800babc8.charData_32c[1].dlevel_13 == 7) {
+      addAchievement(57);
+    }
+
+    if(gameState_800babc8.charData_32c[2].dlevel_13 == 7) {
+      addAchievement(58);
+    }
+
+    if(gameState_800babc8.charData_32c[3].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[3].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[3].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[3].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[3].dlevel_13 == 7) {
+      addAchievement(59);
+    }
+
+    if(gameState_800babc8.charData_32c[4].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[4].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[4].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[4].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[4].additionLevels_1a[4] >= 5 &&
+      gameState_800babc8.charData_32c[4].additionLevels_1a[5] >= 5 &&
+      gameState_800babc8.charData_32c[4].dlevel_13 == 7) {
+      addAchievement(60);
+    }
+
+    if(gameState_800babc8.charData_32c[5].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[5].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[5].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[5].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[5].additionLevels_1a[4] >= 5 &&
+      gameState_800babc8.charData_32c[5].dlevel_13 == 7) {
+      addAchievement(61);
+    }
+
+    if(gameState_800babc8.charData_32c[6].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[6].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[6].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[6].additionLevels_1a[3] >= 5 &&
+      gameState_800babc8.charData_32c[6].additionLevels_1a[4] >= 5 &&
+      gameState_800babc8.charData_32c[6].dlevel_13 == 7) {
+      addAchievement(62);
+    }
+
+    if(gameState_800babc8.charData_32c[7].additionLevels_1a[0] >= 5 &&
+      gameState_800babc8.charData_32c[7].additionLevels_1a[1] >= 5 &&
+      gameState_800babc8.charData_32c[7].additionLevels_1a[2] >= 5 &&
+      gameState_800babc8.charData_32c[7].dlevel_13 == 7) {
+      addAchievement(63);
+    }
+
+    if(gameState_800babc8.charData_32c[8].dlevel_13 == 7) {
+      addAchievement(64);
     }
   }
 
@@ -1450,6 +1570,7 @@ public class DragoonModifier {
         return;
       }
 
+      addAchievement(49);
       this.shanaMaxArrowCount[this.currentPlayerSlot] = this.shanaArrowCount[this.currentPlayerSlot];
       this.currentPlayer.equipment_11e.put(EquipmentSlot.WEAPON, this.getEquipFromRegistry(arrow));
     } else {
@@ -1623,13 +1744,25 @@ public class DragoonModifier {
         }
       }
 
-      if(this.faustBattle && event.enemyId == 344) {
+      if(faustBattle && event.enemyId == 344) {
         event.clear();
         event.xp = 30000;
         event.gold = 250;
+
+        for(int i = 0; i < 9; i++) {
+          if(gameState_800babc8.charData_32c[i].level_12 == 60) {
+            draModSave.faustDefeated = 39;
+          }
+        }
+
         if(draModSave.faustDefeated == 39) {
           event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.equipment.getEntry("lod:armor_of_legend").get()));
           event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.equipment.getEntry("lod:legend_casque").get()));
+          draModSave.faustDefeated = 999;
+        }
+
+        if(draModSave.faustDefeated > 999) {
+          draModSave.faustDefeated = 999;
         }
       }
     }
@@ -1667,7 +1800,7 @@ public class DragoonModifier {
       print("GFX Loaded." + (battleHudOverlay == null));
     }*/
 
-    if(this.faustBattle) {
+    if(faustBattle) {
       final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c[0];
       final BattleEntity27c bobj = state.innerStruct_00;
       final VitalsStat hp = bobj.stats.getStat(HP_STAT.get());
@@ -2184,6 +2317,10 @@ public class DragoonModifier {
 
     if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
       GameEngine.EVENTS.postEvent(new HellModeAdjustmentEvent());
+
+      if(encounterId_800bb0f8 == 416 || encounterId_800bb0f8 == 394 || encounterId_800bb0f8 == 443) {//TODO add this to hard mode
+        battleNotification(0, "Dragon Block Staff is 20% reduction to Dragoons.");
+      }
     }
   }
 
@@ -2646,6 +2783,7 @@ public class DragoonModifier {
             if(event.damage > 0 && !this.roseSiphonActivated[player.charSlot_276]) {
               this.roseSiphon[player.charSlot_276] = (int)Math.min(this.roseSiphonMax, Math.min(this.roseSiphonMax * 0.2 + this.roseSiphon[player.charSlot_276], this.roseSiphon[player.charSlot_276] + event.damage));
               this.displayNumbers(6 + player.charSlot_276, this.roseSiphon[player.charSlot_276], 3, 1500);
+              addAchievement(50);
             }
           }
 
@@ -2661,12 +2799,15 @@ public class DragoonModifier {
             if(player.spellId_4e == 5 || player.spellId_4e == 91) {
               this.windMark[event.defender.charSlot_276] = 1;
               this.displayNumbers(11 + event.defender.charSlot_276, 1, 11, 1500);
+              addAchievement(48);
             } else if(player.spellId_4e == 6 || player.spellId_4e == 17) {
               this.windMark[event.defender.charSlot_276] = 2;
               this.displayNumbers(11 + event.defender.charSlot_276, 2, 11, 1500);
+              addAchievement(48);
             } else if(player.spellId_4e == 8) {
               this.windMark[event.defender.charSlot_276] = 3;
               this.displayNumbers(11 + event.defender.charSlot_276, 3, 11, 1500);
+              addAchievement(48);
             }
           }
         }
@@ -2699,7 +2840,7 @@ public class DragoonModifier {
           }
         }
 
-        if("dragoon_modifier:elemental_arrow".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) { //Elemental Arrow
+        /*if("dragoon_modifier:elemental_arrow".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) { //Elemental Arrow
           if(event.defender instanceof final MonsterBattleEntity monster && event.attackType.isPhysical()) {
             final ArrayList<Element> elementsCalculated = new ArrayList<>();
             for(final Element elementArrowsElement : this.elementArrowsElements) {
@@ -2734,7 +2875,7 @@ public class DragoonModifier {
           if(player.item_d4 != null) {
             player.stats.getStat(SP_STAT.get()).setCurrent(player.stats.getStat(SP_STAT.get()).getCurrent() + 100);
           }
-        }
+        }*/
 
         if("dragoon_modifier:magic_hammer".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
           if(event.attackType.isPhysical()) {
@@ -2836,6 +2977,7 @@ public class DragoonModifier {
                       final double thunderDamage = 7.07 + ((player.dlevel_06 - 1) * 1.01);
                       this.thunderCharge[monster.charSlot_276] = 0;
                       event.damage *= (int)(monster.getElement() == THUNDER_ELEMENT.get() ? thunderDamage : 3.5);
+                      addAchievement(51);
                     }
                   }
                 }
@@ -2867,6 +3009,7 @@ public class DragoonModifier {
           if(event.damage > 0 && this.meruWinglyMagic[player.charSlot_276]) {
             this.meruIceShield[player.charSlot_276] = (int)Math.min(this.meruIceShieldMax, Math.min(this.meruIceShieldMax * 0.1 + this.meruIceShield[player.charSlot_276], this.meruIceShield[player.charSlot_276] + event.damage * 0.1));
             this.displayNumbers(6 + player.charSlot_276, this.meruIceShield[player.charSlot_276], 1, 2500);
+            addAchievement(52);
           }
         }
 
@@ -2909,6 +3052,7 @@ public class DragoonModifier {
         if("dragoon_modifier:ring_of_shielding".equals(defender.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) { //Ring of Shielding
           final int hp = defender.stats.getStat(HP_STAT.get()).getCurrent();
           if((hp - event.damage) <= 0 && new Random().nextInt(0, 99) < 35) {
+            event.damage = 0;
             //defender.stats.getStat(null).addMod(LodMod.id("material_shield"), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().percent(100).turns(5)));
             //defender.stats.getStat(SPEED_STAT.get()).addMod(LodMod.id("magic_shield"), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().percent(100).turns(5)));
           }
@@ -3036,6 +3180,7 @@ public class DragoonModifier {
             defender.guard_54 = 1;
             defender.turnValue_4c += 218;
             event.damage *= 1.8;
+            addAchievement(53);
           }
         }
       }
@@ -3078,6 +3223,48 @@ public class DragoonModifier {
     this.updateEnrageMode(event);
     this.updateElementalBomb(event);
     this.updateDamageTracker(event);
+
+    if(event.attacker instanceof PlayerBattleEntity) {
+      int damage = event.damage;
+      if(event.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
+        if(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[4]) == 0) {
+          switch(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[3])) {
+            case 0:
+              break;
+            case 1:
+              damage *= 8;
+              break;
+            case 2:
+              damage *= 6;
+              break;
+            case 4:
+              damage *= 5;
+              break;
+            case 8:
+              damage *= 4;
+              break;
+            case 16:
+              damage *= 3;
+              break;
+            case 32:
+              damage *= 2;
+              break;
+            case 64:
+              damage = damage + damage / 2;
+              break;
+            case 128:
+              damage /= 2;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+
+      if(damage > 9999) {
+        addAchievement(65);
+      }
+    }
   }
 
   @EventListener
@@ -3150,6 +3337,7 @@ public class DragoonModifier {
       }
 
       this.displayNumbers(6 + dart.charSlot_276, stacks, 5, 1500);
+      addAchievement(47);
     }
   }
 
@@ -3618,11 +3806,91 @@ public class DragoonModifier {
         livingCharCount_800bc97c = 3;
         System.arraycopy(gameState_800babc8.charIds_88, 0, livingCharIds_800bc968, 0, 3);
       }
+
+      //TODO: add hard
+      if(encounterId_800bb0f8 == 384) {
+        addAchievement(2);
+      } else if(encounterId_800bb0f8 == 386) {
+        addAchievement(3);
+      } else if(encounterId_800bb0f8 == 414) {
+        addAchievement(4);
+      } else if(encounterId_800bb0f8 == 388) {
+        addAchievement(5);
+      } else if(encounterId_800bb0f8 == 408) {
+        addAchievement(6);
+      } else if(encounterId_800bb0f8 == 415) {
+        addAchievement(7);
+      } else if(encounterId_800bb0f8 == 487) {
+        addAchievement(8);
+      } else if(encounterId_800bb0f8 == 393) {
+        addAchievement(9);
+      } else if(encounterId_800bb0f8 == 412) {
+        addAchievement(10);
+      } else if(encounterId_800bb0f8 == 387) {
+        addAchievement(11);
+      } else if(encounterId_800bb0f8 == 389) {
+        addAchievement(12);
+      } else if(encounterId_800bb0f8 == 390) {
+        addAchievement(13);
+      } else if(encounterId_800bb0f8 == 402) {
+        addAchievement(14);
+      } else if(encounterId_800bb0f8 == 409) {
+        addAchievement(15);
+      } else if(encounterId_800bb0f8 == 403) {
+        addAchievement(16);
+      } else if(encounterId_800bb0f8 == 396) {
+        addAchievement(17);
+      } else if(encounterId_800bb0f8 == 417) {
+        addAchievement(18);
+      } else if(encounterId_800bb0f8 == 397) {
+        addAchievement(19);
+      } else if(encounterId_800bb0f8 == 410) {
+        addAchievement(20);
+      } else if(encounterId_800bb0f8 == 416) {
+        addAchievement(21);
+      } else if(encounterId_800bb0f8 == 394) {
+        addAchievement(22);
+      } else if(encounterId_800bb0f8 == 422) {
+        addAchievement(23);
+      } else if(encounterId_800bb0f8 == 418) {
+        addAchievement(24);
+      } else if(encounterId_800bb0f8 == 392) {
+        addAchievement(25);
+      } else if(encounterId_800bb0f8 == 432) {
+        addAchievement(29);
+      } else if(encounterId_800bb0f8 == 423) {
+        addAchievement(30);
+      } else if(encounterId_800bb0f8 == 430) {
+        addAchievement(31);
+      } else if(encounterId_800bb0f8 == 449) {
+        addAchievement(33);
+      } else if(encounterId_800bb0f8 == 448) {
+        addAchievement(34);
+      } else if(encounterId_800bb0f8 == 447) {
+        addAchievement(35);
+      } else if(encounterId_800bb0f8 == 431) {
+        addAchievement(36);
+      } else if(encounterId_800bb0f8 == 433) {
+        addAchievement(37);
+      } else if(encounterId_800bb0f8 == 411) {
+        addAchievement(38);
+      } else if(encounterId_800bb0f8 == 442) {
+        addAchievement(39);
+      } else if(encounterId_800bb0f8 == 400) {
+        addAchievement(42);
+      } else if(encounterId_800bb0f8 == 398) {
+        addAchievement(43);
+      } else if(encounterId_800bb0f8 == 399) {
+        addAchievement(44);
+      } else if(encounterId_800bb0f8 == 401) {
+        addAchievement(45);
+      }
     }
 
-    if(this.faustBattle) {
-      this.faustBattle = false;
+    if(faustBattle) {
+      faustBattle = false;
       draModSave.faustDefeated += 1;
+      addAchievement(40);
     }
 
     if(ultimateBattle) {
@@ -3637,6 +3905,22 @@ public class DragoonModifier {
       } else if(draModSave.ultimateBossStage == 8) {
         GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 40);
       }
+
+      if(draModSave.ultimateBossStage == 1) {
+        addAchievement(26);
+      } else if(draModSave.ultimateBossStage == 3) {
+        addAchievement(27);
+      } else if(draModSave.ultimateBossStage == 8) {
+        addAchievement(32);
+      }
+    }
+
+    if(gameState_800babc8._b4 >= 400) {
+      addAchievement(69);
+    } else if(gameState_800babc8._b4 >= 150) {
+      addAchievement(68);
+    } else if(gameState_800babc8._b4 >= 50) {
+      addAchievement(67);
     }
 
     if(GameEngine.CONFIG.getConfig(DAMAGE_TRACKER.get()) == DamageTracker.ON && !this.damageTrackerPrinted && gameState_800babc8.charIds_88[0] >= 0 && gameState_800babc8.charIds_88[1] >= 0 && gameState_800babc8.charIds_88[2] >= 0) {
@@ -3870,6 +4154,77 @@ public class DragoonModifier {
   public void xpToLevel(final XpToLevelEvent event) {
     //event.xp = Integer.parseInt(xpNextStats.get(event.charId * (maxCharacterLevel + 1) + event.level)[0]);
   }
+
+  public boolean checkAchievements(final int id) {
+    return draModSave.enhancedAchievements.containsKey(id);
+  }
+
+  public static void addAchievement(final int id) {
+    if(!draModSave.enhancedAchievements.containsKey(id)) {
+      draModSave.enhancedAchievements.put(id, true);
+      notifyAchievement(id);
+    }
+  }
+
+  public static void notifyAchievement(final int id) {
+    final DraModAchievements.Enhanced achievement = DraModAchievements.Enhanced.getById(id);
+    if(engineState_8004dd20 == EngineStateEnum.COMBAT_06) {
+      battleNotification(achievement.getType().ordinal() + 1, achievement.getName() + " - " + achievement.getDesc());
+    } else {
+      notification(achievement.getType().ordinal() + 1, achievement.getName() + " - " + achievement.getDesc());
+    }
+  }
+
+  public static void notification(final int type, final String message) {
+    try {
+      final DraModNotification notification = new DraModNotification(type, message);
+      menuStack.pushScreen(notification);
+      draNotificationOpen = true;
+
+      new Thread(() -> {
+        try {
+          while(engineState_8004dd20 != EngineStateEnum.SUBMAP_05) {
+            Thread.sleep(1000);
+          }
+          Thread.sleep(5000);
+
+          menuStack.reset();
+
+          draNotificationOpen = false;
+        } catch(final Exception ignored) {
+          menuStack.reset();
+          draNotificationOpen = false;
+        }
+      }).start();
+    } catch(final Exception ignored) {
+      menuStack.reset();
+      draNotificationOpen = false;
+    }
+  }
+
+  public static void battleNotification(final int type, final String message) {
+    try {
+        final DraModNotification notification = new DraModNotification(type, message);
+        menuStack.pushScreen(notification);
+        draNotificationOpen = true;
+
+        new Thread(() -> {
+          try {
+            Thread.sleep(5000);
+
+            menuStack.reset();
+
+            draNotificationOpen = false;
+          } catch(final Exception ignored) {
+            menuStack.reset();
+            draNotificationOpen = false;
+          }
+        }).start();
+    } catch(final Exception ignored) {
+      menuStack.reset();
+      draNotificationOpen = false;
+    }
+  }
   //endregion
 
   //region Ultimate
@@ -3948,11 +4303,57 @@ public class DragoonModifier {
     }
 
     if(submapCut_80052c30 == 177) {
-      //event.submapObjects.add(event.submapObjects.get(1));
-      //try {
-      //  event.submapObjects.getFirst().script = new ScriptFile("NEW NPC TEST", Files.readAllBytes(Path.of("mods", "dragoon_modifier", "scripts", "npcs", "177.0")));
-      //} catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace();}
+      if(isBitSet(3, 0)) {
+        new Thread(() -> {
+          try {
+            Thread.sleep(50);
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[2].innerStruct_00.model_00.coord2_14.coord.transfer.y = 10000;
+          } catch(InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        }).start();
+      }
+    } else if(submapCut_80052c30 == 181) {
+      if(isBitSet(3, 0)) {
+        new Thread(() -> {
+          try {
+            Thread.sleep(50);
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[5].innerStruct_00.model_00.coord2_14.coord.transfer.y = 10000;
+          } catch(InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        }).start();
+      }
+    } else if(submapCut_80052c30 == 195) {
+      if(isBitSet(3, 0)) {
+        event.submapObjects.add(event.submapObjects.get(2));
+
+        final Path player = Loader.resolveMods("dragoon_modifier/scripts/npcs/195.0");
+        try {
+          if(Files.exists(player)) {
+            event.submapObjects.getFirst().script = new ScriptFile("Player", Files.readAllBytes(player));
+          }
+        } catch(IOException e) {
+          throw new RuntimeException(e);
+        }
+
+        new Thread(() -> {
+          try {
+            Thread.sleep(50);
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.coord.transfer.x = -425;
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.coord.transfer.y = 209;
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.coord.transfer.z = 19;
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.transforms.rotate.x = 0;
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.transforms.rotate.y = -1.1f;
+            ((SMap)currentEngineState_8004dd04).sobjs_800c6880[10].innerStruct_00.model_00.coord2_14.transforms.rotate.z = 0;
+          } catch(InterruptedException e) {
+            throw new RuntimeException(e);
+          }
+        }).start();
+      }
     }
+
+
 
   }
   //endregion
@@ -3972,6 +4373,9 @@ public class DragoonModifier {
 
   public void dramodHotkeys() {
     if(this.hotkey.contains(INPUT_ACTION_DRAMENU.get())) {
+      if(draAchievementsOpen) {
+        return;
+      }
       if(!draMenuOpen) {
         if(engineState_8004dd20 == EngineStateEnum.SUBMAP_05) {
           draMenuMessage = "";
@@ -3996,23 +4400,27 @@ public class DragoonModifier {
         playMenuSound(3);
         draMenuOpen = false;
         SCRIPTS.resume();
+        addAchievement(1);
       }
-
-      /*final DraModAchievements draModAchievements = new DraModAchievements(2, "GoldTM Certified Goon Moment - Killing Divine Dragon", true);
-      this.menuStack.pushScreen(draModAchievements);
-
-      new Thread(() -> {
-        try {
-          Thread.sleep(5000);
-        } catch(final InterruptedException e) {
-          throw new RuntimeException(e);
+    } else if(this.hotkey.contains(INPUT_ACTION_DRAACHIEVEMENTS.get())) {
+      if(draMenuOpen) {
+        return;
+      }
+      if(!draAchievementsOpen) {
+        if(engineState_8004dd20 == EngineStateEnum.SUBMAP_05) {
+          SCRIPTS.pause();
+          final DraModAchievementsScreen menu = new DraModAchievementsScreen(true); //TODO add difficulty switch here
+          this.menuStack.pushScreen(menu);
+          playMenuSound(2);
+          draAchievementsOpen = true;
         }
-
-        try {
-          this.menuStack.reset();
-        } catch(final Exception ignored) {
-        }
-      }).start();*/
+      } else {
+        this.menuStack.reset();
+        playMenuSound(3);
+        draAchievementsOpen = false;
+        SCRIPTS.resume();
+        addAchievement(0);
+      }
     }
   }
 
@@ -4118,19 +4526,22 @@ public class DragoonModifier {
   }
 
   public static void warpToMoon() {
-
+    submapCut_80052c30 = 730;
+    ((SMap)currentEngineState_8004dd04).smapLoadingStage_800cb430 = SubmapState.CHANGE_SUBMAP_4;
   }
 
   public static void warpToUlara() {
-
+    submapCut_80052c30 = 524;
+    ((SMap)currentEngineState_8004dd04).smapLoadingStage_800cb430 = SubmapState.CHANGE_SUBMAP_4;
+    addAchievement(41);
   }
 
   public static void startFaustBattle() {
-
-  }
-
-  public static void blackCastleAccessway() {
-
+    faustBattle = true;
+    if(currentEngineState_8004dd04 instanceof final SMap smap) {
+      smap.submap.prepareEncounter(421, false);
+      smap.mapTransition(-1, 0);
+    }
   }
 
   public static void addAllPartyMembers() {
@@ -4272,10 +4683,17 @@ public class DragoonModifier {
 
   @EventListener
   public void RenderMenu(final RenderEvent event) {
-    if(!this.draMenuOpen) {
-      return;
+    if(draMenuOpen) {
+      menuStack.render();
+    } else {
+      if(draAchievementsOpen) {
+        menuStack.render();
+      } else {
+        if(draNotificationOpen) {
+          menuStack.render();
+        }
+      }
     }
-    this.menuStack.render();
   }
 
   @EventListener
@@ -4286,6 +4704,9 @@ public class DragoonModifier {
   @EventListener
   public void registerInput(final RegisterDefaultInputBindingsEvent event) {
     event.add(INPUT_ACTION_DRAMENU.get(), new ScancodeInputActivation(InputKey.C));
+    event.add(INPUT_ACTION_DRAMENU.get(), new ButtonInputActivation(InputButton.START));
+    event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ScancodeInputActivation(InputKey.V));
+    event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ButtonInputActivation(InputButton.SELECT));
   }
   //endregion
 

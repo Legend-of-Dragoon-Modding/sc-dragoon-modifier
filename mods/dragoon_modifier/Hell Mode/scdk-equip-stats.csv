@@ -189,7 +189,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,32,64,247,0,0,0,0,0,0,0,10,10,10,10,0,0,0,false,false,false,false,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,15000,Divine DG Armor,20 SP and 10% MP on§all hits.,dragoon_modifier:divine_dg_armor
 0,64,64,247,0,0,0,0,0,0,0,0,0,0,0,30,30,0,false,false,false,false,0,0,0,0,0,18,0,0,0,0,0,100,100,0,0,0,0,0,0,7500,Halo of Balance,Raises maximum§HP/MP by 30%.,dragoon_modifier:halo_of_balance
 0,128,128,128,8,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,50,50,0,0,0,0,0,0,0,0,0,0,15000,Firebrand,Fire and Divine§based attack.,dragoon_modifier:firebrand
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,100,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Super Spirit Ring,Removes SP from§additions. Heals§100 SP per turn.,dragoon_modifier:super_spirit_ring
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,100,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Super Spirit Ring,Removes SP from§additions. Gains§100 SP per turn.,dragoon_modifier:super_spirit_ring
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,0,0,0,0,0,0,20,20,0,0,0,0,7500,Winged Shoes,,dragoon_modifier:winged_shoes
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Protection Shield,Negates damage up§to 50% Max HP§per battle.,dragoon_modifier:protection_shield
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Spirit Bottle,Recovers 80 SP§on first turn of battle.,dragoon_modifier:spirit_bottle
@@ -207,7 +207,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,128,128,0,32,0,0,0,0,0,9,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,40,Light Arrow,Light-based attack.,dragoon_modifier:light_arrow
 0,128,128,0,16,0,0,0,0,0,9,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,40,Thunder Arrow,Thunder-based attack.,dragoon_modifier:thunder_arrow
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,50,Fake Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:fake_solitary_ring
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,10000,Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:solitary_ring
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,40000,Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:solitary_ring
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,8,8,0,0,0,0,0,0,0,0,50,Fake Plague Boots,Raises status chance§by 20%.,dragoon_modifier:fake_plague_boots
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,12,12,0,0,0,0,0,0,0,0,300,Plague Boots,Raises status chance§by 40%.,dragoon_modifier:plague_boots
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,5,0,0,18,18,0,0,0,0,0,0,0,0,2000,Magicial Sollerets,,dragoon_modifier:magical_sollerets

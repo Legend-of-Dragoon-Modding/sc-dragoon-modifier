@@ -1,6 +1,5 @@
 package lod.dragoonmodifier.screens;
 
-import legend.core.GameEngine;
 import legend.core.QueuedModelStandard;
 import legend.core.gte.MV;
 import legend.game.inventory.screens.*;
@@ -17,9 +16,9 @@ import static legend.game.Scus94491BpeSegment_8002.playMenuSound;
 import static legend.game.Scus94491BpeSegment_8002.renderText;
 import static legend.game.Scus94491BpeSegment_8005.submapCut_80052c30;
 import static legend.game.Scus94491BpeSegment_800b.gameState_800babc8;
+import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_CONFIRM;
 import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_DOWN;
 import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_UP;
-import static lod.dragoonmodifier.DragoonModifier.DIFFICULTY;
 import static lod.dragoonmodifier.DragoonModifier.draMenuMessage;
 
 public class DraMenu extends MenuScreen {
@@ -60,6 +59,16 @@ public class DraMenu extends MenuScreen {
         addButton("Next Ultimate Boss", DragoonModifier::nextUltimateBoss);
         addButton("Ultimate Boss", DragoonModifier::startUltimateBoss);
       }
+    } else if(submapCut_80052c30 == 730) {
+      if(DragoonModifier.isBitSet(12, 8)) {
+        addButton("Warp off Moon", DragoonModifier::warpToUlara);
+      }
+    } else if(submapCut_80052c30 == 526 || submapCut_80052c30 == 527) {
+      if(DragoonModifier.isBitSet(12, 8)) {
+        addButton("Warp to Moon", DragoonModifier::warpToMoon);
+      }
+    } else if(submapCut_80052c30 == 732) {
+      addButton("Faust Battle", DragoonModifier::startFaustBattle);
     }
 
     if(DragoonModifier.isBitSet(29, 26)) {
@@ -75,6 +84,11 @@ public class DraMenu extends MenuScreen {
     if(gameState_800babc8.charData_32c[8].partyFlags_04 > 0) {
       addButton("???", DragoonModifier::who);
     }
+
+    for(int i = 0; i < this.menuButtons.size(); i++) {
+      this.setFocus(this.menuButtons.get(i));
+    }
+    this.setFocus(this.menuButtons.getFirst());
   }
 
   @Override
@@ -145,6 +159,9 @@ public class DraMenu extends MenuScreen {
             break;
           }
         }
+      } else if(action == INPUT_ACTION_MENU_CONFIRM.get()) {
+        final Button currentButton = this.menuButtons.get(Math.floorMod(index, this.menuButtons.size()));
+        currentButton.press();
       }
 
       return InputPropagation.HANDLED;
