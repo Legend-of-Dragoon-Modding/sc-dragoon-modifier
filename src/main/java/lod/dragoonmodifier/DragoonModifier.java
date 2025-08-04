@@ -4187,18 +4187,18 @@ public class DragoonModifier {
             Thread.sleep(1000);
           }
           Thread.sleep(5000);
+          draNotificationOpen = false;
 
           menuStack.reset();
 
-          draNotificationOpen = false;
         } catch(final Exception ignored) {
-          menuStack.reset();
           draNotificationOpen = false;
+          menuStack.reset();
         }
       }).start();
     } catch(final Exception ignored) {
-      menuStack.reset();
       draNotificationOpen = false;
+      menuStack.reset();
     }
   }
 
