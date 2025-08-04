@@ -4537,11 +4537,22 @@ public class DragoonModifier {
   }
 
   public static void startFaustBattle() {
-    faustBattle = true;
-    if(currentEngineState_8004dd04 instanceof final SMap smap) {
-      smap.submap.prepareEncounter(421, false);
-      smap.mapTransition(-1, 0);
-    }
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        faustBattle = true;
+        smap.submap.prepareEncounter(420, false);
+        smap.mapTransition(-1, 0);
+        battleStage_800bb0f4 = 78;
+      }
+    }).start();
   }
 
   public static void addAllPartyMembers() {

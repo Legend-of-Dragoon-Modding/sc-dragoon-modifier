@@ -20,6 +20,7 @@ import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_CONFIRM;
 import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_DOWN;
 import static legend.game.modding.coremod.CoreMod.INPUT_ACTION_MENU_UP;
 import static lod.dragoonmodifier.DragoonModifier.draMenuMessage;
+import static lod.dragoonmodifier.DragoonModifier.draModSave;
 
 public class DraMenu extends MenuScreen {
   final List<Button> menuButtons = new ArrayList<>();
@@ -96,14 +97,20 @@ public class DraMenu extends MenuScreen {
     renderText("DraMod Menu", 184, 2, this.textOptions);
     this.transforms.transfer.set(0, 0, 0.0f);
     this.transforms.scaling(368.0f, 240.0f, 0.0f);
-    renderText("Battles", 276, 45, this.textOptions);
-    renderText(String.valueOf(gameState_800babc8._b4), 276, 60, this.textOptions);
-    renderText("Turns Taken", 276, 80, this.textOptions);
-    renderText(String.valueOf(gameState_800babc8._b8), 276, 95, this.textOptions);
-    renderText("Ultimate Boss Defeated", 276, 135, this.textOptions);
-    renderText(String.valueOf(this.ultimateBossDefeated), 276, 150, this.textOptions);
-    renderText("Ultimate Boss Selected", 276, 170, this.textOptions);
-    renderText(String.valueOf(this.ultimateBossStage), 276, 185, this.textOptions);
+    renderText("Battles", 276, 30, this.textOptions);
+    renderText(String.valueOf(gameState_800babc8._b4), 276, 45, this.textOptions);
+    renderText("Turns Taken", 276, 60, this.textOptions);
+    renderText(String.valueOf(gameState_800babc8._b8), 276, 75, this.textOptions);
+    if(DragoonModifier.isBitSet(12, 8)) {
+      renderText("Fausts Defeated", 276, 105, this.textOptions);
+      renderText(String.valueOf(draModSave.faustDefeated), 276, 120, this.textOptions);
+    }
+    if(DragoonModifier.isBitSet(8, 14)) {
+      renderText("Ultimate Boss Defeated", 276, 155, this.textOptions);
+      renderText(String.valueOf(this.ultimateBossDefeated), 276, 170, this.textOptions);
+      renderText("Ultimate Boss Selected", 276, 190, this.textOptions);
+      renderText(String.valueOf(this.ultimateBossStage), 276, 205, this.textOptions);
+    }
     renderText(draMenuMessage, 184, 226, this.textOptions);
 
     final MV draMenuTransforms = new MV();

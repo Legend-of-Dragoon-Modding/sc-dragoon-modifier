@@ -107,13 +107,13 @@ public class DraModAchievementsScreen extends MenuScreen {
         renderText(name[i], 4, 40 + ((index * 2) * 10), this.notAchievedText);
         renderText(desc[i], 4, 50 + ((index * 2) * 10), this.notAchievedText);
       } else {
-        final DraModAchievements.Enhanced achievement = DraModAchievements.Enhanced.getById(this.currentAchievement + i);
+        final DraModAchievements.Enhanced achievement = DraModAchievements.Enhanced.getById(this.currentAchievement + (i - this.currentAchievement));
         if(achievement.getType() == DraModAchievements.TrophyType.BRONZE) {
           renderText(name[i] + "[X]", 4, 40 + ((index * 2) * 10), this.bronzeText);
           renderText(desc[i], 4, 50 + ((index * 2) * 10), this.bronzeText);
         } else if(achievement.getType() == DraModAchievements.TrophyType.SILVER) {
           renderText(name[i] + "[X]", 4, 40 + ((index * 2) * 10), this.silverText);
-          renderText(desc[i], 4, 50 + ((index * 2)  * 10), this.silverText);
+          renderText(desc[i], 4, 50 + ((index * 2) * 10), this.silverText);
         } else if(achievement.getType() == DraModAchievements.TrophyType.GOLD) {
           renderText(name[i] + "[X]", 4, 40 + ((index * 2) * 10), this.goldText);
           renderText(desc[i], 4, 50 + ((index * 2) * 10), this.goldText);
