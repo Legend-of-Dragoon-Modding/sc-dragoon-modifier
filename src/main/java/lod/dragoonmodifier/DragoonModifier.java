@@ -253,7 +253,6 @@ public class DragoonModifier {
   public double[][] ultimatePenality = new double[3][2];
   public boolean[] bonusItemSP = new boolean[3];
   public boolean[] ouroboros = new boolean[3];
-  public ArrayList<Element> elementArrowsElements = new ArrayList<>();
   public int[] ringOfElements = new int[3];
   public Element[] ringOfElementsElement = new Element[3];
   public ArrayList<BattleEntity27c> attacked = new ArrayList<>();
@@ -1536,7 +1535,7 @@ public class DragoonModifier {
       }
     }
 
-    if("dragoon_modifier:elemental_arrow".equals(this.currentPlayer.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+    if("dragoon_modifier:elemental_arrow".equals(this.currentPlayer.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) || "dragoon_modifier:elemental_arrow".equals(this.shanaPreviousArrow[this.currentPlayerSlot].toString())) {
       event.arrowCount = 99;
     } else {
       event.arrowCount = amount;
@@ -1581,6 +1580,9 @@ public class DragoonModifier {
   }
 
   public void removeArrow() {
+    if("dragoon_modifier:elemental_arrow".equals(this.currentPlayer.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) || "dragoon_modifier:elemental_arrow".equals(this.shanaPreviousArrow[this.currentPlayerSlot].toString())) {
+      return;
+    }
     for(int i = 0; i < gameState_800babc8.equipment_1e8.size(); i++) {
       final Equipment equipment = gameState_800babc8.equipment_1e8.get(i);
       if(equipment.getRegistryId().equals(this.currentPlayer.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId())) {
@@ -1861,7 +1863,6 @@ public class DragoonModifier {
     Arrays.fill(this.shanaMaxArrowCount, -1);
     Arrays.fill(this.shanaPreviousArrow, null);
     this.damageTrackerLog.clear();
-    this.elementArrowsElements.clear();
 
     for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
       final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c[i];
@@ -2235,11 +2236,6 @@ public class DragoonModifier {
 
             this.shanaPreviousArrow[player.charSlot_276] = player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId();
           }
-        }
-
-        this.elementArrowsElements.add(bobj.getElement());
-        if(bobj instanceof PlayerBattleEntity && bobj.getElement() == FIRE_ELEMENT.get() && gameState_800babc8.goods_19c[0] << 7 == 1) {
-          this.elementArrowsElements.add(DIVINE_ELEMENT.get());
         }
       }
     }
@@ -4020,35 +4016,47 @@ public class DragoonModifier {
   @EventListener
   public void loadDeff(final ScriptLoadDeffEvent event) {
     if(this.shanaDeffArrow) {
-      final PlayerBattleEntity bent = (PlayerBattleEntity)scriptStatePtrArr_800bc1c0[event.bentIndex].innerStruct_00;
-      if(bent.charId_272 == 2 || bent.charId_272 == 8) {
-        if("dragoon_modifier:fire_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:water_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:wind_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:earth_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:dark_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:light_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
-          "dragoon_modifier:thunder_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-          event.scriptEntrypoint = 0x0;
-          this.shanaDeffArrow = false;
-          this.isItemArrow = true;
+      this.print("---SHANA DEFF ARROW---");
+      this.print("FLAGS " + event.flagsAndIndex);
+      this.print("BENT  " + event.bentIndex);
+      this.print("P2    " + event.p2);
+      this.print("SCREP " + event.scriptEntrypoint);
+      this.print("TYPE  " + event.type);
 
-          if("dragoon_modifier:fire_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC3;
-          } else if("dragoon_modifier:water_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC6;
-          } else if("dragoon_modifier:wind_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC7;
-          } else if("dragoon_modifier:earth_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC5;
-          } else if("dragoon_modifier:dark_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xCA;
-          } else if("dragoon_modifier:light_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC9;
-          } else if("dragoon_modifier:thunder_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-            event.flagsAndIndex = 0xC2;
+      if(event.type == 0x2000000) {
+        final PlayerBattleEntity bent = (PlayerBattleEntity)scriptStatePtrArr_800bc1c0[event.bentIndex].innerStruct_00;
+        if(bent.charId_272 == 2 || bent.charId_272 == 8) {
+          if("dragoon_modifier:fire_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:water_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:wind_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:earth_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:dark_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:light_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) ||
+            "dragoon_modifier:thunder_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+            event.scriptEntrypoint = 0x0;
+            this.shanaDeffArrow = false;
+            this.isItemArrow = true;
+
+            if("dragoon_modifier:fire_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC3;
+            } else if("dragoon_modifier:water_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC6;
+            } else if("dragoon_modifier:wind_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC7;
+            } else if("dragoon_modifier:earth_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC5;
+            } else if("dragoon_modifier:dark_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xCA;
+            } else if("dragoon_modifier:light_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC9;
+            } else if("dragoon_modifier:thunder_arrow".equals(bent.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
+              event.flagsAndIndex = 0xC2;
+            }
           }
         }
+      } else {
+        this.shanaDeffArrow = false;
+        this.isItemArrow = false;
       }
     }
   }
