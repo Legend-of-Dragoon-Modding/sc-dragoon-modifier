@@ -185,12 +185,12 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Shielding,Chance to cast§perfect shield§before death.,dragoon_modifier:ring_of_shielding
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Elements,Extends dragoon§space based on§turns in special.,dragoon_modifier:ring_of_elements
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,1,1,1,1,1,1,1,1,1,0,0,0,0,7500,The One Ring,One.,dragoon_modifier:the_one_ring
-0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,0,0,10,10,0,0,10,10,0,0,0,0,7500,Lloyd's Boots,Lloyd's favorite boots.,dragoon_modifier:lloyds_boots
+0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,10,10,10,10,0,0,10,10,0,0,0,0,7500,Lloyd's Boots,Lloyd's favorite boots.,dragoon_modifier:lloyds_boots
 0,32,64,247,0,0,0,0,0,0,0,10,10,10,10,0,0,0,false,false,false,false,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,15000,Divine DG Armor,20 SP and 10% MP on§all hits.,dragoon_modifier:divine_dg_armor
 0,64,64,247,0,0,0,0,0,0,0,0,0,0,0,30,30,0,false,false,false,false,0,0,0,0,0,18,0,0,0,0,0,100,100,0,0,0,0,0,0,7500,Halo of Balance,Raises maximum§HP/MP by 30%.,dragoon_modifier:halo_of_balance
 0,128,128,128,8,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,50,50,0,0,0,0,0,0,0,0,0,0,15000,Firebrand,Fire and Divine§based attack.,dragoon_modifier:firebrand
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,100,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Super Spirit Ring,Removes SP from§additions. Gains§100 SP per turn.,dragoon_modifier:super_spirit_ring
-0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,0,0,0,0,0,0,20,20,0,0,0,0,7500,Winged Shoes,,dragoon_modifier:winged_shoes
+0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,5,5,5,5,0,0,20,20,0,0,0,0,7500,Winged Shoes,Raises evasion§by 20%.,dragoon_modifier:winged_shoes
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Protection Shield,Negates damage up§to 50% Max HP§per battle.,dragoon_modifier:protection_shield
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Spirit Bottle,Recovers 80 SP§on first turn of battle.,dragoon_modifier:spirit_bottle
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,37,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Speed Bottle,Start battle with one§extra turn on first§turn once per battle.,dragoon_modifier:speed_bottle
