@@ -165,32 +165,32 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,128,128,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,1500,Hydro Hammer,Water-based attack.,dragoon_modifier:hydro_hammer
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,32,0,30,30,0,0,0,0,0,0,0,0,0,0,4000,Attack Horn,Raises physical§& magical§attack by 30.,dragoon_modifier:attack_horn
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,32,0,0,0,30,30,0,0,0,0,0,0,0,0,4000,Defense Horn,Raises physical§& magical§defense by 30.,dragoon_modifier:defense_horn
-0,128,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,75,25,0,0,0,0,0,0,0,0,0,0,10000,Spirit Eater,"Powerful, but SP§decays each turn§unless full.",dragoon_modifier:spirit_eater
-0,128,128,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,1,0,110,0,0,0,0,0,0,0,0,0,0,0,10000,Giant Axe,Will occasionally§cast guard after§physical dmg.,dragoon_modifier:giant_axe
-0,128,128,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,5,0,0,0,0,0,80,25,0,0,0,0,0,0,0,0,0,0,10000,Dragon Beater,Grants life and SP§steal on§physical attacks.,dragoon_modifier:dragon_beater
-0,128,128,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,3,0,82,0,0,0,0,0,0,0,0,0,0,0,10000,Ouroboros,Enhances dragoon§but has negative§effects.,dragoon_modifier:ouroboros
-0,128,128,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,50,0,0,0,0,0,0,0,0,0,0,10000,Elemental Arrow,Changes element§based on party§and monsters.,dragoon_modifier:elemental_arrow
-0,128,128,1,0,0,0,0,0,0,0,8,0,8,0,0,150,0,false,false,false,false,0,0,20,0,0,2,0,0,80,0,0,0,0,0,0,0,0,0,0,10000,Magic Hammer,Transfers all§physical power§to magical damage.,dragoon_modifier:magic_hammer
-0,128,128,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,6,0,69,0,0,0,0,0,0,0,0,0,0,0,10000,Overcharge Glove,Thunder-based§attack that deals§more to thunder.,dragoon_modifier:overcharge_glove
-0,32,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,15000,Crystal Armor,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_armor
-0,64,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,105,105,1,1,0,0,0,0,15000,Crystal Hat,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_hat
-0,16,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,15000,Crystal Boots,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_boots
-0,8,32,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,15000,Crystal Ring,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_ring
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,15000,Ring of Reversal,Reverse physical§and magical defense.,dragoon_modifier:ring_of_reversal
+0,128,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,75,25,0,0,0,0,0,0,0,0,0,0,20000,Spirit Eater,"Powerful, but SP§decays each turn§unless full.",dragoon_modifier:spirit_eater
+0,128,128,32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,1,0,110,0,0,0,0,0,0,0,0,0,0,0,20000,Giant Axe,Will occasionally§cast guard after§physical dmg.,dragoon_modifier:giant_axe
+0,128,128,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,5,0,0,0,0,0,80,25,0,0,0,0,0,0,0,0,0,0,20000,Dragon Beater,Grants life and SP§steal on§physical attacks.,dragoon_modifier:dragon_beater
+0,128,128,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,3,0,82,0,0,0,0,0,0,0,0,0,0,0,20000,Ouroboros,Enhances dragoon§but has negative§effects.,dragoon_modifier:ouroboros
+0,128,128,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,50,0,0,0,0,0,0,0,0,0,0,20000,Elemental Arrow,Changes element§based on party§and monsters.,dragoon_modifier:elemental_arrow
+0,128,128,1,0,0,0,0,0,0,0,8,0,8,0,0,150,0,false,false,false,false,0,0,20,0,0,2,0,0,80,0,0,0,0,0,0,0,0,0,0,20000,Magic Hammer,Transfers all§physical power§to magical damage.,dragoon_modifier:magic_hammer
+0,128,128,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,6,0,69,0,0,0,0,0,0,0,0,0,0,0,20000,Overcharge Glove,Thunder-based§attack that deals§more to thunder.,dragoon_modifier:overcharge_glove
+0,32,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,30000,Crystal Armor,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_armor
+0,64,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,105,105,1,1,0,0,0,0,30000,Crystal Hat,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_hat
+0,16,64,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,30000,Crystal Boots,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_boots
+0,8,32,247,0,0,0,0,0,0,0,5,5,5,5,0,0,0,false,false,false,false,0,0,0,0,0,38,1,5,5,5,5,5,5,1,1,0,0,0,0,30000,Crystal Ring,Increases stats§the more crystal§equips are set.,dragoon_modifier:crystal_ring
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,30000,Ring of Reversal,Reverse physical§and magical defense.,dragoon_modifier:ring_of_reversal
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,7,7,7,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Healing,Heals 7% HP/MP§and 7 SP§per turn.,dragoon_modifier:ring_of_healing
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,60,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Power,Raises physical§attack by 60.,dragoon_modifier:ring_of_power
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,60,0,0,0,0,0,0,0,0,0,0,7500,Ring of Magic,Raises magical§attack by 60.,dragoon_modifier:ring_of_magic
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,60,0,0,0,0,0,0,0,0,0,7500,Ring of Defense,Raises physical§defense§by 60.,dragoon_modifier:ring_of_defense
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,60,0,0,0,0,0,0,0,0,7500,Ring of Block,Raises magical§defense§by 60.,dragoon_modifier:ring_of_block
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Shielding,Chance to cast§perfect shield§before death.,dragoon_modifier:ring_of_shielding
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Ring of Elements,Extends dragoon§space based on§turns in special.,dragoon_modifier:ring_of_elements
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,10000,Ring of Shielding,Chance to cast§perfect shield§before death.,dragoon_modifier:ring_of_shielding
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,10000,Ring of Elements,Extends dragoon§space based on§turns in special.,dragoon_modifier:ring_of_elements
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,22,1,1,1,1,1,1,1,1,1,0,0,0,0,7500,The One Ring,One.,dragoon_modifier:the_one_ring
-0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,10,10,10,10,0,0,10,10,0,0,0,0,7500,Lloyd's Boots,Lloyd's favorite boots.,dragoon_modifier:lloyds_boots
-0,32,64,247,0,0,0,0,0,0,0,10,10,10,10,0,0,0,false,false,false,false,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,15000,Divine DG Armor,20 SP and 10% MP on§all hits.,dragoon_modifier:divine_dg_armor
+0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,10,10,10,10,0,0,10,10,0,0,0,0,10000,Lloyd's Boots,Lloyd's favorite boots.,dragoon_modifier:lloyds_boots
+0,32,64,247,0,0,0,0,0,0,0,10,10,10,10,0,0,0,false,false,false,false,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,30000,Divine DG Armor,20 SP and 10% MP on§all hits.,dragoon_modifier:divine_dg_armor
 0,64,64,247,0,0,0,0,0,0,0,0,0,0,0,30,30,0,false,false,false,false,0,0,0,0,0,18,0,0,0,0,0,100,100,0,0,0,0,0,0,7500,Halo of Balance,Raises maximum§HP/MP by 30%.,dragoon_modifier:halo_of_balance
-0,128,128,128,8,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,50,50,0,0,0,0,0,0,0,0,0,0,15000,Firebrand,Fire and Divine§based attack.,dragoon_modifier:firebrand
+0,128,128,128,8,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,0,0,50,50,0,0,0,0,0,0,0,0,0,0,30000,Firebrand,Fire and Divine§based attack.,dragoon_modifier:firebrand
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,100,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,7500,Super Spirit Ring,Removes SP from§additions. Gains§100 SP per turn.,dragoon_modifier:super_spirit_ring
-0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,10,5,5,5,5,0,0,20,20,0,0,0,0,7500,Winged Shoes,Raises evasion§by 20%.,dragoon_modifier:winged_shoes
+0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,5,5,5,5,5,0,0,20,20,0,0,0,0,7500,Winged Shoes,Raises evasion§by 20%.,dragoon_modifier:winged_shoes
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,42,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Protection Shield,Negates damage up§to 50% Max HP§per battle.,dragoon_modifier:protection_shield
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Spirit Bottle,Recovers 80 SP§on first turn of battle.,dragoon_modifier:spirit_bottle
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,37,0,0,0,0,0,0,0,0,0,0,0,0,0,500,Speed Bottle,Start battle with one§extra turn on first§turn once per battle.,dragoon_modifier:speed_bottle
@@ -207,7 +207,7 @@ Flag,Type,UK1,Who Equips,Element,UK2,Elemental Resistance,Elemental Null,Status 
 0,128,128,0,32,0,0,0,0,0,9,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,40,Light Arrow,Light-based attack.,dragoon_modifier:light_arrow
 0,128,128,0,16,0,0,0,0,0,9,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,40,Thunder Arrow,Thunder-based attack.,dragoon_modifier:thunder_arrow
 0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,50,Fake Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:fake_solitary_ring
-0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,40000,Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:solitary_ring
+0,8,32,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,23,0,0,0,0,0,0,0,0,0,0,0,0,0,50000,Solitary Ring,Raises all stats§when alone in§battle.,dragoon_modifier:solitary_ring
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,8,8,0,0,0,0,0,0,0,0,50,Fake Plague Boots,Raises status chance§by 20%.,dragoon_modifier:fake_plague_boots
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,0,0,0,12,12,0,0,0,0,0,0,0,0,300,Plague Boots,Raises status chance§by 40%.,dragoon_modifier:plague_boots
 0,16,64,247,0,0,0,0,0,0,0,0,0,0,0,0,0,0,false,false,false,false,0,0,0,0,0,21,5,0,0,18,18,0,0,0,0,0,0,0,0,2000,Magicial Sollerets,,dragoon_modifier:magical_sollerets
