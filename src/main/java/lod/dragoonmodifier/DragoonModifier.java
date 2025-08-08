@@ -4599,6 +4599,23 @@ public class DragoonModifier {
     }).start();
   }
 
+  public static void rogueShop() {
+    new Thread(() -> {
+      while(draMenuOpen) {
+        try {
+          Thread.sleep(20);
+        } catch(InterruptedException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      if(currentEngineState_8004dd04 instanceof final SMap smap) {
+        shopId_8007a3b4 = 25;
+        smap.mapTransition(-1, 0x3fe);
+      }
+    }).start();
+  }
+
   public static void heroCompetitionShop() {
     new Thread(() -> {
       while(draMenuOpen) {

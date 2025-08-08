@@ -60,6 +60,8 @@ public class DraMenu extends MenuScreen {
         addButton("Next Ultimate Boss", DragoonModifier::nextUltimateBoss);
         addButton("Ultimate Boss", DragoonModifier::startUltimateBoss);
       }
+    } else if(submapCut_80052c30 >= 569 && submapCut_80052c30 <= 582) {
+      addButton("Rogue Shop", DragoonModifier::rogueShop);
     } else if(submapCut_80052c30 == 730) {
       if(DragoonModifier.isBitSet(12, 8)) {
         addButton("Warp off Moon", DragoonModifier::warpToUlara);
