@@ -44,12 +44,12 @@ public class DraMenu extends MenuScreen {
     }
 
     if(submapCut_80052c30 != 10) {
-      addButton("Add Everyone", DragoonModifier::addAllPartyMembers);
+      //addButton("Add Everyone", DragoonModifier::addAllPartyMembers);
     }
 
     if(submapCut_80052c30 == 10) {
       addButton("Swap all Dragoons", DragoonModifier::addDragoons);
-      addButton("Add Lv1 Party", DragoonModifier::addLv1Characters);
+      //addButton("Add Lv1 Party", DragoonModifier::addLv1Characters);
     } else if(submapCut_80052c30 == 232) {
       addButton("Add Dart Dragoon", DragoonModifier::addDartDragoon);
     } else if(submapCut_80052c30 == 424 || submapCut_80052c30 == 736) {
