@@ -4277,7 +4277,7 @@ public class DragoonModifier {
         }
       }
     } else {
-      if(event.deffPath.toString().contains("DRGN0.BIN\\5216\\1")) {
+      if(event.deffPath.toString().contains("DRGN0.BIN\\5216\\1") || event.deffPath.toString().contains("DRGN0.BIN/5216/1") ) {
         final Path attack = Loader.resolveMods("dragoon_modifier/scripts/mobs/5216.1");
         if(Files.exists(attack)) {
           try {
@@ -4291,7 +4291,7 @@ public class DragoonModifier {
 
   @EventListener
   public void SubmapLoadEvent(final SubmapLoadEvent event) {
-    File file = new File("scriptDump\\" + submapCut_80052c30 + "mainScript");
+    /*File file = new File("scriptDump\\" + submapCut_80052c30 + "mainScript");
     try {
       file.createNewFile();
     } catch(IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
@@ -4308,7 +4308,7 @@ public class DragoonModifier {
       try(FileOutputStream fos = new FileOutputStream(file)) {
         fos.write(event.submapObjects.get(i).script.data);
       } catch (IOException ex) { System.err.println("Error: " + ex.getMessage()); ex.printStackTrace(); }
-    }
+    }*/
 
     if(submapCut_80052c30 == 177) {
       if(isBitSet(3, 0)) {
