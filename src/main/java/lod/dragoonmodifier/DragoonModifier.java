@@ -3139,7 +3139,7 @@ public class DragoonModifier {
         } catch(final Exception ignored) {
         }
 
-        if(event.damage > 0) {
+        if(event.damage > 0 && event.attacker instanceof MonsterBattleEntity) {
           if(this.protectionShield[defender.charSlot_276] > 0) {
             if(event.damage <= this.protectionShield[defender.charSlot_276]) {
               this.displayNumbers(6 + defender.charSlot_276, event.damage, 0, 1500);
