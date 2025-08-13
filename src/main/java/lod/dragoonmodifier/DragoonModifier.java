@@ -4515,15 +4515,15 @@ public class DragoonModifier {
   public static void swapRedEyedAndDivineSpirit() {
     final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
     if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
-      if(draModSave.ultimateBossStage >= 34) {
+      //if(draModSave.ultimateBossStage >= 34) {
         gameState_800babc8.goods_19c[0] ^= 1 << 7;
         if(submapCut_80052c30 == 736) {
           gameState_800babc8.goods_19c[0] |= 1 << 0;
         }
         draMenuMessage = "Spirit swapped.";
-      } else {
+      /*} else {
         draMenuMessage = "Ultimate Boss #34 not defeated.";
-      }
+      }*/
     } else {
       gameState_800babc8.goods_19c[0] ^= 1 << 7;
       if(submapCut_80052c30 == 736) {
