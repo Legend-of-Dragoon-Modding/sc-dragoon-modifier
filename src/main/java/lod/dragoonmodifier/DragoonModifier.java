@@ -496,6 +496,8 @@ public class DragoonModifier {
       } else {
         event.gameState.gold_94 = 20;
       }
+
+      draModSave = new DraModSaveFile();
     } else if(submapCut_80052c30 == 10) {
       if(("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) && gameState_800babc8.charData_32c[0].level_12 == 1) {
         gameState_800babc8.goods_19c[0] ^= 1;
