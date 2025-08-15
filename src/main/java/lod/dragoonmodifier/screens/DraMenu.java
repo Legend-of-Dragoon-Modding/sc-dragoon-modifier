@@ -79,11 +79,6 @@ public class DraMenu extends MenuScreen {
       addButton("Ele. Bomb Shop", DragoonModifier::elementalBombShop);
     }
 
-    //Black Castle Accessway
-    //Warp out of Moon
-    //Warp to Moon
-    //Faust Battle
-
     if(gameState_800babc8.charData_32c[8].partyFlags_04 > 0) {
       addButton("???", DragoonModifier::who);
     }
