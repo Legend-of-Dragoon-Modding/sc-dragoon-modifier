@@ -754,7 +754,7 @@ public class DragoonModifier {
     final String registryId = keySplit[0] + ':' + keySplit[2];
     for(final String[] equip : equipStats) {
       if(equip[44].equals(registryId)) {
-        return equip[43].replaceAll("§", "\n");
+        return equip[43].replaceAll("\u00A7", "\n");
       }
     }
     return "";
@@ -786,7 +786,7 @@ public class DragoonModifier {
         if(engineState_8004dd20 == EngineStateEnum.COMBAT_06) {
           return item[29];
         } else {
-          return item[28].replaceAll("§", "\n");
+          return item[28].replaceAll("\u00A7", "\n");
         }
       }
     }
@@ -1424,6 +1424,11 @@ public class DragoonModifier {
     final String saveLocation = event.save.state.campaign.path.resolve(event.save.fileName).toString() + ".dragoon_modifier";
     this.print("[LOAD] " + saveLocation);
     draModSave = SaveFile.load(saveLocation);
+
+    final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+    if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
+      EVENTS.postEvent(new HellModeAdjustmentEvent());
+    }
   }
 
   @EventListener
@@ -4467,7 +4472,7 @@ public class DragoonModifier {
   }
 
   public static void addLavitz() {
-    gameState_800babc8.charData_32c[1].partyFlags_04 = gameState_800babc8.charData_32c[1].partyFlags_04 != 0 ? 0x43 : 0;
+    gameState_800babc8.charData_32c[1].partyFlags_04 = gameState_800babc8.charData_32c[1].partyFlags_04 != 0 ? 0x3 : 0;
     if(gameState_800babc8.charData_32c[1].partyFlags_04 != 0) {
       draMenuMessage = "Lavitz added.";
     } else {
@@ -4742,13 +4747,13 @@ public class DragoonModifier {
   @EventListener
   public void registerInput(final RegisterDefaultInputBindingsEvent event) {
     event.add(INPUT_ACTION_DRAMENU.get(), new ScancodeInputActivation(InputKey.C));
-    event.add(INPUT_ACTION_DRAMENU.get(), new ButtonInputActivation(InputButton.START));
+    event.add(INPUT_ACTION_DRAMENU.get(), new ButtonInputActivation(InputButton.X));
     event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ScancodeInputActivation(InputKey.V));
     event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ButtonInputActivation(InputButton.SELECT));
   }
   //endregion
 
   public static boolean isBitSet(final int index, final int bit) {
-    return (gameState_800babc8.scriptFlags2_bc.getRaw(index) & bit) != 1;
+    return (gameState_800babc8.scriptFlags2_bc.getRaw(index) & (1 << bit)) != 0;
   }
 }
