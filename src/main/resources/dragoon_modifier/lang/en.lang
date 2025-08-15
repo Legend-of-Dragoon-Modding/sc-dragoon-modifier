@@ -24,6 +24,8 @@ dragoon_modifier.config.damage_tracker.ON=On
 dragoon_modifier.config.damage_tracker.OFF=Off
 dragoon_modifier.config.show_achievements.label=[DM]Show Achievements
 dragoon_modifier.config.show_achievements.help=Shows all hidden achievements.
+dragoon_modifier.input_actions.dramenu_open.name=Dragoon Modifier Menu
+dragoon_modifier.input_actions.draachievements_open.name=Dragoon Modifier Achievements
 
 # Equips
 dragoon_modifier.equipment.thiefs_shoes.name=Thief's Shoes
