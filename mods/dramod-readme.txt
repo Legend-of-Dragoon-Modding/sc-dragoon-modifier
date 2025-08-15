@@ -15,7 +15,7 @@ Hell Mode          - Hell Mode character enhancements and all enemies have upgra
 ===========================================================================================================================================================
 Quick how to
 ===========================================================================================================================================================
-While exploring submaps press START or key C to open the DraMod Menu. More information on the DraMod Menu can be found below.
+While exploring submaps press SQUARE or key C to open the DraMod Menu. More information on the DraMod Menu can be found below.
 While exploring submaps press SELECT or key V to open the DraMod Achievements screen.
 Press UP or DOWN in battle to open the secondary battle menu to activate character abilities.
 
@@ -169,7 +169,7 @@ Cat's Cradle has changed.
 Perky Step has changed.
 
 Meru's mechanic is called Magic State and costs 10 MP per turn to use.
-While in Magic State any damage that Meru does 1% of it is transferred to a shield. 
+While in Magic State any damage that Meru does 10% of it is transferred to a shield. 
 Meru gains Enhanced Guard while in this state increasing the amount of healing from Guard.
 In Hard Mode Enhanced Guard heals 18% HP.
 In Hell Mode Enhanced Guard heals 15% HP.
