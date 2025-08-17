@@ -46,6 +46,7 @@ import legend.game.modding.coremod.CoreMod;
 import legend.game.modding.events.RenderEvent;
 import legend.game.modding.events.battle.*;
 import legend.game.modding.events.characters.AdditionUnlockEvent;
+import legend.game.modding.events.characters.DivineDragoonEvent;
 import legend.game.modding.events.characters.XpToLevelEvent;
 import legend.game.modding.events.config.ConfigLoadedEvent;
 import legend.game.modding.events.gamestate.DeleteSaveEvent;
@@ -264,6 +265,8 @@ public class DragoonModifier {
 
   public Set<InputAction> hotkey = new HashSet<>();
 
+  public int currentPlayerMP = 0;
+  public int dragoonDeffSelected = 0;
   public boolean[] burnStackMode = new boolean[3];
   public int[] burnStacks = new int[3];
   public int[] previousBurnStacks = new int[3];
@@ -320,8 +323,8 @@ public class DragoonModifier {
   public static final Registrar<DeffPackage, RegisterDeffsEvent> DRAMOD_ITEM_DEFF_REGISTRAR = new Registrar<>(REGISTRIES.deff, MOD_ID);
   public static final Registrar<InputAction, InputActionRegistryEvent> DRAMOD_INPUT_REGISTRAR = new Registrar<>(REGISTRIES.inputActions, MOD_ID);
 
-  public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAMENU = DRAMOD_INPUT_REGISTRAR.register("dramenu_open", InputAction::fixed);
-  public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAACHIEVEMENTS = DRAMOD_INPUT_REGISTRAR.register("draachievements_open", InputAction::fixed);
+  public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAMENU = DRAMOD_INPUT_REGISTRAR.register("dramenu_open", InputAction::editable);
+  public static final RegistryDelegate<InputAction> INPUT_ACTION_DRAACHIEVEMENTS = DRAMOD_INPUT_REGISTRAR.register("draachievements_open", InputAction::editable);
 
   public static DraModSaveFile draModSave;
 
@@ -1491,6 +1494,11 @@ public class DragoonModifier {
       case 4321: //Spinning Gale
       case 4325: //Trans Light
       case 4327: //Dark Mist
+        if(event.scriptId >= 4235 && event.scriptId <= 4249) {
+          if(this.currentPlayerMP > this.currentPlayer.getStat(BattleEntityStat.CURRENT_MP)) {
+            this.dragoonDeffSelected = event.scriptId;
+          }
+        }
         new Thread(() -> {
           for(int i = 0; i < 80; i++) {
             try {
@@ -2588,6 +2596,9 @@ public class DragoonModifier {
             player.setStat(BattleEntityStat.CURRENT_HP, (int)(player.getStat(BattleEntityStat.CURRENT_HP) + player.getStat(BattleEntityStat.MAX_HP) * 0.02));
           }
         }
+
+        this.currentPlayerMP = player.getStat(BattleEntityStat.CURRENT_MP);
+        this.dragoonDeffSelected = 0;
       } else {
         for(final RegistryId entry : GameEngine.REGISTRIES.modMenu) {
           if("dragoon_modifier".contains(entry.toString())) {
@@ -2786,7 +2797,6 @@ public class DragoonModifier {
             if(event.damage > 0 && !this.roseSiphonActivated[player.charSlot_276]) {
               this.roseSiphon[player.charSlot_276] = (int)Math.min(this.roseSiphonMax, Math.min(this.roseSiphonMax * 0.2 + this.roseSiphon[player.charSlot_276], this.roseSiphon[player.charSlot_276] + event.damage));
               this.displayNumbers(6 + player.charSlot_276, this.roseSiphon[player.charSlot_276], 3, 1500);
-              addAchievement(50);
             }
           }
 
@@ -2794,6 +2804,7 @@ public class DragoonModifier {
             event.damage += this.roseSiphonMax;
             this.roseSiphon[player.charSlot_276] = 0;
             this.roseSiphonActivated[player.charSlot_276] = false;
+            addAchievement(50);
           }
         }
 
@@ -3026,6 +3037,38 @@ public class DragoonModifier {
               this.currentPlayer.stats.getStat(LodMod.SPEED_STAT.get()).setRaw(this.kongolCounterSpeed);
             }
           }
+        }
+
+        if(this.dragoonDeffSelected > 0) {
+          switch(this.dragoonDeffSelected) {
+            case 4235: //Dart Attack
+              player.spellId_4e = 48;
+              break;
+            case 4237: //Lavitz Attack
+              player.spellId_4e = 49;
+              break;
+            case 4241: //Rose Attack
+              player.spellId_4e = 51;
+              break;
+            case 4243: //Haschel Attack
+              player.spellId_4e = 52;
+              break;
+            case 4245: //Albert Attack
+              player.spellId_4e = 53;
+              break;
+            case 4247: //Meru Attack
+              player.spellId_4e = 54;
+              break;
+            case 4249: //Kongol Attack
+              player.spellId_4e = 45;
+              break;
+            default:
+              this.dragoonDeffSelected = 0;
+          }
+          player.setTempSpellStats();
+        }
+        if(player.spellId_4e >= 48 && player.spellId_4e <= 56) {
+          event.damage = event.defender.getElement().adjustAttackingElementalDamage(event.attackType, event.damage, player.spell_94.element_08.get());
         }
       }
 
@@ -3325,22 +3368,24 @@ public class DragoonModifier {
   }
 
   public void addBurnStacks(final PlayerBattleEntity dart, final int stacks) {
-    if(!this.burnStackMode[dart.charSlot_276]) {
-      this.previousBurnStacks[dart.charSlot_276] = this.burnStacks[dart.charSlot_276];
-      final int dlv = dart.dlevel_06;
-      this.burnStacksMax[dart.charSlot_276] = dlv == 0 ? 0 : dlv == 1 ? 3 : dlv == 2 ? 6 : dlv == 3 ? 9 : dlv == 7 ? 15 : 12;
-      this.burnStacks[dart.charSlot_276] = Math.min(this.burnStacksMax[dart.charSlot_276], this.burnStacks[dart.charSlot_276] + stacks);
+    if((gameState_800babc8.goods_19c[0] & 0xff) >>> 7 == 0) {
+      if(!this.burnStackMode[dart.charSlot_276]) {
+        this.previousBurnStacks[dart.charSlot_276] = this.burnStacks[dart.charSlot_276];
+        final int dlv = dart.dlevel_06;
+        this.burnStacksMax[dart.charSlot_276] = dlv == 0 ? 0 : dlv == 1 ? 3 : dlv == 2 ? 6 : dlv == 3 ? 9 : dlv == 7 ? 15 : 12;
+        this.burnStacks[dart.charSlot_276] = Math.min(this.burnStacksMax[dart.charSlot_276], this.burnStacks[dart.charSlot_276] + stacks);
 
-      if(this.burnStacks[dart.charSlot_276] >= 4 && this.previousBurnStacks[dart.charSlot_276] < 4) {
-        dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 10);
-      } else if(this.burnStacks[dart.charSlot_276] >= 8 && this.previousBurnStacks[dart.charSlot_276] < 8) {
-        dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 20);
-      } else if(this.burnStacks[dart.charSlot_276] >= 12 && this.previousBurnStacks[dart.charSlot_276] < 12) {
-        dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 30);
+        if(this.burnStacks[dart.charSlot_276] >= 4 && this.previousBurnStacks[dart.charSlot_276] < 4) {
+          dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 10);
+        } else if(this.burnStacks[dart.charSlot_276] >= 8 && this.previousBurnStacks[dart.charSlot_276] < 8) {
+          dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 20);
+        } else if(this.burnStacks[dart.charSlot_276] >= 12 && this.previousBurnStacks[dart.charSlot_276] < 12) {
+          dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 30);
+        }
+
+        this.displayNumbers(6 + dart.charSlot_276, stacks, 5, 1500);
+        addAchievement(47);
       }
-
-      this.displayNumbers(6 + dart.charSlot_276, stacks, 5, 1500);
-      addAchievement(47);
     }
   }
 
@@ -4204,16 +4249,16 @@ public class DragoonModifier {
           Thread.sleep(5000);
           draNotificationOpen = false;
 
-          menuStack.reset();
+          menuStack.popScreen();
 
         } catch(final Exception ignored) {
           draNotificationOpen = false;
-          menuStack.reset();
+          menuStack.popScreen();
         }
       }).start();
     } catch(final Exception ignored) {
       draNotificationOpen = false;
-      menuStack.reset();
+      menuStack.popScreen();
     }
   }
 
@@ -4367,9 +4412,13 @@ public class DragoonModifier {
         }).start();
       }
     }
+  }
 
-
-
+  public void DivineDragoonEvent(final DivineDragoonEvent event) {
+    final String difficulty = GameEngine.CONFIG.getConfig(DIFFICULTY.get());
+    if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
+      event.bypassOverride = true;
+    }
   }
   //endregion
 
@@ -4747,9 +4796,9 @@ public class DragoonModifier {
   @EventListener
   public void registerInput(final RegisterDefaultInputBindingsEvent event) {
     event.add(INPUT_ACTION_DRAMENU.get(), new ScancodeInputActivation(InputKey.C));
-    event.add(INPUT_ACTION_DRAMENU.get(), new ButtonInputActivation(InputButton.X));
+    event.add(INPUT_ACTION_DRAMENU.get(), new ButtonInputActivation(InputButton.RIGHT_STICK));
     event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ScancodeInputActivation(InputKey.V));
-    event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ButtonInputActivation(InputButton.SELECT));
+    event.add(INPUT_ACTION_DRAACHIEVEMENTS.get(), new ButtonInputActivation(InputButton.LEFT_STICK));
   }
   //endregion
 
