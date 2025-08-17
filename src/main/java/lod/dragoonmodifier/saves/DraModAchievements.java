@@ -64,7 +64,7 @@ public class DraModAchievements {
     BURN_STACK(47, TrophyType.BRONZE, "Stacked", "Gain one burn stack.", false),
     WIND_MARK(48, TrophyType.BRONZE, "Marked", "Gain one wind mark.", false),
     ARROW_EXCHANGE(49, TrophyType.BRONZE, "Swapped", "Swap to an elemental arrow.", false),
-    OVERFLOW(50, TrophyType.BRONZE, "Overflowed", "Use overflow to deal.", false),
+    OVERFLOW(50, TrophyType.BRONZE, "Overflowed", "Use overflow to deal additional damage.", false),
     CHARGED(51, TrophyType.BRONZE, "Overchaged", "Use an enhanced Spark Net.", false),
     ICE_SHIELD(52, TrophyType.BRONZE, "Shielded", "Gain some Ice Shield.", false),
     COUNTER_STANCE(53, TrophyType.BRONZE, "Countered", "Counter attack for the first time.", false),
