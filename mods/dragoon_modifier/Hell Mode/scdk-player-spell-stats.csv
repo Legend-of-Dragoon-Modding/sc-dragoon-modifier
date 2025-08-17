@@ -47,15 +47,15 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 192,0,0,0,0,100,0,0,0,0,0,0, ,
 192,0,0,64,0,100,0,0,0,0,0,0, ,
 192,0,0,32,0,100,0,0,0,0,0,0, ,
-192,0,0,16,0,100,0,0,0,0,0,0,Fire Attack,Physical Fire STR 670% x1.00
-192,0,0,8,0,100,0,0,0,0,0,0,Wind Attack,Physical Wind STR 800%
-200,0,0,128,0,100,0,0,0,0,0,0,Light Arrow,Physical Light STR 550%
-200,0,0,0,0,100,0,0,0,0,0,0,Dark Attack,Physical Dark STR 660%
-200,0,0,64,0,100,0,0,0,0,0,0,Thunder Attack,Physical Thunder STR 790%
-200,0,0,32,0,100,0,0,0,0,0,0,Wind Attack,Physical Wind STR 800%
-200,0,0,16,0,100,0,0,0,0,0,0,Water Attack,Physical Water STR 530%
-200,0,0,8,0,100,0,0,0,0,0,0,Earth Attack,Physical Earth STR 960%
-0,0,16,0,0,100,0,0,0,0,32,0,Light Arrow,Physical Light STR 550%
+192,0,0,16,0,100,50,0,128,0,0,0,Fire Attack,Physical Fire STR 670% x1.00
+192,0,0,8,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 800%
+192,0,0,128,0,100,50,0,32,0,0,0,Light Arrow,Physical Light STR 550%
+192,0,0,0,0,100,50,0,4,0,0,0,Dark Attack,Physical Dark STR 660%
+192,0,0,64,0,100,50,0,16,0,0,0,Thunder Attack,Physical Thunder STR 790%
+192,0,0,32,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 800%
+192,0,0,16,0,100,50,0,1,0,0,0,Water Attack,Physical Water STR 530%
+192,0,0,8,0,100,50,0,2,0,0,0,Earth Attack,Physical Earth STR 960%
+0,0,16,0,0,100,0,0,32,0,32,0,Light Arrow,Physical Light STR 550%
 64,0,16,0,0,100,0,0,0,0,2,0, ,
 0,0,16,0,0,100,0,0,0,0,128,0,,
 64,0,16,0,0,100,0,0,0,0,8,0,,
