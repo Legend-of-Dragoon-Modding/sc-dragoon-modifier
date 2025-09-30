@@ -169,6 +169,7 @@ import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.combat.Battle.spellStats_800fa0b8_Monster;
 import static legend.game.combat.Battle.spellStats_800fa0b8_Player;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
+import static legend.game.submap.RetailSubmap.encounterData_800f64c4;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
 import static legend.lodmod.LodMod.DIVINE_ELEMENT;
 import static legend.lodmod.LodMod.EARTH_ELEMENT;
@@ -1618,7 +1619,7 @@ public class DragoonModifier {
   public void monsterStats(final MonsterStatsEvent event) {
     if(ultimateBattle) {
       final int ovrId = event.enemyId;
-      for(int x = 0; x < 86; x++) {
+      for(int x = 0; x < ultimateData.size(); x++) {
         if(ovrId == Integer.parseInt(ultimateData.get(x)[0])) {
           event.hp = Integer.parseInt(ultimateData.get(x)[1]);
           event.maxHp = Integer.parseInt(ultimateData.get(x)[1]);
@@ -1725,31 +1726,31 @@ public class DragoonModifier {
 
       if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
         if(submapCut_80052c30 >= 114 && submapCut_80052c30 <= 123) { //Volcano Villude
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:fire_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(36, REGISTRIES.equipment.getEntry("dragoon_modifier:fire_arrow").get()));
         } else if((submapCut_80052c30 >= 301 && submapCut_80052c30 <= 305)) { //Undersea Cavern
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:water_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:water_arrow").get()));
         } else if((submapCut_80052c30 >= 433 && submapCut_80052c30 <= 438)) { //Kashua Glacier
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:water_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:water_arrow").get()));
         } else if((submapCut_80052c30 >= 130 && submapCut_80052c30 <= 139)) { //Nest of Dragon
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:wind_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:wind_arrow").get()));
         } else if((submapCut_80052c30 >= 339 && submapCut_80052c30 <= 346)) { //Evergreen Forest
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:wind_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:wind_arrow").get()));
         } else if((submapCut_80052c30 >= 261 && submapCut_80052c30 <= 268)) { //Home of Giganto
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:earth_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:earth_arrow").get()));
         } else if((submapCut_80052c30 >= 393 && submapCut_80052c30 <= 405)) { //Kadessa
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:earth_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:earth_arrow").get()));
         } else if((submapCut_80052c30 >= 261 && submapCut_80052c30 <= 296)) { //Phantom Ship
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:dark_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:dark_arrow").get()));
         } else if((submapCut_80052c30 >= 539 && submapCut_80052c30 <= 553)) { //Death City Mayfil
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:dark_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:dark_arrow").get()));
         } else if((submapCut_80052c30 >= 153 && submapCut_80052c30 <= 166)) { //Shrine of Shirley
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:light_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:light_arrow").get()));
         } else if((submapCut_80052c30 >= 597 && submapCut_80052c30 <= 622)) { //Moon
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:light_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:light_arrow").get()));
         } else if((submapCut_80052c30 >= 477 && submapCut_80052c30 <= 502)) { //Vellweb
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:thunder_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:thunder_arrow").get()));
         } else if((submapCut_80052c30 >= 441 && submapCut_80052c30 <= 452)) { //Flanvel Tower
-          event.add(new CombatantStruct1a8.ItemDrop(12, REGISTRIES.equipment.getEntry("dragoon_modifier:thunder_arrow").get()));
+          event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:thunder_arrow").get()));
         }
 
         if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
@@ -1949,7 +1950,7 @@ public class DragoonModifier {
 
           if(player.charId_272 == 1 || player.charId_272 == 5 || player.charId_272 == 7) { //SPD reduction
             final ActiveStatsa0 stats = Scus94491BpeSegment_800b.stats_800be5f8[player.charId_272];
-            double speedReduction = player.charId_272 == 7 ? 2d : 1.5d;
+            final double speedReduction = player.charId_272 == 7 ? 2d : 1.5d;
             player.stats.getStat(SPEED_STAT.get()).setRaw(stats.bodySpeed_69 + (int)Math.round(stats.equipmentSpeed_86 / speedReduction));
           }
 
@@ -2062,11 +2063,6 @@ public class DragoonModifier {
             player.spPerMagicalHit_12e += 10;
             stats_800be5f8[player.charId_272].equipmentSpPerPhysicalHit_4e += 10;
             stats_800be5f8[player.charId_272].equipmentSpPerMagicalHit_52 += 10;
-          }
-
-          if("dragoon_modifier:halo_of_balance".equals(player.equipment_11e.get(EquipmentSlot.HELMET).getRegistryId().toString())) {
-            player.stats.getStat(HP_STAT.get()).setMaxRaw((int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 1.3d));
-            player.stats.getStat(MP_STAT.get()).setMaxRaw((int)Math.round(player.stats.getStat(MP_STAT.get()).getMax() * 1.3d));
           }
 
           if("dragoon_modifier:firebrand".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
@@ -2510,23 +2506,23 @@ public class DragoonModifier {
           this.isItemArrow = false;
           if(this.shanaStarChildrenHeal[player.charSlot_276] && !player.isDragoon()) {
             this.shanaStarChildrenHeal[player.charSlot_276] = false;
-            this.displayNumbers(6 + player.charSlot_276, player.stats.getStat(HP_STAT.get()).getMax() - player.stats.getStat(HP_STAT.get()).getCurrent(), 1, 1000);
+            this.displayNumbers(6 + player.charSlot_276, player.stats.getStat(HP_STAT.get()).getMax() - player.stats.getStat(HP_STAT.get()).getCurrent(), 1, -12);;
             player.stats.getStat(HP_STAT.get()).setCurrent(player.stats.getStat(HP_STAT.get()).getMax());
           }
 
-          if(this.shanaRapidFire[player.charSlot_276]) {
+          /*if(this.shanaRapidFire[player.charSlot_276]) {
             this.shanaRapidFire[player.charSlot_276] = false;
             player.dragoonAttack_ac = this.dragonBlockStaff ? 365 * 8 : 365;
-          }
+          }*/
         }
 
-        if(this.elementalAttack[player.charSlot_276]) {
+        /*if(this.elementalAttack[player.charSlot_276]) {
           player.element = this.previousElement[player.charSlot_276];
           this.elementalAttack[player.charSlot_276] = false;
           if(player.charId_272 == 2 || player.charId_272 == 8) {
             player.dragoonAttack_ac = this.dragonBlockStaff ? 365 * 8 : 365;
           }
-        }
+        }*/
 
         if(player.charId_272 == 6 && this.meruBoost[player.charSlot_276]) {
           this.meruBoostTurns[player.charSlot_276] -= 1;
@@ -2542,7 +2538,7 @@ public class DragoonModifier {
           player.stats.getStat(SP_STAT.get()).setCurrent(sp + 80);
           spGained_800bc950[player.charSlot_276] += 80;
           this.spiritBottle[player.charSlot_276] = false;
-          this.displayNumbers(6 + player.charSlot_276, 80, 11, 1000);
+          this.displayNumbers(6 + player.charSlot_276, 80, 11, -12);;
         }
 
         if(this.speedBottle[player.charSlot_276]) {
@@ -2553,7 +2549,7 @@ public class DragoonModifier {
         if(this.healingBottle[player.charSlot_276]) {
           final int hp = player.stats.getStat(HP_STAT.get()).getCurrent();
           if(hp <= player.stats.getStat(HP_STAT.get()).getMax() * 0.25) {
-            this.displayNumbers(6 + player.charSlot_276, (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7), 3, 1000);
+            this.displayNumbers(6 + player.charSlot_276, (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7), 3, -12);;
             player.stats.getStat(HP_STAT.get()).setCurrent(hp + (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7));
             this.healingBottle[player.charSlot_276] = false;
           }
@@ -2564,7 +2560,7 @@ public class DragoonModifier {
           if(mp <= player.stats.getStat(MP_STAT.get()).getMax() - 20) {
             player.stats.getStat(MP_STAT.get()).setCurrent(mp + 20);
             this.sunBottle[player.charSlot_276] = false;
-            this.displayNumbers(6 + player.charSlot_276, 20, 10, 1000);
+            this.displayNumbers(6 + player.charSlot_276, 20, 10, -12);;
           }
         }
 
@@ -2629,8 +2625,20 @@ public class DragoonModifier {
       this.attacked.add(event.defender);
     }
 
+    this.print("-------------------------------");
+    if(event.attacker instanceof PlayerBattleEntity) {
+      this.print("[ATTACK EVENT] [START] [PLAYER] " + event.damage);
+    } else {
+      this.print("[ATTACK EVENT] [START] [MONSTER] " + event.damage);
+    }
+
     if(event.attacker instanceof PlayerBattleEntity) {
       if(event.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
+        if(event.attacker.spellId_4e == 6 || event.attacker.spellId_4e == 17) {
+          if(this.currentPlayerMP - this.currentPlayer.getStat(BattleEntityStat.CURRENT_MP) == 120) {
+            event.attacker.spellId_4e = 32;
+          }
+        }
         if(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[4]) == 0) {
           switch(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[3])) {
             case 0:
@@ -2645,6 +2653,7 @@ public class DragoonModifier {
               break;
             default:
               event.damage *= (int)(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[3]) / 100d);
+              this.print("[ATTACK EVENT] [PLAYER] DRAGOON ITEM MAGIC: " + event.damage);
           }
         }
       }
@@ -2659,18 +2668,16 @@ public class DragoonModifier {
       if(event.attacker instanceof final PlayerBattleEntity player) {
         if(player.isDragoon() && event.attackType.isPhysical()) {
           if(player.element == ((Battle)currentEngineState_8004dd04).dragoonSpaceElement_800c6b64) { //Dragoon Space physical boost
-            if(player.charId_272 == 7) {
+            if(player.charId_272 == 1 || player.charId_272 == 5 || player.charId_272 == 7) {
               event.damage *= 1.2;
             } else {
               event.damage *= 1.5;
             }
+            this.print("[ATTACK EVENT] [PLAYER] DRAGOON SPECIAL PHYS BOOST: " + event.damage);
           } else {
             if(player.element == Element.fromFlag(0x80).get() && ((Battle)currentEngineState_8004dd04).dragoonSpaceElement_800c6b64 == Element.fromFlag(0x8).get()) { //Divine Dart special physical boost
-              if("dragoon_modifier:firebrand".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
-                event.damage *= 1.1; //TODO this doesn't seem right
-              } else {
-                event.damage *= 1.5;
-              }
+              event.damage *= 1.5;
+              this.print("[ATTACK EVENT] [PLAYER] DIVINE DRAGOON SPECIAL PHYS BOOST: " + event.damage);
             }
           }
         }
@@ -2689,19 +2696,22 @@ public class DragoonModifier {
               boost = 1.6;
             }
             event.damage = (int)Math.round(event.damage * boost);
+            this.print("[ATTACK EVENT] [PLAYER] SHANA PHYSICAL: " + event.damage);
           }
 
           if(this.isItemArrow) {
             if("dragoon_modifier:elemental_arrow".equals(this.shanaPreviousArrow[player.charSlot_276].toString())) {
               if(!player.isDragoon()) {
                 event.damage = (int)Math.round(event.damage * 0.8d);
+                this.print("[ATTACK EVENT] [PLAYER] SHANA ELEMENTAL ARROW: " + event.damage);
               }
             } else {
               if(!player.isDragoon()) {
-                event.damage = (int)Math.round(event.damage * 0.4d);
+                event.damage = (int)Math.round(event.damage * 0.6d);
               } else {
-                event.damage = (int)Math.round(event.damage * 0.55d);
+                event.damage = (int)Math.round(event.damage * 0.8d);
               }
+              this.print("[ATTACK EVENT] [PLAYER] SHANA ELEMENTAL ARROW: " + event.damage);
             }
             this.removeArrow();
           }
@@ -2714,14 +2724,18 @@ public class DragoonModifier {
 
           if(player.charId_272 == 3) {
             event.damage *= 1.7;
+            this.print("[ATTACK EVENT] [PLAYER] ROSE DRAGOON ITEM MAGIC: " + event.damage);
           } else if(player.charId_272 == 1 || player.charId_272 == 5) {
             event.damage *= 1.5;
+            this.print("[ATTACK EVENT] [PLAYER] LAVITZ/ALBERT DRAGOON ITEM MAGIC: " + event.damage);
           } else if(player.charId_272 == 7) {
             event.damage *= 2.2;
+            this.print("[ATTACK EVENT] [PLAYER] KONGOL DRAGOON ITEM MAGIC: " + event.damage);
           }
 
           if(this.dragonBlockStaff) {
             event.damage /= 8;
+            this.print("[ATTACK EVENT] [PLAYER] DRAGOON ITEM MAGIC WITH DBS: " + event.damage);
           }
         }
 
@@ -2750,6 +2764,7 @@ public class DragoonModifier {
               } else {
                 event.damage *= 1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn);
               }
+              this.print("[ATTACK EVENT] [PLAYER] BURN STACK ATTACK: " + event.damage);
             } else {
               event.damage *= 1 + (this.burnStacks[event.attacker.charSlot_276] * this.dmgPerBurn);
             }
@@ -2784,24 +2799,25 @@ public class DragoonModifier {
                   if(playerHealedHP > 0) {
                     final int heal = (int)Math.round(roseMaxHP * player.dlevel_06 * 0.0425d);
                     bobj.stats.getStat(HP_STAT.get()).setCurrent((int)Math.min(bobj.stats.getStat(HP_STAT.get()).getMax(), (playerHealedHP + heal)));
-                    this.displayNumbers(6 + player.charSlot_276, heal, 3, 1500);
+                    this.displayNumbers(6 + player.charSlot_276, heal, 3, -12);;
                   }
                 }
               }
             } else if(player.spellId_4e == 19) {
               final int heal = (int)Math.round(event.damage * 0.1d);
               player.stats.getStat(HP_STAT.get()).setCurrent((int)Math.min(player.stats.getStat(HP_STAT.get()).getMax(), player.stats.getStat(HP_STAT.get()).getCurrent() + heal));
-              this.displayNumbers(6 + player.charSlot_276, heal, 3, 1500);
+              this.displayNumbers(6 + player.charSlot_276, heal, 3, -12);;
             }
 
             if(event.damage > 0 && !this.roseSiphonActivated[player.charSlot_276]) {
               this.roseSiphon[player.charSlot_276] = (int)Math.min(this.roseSiphonMax, Math.min(this.roseSiphonMax * 0.2 + this.roseSiphon[player.charSlot_276], this.roseSiphon[player.charSlot_276] + event.damage));
-              this.displayNumbers(6 + player.charSlot_276, this.roseSiphon[player.charSlot_276], 3, 1500);
+              this.displayNumbers(6 + player.charSlot_276, this.roseSiphon[player.charSlot_276], 3, -24);;
             }
           }
 
           if(this.roseSiphonActivated[player.charSlot_276]) {
             event.damage += this.roseSiphonMax;
+            this.print("[ATTACK EVENT] [PLAYER] SIPHON ATTACK: " + event.damage);
             this.roseSiphon[player.charSlot_276] = 0;
             this.roseSiphonActivated[player.charSlot_276] = false;
             addAchievement(50);
@@ -2812,15 +2828,15 @@ public class DragoonModifier {
           if(this.windMark[event.defender.charSlot_276] == 0 && event.attackType.isMagical() && player.isDragoon()) { //Add wind marks
             if(player.spellId_4e == 5 || player.spellId_4e == 91) {
               this.windMark[event.defender.charSlot_276] = 1;
-              this.displayNumbers(11 + event.defender.charSlot_276, 1, 11, 1500);
+              this.displayNumbers(11 + event.defender.charSlot_276, 1, 11, -12);;
               addAchievement(48);
             } else if(player.spellId_4e == 6 || player.spellId_4e == 17) {
               this.windMark[event.defender.charSlot_276] = 2;
-              this.displayNumbers(11 + event.defender.charSlot_276, 2, 11, 1500);
+              this.displayNumbers(11 + event.defender.charSlot_276, 2, 11, -12);;
               addAchievement(48);
             } else if(player.spellId_4e == 8) {
               this.windMark[event.defender.charSlot_276] = 3;
-              this.displayNumbers(11 + event.defender.charSlot_276, 3, 11, 1500);
+              this.displayNumbers(11 + event.defender.charSlot_276, 3, 11, -12);;
               addAchievement(48);
             }
           }
@@ -2838,8 +2854,8 @@ public class DragoonModifier {
           final int sp = player.stats.getStat(SP_STAT.get()).getCurrent();
           player.stats.getStat(HP_STAT.get()).setCurrent(hp + Math.min(1000, heal));
           player.stats.getStat(SP_STAT.get()).setCurrent(sp + Math.min(100, heal));
-          this.displayNumbers(6 + player.charSlot_276, heal, 11, 1000);
-          this.displayNumbers(6 + player.charSlot_276, heal, 3, 1500);
+          this.displayNumbers(6 + player.charSlot_276, heal, 11, -12);;
+          this.displayNumbers(6 + player.charSlot_276, heal, 3, -24);;
           this.roseSiphon[player.charSlot_276] = (int)Math.min(this.roseSiphonMax, Math.min(this.roseSiphonMax * 0.2 + this.roseSiphon[player.charSlot_276], this.roseSiphon[player.charSlot_276] + event.damage));
         }
 
@@ -2850,6 +2866,7 @@ public class DragoonModifier {
             player.stats.getStat(SP_STAT.get()).setCurrent(sp - 100);
             battleState_8006e398.dragoonTurnsRemaining_294[player.charSlot_276] = player.stats.getStat(SP_STAT.get()).getCurrent() / 100;
             event.damage *= 2;
+            this.print("[ATTACK EVENT] [PLAYER] OUROBOROS DOUBLE DAMAGE: " + event.damage);
             this.ouroboros[player.charSlot_276] = true;
           }
         }
@@ -2894,6 +2911,7 @@ public class DragoonModifier {
         if("dragoon_modifier:magic_hammer".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
           if(event.attackType.isPhysical()) {
             event.damage = 0;
+            this.print("[ATTACK EVENT] [PLAYER] MAGIC HAMMER PHYSICAL DAMAGE NERF: " + event.damage);
           }
         }
 
@@ -2901,6 +2919,7 @@ public class DragoonModifier {
           if(event.defender instanceof final MonsterBattleEntity monster) {
             if(monster.getElement() == THUNDER_ELEMENT.get()) {
               event.damage *= 3;
+              this.print("[ATTACK EVENT] [PLAYER] OVERCHARGE THUNDER BASED ENEMY: " + event.damage);
             }
           }
         }
@@ -2913,6 +2932,7 @@ public class DragoonModifier {
                   final int damage = this.ringOfElementsElement[i].adjustDragoonSpaceDamage(event.attackType, event.damage, e);
                   if(damage != event.damage) {
                     event.damage = damage;
+                    this.print("[ATTACK EVENT] [PLAYER] RING OF ELEMENTS EXTENDED DRAGOON SPACE: " + event.damage);
                   }
                 }
               } else {
@@ -2920,6 +2940,7 @@ public class DragoonModifier {
                   final int damage = event.attacker.spell_94.element_08.get().adjustDragoonSpaceDamage(event.attackType, event.damage, this.ringOfElementsElement[i]);
                   if(damage != event.damage) {
                     event.damage = damage;
+                    this.print("[ATTACK EVENT] [PLAYER] RING OF ELEMENTS EXTENDED DRAGOON SPACE: " + event.damage);
                   }
                 } catch(final Exception ignored) {
                 }
@@ -2928,6 +2949,7 @@ public class DragoonModifier {
                   final int damage = event.attacker.item_d4.getAttackElement().adjustDragoonSpaceDamage(event.attackType, event.damage, this.ringOfElementsElement[i]);
                   if(damage != event.damage) {
                     event.damage = damage;
+                    this.print("[ATTACK EVENT] [PLAYER] RING OF ELEMENTS EXTENDED DRAGOON SPACE: " + event.damage);
                   }
                 } catch(final Exception ignored) {
                 }
@@ -2942,7 +2964,7 @@ public class DragoonModifier {
               if(event.attacker.spell_94.element_08.get() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
                 if(this.staticCharge[event.attacker.charSlot_276] == 0) {
                   this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, -12);;
                 }
               }
             } catch(final Exception ignored) {
@@ -2952,7 +2974,7 @@ public class DragoonModifier {
               if(event.attacker.item_d4.getAttackElement() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
                 if(this.staticCharge[event.attacker.charSlot_276] == 0) {
                   this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                  this.displayNumbers(11 + monster.charSlot_276, 1, 10, -12);;
                 }
               }
             } catch(final Exception ignored) {
@@ -2961,7 +2983,7 @@ public class DragoonModifier {
             if(event.attackType.isPhysical() && player.equipmentAttackElements_1c.contains(THUNDER_ELEMENT.get()) && new Random().nextBoolean()) {
               if(this.staticCharge[event.attacker.charSlot_276] == 0) {
                 this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                this.displayNumbers(11 + monster.charSlot_276, 1, 10, -12);;
               }
             }
           }
@@ -2974,14 +2996,14 @@ public class DragoonModifier {
                     if(new Random().nextBoolean() || new Random().nextBoolean()) {
                       if(this.staticCharge[event.attacker.charSlot_276] == 0) {
                         this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, -12);;
                       }
                     }
                   } else {
                     if(new Random().nextBoolean()) {
                       if(this.staticCharge[event.attacker.charSlot_276] == 0) {
                         this.thunderCharge[monster.charSlot_276] = Math.min(10, this.thunderCharge[monster.charSlot_276] + 1);
-                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, 1500);
+                        this.displayNumbers(11 + monster.charSlot_276, 1, 10, -12);;
                       }
                     }
                   }
@@ -2991,6 +3013,7 @@ public class DragoonModifier {
                       final double thunderDamage = 7.07 + ((player.dlevel_06 - 1) * 1.01);
                       this.thunderCharge[monster.charSlot_276] = 0;
                       event.damage *= (int)(monster.getElement() == THUNDER_ELEMENT.get() ? thunderDamage : 3.5);
+                      this.print("[ATTACK EVENT] [PLAYER] ENHANCED SPARK NET: " + event.damage);
                       addAchievement(51);
                     }
                   }
@@ -3001,28 +3024,21 @@ public class DragoonModifier {
                 final int transferCharge = Math.min(10, this.staticCharge[player.charSlot_276]) - this.thunderCharge[monster.charSlot_276];
                 this.thunderCharge[monster.charSlot_276] += transferCharge;
                 this.staticCharge[player.charSlot_276] -= transferCharge;
-                this.displayNumbers(11 + monster.charSlot_276, transferCharge, 10, 1500);
+                this.displayNumbers(11 + monster.charSlot_276, transferCharge, 10, -12);;
               }
-            }
-          }
-        }
-
-        if(event.defender instanceof final PlayerBattleEntity defender) { //ifMeru's in Wingly Boost Mode all healing is 0, the only player vs player damage should be physical confusion or magic
-          if(this.meruBoost[defender.charSlot_276]) {
-            if(event.attackType.isMagical()) {
-              event.damage = 0;
             }
           }
         }
 
         if("dragoon_modifier:firebrand".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) {
           event.damage *= 1.2;
+          this.print("[ATTACK EVENT] [PLAYER] FIREBRAND DIVINE ENHANCEMENT ON ALL ATTACKS: " + event.damage);
         }
 
         if(player.charId_272 == 6) {
           if(event.damage > 0 && this.meruWinglyMagic[player.charSlot_276]) {
             this.meruIceShield[player.charSlot_276] = (int)Math.min(this.meruIceShieldMax, Math.min(this.meruIceShieldMax * 0.1 + this.meruIceShield[player.charSlot_276], this.meruIceShield[player.charSlot_276] + event.damage * 0.1));
-            this.displayNumbers(6 + player.charSlot_276, this.meruIceShield[player.charSlot_276], 1, 2500);
+            this.displayNumbers(6 + player.charSlot_276, this.meruIceShield[player.charSlot_276], 1, -12);;
             addAchievement(52);
           }
         }
@@ -3067,21 +3083,22 @@ public class DragoonModifier {
           }
           player.setTempSpellStats();
         }
+
         if(player.spellId_4e >= 48 && player.spellId_4e <= 56) {
           event.damage = event.defender.getElement().adjustAttackingElementalDamage(event.attackType, event.damage, player.spell_94.element_08.get());
         }
       }
 
-            /*
-                DEFENDING PLAYER
-             */
+      /*
+          DEFENDING PLAYER
+       */
 
       if(event.defender instanceof final PlayerBattleEntity defender) {
         if(this.haschelInParty) {
           try {
             if(event.attacker.spell_94.element_08.get() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
               this.thunderCharge[event.attacker.charSlot_276] = Math.min(10, this.thunderCharge[event.attacker.charSlot_276] + 1);
-              this.displayNumbers(11 + event.attacker.charSlot_276, 1, 10, 1500);
+              this.displayNumbers(11 + event.attacker.charSlot_276, 1, 10, -12);;
             }
           } catch(final Exception ignored) {
           }
@@ -3089,28 +3106,19 @@ public class DragoonModifier {
           try {
             if(event.attacker.item_d4.getAttackElement() == THUNDER_ELEMENT.get() && new Random().nextBoolean()) {
               this.thunderCharge[event.attacker.charSlot_276] = Math.min(10, this.thunderCharge[event.attacker.charSlot_276] + 1);
-              this.displayNumbers(11 + event.attacker.charSlot_276, 1, 10, 1500);
+              this.displayNumbers(11 + event.attacker.charSlot_276, 1, 10, -12);;
             }
           } catch(final Exception ignored) {
           }
         }
 
-        if("dragoon_modifier:ring_of_shielding".equals(defender.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) { //Ring of Shielding
+        if("dragoon_modifier:ring_of_shielding".equals(defender.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString()) && event.attacker instanceof MonsterBattleEntity) { //Ring of Shielding
           final int hp = defender.stats.getStat(HP_STAT.get()).getCurrent();
           if((hp - event.damage) <= 0 && new Random().nextInt(0, 99) < 35) {
             event.damage = 0;
+            this.print("[ATTACK EVENT] [MONSTER] RING OF SHIELDING: " + event.damage);
             //defender.stats.getStat(null).addMod(LodMod.id("material_shield"), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().percent(100).turns(5)));
             //defender.stats.getStat(SPEED_STAT.get()).addMod(LodMod.id("magic_shield"), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().percent(100).turns(5)));
-          }
-        }
-
-        if(defender.charId_272 == 6) { //ifMeru dies in Wingly Boost turn it off
-          final int hp = defender.stats.getStat(HP_STAT.get()).getCurrent();
-          if(this.meruBoost[defender.charSlot_276] && hp - event.damage <= 0) {
-            this.meruBoostTurns[defender.charSlot_276] = 0;
-            this.meruBoost[defender.charSlot_276] = false;
-            defender.stats.getStat(HP_STAT.get()).setMaxRaw(this.meruMaxHpSave[defender.charSlot_276]);
-            defender.magicDefence_3a = this.meruMDFSave[defender.charSlot_276];
           }
         }
 
@@ -3123,23 +3131,26 @@ public class DragoonModifier {
 
         final int level = defender.level_04;
 
-        if(event.attackType.isPhysical()) { //DF Boost
+        if(event.attackType.isPhysical() && event.attacker instanceof MonsterBattleEntity) { //DF Boost
           if(defender.charId_272 == 2 || defender.charId_272 == 8) { //Shana
             if(level >= 30) {
               event.damage = (int)Math.round(event.damage / 1.12d);
+              this.print("[ATTACK EVENT] [MONSTER] SHANA DF BOOST: " + event.damage);
             }
           }
 
           if(defender.charId_272 == 3 && level >= 30) { //Rose
             event.damage = (int)Math.round(event.damage / 1.11d);
+            this.print("[ATTACK EVENT] [MONSTER] ROSE DF BOOST: " + event.damage);
           }
 
           if(defender.charId_272 == 6 && level >= 30) { //Meru
             event.damage = (int)Math.round(event.damage / 1.26d);
+            this.print("[ATTACK EVENT] [MONSTER] MERU DF BOOST: " + event.damage);
           }
         }
 
-        if(event.attackType.isMagical()) {
+        if(event.attackType.isMagical() && event.attacker instanceof MonsterBattleEntity) {
           Element attackElement = null;
           final String armorEquipped = defender.equipment_11e.get(EquipmentSlot.ARMOUR).getRegistryId().toString();
 
@@ -3159,18 +3170,25 @@ public class DragoonModifier {
             //Divine Dragon Armor 15% elemental reduction instead of half
             if(attackElement == FIRE_ELEMENT.get() && "lod:red_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == WIND_ELEMENT.get() && "lod:jade_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == EARTH_ELEMENT.get() && "lod:gold_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == THUNDER_ELEMENT.get() && "lod:violet_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == LIGHT_ELEMENT.get() && "lod:silver_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == DARK_ELEMENT.get() && "lod:dark_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             } else if(attackElement == WATER_ELEMENT.get() && "lod:blue_dg_armor".equals(armorEquipped)) {
               event.damage = (int)Math.round(event.damage / 1.15d);
+              this.print("[ATTACK EVENT] [MONSTER] DG ARMOR ELEMENTAL DAMAGE REDUCTION: " + event.damage);
             }
           }
         }
@@ -3185,6 +3203,7 @@ public class DragoonModifier {
             }
             this.protectionShield[defender.charSlot_276] += shield;
             event.damage = 0;
+            this.print("[ATTACK EVENT] [PLAYER] PROTECTION SHIELD: " + shield);
           }
         } catch(final Exception ignored) {
         }
@@ -3192,13 +3211,17 @@ public class DragoonModifier {
         if(event.damage > 0 && event.attacker instanceof MonsterBattleEntity) {
           if(this.protectionShield[defender.charSlot_276] > 0) {
             if(event.damage <= this.protectionShield[defender.charSlot_276]) {
-              this.displayNumbers(6 + defender.charSlot_276, event.damage, 0, 1500);
+              this.displayNumbers(6 + defender.charSlot_276, event.damage, 0, -12);;
               this.protectionShield[defender.charSlot_276] -= event.damage;
               event.damage = 0;
+              this.print("[ATTACK EVENT] [PLAYER] PROTECTION SHIELD: " + this.protectionShield[defender.charSlot_276]);
+              this.print("[ATTACK EVENT] [MONSTER] PROTECTION SHIELD DMG REDUCTION: " + event.damage);
             } else {
-              this.displayNumbers(6 + defender.charSlot_276, this.protectionShield[defender.charSlot_276], 0, 1500);
+              this.displayNumbers(6 + defender.charSlot_276, this.protectionShield[defender.charSlot_276], 0, -12);;
               event.damage -= this.protectionShield[defender.charSlot_276];
               this.protectionShield[defender.charSlot_276] = 0;
+              this.print("[ATTACK EVENT] [PLAYER] PROTECTION SHIELD: " + this.protectionShield[defender.charSlot_276]);
+              this.print("[ATTACK EVENT] [MONSTER] PROTECTION SHIELD DMG REDUCTION: " + event.damage);
             }
           }
         }
@@ -3207,16 +3230,20 @@ public class DragoonModifier {
           event.attacker.turnValue_4c = Math.max(0, event.attacker.turnValue_4c - 30);
         }
 
-        if(defender.charId_272 == 6) {
+        if(defender.charId_272 == 6 && event.attacker instanceof MonsterBattleEntity) {
           if(event.damage > 0 && this.meruIceShield[defender.charSlot_276] > 0) {
             if(event.damage <= this.meruIceShield[defender.charSlot_276]) {
-              this.displayNumbers(6 + defender.charSlot_276, event.damage, 1, 2500);
+              this.displayNumbers(6 + defender.charSlot_276, event.damage, 1, -12);;
               this.meruIceShield[defender.charSlot_276] -= event.damage;
               event.damage = 0;
+              this.print("[ATTACK EVENT] [PLAYER] MERU ICE SHIELD: " + this.meruIceShield[defender.charSlot_276]);
+              this.print("[ATTACK EVENT] [MONSTER] MERU ICE SHIELD: DMG REDUCTION: " + event.damage);
             } else {
-              this.displayNumbers(6 + defender.charSlot_276, this.meruIceShield[defender.charSlot_276], 1, 2500);
+              this.displayNumbers(6 + defender.charSlot_276, this.meruIceShield[defender.charSlot_276], 1, -12);;
               event.damage -= this.meruIceShield[defender.charSlot_276];
               this.meruIceShield[defender.charSlot_276] = 0;
+              this.print("[ATTACK EVENT] [PLAYER] MERU ICE SHIELD: " + this.meruIceShield[defender.charSlot_276]);
+              this.print("[ATTACK EVENT] [MONSTER] MERU ICE SHIELD: DMG REDUCTION: " + event.damage);
             }
           }
         }
@@ -3227,6 +3254,7 @@ public class DragoonModifier {
             defender.turnValue_4c += 218;
             event.damage *= 1.8;
             addAchievement(53);
+            this.print("[ATTACK EVENT] [MONSTER] KONGOL COUNTER DMG REDUCTION: " + event.damage);
           }
         }
       }
@@ -3251,12 +3279,14 @@ public class DragoonModifier {
       if(event.attacker instanceof final PlayerBattleEntity player && event.defender instanceof MonsterBattleEntity) {
         if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultimate boss
           event.damage /= this.ultimatePenality[player.charSlot_276][1];
+          this.print("[ATTACK EVENT] [PLAYER] ULTIMATE PENALTY: " + event.damage);
         }
       }
 
       if(event.attacker instanceof MonsterBattleEntity && event.defender instanceof final PlayerBattleEntity player) {
         if(this.ultimatePenality[player.charSlot_276][1] > 1) { //Damage penalty for over leveled ultimate boss
           event.damage *= this.ultimatePenality[player.charSlot_276][1];
+          this.print("[ATTACK EVENT] [MONSTER] ULTIMATE PENALTY: " + event.damage);
         }
       }
 
@@ -3270,7 +3300,7 @@ public class DragoonModifier {
     this.updateElementalBomb(event);
     this.updateDamageTracker(event);
 
-    if(event.attacker instanceof PlayerBattleEntity) {
+    if(event.attacker instanceof PlayerBattleEntity && event.defender instanceof MonsterBattleEntity) {
       int damage = event.damage;
       if(event.attackType == AttackType.DRAGOON_MAGIC_STATUS_ITEMS) {
         if(Integer.parseInt(spellStatsPlayer.get(event.attacker.spellId_4e)[4]) == 0) {
@@ -3344,10 +3374,10 @@ public class DragoonModifier {
             if(damage <= this.enrageModeProtection[event.bent.charSlot_276]) {
               event.value = event.bent.getStat(BattleEntityStat.CURRENT_HP);
               this.enrageModeProtection[event.bent.charSlot_276] -= damage;
-              this.displayNumbers(11 + event.bent.charSlot_276, damage, 0, 1500);
+              this.displayNumbers(11 + event.bent.charSlot_276, damage, 0, -12);;
             } else {
               event.value += this.enrageModeProtection[event.bent.charSlot_276];
-              this.displayNumbers(11 + event.bent.charSlot_276, this.enrageModeProtection[event.bent.charSlot_276], 0, 1500);
+              this.displayNumbers(11 + event.bent.charSlot_276, this.enrageModeProtection[event.bent.charSlot_276], 0, -12);;
               this.enrageModeProtection[event.bent.charSlot_276] = 0;
             }
           } else {
@@ -3383,7 +3413,7 @@ public class DragoonModifier {
           dart.stats.getStat(MP_STAT.get()).setCurrent(dart.stats.getStat(MP_STAT.get()).getCurrent() + 30);
         }
 
-        this.displayNumbers(6 + dart.charSlot_276, stacks, 5, 1500);
+        this.displayNumbers(6 + dart.charSlot_276, stacks, 5, -12);;
         addAchievement(47);
       }
     }
@@ -3500,9 +3530,7 @@ public class DragoonModifier {
 
   @EventListener
   public void repeatItemReturn(final RepeatItemReturnEvent event) {
-    if(Boolean.parseBoolean(itemStats.get(this.getItemRowFromTable(event.item.getRegistryId().toString()))[35])) {
-      event.returnItem = true;
-    }
+    event.returnItem = Boolean.parseBoolean(itemStats.get(this.getItemRowFromTable(event.item.getRegistryId().toString()))[35]);
   }
 
   public void updateEnrageMode(final AttackEvent event) {
@@ -3567,7 +3595,7 @@ public class DragoonModifier {
     if(GameEngine.CONFIG.getConfig(ELEMENTAL_BOMB.get()) == ElementalBomb.ON) {
       if(event.attacker instanceof final PlayerBattleEntity player) {
         try {
-          if(this.isAttackItem(player.item_d4) && event.defender instanceof final MonsterBattleEntity monster) {
+          if(this.isAttackItem(player.item_d4) && event.defender instanceof final MonsterBattleEntity monster && event.attackType == AttackType.ITEM_MAGIC) {
             //for(int i = 0; i < monsterCount_800c6768.get(); i++) {
             if(this.elementalBombTurns[monster.charSlot_276] == 0) {
               final Element swapTo = player.item_d4.getAttackElement();
@@ -3636,21 +3664,6 @@ public class DragoonModifier {
         this.damageTrackerPreviousCharacterID = player.charId_272;
         this.damageTrackerPreviousHP[monster.charSlot_276] = hp - attack.damage;
       }
-    }
-  }
-
-  public void ultimateZeroSPStart(final PlayerBattleEntity player) {
-    final int encounterId = encounterId_800bb0f8;
-
-    if(encounterId == 413 || encounterId == 415 || encounterId == 403) {
-      player.stats.getStat(SP_STAT.get()).setCurrent(0);
-    }
-  }
-
-  public void ultimateStatusChanceResist(final PlayerBattleEntity player) {
-    final int encounterId = encounterId_800bb0f8;
-    if(encounterId == 387) {
-      player.onHitStatusChance_44 /= 2;
     }
   }
 
@@ -4012,19 +4025,8 @@ public class DragoonModifier {
     }
   }
 
-  public void displayNumbers(final int scriptIndex, final int damage, final int colour, final int delay) {
-    new Thread(() -> {
-      try {
-        Thread.sleep(delay);
-      } catch(final InterruptedException e) {
-        throw new RuntimeException(e);
-      }
-
-      try {
-        ((Battle)currentEngineState_8004dd04).hud.addFloatingNumberForBent(scriptIndex, damage, colour);
-      } catch(final Exception ignored) {
-      }
-    }).start();
+  public void displayNumbers(final int scriptIndex, final int damage, final int colour, final int yOffset) {
+    ((Battle)currentEngineState_8004dd04).hud.addFloatingNumberForBent(scriptIndex, damage, colour, yOffset);
   }
 
   public void recaluteBentDragoonTurns(final PlayerBattleEntity bent) {
@@ -4249,16 +4251,16 @@ public class DragoonModifier {
           Thread.sleep(5000);
           draNotificationOpen = false;
 
-          menuStack.popScreen();
+          menuStack.reset();
 
         } catch(final Exception ignored) {
           draNotificationOpen = false;
-          menuStack.popScreen();
+          //menuStack.popScreen();
         }
       }).start();
     } catch(final Exception ignored) {
       draNotificationOpen = false;
-      menuStack.popScreen();
+      //menuStack.popScreen();
     }
   }
 
@@ -4288,6 +4290,21 @@ public class DragoonModifier {
   //endregion
 
   //region Ultimate
+  public void ultimateZeroSPStart(final PlayerBattleEntity player) {
+    final int encounterId = encounterId_800bb0f8;
+
+    if(encounterId == 413 || encounterId == 415 || encounterId == 403) {
+      player.stats.getStat(SP_STAT.get()).setCurrent(0);
+    }
+  }
+
+  public void ultimateStatusChanceResist(final PlayerBattleEntity player) {
+    final int encounterId = encounterId_800bb0f8;
+    if(encounterId == 387) {
+      player.onHitStatusChance_44 /= 2;
+    }
+  }
+
   public void ultimateGuardBreak(final PlayerBattleEntity player, final MonsterBattleEntity monster, final AttackEvent attack) {
     final int encounterId = encounterId_800bb0f8;
 
@@ -4315,8 +4332,7 @@ public class DragoonModifier {
   //region Scripting
   @EventListener
   public void DrgnFileEvent(final DrgnFileEvent event) {
-    this.print("[FILE] " + event.location + " - " + event.deffPath);
-
+    this.print("[FILE] " + event.location + " - " + event.deffPath + " - " + event.path);
 
     if(!event.loadDeff) {
       if(ultimateBattle && event.location.startsWith("SECT/DRGN1.BIN")) {
@@ -4328,18 +4344,40 @@ public class DragoonModifier {
           Loader.loadFile(ultimateMonster, event.onCompletion);
         }
       }
+
+      if(event.pathOnly) {
+        if(this.currentPlayer.charId_272 == 1 || this.currentPlayer.charId_272 == 5) {
+          if(event.path.toString().contains("DRGN0.BIN\\4203")) {
+            if(this.currentPlayer.charId_272 == 1) {
+              event.path = Loader.resolve("SECT/DRGN0.BIN/4151");
+            } else {
+              event.path = Loader.resolve("SECT/DRGN0.BIN/4173");
+            }
+          }
+
+          if(event.path.toString().contains("DRGN0.BIN\\4204")) {
+            if(this.currentPlayer.charId_272 == 1) {
+              event.path = Loader.resolve("SECT/DRGN0.BIN/4152");
+            } else {
+              event.path = Loader.resolve("SECT/DRGN0.BIN/4174");
+            }
+          }
+        }
+      }
     } else {
-      if(event.deffPath.toString().contains("DRGN0.BIN\\5216\\1") || event.deffPath.toString().contains("DRGN0.BIN/5216/1") ) {
+      if(event.deffPath.toString().contains("DRGN0.BIN\\5216\\1") || event.deffPath.toString().contains("DRGN0.BIN/5216/1")) {
         final Path attack = Loader.resolveMods("dragoon_modifier/scripts/mobs/5216.1");
         if(Files.exists(attack)) {
           try {
             this.print("[OVERRIDE] 5216.1");
             event.fileData = Files.readAllBytes(attack);
-          } catch(final IOException ignored) {}
+          } catch(final IOException ignored) {
+          }
         }
       }
     }
   }
+
 
   @EventListener
   public void SubmapLoadEvent(final SubmapLoadEvent event) {
