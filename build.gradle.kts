@@ -3,7 +3,6 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 plugins {
   id("java")
   id("java-library")
-  id("com.github.johnrengelman.shadow") version "7.1.2"
   id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
@@ -11,8 +10,8 @@ group = "dragoon-modifier"
 version = "2.0-SNAPSHOT"
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_21
-  targetCompatibility = JavaVersion.VERSION_21
+  sourceCompatibility = JavaVersion.VERSION_25
+  targetCompatibility = JavaVersion.VERSION_25
 }
 
 javafx {
@@ -27,20 +26,20 @@ configurations.all {
 repositories {
   mavenCentral()
   mavenLocal() // Uncomment to use mavenLocal version of LoD engine
+  maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
   maven { url = uri("https://jitpack.io") }
-  maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
 }
 
 dependencies {
   implementation("legend:lod:snapshot") // Uncomment to use mavenLocal version of LoD engine (also comment out next line)
 //  implementation("com.github.Legend-of-Dragoon-Modding:Legend-of-Dragoon-Java:main-SNAPSHOT")
-  implementation("com.opencsv:opencsv:5.7.1")
+  implementation("com.opencsv:opencsv:5.9")
   implementation("org.fusesource.jansi:jansi:2.4.1")
   implementation("org.apache.logging.log4j:log4j-api:2.24.3")
   implementation("org.apache.logging.log4j:log4j-core:2.24.3")
   implementation("com.google.code.findbugs:jsr305:3.0.2")
   implementation("com.github.JnCrMx:discord-game-sdk4j:v1.0.0")
-  api("org.legendofdragoon:mod-loader:4.2.0")
+  api("org.legendofdragoon:mod-loader:4.2.1")
   api("org.legendofdragoon:script-recompiler:0.5.6")
 }
 
@@ -57,12 +56,8 @@ buildscript {
   repositories {
     gradlePluginPortal()
   }
-  /*dependencies {
-    implementation("com.github.johnrengelman.shadow:7.1.2")
-  }*/
 }
 
-apply(plugin = "com.github.johnrengelman.shadow")
 apply(plugin = "java")
 apply(plugin = "org.openjfx.javafxplugin")
 
