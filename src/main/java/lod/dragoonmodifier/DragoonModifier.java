@@ -2809,7 +2809,7 @@ public class DragoonModifier {
               this.displayNumbers(6 + player.charSlot_276, heal, 3, -12);;
             }
 
-            if(event.damage > 0 && !this.roseSiphonActivated[player.charSlot_276]) {
+            if(event.damage > 0 && !this.roseSiphonActivated[player.charSlot_276] && event.defender instanceof MonsterBattleEntity) {
               this.roseSiphon[player.charSlot_276] = (int)Math.min(this.roseSiphonMax, Math.min(this.roseSiphonMax * 0.2 + this.roseSiphon[player.charSlot_276], this.roseSiphon[player.charSlot_276] + event.damage));
               this.displayNumbers(6 + player.charSlot_276, this.roseSiphon[player.charSlot_276], 3, -24);;
             }
