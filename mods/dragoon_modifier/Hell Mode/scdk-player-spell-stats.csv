@@ -3,7 +3,7 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 200,0,0,340,0,100,20,0,128,0,0,0,Explosion,Fire STR 340% x1.00
 192,0,0,765,0,100,30,0,128,0,0,0,Final Burst,Fire STR 765% x1.00
 200,0,0,1020,0,100,80,0,128,0,0,0,Red-Eyed Dragon,Fire STR 1020% x1.00
-192,0,0,1530,0,100,50,0,8,0,0,0,Divine Dragon Cannon,Void STR 1020%
+192,0,0,1530,0,100,50,0,8,0,0,0,Divine Dragon Cannon,Void STR 1530%
 200,0,0,440,0,100,20,0,64,0,0,0,Wing Blaster,Wind STR 440%
 192,0,0,990,0,100,30,0,64,0,0,0,Gaspless,Wind STR 990%
 136,4,16,0,0,100,20,0,64,0,192,0,Blossom Storm,Damage Resist 50% Dur 3
@@ -31,7 +31,7 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 200,0,0,675,0,100,20,0,2,0,0,0,Grand Stream,Earth STR 675%
 200,0,0,1120,0,100,30,0,2,0,0,0,Meteor Strike,Earth STR 1120%
 200,0,0,2220,0,100,80,0,2,0,0,0,Golden Dragon,Earth STR 2220%
-64,0,0,128,0,100,0,0,0,0,0,0, ,
+192,0,0,2380,0,100,120,0,64,0,0,0,Super Gaspless,Wind STR 2380%
 64,0,0,0,0,100,0,0,0,0,0,0, ,
 64,0,0,64,0,100,0,0,0,0,0,0, ,
 64,0,0,32,0,100,0,0,0,0,0,0, ,
@@ -41,18 +41,18 @@ Target Type,UK1,Special Effect,Damage,Healing,Accuracy,MP Usage,Status Chance,El
 72,0,0,0,0,100,0,0,0,0,0,0, ,
 72,0,0,64,0,100,0,0,0,0,0,0, ,
 72,0,0,32,0,100,0,0,0,0,0,0, ,
-72,0,0,16,0,100,0,0,0,0,0,0,Boost,Increases Max HP
+72,0,0,16,0,100,0,0,0,0,0,0,,
 72,0,0,8,0,100,0,0,0,0,0,0,,
 192,0,0,128,0,100,0,0,0,0,0,0, ,
 192,0,0,0,0,100,0,0,0,0,0,0, ,
 192,0,0,64,0,100,0,0,0,0,0,0, ,
 192,0,0,32,0,100,0,0,0,0,0,0, ,
 192,0,0,16,0,100,50,0,128,0,0,0,Fire Attack,Physical Fire STR 670% x1.00
-192,0,0,8,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 800%
+192,0,0,8,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 690%
 192,0,0,128,0,100,50,0,32,0,0,0,Light Arrow,Physical Light STR 550%
-192,0,0,0,0,100,50,0,4,0,0,0,Dark Attack,Physical Dark STR 660%
+192,0,0,0,0,100,50,0,4,0,0,0,Dark Attack,Physical Dark STR 666%
 192,0,0,64,0,100,50,0,16,0,0,0,Thunder Attack,Physical Thunder STR 790%
-192,0,0,32,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 800%
+192,0,0,32,0,100,50,0,64,0,0,0,Wind Attack,Physical Wind STR 690%
 192,0,0,16,0,100,50,0,1,0,0,0,Water Attack,Physical Water STR 530%
 192,0,0,8,0,100,50,0,2,0,0,0,Earth Attack,Physical Earth STR 960%
 0,0,16,0,0,100,0,0,32,0,32,0,Light Arrow,Physical Light STR 550%
