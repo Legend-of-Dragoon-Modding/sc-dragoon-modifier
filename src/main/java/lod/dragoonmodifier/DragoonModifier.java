@@ -798,11 +798,12 @@ public class DragoonModifier {
   }
 
   public int getItemRowFromTable(final String id) {
-    final int row = 0;
+    int row = 0;
     for(final String[] item : itemStats) {
       if(item[36].equals(id)) {
         return row;
       }
+      row++;
     }
     return row;
   }
