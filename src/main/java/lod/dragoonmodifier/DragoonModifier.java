@@ -307,8 +307,11 @@ public class DragoonModifier {
   public RegistryId[] shanaPreviousArrow = new RegistryId[3];
   public boolean isItemArrow;
   public int trackGold = 0;
+  public static int ultimateBossSelected = 0;
+  public static int ultimateMapSave = 0;
 
   private final FontOptions fontOptions = new FontOptions().colour(TextColour.WHITE);
+  private final FontOptions hpFont = new FontOptions().colour(TextColour.WHITE).size(0.67f);
 
   public static final Registrar<ConfigEntry<?>, ConfigRegistryEvent> DRAMOD_CONFIG_REGISTRAR = new Registrar<>(REGISTRIES.config, MOD_ID);
   public static final RegistryDelegate<DifficultyEntryConfig> DIFFICULTY = DRAMOD_CONFIG_REGISTRAR.register("difficulty", DifficultyEntryConfig::new);
@@ -387,6 +390,7 @@ public class DragoonModifier {
   private static boolean draNotificationOpen;
 
   private boolean startThreads;
+
 
   //region Startup
   public DragoonModifier() {
@@ -1672,8 +1676,8 @@ public class DragoonModifier {
       event.xp = 0;
       event.gold = 0;
 
-      if(draModSave.ultimateBossStage + 1 == CONFIG.getConfig(ULTIMATE_BOSS.get())) {
-        for(int i = 0; i < 86; i++) {
+      if(ultimateBossSelected == draModSave.ultimateBossStage + 1) {
+        for(int i = 0; i < ultimateData.size(); i++) {
           if(enemyId == Integer.parseInt(ultimateData.get(i)[0])) {
             final String item = ultimateData.get(i)[27];
 
@@ -3815,10 +3819,11 @@ public class DragoonModifier {
       transforms.scaling(238.0f, 20.0f, 999.0f);
 
       if(this.enrageModeProtection[event.monster.charSlot_276] > 0) {
-        text = String.valueOf(stat.getCurrent()) + " (" +  this.enrageModeProtection[event.monster.charSlot_276] + ')';
+        text = stat.getCurrent() + " + " +  this.enrageModeProtection[event.monster.charSlot_276] + " [AT" + event.monster.attack_34 + "][MAT" + event.monster.magicAttack_36 + "][DF" + event.monster.defence_38 + "][MDF" + event.monster.magicDefence_3a + ']';
       } else {
-        text = String.valueOf(stat.getCurrent());
+        text = stat.getCurrent() + " [AT" + event.monster.attack_34 + "][MAT" + event.monster.magicAttack_36 + "][DF" + event.monster.defence_38 + "][MDF" + event.monster.magicDefence_3a + ']';;
       }
+
 
       RENDERER
         .queueOrthoModel(RENDERER.opaqueQuad, transforms, QueuedModelStandard.class)
@@ -3830,7 +3835,7 @@ public class DragoonModifier {
         .queueOrthoModel(RENDERER.opaqueQuad, transforms, QueuedModelStandard.class)
         .colour(r, g, b)
         .translucency(Translucency.B_PLUS_QUARTER_F);
-      Scus94491BpeSegment_8002.renderText(text, 41, 5, this.fontOptions);
+      Scus94491BpeSegment_8002.renderText(text, 41, 6, this.hpFont);
     }
 
     for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
@@ -3958,7 +3963,7 @@ public class DragoonModifier {
     if(ultimateBattle) {
       ultimateBattle = false;
 
-      if(draModSave.ultimateBossStage + 1 == GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get())) {
+      if(ultimateBossSelected == draModSave.ultimateBossStage + 1) {
         draModSave.ultimateBossStage += 1;
       }
 
@@ -4203,7 +4208,7 @@ public class DragoonModifier {
       if((this.currentPlayer.status_0e == 0 || this.currentPlayer.status_0e == 8192) && (this.currentMenuBlock == 0 || this.currentMenuBlock == 8) && !this.kongolCounterStance[this.currentPlayerSlot]) {
         this.kongolCounterStance[this.currentPlayerSlot] = true;
         this.kongolCounterStanceTurns[this.currentPlayerSlot] = ("dragoon_modifier:giant_axe".equals(this.currentPlayer.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString())) ? 4 : 3;
-        this.kongolCounterSpeed = this.currentPlayer.stats.getStat(SPEED_STAT.get()).get();
+        this.kongolCounterSpeed = this.currentPlayer.stats.getStat(SPEED_STAT.get()).getRaw();
         this.currentPlayer.stats.getStat(SPEED_STAT.get()).setRaw(0);
         this.currentPlayer.turnValue_4c = 0;
         ((Battle)currentEngineState_8004dd04).hud.initializeMenuIcons(battleState_8006e398.playerBents_e40[this.currentPlayerSlot], this.currentPlayer.isDragoon() ? this.currentPlayer.dlevel_06 >= 6 ? 0x32 : 0x30 : 0x2, 0);
@@ -4476,7 +4481,7 @@ public class DragoonModifier {
 
   public void dramodHotkeys() {
     if(this.hotkey.contains(INPUT_ACTION_DRAMENU.get())) {
-      if(draAchievementsOpen) {
+      if(draAchievementsOpen || draNotificationOpen) {
         return;
       }
       if(!draMenuOpen) {
@@ -4763,6 +4768,8 @@ public class DragoonModifier {
           setUltimateLevelCap(GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1);
           smap.submap.prepareEncounter(ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][0], false);
           battleStage_800bb0f4 = ultimateEncounter[GameEngine.CONFIG.getConfig(ULTIMATE_BOSS.get()) - 1][1];
+          ultimateBossSelected = draModSave.ultimateBossStage + 1;
+          ultimateMapSave = submapCut_80052c30;
           smap.mapTransition(-1, 0);
         }
       }).start();
@@ -4792,6 +4799,8 @@ public class DragoonModifier {
           setUltimateLevelCap(bossSelected);
           smap.submap.prepareEncounter(ultimateEncounter[bossSelected][0], false);
           battleStage_800bb0f4 = ultimateEncounter[bossSelected][1];
+          ultimateBossSelected = bossSelected + 1;
+          ultimateMapSave = submapCut_80052c30;
           smap.mapTransition(-1, 0);
         }
       }).start();
