@@ -80,7 +80,11 @@ public class DraMenu extends MenuScreen {
     }
 
     if(gameState_800babc8.charData_32c[8].partyFlags_04 > 0) {
-      addButton("???", DragoonModifier::who);
+      addButton("Who? (Don't click)", DragoonModifier::who);
+    }
+
+    if(DragoonModifier.ultimateMapSave > 0) {
+      addButton("Warp Back", DragoonModifier::warpBackUltimateBoss);
     }
 
     for(int i = 0; i < this.menuButtons.size(); i++) {
