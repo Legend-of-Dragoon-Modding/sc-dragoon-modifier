@@ -8,6 +8,13 @@ import lod.dragoonmodifier.values.ElementalBomb;
 import lod.dragoonmodifier.values.EnrageMode;
 import org.legendofdragoon.modloader.events.Event;
 
+import static legend.game.modding.coremod.CoreMod.DRAGOON_DETRANSFORMATION_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_EQUIP_EFFECTS_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_ESCAPE_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_GUARD_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_ITEMS_CONFIG;
+import static legend.game.modding.coremod.CoreMod.INVENTORY_SIZE_CONFIG;
+
 public class HellModeAdjustmentEvent extends Event {
   public HellModeAdjustmentEvent() {
     //TODO Ultiamte Boss
@@ -30,5 +37,14 @@ public class HellModeAdjustmentEvent extends Event {
     GameEngine.CONFIG.setConfig(CoreMod.DRAGOON_ESCAPE_CONFIG.get(), false);
     GameEngine.CONFIG.setConfig(CoreMod.DRAGOON_EQUIP_EFFECTS_CONFIG.get(), false);
     GameEngine.CONFIG.setConfig(CoreMod.DRAGOON_ITEMS_CONFIG.get(), false);
+    GameEngine.CONFIG.lockConfig(DRAGOON_DETRANSFORMATION_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DRAGOON_EQUIP_EFFECTS_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DRAGOON_ESCAPE_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DRAGOON_GUARD_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DRAGOON_ITEMS_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(INVENTORY_SIZE_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DRAGOON_ITEMS_CONFIG.get());
+    GameEngine.CONFIG.lockConfig(DragoonModifier.ENRAGE_MODE.get());
+    GameEngine.CONFIG.lockConfig(DragoonModifier.ELEMENTAL_BOMB.get());
   }
 }
