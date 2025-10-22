@@ -18,10 +18,10 @@ public class DraModSpiritPotion extends SpiritPotionItem {
     this.location = location;
   }
 
-  @Override
+  /*@Override
   public boolean canBeUsed(final UsageLocation location) {
     return location == UsageLocation.BATTLE;
-  }
+  } */
 
   @Override
   protected int getUseItemScriptEntrypoint() {
