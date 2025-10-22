@@ -168,7 +168,14 @@ import static legend.game.Scus94491BpeSegment_8007.shopId_8007a3b4;
 import static legend.game.Scus94491BpeSegment_800b.*;
 import static legend.game.combat.Battle.spellStats_800fa0b8_Monster;
 import static legend.game.combat.Battle.spellStats_800fa0b8_Player;
+import static legend.game.combat.SBtld.additionHits_8010e658;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_DETRANSFORMATION_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_EQUIP_EFFECTS_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_ESCAPE_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_GUARD_CONFIG;
+import static legend.game.modding.coremod.CoreMod.DRAGOON_ITEMS_CONFIG;
+import static legend.game.modding.coremod.CoreMod.INVENTORY_SIZE_CONFIG;
 import static legend.game.submap.RetailSubmap.encounterData_800f64c4;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
 import static legend.lodmod.LodMod.DIVINE_ELEMENT;
@@ -248,6 +255,7 @@ public class DragoonModifier {
   public int[] swapEXPParty = new int[3];
   public static int[][] ultimateEncounter = {{487, 10}, {386, 3}, {414, 8},
     {461, 21}, {412, 16}, {413, 70}, {387, 5}, {415, 12},
+    {448, 2},
     /*{449, 68}, {402, 23}, {403, 29}, {417, 31}, {418, 41}, {448, 68}, {416, 38}, {422, 42}, {423, 47}, {432, 69}, {430, 67}, {433, 56}, {431, 54}, {447, 68}*/
   };
   public static boolean ultimateBattle;
@@ -412,9 +420,9 @@ public class DragoonModifier {
   }
 
   public void print(final String text) {
-    if(DEBUG_MODE) {
+    /*if(DEBUG_MODE) {
       System.out.println("[DRAGOON MODIFIER] " + text);
-    }
+    }*/
   }
 
   @EventListener
@@ -497,10 +505,10 @@ public class DragoonModifier {
     if(submapCut_80052c30 == 676 && gameState_800babc8.charData_32c[0].level_12 == 1) {
       if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
         event.gameState.gold_94 = 200;
-        event.gameState.items_2e9.add(REGISTRIES.items.getEntry("lod:spark_net").get());
-        event.gameState.items_2e9.add(REGISTRIES.items.getEntry("lod:trans_light").get());
-        event.gameState.items_2e9.add(REGISTRIES.items.getEntry("lod:healing_potion").get());
-        event.gameState.items_2e9.add(REGISTRIES.items.getEntry("lod:healing_potion").get());
+        event.gameState.items_2e9.give(REGISTRIES.items.getEntry("lod:spark_net").get());
+        event.gameState.items_2e9.give(REGISTRIES.items.getEntry("lod:trans_light").get());
+        event.gameState.items_2e9.give(REGISTRIES.items.getEntry("lod:healing_potion").get());
+        event.gameState.items_2e9.give(REGISTRIES.items.getEntry("lod:healing_potion").get());
       } else {
         event.gameState.gold_94 = 20;
       }
@@ -812,12 +820,12 @@ public class DragoonModifier {
     return row;
   }
 
-  public ItemIcon getIconFromId(final int id) {
-    for(final ItemIcon i : ItemIcon.values()) {
+  public ItemIcon getIconFromId(final int id) { //TODO
+    /*for(final ItemIcon i : ItemIcon.values()) {
       if(i.icon == id) {
         return i;
       }
-    }
+    }*/
     return ItemIcon.SWORD;
   }
   //endregion
@@ -847,7 +855,8 @@ public class DragoonModifier {
           Short.parseShort(additionStats.get(i * 8 + x)[12]),
           Short.parseShort(additionStats.get(i * 8 + x)[13]),
           Short.parseShort(additionStats.get(i * 8 + x)[14]),
-          Short.parseShort(additionStats.get(i * 8 + x)[15])
+          Short.parseShort(additionStats.get(i * 8 + x)[15]),
+          additionHits_8010e658[i].hits_00[x].sounds
         );
       }
 
@@ -1354,13 +1363,13 @@ public class DragoonModifier {
   }
 
   @EventListener
-  public void iconDisplayEvent(final IconDisplayEvent event) {
-    final String[] key = event.key.toString().split(" ");
+  public void iconDisplayEvent(final IconDisplayEvent event) { //TODO
+    /*final String[] key = event.key.toString().split(" ");
     if("Equipment".equals(key[0]) || "UltimateWargodEquipment".equals(key[0]) || "WargodCallingEquipment".equals(key[0]) || "DestroyerMaceEquipment".equals(key[0]) || "DetonateArrowEquipment".equals(key[0]) ) {
       event.icon = this.getEquipFromRegistry(key[1]).icon_0e;
     } else {
       event.icon = this.getItemFromRegistry(key[1]).icon;
-    }
+    }*/
   }
 
   @EventListener
@@ -1382,18 +1391,19 @@ public class DragoonModifier {
         }
       }
       if(item != null) {
+        final ItemStack stack = new ItemStack(REGISTRIES.items.getEntry(shop[i]).get(), 1);
         if(shopId_8007a3b4 == 40) {
           if("lod:healing_rain".equals(shop[i])) {
-            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 600));
+            event.contents.add(new ShopScreen.ShopEntry<>(stack, 600));
           } else if("lod:total_vanishing".equals(shop[i])) {
-            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 400));
+            event.contents.add(new ShopScreen.ShopEntry<>(stack, 400));
           } else if("lod:spirit_potion".equals(shop[i])) {
-            event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 200));
+            event.contents.add(new ShopScreen.ShopEntry<>(stack, 200));
           }
         } else if(shopId_8007a3b4 == 41) {
-          event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), 800));
+          event.contents.add(new ShopScreen.ShopEntry<>(stack, 800));
         } else {
-          event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.items.getEntry(shop[i]).get(), item.getPrice() * 2));
+          event.contents.add(new ShopScreen.ShopEntry<>(stack, item.getPrice(stack) * 2));
         }
       }
     }
@@ -1690,7 +1700,7 @@ public class DragoonModifier {
               }
 
               try {
-                event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(ultimateData.get(i)[28]), REGISTRIES.items.getEntry(item).get()));
+                event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(ultimateData.get(i)[28]), new ItemStack(REGISTRIES.items.getEntry(item).get(), 1)));
               } catch(final Exception ignored) {
               }
             }
@@ -1724,7 +1734,7 @@ public class DragoonModifier {
         }
 
         try {
-          event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(monstersRewardsStats.get(enemyId)[2]), REGISTRIES.items.getEntry(item).get()));
+          event.add(new CombatantStruct1a8.ItemDrop(Integer.parseInt(monstersRewardsStats.get(enemyId)[2]), new ItemStack(REGISTRIES.items.getEntry(item).get(), 1)));
         } catch(final Exception ignored) {
         }
       }
@@ -1760,9 +1770,9 @@ public class DragoonModifier {
 
         if("Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
           if(encounterId_800bb0f8 == 403 && enemyId == 301) {
-            event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.items.getEntry("dragoon_modifier:weak_shield").get()));
-            event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.items.getEntry("dragoon_modifier:weak_shield").get()));
-            event.add(new CombatantStruct1a8.ItemDrop(100, REGISTRIES.items.getEntry("dragoon_modifier:super_spirit_pot").get()));
+            event.add(new CombatantStruct1a8.ItemDrop(100, new ItemStack(REGISTRIES.items.getEntry("dragoon_modifier:weak_shield").get(), 1)));
+            event.add(new CombatantStruct1a8.ItemDrop(100, new ItemStack(REGISTRIES.items.getEntry("dragoon_modifier:weak_shield").get(), 1)));
+            event.add(new CombatantStruct1a8.ItemDrop(100, new ItemStack(REGISTRIES.items.getEntry("dragoon_modifier:super_spirit_pot").get(), 1)));
           }
         }
       }
@@ -1829,10 +1839,10 @@ public class DragoonModifier {
       final VitalsStat hp = bobj.stats.getStat(HP_STAT.get());
       hp.setCurrent(25600);
       hp.setMaxRaw(25600);
-      bobj.attack_34 = 125;
-      bobj.magicAttack_36 = 125;
-      bobj.defence_38 = 75;
-      bobj.magicDefence_3a = 200;
+      bobj.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(125);
+      bobj.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(125);
+      bobj.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(75);
+      bobj.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(200);
     }
 
     this.armorOfLegendTurns = 0;
@@ -1911,32 +1921,32 @@ public class DragoonModifier {
         if(bobj instanceof final PlayerBattleEntity player) {
           if(windDragoonPresent && (player.charId_272 == 1 || player.charId_272 == 5)) {
             final int newHP = (int)Math.round(player.getStat(BattleEntityStat.MAX_HP) * 0.7);
-            final int newAT = (int)Math.round(player.magicAttack_36 * 0.5);
-            final int newMAT = (int)Math.round(player.attack_34 * 0.5);
-            final int newDF = player.magicDefence_3a;
-            final int newMDF = player.defence_38;
+            final int newAT = (int)Math.round(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() * 0.5);
+            final int newMAT = (int)Math.round(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() * 0.5);
+            final int newDF = player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get();
+            final int newMDF = player.stats.getStat(LodMod.DEFENSE_STAT.get()).get();
             final VitalsStat hp = player.stats.getStat(LodMod.HP_STAT.get());
 
             hp.setMaxRaw(newHP);
-            player.attack_34 = newAT;
-            player.magicAttack_36 = newMAT;
-            player.defence_38 = newDF;
-            player.magicDefence_3a = newMDF;
+            player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(newAT);
+            player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(newDF);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
           }
 
           if(whiteSilverDragoonPresent && (player.charId_272 == 2 || player.charId_272 == 8)) {
             final int newHP = (int)Math.round(player.getStat(BattleEntityStat.MAX_HP) * 0.7);
-            final int newAT = (int)Math.round(player.magicAttack_36 * 0.5);
-            final int newMAT = (int)Math.round(player.attack_34 * 0.5);
-            final int newDF = player.magicDefence_3a;
-            final int newMDF = player.defence_38;
+            final int newAT = (int)Math.round(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() * 0.5);
+            final int newMAT = (int)Math.round(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() * 0.5);
+            final int newDF = player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get();
+            final int newMDF = player.stats.getStat(LodMod.DEFENSE_STAT.get()).get();
             final VitalsStat hp = player.stats.getStat(LodMod.HP_STAT.get());
 
             hp.setMaxRaw(newHP);
-            player.attack_34 = newAT;
-            player.magicAttack_36 = newMAT;
-            player.defence_38 = newDF;
-            player.magicDefence_3a = newMDF;
+            player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(newAT);
+            player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(newDF);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
           }
 
           if(player.charId_272 == 1 || player.charId_272 == 5) {
@@ -1960,16 +1970,16 @@ public class DragoonModifier {
           }
 
           if("lod:phantom_shield".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) {
-            player.defence_38 = (int)Math.round(player.defence_38 * 0.6d);
-            player.magicDefence_3a = (int)Math.round(player.magicDefence_3a * 0.6d);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.6d));
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.6d));
           }
 
           if("lod:dragon_shield".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) {
-            player.defence_38 = (int)Math.round(player.defence_38 * 0.6d);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.6d));
           }
 
           if("lod:angel_scarf".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) {
-            player.magicDefence_3a = (int)Math.round(player.magicDefence_3a * 0.6d);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.6d));
           }
 
           if("lod:holy_ankh".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString()) && "lod:angel_robe".equals(player.equipment_11e.get(EquipmentSlot.ARMOUR).getRegistryId().toString())) {
@@ -1994,14 +2004,14 @@ public class DragoonModifier {
           }
 
           if(crystalItems > 3) {
-            player.attack_34 += 60;
-            player.magicAttack_36 += 60;
-            player.defence_38 += 60;
-            player.magicDefence_3a += 60;
+            player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() + 60);
+            player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() + 60);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() + 60);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() + 60);
             player.attackHit_3c += 60;
             player.magicHit_3e += 60;
-            player.attackAvoid_40 += 12;
-            player.magicAvoid_42 += 12;
+            player.stats.getStat(LodMod.AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.AVOID_STAT.get()).get() + 12);
+            player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).get() + 12);
             if(player.charId_272 != 7) {
               player.stats.getStat(SPEED_STAT.get()).setRaw(player.stats.getStat(SPEED_STAT.get()).get() + 12);
             } else {
@@ -2013,14 +2023,14 @@ public class DragoonModifier {
             player.mpRegen_136 = 10;
             player.spRegen_138 = 100;
           } else if(crystalItems > 2) {
-            player.attack_34 += 30;
-            player.magicAttack_36 += 30;
-            player.defence_38 += 30;
-            player.magicDefence_3a += 30;
+            player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() + 30);
+            player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() + 30);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() + 30);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() + 30);
             player.attackHit_3c += 30;
             player.magicHit_3e += 30;
-            player.attackAvoid_40 += 6;
-            player.magicAvoid_42 += 6;
+            player.stats.getStat(LodMod.AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.AVOID_STAT.get()).get() + 6);
+            player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).get() + 6);
             if(player.charId_272 != 7) {
               player.stats.getStat(SPEED_STAT.get()).setRaw(player.stats.getStat(SPEED_STAT.get()).get() + 6);
             } else {
@@ -2030,25 +2040,25 @@ public class DragoonModifier {
             player.mpRegen_136 = 4;
             player.spRegen_138 = 40;
           } else if(crystalItems > 1) {
-            player.attack_34 += 5;
-            player.magicAttack_36 += 5;
-            player.defence_38 += 5;
-            player.magicDefence_3a += 5;
+            player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() + 5);
+            player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() + 5);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() + 5);
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() + 5);
             player.attackHit_3c += 5;
             player.magicHit_3e += 5;
-            player.attackAvoid_40 += 1;
-            player.magicAvoid_42 += 1;
+            player.stats.getStat(LodMod.AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.AVOID_STAT.get()).get() + 1);
+            player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).get() + 1);
             if(player.charId_272 != 7) {
               player.stats.getStat(SPEED_STAT.get()).setRaw(player.stats.getStat(SPEED_STAT.get()).get() + 1);
             }
           }
 
           if("dragoon_modifier:ring_of_reversal".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) {
-            final int df = player.defence_38;
-            final int mdf = player.magicDefence_3a;
-            player.magicDefence_3a = df;
-            player.defence_38 = mdf;
-            if(player.defence_38 > player.magicDefence_3a) {
+            final int df = player.stats.getStat(LodMod.DEFENSE_STAT.get()).get();
+            final int mdf = player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get();
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(df);
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(mdf);
+            if(mdf > df) {
               player.stats.getStat(HP_STAT.get()).setMaxRaw((int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 1.5d));
             } else {
               player.stats.getStat(HP_STAT.get()).setMaxRaw((int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() / 1.5d));
@@ -2059,8 +2069,8 @@ public class DragoonModifier {
           if("dragoon_modifier:the_one_ring".equals(player.equipment_11e.get(EquipmentSlot.ACCESSORY).getRegistryId().toString())) {
             player.stats.getStat(HP_STAT.get()).setCurrent(1);
             player.stats.getStat(HP_STAT.get()).setMaxRaw(1);
-            player.attackAvoid_40 = 80;
-            player.magicAvoid_42 = 80;
+            player.stats.getStat(LodMod.AVOID_STAT.get()).setRaw(80);
+            player.stats.getStat(LodMod.MAGIC_AVOID_STAT.get()).setRaw(80);
           }
 
           if("dragoon_modifier:divine_dg_armor".equals(player.equipment_11e.get(EquipmentSlot.ARMOUR).getRegistryId().toString())) {
@@ -2173,10 +2183,10 @@ public class DragoonModifier {
             }
 
             if(activePartyMembers == 1) {
-              player.attack_34 = (int)Math.round(player.attack_34 * 1.2);
-              player.magicAttack_36 = (int)Math.round(player.magicAttack_36 * 1.2);
-              player.defence_38 = (int)Math.round(player.defence_38 * 1.2);
-              player.magicDefence_3a = (int)Math.round(player.magicDefence_3a * 1.2);
+              player.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.ATTACK_STAT.get()).get() * 1.2));
+              player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() * 1.2));
+              player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 1.2));
+              player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 1.2));
               player.hpRegen_134 += 10;
               player.mpRegen_136 += 10;
               player.spRegen_138 += 20;
@@ -2486,14 +2496,14 @@ public class DragoonModifier {
         if("lod:armor_of_legend".equals(player.equipment_11e.get(EquipmentSlot.ARMOUR).getRegistryId().toString())) {
           this.armorOfLegendTurns += 1;
           if(this.armorOfLegendTurns <= 40) {
-            player.defence_38 += 1;
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() + 1);
           }
         }
 
         if("lod:legend_casque".equals(player.equipment_11e.get(EquipmentSlot.HELMET).getRegistryId().toString())) {
           this.legendCasqueTurns += 1;
           if(this.legendCasqueTurns <= 40) {
-            player.magicDefence_3a += 1;
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() + 1);
           }
         }
 
@@ -2529,14 +2539,14 @@ public class DragoonModifier {
           }
         }*/
 
-        if(player.charId_272 == 6 && this.meruBoost[player.charSlot_276]) {
+        /*if(player.charId_272 == 6 && this.meruBoost[player.charSlot_276]) {
           this.meruBoostTurns[player.charSlot_276] -= 1;
           if(this.meruBoostTurns[player.charSlot_276] == 0) {
             this.meruBoost[player.charSlot_276] = false;
             player.stats.getStat(HP_STAT.get()).setMaxRaw(this.meruMaxHpSave[player.charSlot_276]);
             player.magicDefence_3a = this.meruMDFSave[player.charSlot_276];
           }
-        }
+        }*/
 
         if(this.spiritBottle[player.charSlot_276]) {
           final int sp = player.stats.getStat(SP_STAT.get()).getCurrent();
@@ -2579,7 +2589,7 @@ public class DragoonModifier {
           this.meruIceShieldMax = player.getStat(BattleEntityStat.MAX_HP);
           if("Hard Mode".equals(difficulty) || "US + Hard Bosses".equals(difficulty) || "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty)) {
             if("dragoon_modifier:magic_hammer".equals(player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId().toString()) && player.isDragoon()) {
-              if(!(CONFIG.getConfig(CoreMod.DRAGOON_EQUIP_EFFECTS_CONFIG.get()))) {
+              if(!(CONFIG.getConfig(DRAGOON_EQUIP_EFFECTS_CONFIG.get()))) {
                 player.setStat(BattleEntityStat.CURRENT_MP, player.getStat(BattleEntityStat.CURRENT_MP) + 20);
               }
             }
@@ -3535,7 +3545,7 @@ public class DragoonModifier {
 
   @EventListener
   public void repeatItemReturn(final RepeatItemReturnEvent event) {
-    event.returnItem = Boolean.parseBoolean(itemStats.get(this.getItemRowFromTable(event.item.getRegistryId().toString()))[35]);
+    event.returnItem = Boolean.parseBoolean(itemStats.get(this.getItemRowFromTable(event.stack.getItem().getRegistryId().toString()))[35]);
   }
 
   public void updateEnrageMode(final AttackEvent event) {
@@ -3548,10 +3558,10 @@ public class DragoonModifier {
         final int maxHp = monster.stats.getStat(HP_STAT.get()).getMax();
         final boolean hellMode = "Hell Mode".equals(difficulty) || "Hard + Hell Bosses".equals(difficulty) && hp - damage > 0;
         if(hp <= maxHp * 0.8 && this.enrageMode[monster.charSlot_276] == 0) {
-          monster.attack_34 = (int)Math.round(monster.attack_34 * 1.1d);
-          monster.magicAttack_36 = (int)Math.round(monster.magicAttack_36 * 1.1d);
-          monster.defence_38 = (int)Math.round(monster.defence_38 * 1.1d);
-          monster.magicDefence_3a = (int)Math.round(monster.magicDefence_3a * 1.1d);
+          monster.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.ATTACK_STAT.get()).get() * 1.1d));
+          monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() * 1.1d));
+          monster.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 1.1d));
+          monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 1.1d));
           this.enrageMode[monster.charSlot_276] = 1;
           if(hellMode) {
             if(ArrayUtils.contains(this.bossEncounters, encounterId_800bb0f8)) {
@@ -3561,10 +3571,10 @@ public class DragoonModifier {
           }
         }
         if(hp <= maxHp * 0.4 && this.enrageMode[monster.charSlot_276] == 1) {
-          monster.attack_34 = (int)Math.round(monster.attack_34 * 1.136365d);
-          monster.magicAttack_36 = (int)Math.round(monster.magicAttack_36 * 1.136365d);
-          monster.defence_38 = (int)Math.round(monster.defence_38 * 1.136365d);
-          monster.magicDefence_3a = (int)Math.round(monster.magicDefence_3a * 1.136365d);
+          monster.stats.getStat(LodMod.ATTACK_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.ATTACK_STAT.get()).get() * 1.136365d));
+          monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get() * 1.136365d));
+          monster.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 1.136365d));
+          monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 1.136365d));
           this.enrageMode[monster.charSlot_276] = 2;
           if(hellMode) {
             if(ArrayUtils.contains(this.bossEncounters, encounterId_800bb0f8)) {
@@ -3600,7 +3610,7 @@ public class DragoonModifier {
     if(GameEngine.CONFIG.getConfig(ELEMENTAL_BOMB.get()) == ElementalBomb.ON) {
       if(event.attacker instanceof final PlayerBattleEntity player) {
         try {
-          if(this.isAttackItem(player.item_d4) && event.defender instanceof final MonsterBattleEntity monster && event.attackType == AttackType.ITEM_MAGIC) {
+          if(this.isAttackItem(player.item_d4.getItem()) && event.defender instanceof final MonsterBattleEntity monster && event.attackType == AttackType.ITEM_MAGIC) {
             //for(int i = 0; i < monsterCount_800c6768.get(); i++) {
             if(this.elementalBombTurns[monster.charSlot_276] == 0) {
               final Element swapTo = player.item_d4.getAttackElement();
@@ -3819,9 +3829,9 @@ public class DragoonModifier {
       transforms.scaling(238.0f, 20.0f, 999.0f);
 
       if(this.enrageModeProtection[event.monster.charSlot_276] > 0) {
-        text = stat.getCurrent() + " + " +  this.enrageModeProtection[event.monster.charSlot_276] + " [AT" + event.monster.attack_34 + "][MAT" + event.monster.magicAttack_36 + "][DF" + event.monster.defence_38 + "][MDF" + event.monster.magicDefence_3a + ']';
+        text = stat.getCurrent() + '(' +  this.enrageModeProtection[event.monster.charSlot_276] + ") AT" + event.monster.stats.getStat(LodMod.ATTACK_STAT.get()).get() + " MAT" + event.monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get()  + " DF" + event.monster.stats.getStat(LodMod.DEFENSE_STAT.get()).get()  + " MDF" + event.monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get()  + ']';
       } else {
-        text = stat.getCurrent() + " [AT" + event.monster.attack_34 + "][MAT" + event.monster.magicAttack_36 + "][DF" + event.monster.defence_38 + "][MDF" + event.monster.magicDefence_3a + ']';;
+        text = stat.getCurrent() + " AT" + event.monster.stats.getStat(LodMod.ATTACK_STAT.get()).get()  + " MAT" + event.monster.stats.getStat(LodMod.MAGIC_ATTACK_STAT.get()).get()  + " DF" + event.monster.stats.getStat(LodMod.DEFENSE_STAT.get()).get()  + " MDF" + event.monster.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get()  + ']';;
       }
 
 
@@ -3968,9 +3978,9 @@ public class DragoonModifier {
       }
 
       if(draModSave.ultimateBossStage == 3) {
-        GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 36);
+        GameEngine.CONFIG.setConfig(INVENTORY_SIZE_CONFIG.get(), 36);
       } else if(draModSave.ultimateBossStage == 8) {
-        GameEngine.CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 40);
+        GameEngine.CONFIG.setConfig(INVENTORY_SIZE_CONFIG.get(), 40);
       }
 
       if(draModSave.ultimateBossStage == 1) {
@@ -4469,7 +4479,7 @@ public class DragoonModifier {
   //region Hotkey
   @EventListener
   public void inputPressed(final InputPressedEvent event) {
-    this.print("[HOTKEY] " + event.action.toString());
+    //this.print("[HOTKEY] " + event.action.toString());
     this.hotkey.add(event.action);
     this.dramodHotkeys();
   }
@@ -4644,6 +4654,12 @@ public class DragoonModifier {
     addAchievement(41);
   }
 
+  public static void warpBackUltimateBoss() {
+    submapCut_80052c30 = ultimateMapSave;
+    ((SMap)currentEngineState_8004dd04).smapLoadingStage_800cb430 = SubmapState.CHANGE_SUBMAP_4;
+    ultimateMapSave = 0;
+  }
+
   public static void startFaustBattle() {
     new Thread(() -> {
       while(draMenuOpen) {
@@ -4771,6 +4787,7 @@ public class DragoonModifier {
           ultimateBossSelected = draModSave.ultimateBossStage + 1;
           ultimateMapSave = submapCut_80052c30;
           smap.mapTransition(-1, 0);
+          ultimateBossSetup();
         }
       }).start();
     } else {
@@ -4802,6 +4819,7 @@ public class DragoonModifier {
           ultimateBossSelected = bossSelected + 1;
           ultimateMapSave = submapCut_80052c30;
           smap.mapTransition(-1, 0);
+          ultimateBossSetup();
         }
       }).start();
     } else {
@@ -4818,6 +4836,13 @@ public class DragoonModifier {
       ultimateLevelCap = 40;
     } else {
       ultimateLevelCap = 30;
+    }
+  }
+
+  public static void ultimateBossSetup() {
+    if(ultimateBossSelected == 9) {
+      gameState_800babc8.charIds_88[1] = -1;
+      gameState_800babc8.charIds_88[2] = -1;
     }
   }
 
