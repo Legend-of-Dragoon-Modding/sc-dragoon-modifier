@@ -119,19 +119,57 @@ If party members are dead there is a healing penality for Gates of Heaven.
      -5% per party member in Hard Modes
     -12% per party member in Hell Modes
 Various locations in the game now drop Elemental Arrows and can be used during Shana's turn via the secondary battle menu.
-    Fire Arrow    - Volcano Villude
-    Water Arrow   - Undersea Cavern
-    Water Arrow   - Kashua Glacier
-    Wind Arrow    - Nest of Dragon
-    Wind Arrow    - Evergreen Forest
-    Earth Arrow   - Home of Giganto
-    Earth Arrow   - Kadessa
-    Dark Arrow    - Phantom Ship
-    Dark Arrow    - Death City Mayfil
-    Light Arrow   - Moon
-    Light Arrow   - Shrine of Shirley
-    Thunder Arrow - Vellweb
-    Thunder Arrow - Flanvel Tower
+    Fire Arrow    - Volcano Villude          (45%)
+    Dark Arrow    - Hellena Prision (Disc 4) (50%)  
+    Water Arrow   - Undersea Cavern          (35%)
+    Water Arrow   - Kashua Glacier           (50%)
+    Wind Arrow    - Nest of Dragon           (35%)
+    Wind Arrow    - Evergreen Forest         (50%)
+    Earth Arrow   - Home of Giganto          (35%)
+    Earth Arrow   - Kadessa                  (50%) 
+    Dark Arrow    - Phantom Ship             (35%)   
+    Dark Arrow    - Death City Mayfil        (50%)
+    Dark Arrow    - Phantom Ship (Disc 4)    (40%)   
+    Light Arrow   - Moon                     (50%)
+    Light Arrow   - Shrine of Shirley        (35%) 
+    Thunder Arrow - Vellweb                  (35%) 
+    Thunder Arrow - Flanvel Tower            (50%) 
+If a location does not have dedicated Elemental Arrow, a random Elemental Arrow will drop at 25%.
+Shana has a new mechanic called Elemental Field activated by Elemental Arrows.
+When an Elemental Arrow is used Shana will gain one Elemental Charge matching the Elemental Type of the Elemental Arrow for the Elemental Field. 
+Once all three Elemental Charges are gained the Elemental Field activates and provides various effects for three of Shana's turns. 
+When the Elemental Field activates the Elemental Cooldown state begins and lasts for three of Shana's turns. Only the first three attacks with an element are counted for the Elemental Cooldown. Enemies can contribute to the elements for Elemental Cooldown.
+If an effect is triggered by Elemental Cooldown Shana gains the Elemental Exhaustion effect where she can not gain Elemental Charges for the amount of turns specified.
+When the Elemental Field is activated one of the following will occur: 
+	If three different elements were used to create the Elemental Field the damage for those elements is reduced by XX%.
+	If two elements were the same to create the Elemental Field this element will have it's damage increased by XX% while the other is reduced by XX%.
+	If all three elements used to create the Elemental Field were the same the damage for that element will be increased by XX%.
+When Elemental Cooldown is finished the following can occur:
+	If three different elements in the Elemental Cooldown are different than the three elements in the Elemental Field, Shana gains the Elemental Prism effect.
+		Elemental Prism - Shana's next Elemental Arrow turns into the Prismatic Arrow casting an enhanced version of Psyche Bomb that deals XXX% damage.
+		Elemental Exhaustion - X turns
+	If all elements in the Elemental Cooldown are the same as the ones in the Elemental Field, Shana gains the Elemental Torrent effect.
+		Elemental Torrent - Shana's normal arrows have their damage infused by the matching element they do XXX% more damage for X turns.
+		Elemental Exhaustion - X turns
+	If all elements in the Elemental Cooldown are the same as the ones in the Elemental Field and they match the element of one of the enemies on the field, Shanaa gains the Elemental Overabundance effect.
+		Elemental Overabundance - Shana's next Elemental Arrow that matches the element of the target will deal X.Xx more damage. If the target is Thunder and Haschel is in the party this damage is further increased by 150%.
+		Elemental Exhaustion - X turns
+	If all elements in the Elemental Cooldown are the elemental opposite of the ones in the Elemental Field Shana gains the Elemental Reaction effect.
+		Elemental Reaction - Shana's next Elemental Arrow will provided the Elemental Reaction effect on the targeted enemy for three turns that are activated upon hitting the enemy.
+			Fire/Water - Vaporize   - The party will heal MP based on 0.3% of the damage dealt up to a maximum of 50 MP. 
+			Wind/Earth - Turbulence - The party will gain SP based on 1% of the damage dealt up to a maximum of 100 SP. If the character is in Dragoon forms the amount of turns in Dragoon will recalculate.
+			Dark/Light - Equilbirum - The party will heal based on XX% of the damage dealt up to a maximum of X% of Shana's HP.
+		Elemental Exhaustion - X turns
+	If there are three of the same element in the Elemental Cooldown and three of the same element but different than the ones in the Elemental Field, Shana gains the Elemental Unity effect.
+		Elemental Unity - Shana's Elemental Arrow of the same element of the two elements of Elemental Unity will provide bonuses to one of those two party members if present in the party.
+			Fire    - Dart will gain 1 Burn Stack per Fire Arrow.
+			Water   - Meru and Shana will regain XX MP per Water Arrow. Meru will gain Ice Shield based on XX% of the damage dealt up to a maximum of 5% of Shana's HP.
+			Wind    - Wind Arrow will not consume Wind Marks on the enemy and instead restore 1 Wind Mark. 
+			Earth   - Earth Arrow will provide Protection Shield based on XX% of the damage dealt up to a maximum of 15% of Shana's HP to Kongol.
+			Dark    - Rose will gain Siphon based on XX% of the damage dealtup to a maximum of 10% of Shana's HP. 
+			Light   - Shana will restore an additional 100 SP when Light Arrow is used and heal 5% of the damage dealt up to a maximum of 5% of Shana's HP.
+			Thunder - Thunder Arrow has an additional chance to apply another Thunder Charge to the enemy.
+		Elemental Exhaustion - X turns
     
 **********
 ***Rose***
@@ -149,9 +187,9 @@ When full, the amount of Siphon is added to the base damage of the attack.
 *************
 ***Haschel***
 *************
-Haschel's mechanic called Thunder Charge and Spark Charge.
+Haschel's mechanic called Thunder Charge and Charge Charge.
 Thunder Charge can be applied to enemies. 
-Spark Charge is used to gather Thunder Charges and apply them to the next enemy that is hit.
+Static Charge is used to gather Thunder Charges and apply them to the next enemy that is hit.
 Each time a thunder based magic attack is used a Thunder Charge is applied to an enemy. 
 When an enemy has gained 10 Thunder Charges Haschel can deal massive damage when targetting them Dragoon Spark Net and lose all Thunder Charges on that specific enemy.
     When an enemy is targetted this way that enemy can't gain Thunder Charges for 5 of their turns.
