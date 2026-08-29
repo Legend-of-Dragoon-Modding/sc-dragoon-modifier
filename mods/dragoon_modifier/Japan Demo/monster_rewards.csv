@@ -1,0 +1,401 @@
+EXP,Gold,Drop Rate,Item,Name
+16,6,20,dragoon_modifier:burn_out,Mantis
+128,22,10,dragoon_modifier:meteor_fall,Scissorhands
+480,34,15,dragoon_modifier:mind_purifier,Spinninghead
+1152,35,10,dragoon_modifier:sun_rhapsody,Sandworm
+28,8,10,dragoon_modifier:healing_potion,Sea Dragon
+504,34,10,dragoon_modifier:healing_fog,Land Skater
+576,39,10,dragoon_modifier:speed_up,Beastie Dragon
+1632,57,10,dragoon_modifier:angels_prayer,Manticore
+3,3,10,dragoon_modifier:smoke_ball,Goblin
+1232,46,15,dragoon_modifier:mind_purifier,Minotaur
+1536,60,10,dragoon_modifier:midnight_terror,Hyper Skeleton
+1144,50,10,dragoon_modifier:angels_prayer,Basilisk
+288,33,10,dragoon_modifier:midnight_terror,Flabby Troll
+21,9,10,dragoon_modifier:angels_prayer,Evil Spider
+160,24,10,dragoon_modifier:panic_bell,Spider Urchin
+72,15,10,dragoon_modifier:healing_potion,Strong Man
+176,26,10,dragoon_modifier:magic_sig_stone,Dragonfly
+89,18,10,dragoon_modifier:sun_rhapsody,Hell Hound
+240,30,10,dragoon_modifier:mind_purifier,Death
+57,14,20,dragoon_modifier:healing_potion,Lizard Man
+720,44,10,dragoon_modifier:rave_twister,White Ape
+2,4,50,dragoon_modifier:healing_potion,Assassin Cock
+35,11,20,dragoon_modifier:angels_prayer,Merman
+216,30,10,dragoon_modifier:mind_purifier,Glare
+1,1,20,dragoon_modifier:healing_potion,Berserk Mouse
+1248,54,10,dragoon_modifier:healing_fog,Dragon Soldier
+140,19,10,dragoon_modifier:healing_potion,Earth Shaker
+11,3,20,dragoon_modifier:healing_potion,Vampire Kiwi
+25,6,10,dragoon_modifier:body_purifier,Myconido
+192,28,10,dragoon_modifier:down_burst,Roc
+440,40,10,dragoon_modifier:thunderbolt,Gnome
+864,48,5,dragoon_modifier:magic_sig_stone,Bowling
+448,38,10,dragoon_modifier:gushing_magma,Freeze Knight
+44,10,10,dragoon_modifier:spear_frost,Fire Spirit
+1584,64,10,dragoon_modifier:mind_purifier,Mad Skull
+48,13,15,dragoon_modifier:body_purifier,Run Fast
+768,44,15,dragoon_modifier:body_purifier,Canbria Dayfly
+528,43,10,dragoon_modifier:gravity_grabber,Wyvern
+4,2,30,dragoon_modifier:burn_out,Trent
+880,33,10,dragoon_modifier:healing_fog,Spring Hitter
+1200,38,10,dragoon_modifier:panic_bell,Guillotine
+800,37,10,dragoon_modifier:stunning_hammer,Terminator
+100,100,100,dragoon_modifier:spirit_potion,OOPARTS
+320,30,10,dragoon_modifier:healing_fog,Fairy
+400,37,10,dragoon_modifier:power_down,Puck
+15,5,10,dragoon_modifier:angels_prayer,Mole
+14,5,10,dragoon_modifier:healing_potion,Screaming Bat
+720,46,10,dragoon_modifier:black_rain,Succubus
+672,46,15,dragoon_modifier:body_purifier,Mammoth
+832,41,10,dragoon_modifier:spectral_flash,MetalFang
+576,32,10,dragoon_modifier:healing_fog,Windy Weasel
+384,38,15,dragoon_modifier:healing_fog,Wounded Bear
+128,19,10,dragoon_modifier:healing_potion,Erupting Chick
+256,25,10,dragoon_modifier:angels_prayer,Flying Rat
+5000,0,0,Nothing,Rainbow Bird
+79,16,5,dragoon_modifier:attack_ball,Living Statue
+936,36,15,dragoon_modifier:body_purifier,Madman
+792,40,10,dragoon_modifier:poison_needle,Wildman
+64,13,10,dragoon_modifier:dark_mist,Gargoyle
+12,4,10,dragoon_modifier:burn_out,Crescent Bee
+896,36,10,dragoon_modifier:healing_fog,Jelly
+1056,52,10,dragoon_modifier:angels_prayer,Spiky Beetle
+1360,46,10,dragoon_modifier:night_raid,Slug
+640,42,10,dragoon_modifier:total_vanishing,Witch
+16,7,20,dragoon_modifier:sun_rhapsody,Ugly Balloon
+960,50,10,dragoon_modifier:flash_hall,Maximum Volt
+86,18,30,dragoon_modifier:healing_potion,Crystal Golem
+616,41,10,dragoon_modifier:speed_down,Rocky Turtle
+38,13,10,dragoon_modifier:pellet,Crocodile
+102,24,10,dragoon_modifier:sun_rhapsody,Frilled Lizard
+220,33,10,dragoon_modifier:dancing_ray,Magician Bogy
+2016,32,10,dragoon_modifier:body_purifier,Triceratops
+1344,54,10,dragoon_modifier:frozen_jet,Stern Fish
+288,35,10,dragoon_modifier:recovery_ball,Forest Runner
+32,8,10,dragoon_modifier:healing_potion,Magma Fish
+1120,50,10,dragoon_modifier:body_purifier,Scud Shark
+240,27,5,dragoon_modifier:magic_shield,Screw Shell
+1088,41,10,dragoon_modifier:total_vanishing,Potbelly
+1408,55,10,dragoon_modifier:angels_prayer,Loner Knight
+198,23,10,dragoon_modifier:sun_rhapsody,Berserker
+1440,58,10,dragoon_modifier:mind_purifier,Professor
+1872,75,10,dragoon_modifier:psyche_bomb,Psyche Druid
+216,20,10,dragoon_modifier:healing_potion,Gangster
+162,28,10,dragoon_modifier:smoke_ball,Crafty Thief
+1152,50,10,dragoon_modifier:mind_purifier,Undead
+180,25,10,dragoon_modifier:healing_potion,Skeleton
+160,22,10,dragoon_modifier:smoke_ball,Will-o'-Wisp
+3,0,100,dragoon_modifier:sun_rhapsody,Cursed Jar
+52,16,10,dragoon_modifier:power_up,Man Eating Bud
+960,48,10,dragoon_modifier:healing_breeze,Cactus
+43,11,10,dragoon_modifier:pandemonium,Mandrake
+264,36,10,dragoon_modifier:power_down,Mermaid
+48,12,10,dragoon_modifier:sun_rhapsody,Salamander
+1728,70,10,dragoon_modifier:healing_fog,Unicorn
+18,8,10,dragoon_modifier:burn_out,Orc
+320,32,10,dragoon_modifier:detonate_rock,Dark Elf
+384,32,15,dragoon_modifier:mind_purifier,Baby Dragon
+1320,53,10,dragoon_modifier:healing_breeze,Harpy
+1224,62,10,dragoon_modifier:mind_purifier,Cute Cat
+153,26,10,dragoon_modifier:power_up,Arrow Shooter
+36,14,20,dragoon_modifier:mind_purifier,Red Hot
+1024,45,10,dragoon_modifier:healing_fog,Specter
+134,100,10,dragoon_modifier:poison_needle,Sandora Elite
+112,22,15,dragoon_modifier:healing_potion,Knight of Sandora
+19,6,20,dragoon_modifier:body_purifier,Slime
+75,14,10,dragoon_modifier:trans_light,Fowl Fighter
+144,21,10,dragoon_modifier:mind_purifier,Killer Bird
+57,12,20,dragoon_modifier:body_purifier,Plague Rat
+115,17,10,dragoon_modifier:body_purifier,Stinger
+144,31,10,dragoon_modifier:stunning_hammer,Piggy
+192,24,10,dragoon_modifier:healing_potion,Sea Piranha
+360,27,15,dragoon_modifier:body_purifier,Toad Stool
+432,28,10,dragoon_modifier:fatal_blizzard,Mega Sea Dragon
+480,36,15,dragoon_modifier:body_purifier,Deadly Spider
+560,30,5,dragoon_modifier:magic_shield,Icicle Ball
+38,10,15,dragoon_modifier:mind_purifier,Tricky Bat
+648,36,10,dragoon_modifier:sun_rhapsody,Mr.Bone
+352,28,5,dragoon_modifier:material_shield,Moss Dresser
+1080,43,10,dragoon_modifier:total_vanishing,Death Purger
+864,39,10,dragoon_modifier:material_shield,Scorpion
+1008,37,10,dragoon_modifier:spirit_potion,Trap Plant
+1008,41,10,dragoon_modifier:power_up,Aqua King
+960,48,10,dragoon_modifier:body_purifier,Sky Chaser
+1296,59,10,dragoon_modifier:material_shield,Air Combat
+1,0,100,dragoon_modifier:healing_rain,Treasure Jar
+1280,40,5,dragoon_modifier:recovery_ball,Human Hunter
+1496,52,10,dragoon_modifier:healing_breeze,Mountain Ape
+1152,48,10,dragoon_modifier:magic_shield,Roulette Face
+864,43,10,dragoon_modifier:burning_wave,Swift Dragon
+84,18,15,dragoon_modifier:healing_potion,Hellena Warden
+25,10,100,dragoon_modifier:healing_potion,Sandora Soldier
+35,8,10,dragoon_modifier:healing_potion,Sandora Soldier
+25,7,10,dragoon_modifier:sun_rhapsody,Sandora Soldier
+92,21,10,dragoon_modifier:sun_rhapsody,Senior Warden
+5,3,0,Nothing,Hellena Warden
+38,50,100,dragoon_modifier:attack_ball,Commander
+1000,0,0,Nothing,Blue Bird
+1,1000,0,Nothing,Red Bird
+1,100,0,Nothing,Yellow Bird
+1,0,100,dragoon_modifier:moon_serenade,Lucky Jar
+0,0,0,Nothing,??? (Terminator ?)
+0,0,0,Nothing,???
+0,0,0,Nothing,???
+0,0,0,Nothing,Madman
+936,36,15,dragoon_modifier:body_purifier,Madman
+936,36,15,dragoon_modifier:body_purifier,Madman
+36,14,20,dragoon_modifier:mind_purifier,Red Hot
+36,14,20,dragoon_modifier:mind_purifier,Red Hot
+19,6,20,dragoon_modifier:body_purifier,Madman
+19,6,20,dragoon_modifier:body_purifier,Madman
+44,10,20,dragoon_modifier:spear_frost,Fire Spirit
+44,10,20,dragoon_modifier:spear_frost,Fire Spirit
+1024,45,10,dragoon_modifier:healing_fog,Specter
+1024,45,10,dragoon_modifier:healing_fog,Specter
+160,22,10,dragoon_modifier:smoke_ball,Will-o'-Wisp
+160,22,10,dragoon_modifier:smoke_ball,Will-o'-Wisp
+0,0,0,Nothing,Will-o'-Wisp (No name)
+32,8,10,dragoon_modifier:healing_potion,Magma Fish
+32,8,10,dragoon_modifier:healing_potion,Magma Fish
+0,0,0,Nothing,Magma Fish (No name)
+48,12,10,dragoon_modifier:sun_rhapsody,Salamander (No name)
+48,12,10,dragoon_modifier:sun_rhapsody,Salamander (No name)
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,N/A
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Merchant
+0,0,0,Nothing,Master Tasman
+0,0,0,Nothing,Rose
+20,20,50,dragoon_modifier:burn_out,Commander
+2,10,100,dragoon_modifier:healing_potion,Knight of Sandora
+200,100,0,Nothing,Sandora Elite
+0,0,100,dragoon_modifier:healing_potion,Hellena Warden
+0,0,100,dragoon_modifier:healing_potion,Senior Warden
+300,150,100,dragoon_modifier:knight_shield,Fruegel
+1500,300,100,dragoon_modifier:power_up,Fruegel
+200,100,100,dragoon_modifier:power_down,Rodriguez
+300,100,100,dragoon_modifier:spirit_potion,Guftas
+400,150,100,dragoon_modifier:power_wrist,Kongol
+2000,300,100,dragoon_modifier:meteor_fall,Kongol
+3000,400,100,dragoon_modifier:bravery_amulet,Emperor Doel
+0,0,0,Nothing,Dragoon Doel
+0,0,0,Nothing,Lloyd
+9000,1000,100,dragoon_modifier:brass_knuckle,Lloyd
+0,0,0,Nothing,Missing
+0,0,0,Nothing,Missing
+0,0,100,dragoon_modifier:healing_potion,Sandora Elite
+162,30,10,dragoon_modifier:smoke_ball,Crafty Thief
+500,200,100,dragoon_modifier:healing_potion,Feyrbrand
+0,0,0,Nothing,???
+0,0,0,Nothing,Dummy Lloyd
+0,0,0,Nothing,Crash
+8000,1000,100,dragoon_modifier:healing_fog,Regole
+0,0,0,Nothing,Tentacle
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+7000,1500,100,dragoon_modifier:frozen_jet,Divine Dragon
+0,0,100,dragoon_modifier:gravity_grabber,Divine Cannon
+0,0,100,dragoon_modifier:flash_hall,Divine Ball
+0,0,0,Nothing,Crash
+500,200,100,dragoon_modifier:down_burst,Greham
+1500,300,100,dragoon_modifier:recovery_ball,Shirley
+0,0,100,dragoon_modifier:trans_light,Shana
+0,0,100,dragoon_modifier:healing_potion,Albert
+0,0,0,Nothing,Crash
+0,0,0,Nothing,Crash
+3000,500,100,dragoon_modifier:speed_up,Lenus
+0,0,100,dragoon_modifier:frozen_jet,Lenus
+2000,200,100,dragoon_modifier:blue_sea_stone,Damia
+2000,200,100,dragoon_modifier:jade_stone,Syuveil
+2000,200,100,dragoon_modifier:golden_stone,Belzac
+2000,250,100,dragoon_modifier:violet_stone,Kanzas
+400,200,100,dragoon_modifier:healing_potion,Mappi
+1000,200,100,dragoon_modifier:healing_potion,Mappi
+2000,200,100,dragoon_modifier:gravity_grabber,Gehrich
+0,0,0,Nothing,Gorgaga
+0,0,0,Nothing,Serfius
+0,0,0,Nothing,Danton
+0,0,0,Nothing,Atlow
+0,0,0,Nothing,Freeze
+0,0,0,Nothing,Crash
+600,150,100,dragoon_modifier:healing_potion,Virage(head)
+0,0,100,dragoon_modifier:healing_potion,Virage(body)
+0,0,100,dragoon_modifier:mind_purifier,Virage(arm)
+2400,300,100,dragoon_modifier:sun_rhapsody,Virage(head)
+0,0,100,dragoon_modifier:healing_potion,Virage(arm)
+0,0,100,dragoon_modifier:mind_purifier,Virage(body)
+0,0,0,Nothing,Freeze
+0,0,0,Nothing,Freeze
+6000,600,100,dragoon_modifier:healing_rain,S Virage(head)
+0,0,50,dragoon_modifier:healing_rain,S Virage(body)
+0,0,50,dragoon_modifier:healing_rain,S Virage(arm)
+0,0,0,Nothing,Crash
+30000,1500,100,dragoon_modifier:healing_rain,S Virage(head)
+0,0,100,dragoon_modifier:healing_rain,S Virage(arm)
+0,0,100,dragoon_modifier:moon_serenade,S Virage(body)
+0,0,0,Nothing,Freeze
+0,0,0,Nothing,Freeze
+1200,300,100,dragoon_modifier:total_vanishing,Drake the Bandit
+0,0,100,dragoon_modifier:sun_rhapsody,Wire
+0,0,100,dragoon_modifier:healing_potion,Bursting Ball
+0,0,0,Nothing,Freeze
+800,300,100,dragoon_modifier:mind_purifier,Jiango
+0,0,0,Nothing,???
+0,0,0,Nothing,???
+500,200,0,Nothing,Urobolus
+800,150,100,dragoon_modifier:red-eye_stone,Fire Bird
+0,0,0,Nothing,Volcano Ball
+6000,1000,100,dragoon_modifier:spectral_flash,Grand Jewel
+0,0,0,Nothing,Virage(head)
+0,0,0,Nothing,Virage(body)
+0,0,0,Nothing,Virage(arm)
+0,0,0,Nothing,Kamuy's tree
+6000,600,100,dragoon_modifier:night_raid,Ghost Commander
+0,0,0,Nothing,Ghost Knight
+0,0,0,Nothing,Mazo
+5000,600,100,dragoon_modifier:darkness_stone,Kamuy
+10000,10000,100,dragoon_modifier:phantom_shield,Faust
+0,0,0,Nothing,Faust
+8000,1000,100,dragoon_modifier:burning_wave,Windigo
+0,0,100,dragoon_modifier:healing_fog,Snow Cannon
+0,0,100,dragoon_modifier:healing_fog,Heart
+6000,900,0,Nothing,Polter Helm
+0,0,0,Nothing,Polter Armor
+0,0,100,dragoon_modifier:demon_stilleto,Polter Sword
+10000,100,100,dragoon_modifier:flash_hall,Divine Dragoon Ghost
+10000,100,100,dragoon_modifier:frozen_jet,Ghost Regole
+10000,100,100,dragoon_modifier:down_burst,GhostFB
+0,0,0,Nothing,Missing (Melbu Texture)
+0,0,0,Nothing,Missing (Tentacle Texture)
+0,0,0,Nothing,Lloyd & Melbu (Crash)
+0,0,0,Nothing,Freeze
+0,0,0,Nothing,Freeze
+6000,400,0,Nothing,Vector
+6000,400,0,Nothing,Selebus
+6000,400,0,Nothing,Kubila
+20000,1200,100,dragoon_modifier:soul_eater,Zackwell
+0,0,0,Nothing,Lavitzs Spirit
+16000,1000,100,dragoon_modifier:pretty_hammer,Last Kraken
+1000,100,0,Nothing,Cleone
+0,0,0,Nothing,Auto Complete
+7000,500,100,dragoon_modifier:healing_fog,Caterpillar
+7000,500,100,dragoon_modifier:healing_potion,Pupa
+7000,500,100,dragoon_modifier:healing_rain,Imago
+10000,500,0,Nothing,Death Rose
+0,0,0,Nothing,Auto Complete
+10000,500,0,Nothing,Claire
+0,0,0,Nothing,Claire
+10000,500,100,dragoon_modifier:indoras_axe,Indora
+0,0,0,Nothing,Shadow Blade
+0,0,0,Nothing,Light Sword
+10000,500,0,Nothing,Michael
+0,0,0,Nothing,Michael (arm)
+0,0,0,Nothing,Michael (core)
+10000,500,0,Nothing,Dark Doel
+10000,500,0,Nothing,Archangel
+2000,300,0,Nothing,Dragon Spirit
+2000,300,0,Nothing,Dragon Spirit
+2000,300,0,Nothing,Dragon Spirit
+1,1,0,Nothing,Missing Shana
+30000,2000,0,Nothing,Zieg Feld
+30000,10000,0,Nothing,Melbu Frahma (1st)
+0,0,0,Nothing,Tentacle
+0,0,0,Nothing,Melbu Frahma (2nd)
+0,0,0,Nothing,Melbu Frahma (3rd)
+0,0,0,Nothing,Melbu Frahma (Bomb Star)
+0,0,0,Nothing,Melbu Frahma (4th)
+0,0,0,Nothing,Monster
+0,0,0,Nothing,Tentacle
+0,0,0,Nothing,Bomb Star (Melbu Frahma 1st)
+0,0,0,Nothing,Monster
+0,0,0,Nothing,Tentacle
+0,0,0,Nothing,Crash

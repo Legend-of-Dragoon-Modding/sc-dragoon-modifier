@@ -1,0 +1,6 @@
+Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
+20,dragoon_modifier:miranda_moon_light,200,150,200,150,2000,Miranda DLv1
+20,dragoon_modifier:miranda_star_children,10,10,10,10,6000,Miranda DLv2
+40,dragoon_modifier:miranda_gates_of_heaven,10,10,10,10,12000,Miranda DLv3
+80,,10,10,10,10,20000,Miranda DLv4
+80,dragoon_modifier:white_silver_dragon,20,20,20,20,0,Miranda DLv5

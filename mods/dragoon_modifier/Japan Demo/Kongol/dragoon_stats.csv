@@ -1,0 +1,6 @@
+Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
+20,dragoon_modifier:grand_stream,150,200,150,200,1000,Kongol DLv1
+20,dragoon_modifier:meteor_strike,10,10,10,10,2000,Kongol DLv2
+40,,10,10,10,10,12000,Kongol DLv3
+80,,10,10,10,10,20000,Kongol DLv4
+80,dragoon_modifier:golden_dragon,20,20,20,20,0,Kongol DLv5

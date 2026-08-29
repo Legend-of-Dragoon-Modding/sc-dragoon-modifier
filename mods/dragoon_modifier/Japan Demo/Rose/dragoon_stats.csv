@@ -1,0 +1,6 @@
+Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
+20,dragoon_modifier:astral_drain,150,150,150,150,1200,Rose DLv1
+20,dragoon_modifier:death_dimension,10,10,10,10,6000,Rose DLv2
+40,dragoon_modifier:demons_gate,10,10,10,10,12000,Rose DLv3
+80,,10,10,10,10,20000,Rose DLv4
+80,dragoon_modifier:dark_dragon,20,20,20,20,0,Rose DLv5

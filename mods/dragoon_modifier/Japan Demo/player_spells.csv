@@ -1,0 +1,36 @@
+targetType,flags,specialEffect,damage,multi,accuracy,mp,statusChance,element,statusType,buffType,_0b,index,battleStage,Registry ID,Name,Description
+192,0,0,32,0,100,10,0,128,0,0,0,0,,flameshot,Flameshot,Fire STR 200%% Single
+200,0,0,0,0,100,40,0,128,0,0,0,1,,explosion,Explosion,Fire STR 100%% All
+192,0,0,8,0,100,80,0,128,0,0,0,2,,final_burst,Final Burst,Fire STR 400%% Single
+200,0,0,32,0,100,240,0,128,0,0,0,3,71,red_eyed_dragon,Red-Eyed Dragon,Fire STR 200%% All
+192,0,0,2,0,100,240,0,8,0,0,0,4,,divine_dg_cannon,Divine DG Cannon,STR 600%% Single
+200,0,0,0,0,100,40,0,64,0,0,0,5,,wing_blaster,Wing Blaster,Wind STR 100%% All
+192,0,0,8,0,100,80,0,64,0,0,0,6,,gaspless,Gaspless,Wind STR 400%% Single
+136,4,16,0,0,100,40,0,64,0,192,0,7,,blossom_storm,Blossom Storm,Damage Resist 50%% Dur 3
+200,0,0,32,0,100,240,0,64,0,0,0,8,72,jade_dragon,Jade Dragon,Wind STR 200%% All
+200,0,0,32,0,100,80,0,8,0,0,0,9,,divine_dg_ball,Divine DG Ball,STR 200%% All
+200,0,0,0,0,100,40,0,32,0,0,0,10,,star_children,Star Children,Light STR 100%% All
+128,4,0,0,100,100,10,0,32,0,0,0,11,,moon_light,Moon Light,Ally Single 100%% Rev & Rec
+136,4,2,0,50,100,80,0,32,0,0,0,12,,gates_of_heaven,Gates of Heaven,Ally All 100%% Recover
+200,2,0,32,0,100,240,0,32,0,0,0,13,75,white_silver_dragon,W Silver Dragon,Light STR 200%% All HP
+200,0,0,0,0,100,40,0,64,0,0,0,14,,albert_wing_blaster,Wing Blaster,Wind STR 100%% All
+192,2,0,32,0,100,10,0,4,0,0,0,15,,astral_drain,Astral Drain,Dark STR 200%% Single & HP
+200,0,32,0,0,100,40,100,4,8,0,0,16,,death_dimension,Death Dimension,Dark STR 100%% All & Fear
+192,0,0,8,0,100,80,0,64,0,0,0,17,,albert_gaspless,Gaspless,Wind STR 400%% Single
+200,128,0,0,0,100,80,100,4,0,0,0,18,,demons_gate,Demon's Gate,Lethal attack for all
+192,0,0,2,0,100,240,0,4,0,0,0,19,74,dark_dragon,Dark Dragon,Dark STR 600%% Single
+192,0,0,32,0,100,10,0,16,0,0,0,20,,atomic_mind,Atomic Mind,Thunder STR 200%% Single
+192,0,32,16,0,100,40,100,16,16,0,0,21,,thunder_kid,Thunder Kid,Thunder STR 300%% Single
+192,0,0,8,0,100,80,0,16,0,0,0,22,,thunder_god,Thunder God,Thunder STR 400%% Single
+192,0,0,2,0,100,240,0,16,0,0,0,23,77,violet_dragon,Violet Dragon,Thunder STR 600%% Single
+192,0,0,32,0,100,10,0,1,0,0,0,24,,freezing_ring,Freezing Ring,Water STR 200%% Single
+136,4,2,0,50,100,30,0,1,0,0,0,25,,rainbow_breath,Rainbow Breath,HP Recv & Cure - All
+136,4,16,0,0,100,40,0,64,0,192,0,26,,rose_storm,Rose Storm,Damage Resist 50%% Dur 3
+200,0,0,64,0,100,80,0,1,0,0,0,27,,diamond_dust,Diamond Dust,Water STR 150%% All
+192,0,0,2,0,100,240,0,1,0,0,0,28,73,blue_sea_dragon,Blue Sea Dragon,Water STR 600%% Single
+200,0,0,0,0,100,20,0,2,0,0,0,29,,grand_stream,Grand Stream,Earth STR 100%% All
+200,0,0,64,0,100,80,0,2,0,0,0,30,,meteor_strike,Meteor Strike,Earth STR 150%% All
+200,0,0,32,0,100,240,0,2,0,0,0,31,76,golden_dragon,Golden Dragon,Earth STR 200%% All
+200,0,0,0,0,100,40,0,32,0,0,0,65,,miranda_star_children,Star Children,Light STR 100%% All
+128,4,0,0,100,100,10,0,32,0,0,0,66,,miranda_moon_light,Moon Light,Ally Single 100%% Rev & Rec
+136,4,2,0,50,100,80,0,32,0,0,0,67,,miranda_gates_of_heaven,Gates of Heaven,Ally All 100%% Recover

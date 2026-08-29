@@ -1,0 +1,17 @@
+RETAIL,,,,,,,,,,,,,,,,,,,,,
+additionFile,countsTowardsMastery,levels,hits,unlockLevel,,,,,,,,,,,,,,,,,
+4040,true,5,3,5,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+LEVEL,,,,,,,,,,,,,,,,,,,,,
+damage,sp,,,,,,,,,,,,,,,,,,,,
+1,1,,,,,,,,,,,,,,,,,,,,
+1.25,1,,,,,,,,,,,,,,,,,,,,
+1.5,1,,,,,,,,,,,,,,,,,,,,
+1.75,1,,,,,,,,,,,,,,,,,,,,
+2,1,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+HIT,,,,,,,,,,,,,,,,,,,,,
+flags,totalFrames,overlayHitFrameOffset,totalSuccessFrames,damageMultiplier,sp,audioFile,isFinalHit,cameraMovementX,cameraMovementZ,cameraMovementTicks,hitDistanceFromTarget,framesToHitPosition,_0d,additionFailAnimationIndex,overlayStartingFrameOffset,additionSound1,additionSound2,additionSound3,additionSound4,additionSound5,additionSound6
+192,22,16,3,25,10,0,0,0,0,17,5,16,32,0,0,"5,11","0,9",,,,
+192,25,20,1,25,10,0,4,-4,10,8,5,17,32,0,0,"9,16","1,14",,,,
+192,25,20,1,100,10,0,4,-3,10,8,5,17,32,0,0,"10,20","3,18","7,4","7,10","5,11","0,9"

@@ -1,0 +1,6 @@
+Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
+20,dragoon_modifier:freezing_ring,100,100,180,180,1000,Meru DLv1
+20,dragoon_modifier:rainbow_breath,0,0,0,0,2000,Meru DLv2
+40,dragoon_modifier:diamond_dust,0,0,0,0,12000,Meru DLv3
+80,,0,0,0,0,20000,Meru DLv4
+80,dragoon_modifier:blue_sea_dragon,0,0,0,0,0,Meru DLv5
