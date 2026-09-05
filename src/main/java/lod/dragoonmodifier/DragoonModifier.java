@@ -1155,106 +1155,108 @@ public class DragoonModifier {
     this.whiteSilverDragoonPresent = false;
     this.dragonBlockStaff = false;
 
+
     for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
       final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c.get(i);
       final BattleEntity27c bent = state.innerStruct_00;
       if(bent instanceof final PlayerBattleEntity player) {
-        if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
-          try {
-            this.shanaPreviousArrow[player.typeBentSlot_276] = player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId();
-          } catch(final Exception ignored) {
-            this.shanaPreviousArrow[player.typeBentSlot_276] = null;
-          }
-        } else if(player.character.template instanceof Rose) {
-          roseSiphonMax[player.typeBentSlot_276] = player.stats.getStat(HP_STAT.get()).getMax();
-        } else if(player.character.template instanceof Haschel) {
-          if(gameState_800babc8.goods_19c.has(VIOLET_DRAGOON_SPIRIT.get())) {
-            this.haschelInPartyWithDragoon = true;
-          }
-        } else if(player.character.template instanceof Meru) {
-          this.meruIceShieldMax[player.typeBentSlot_276] = player.stats.getStat(HP_STAT.get()).getMax();
-          if(gameState_800babc8.goods_19c.has(BLUE_DRAGOON_SPIRIT.get())) {
-            this.meruInPartyWithDragoon = true;
-          }
-        }
-
         try {
-          this.damageTrackerEquips[player.typeBentSlot_276][0] = I18n.translate(player.equipment_11e.get(EquipmentSlot.WEAPON));
-          this.damageTrackerEquips[player.typeBentSlot_276][1] = I18n.translate(player.equipment_11e.get(EquipmentSlot.HELMET));
-          this.damageTrackerEquips[player.typeBentSlot_276][2] = I18n.translate(player.equipment_11e.get(EquipmentSlot.ARMOUR));
-          this.damageTrackerEquips[player.typeBentSlot_276][3] = I18n.translate(player.equipment_11e.get(EquipmentSlot.BOOTS));
-          this.damageTrackerEquips[player.typeBentSlot_276][4] = I18n.translate(player.equipment_11e.get(EquipmentSlot.ACCESSORY));
-        } catch(final Exception ignored) {
-          this.damageTrackerEquips[player.typeBentSlot_276][0] = "";
-          this.damageTrackerEquips[player.typeBentSlot_276][1] = "";
-          this.damageTrackerEquips[player.typeBentSlot_276][2] = "";
-          this.damageTrackerEquips[player.typeBentSlot_276][3] = "";
-          this.damageTrackerEquips[player.typeBentSlot_276][4] = "";
-        }
-
-        if(player.character.template instanceof Lavitz || player.character.template instanceof Albert) {
-          if(this.jadeDragoonPresent && this.isHardMode()) {
-            final int newHP = (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7);
-            final int newAT = (int)Math.round(player.stats.getStat(MAGIC_ATTACK_STAT.get()).get() * 0.5);
-            final int newMAT = (int)Math.round(player.stats.getStat(ATTACK_STAT.get()).get() * 0.5);
-            final int newDF = player.stats.getStat(MAGIC_DEFENSE_STAT.get()).get();
-            final int newMDF = player.stats.getStat(DEFENSE_STAT.get()).get();
-            final VitalsStat hp = player.stats.getStat(HP_STAT.get());
-
-            hp.setMaxRaw(newHP);
-            player.stats.getStat(ATTACK_STAT.get()).setRaw(newAT);
-            player.stats.getStat(MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
-            player.stats.getStat(DEFENSE_STAT.get()).setRaw(newDF);
-            player.stats.getStat(MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
-          } else {
-            this.jadeDragoonPresent = true;
+        this.damageTrackerEquips[player.typeBentSlot_276][0] = I18n.translate(player.equipment_11e.get(EquipmentSlot.WEAPON));
+        this.damageTrackerEquips[player.typeBentSlot_276][1] = I18n.translate(player.equipment_11e.get(EquipmentSlot.HELMET));
+        this.damageTrackerEquips[player.typeBentSlot_276][2] = I18n.translate(player.equipment_11e.get(EquipmentSlot.ARMOUR));
+        this.damageTrackerEquips[player.typeBentSlot_276][3] = I18n.translate(player.equipment_11e.get(EquipmentSlot.BOOTS));
+        this.damageTrackerEquips[player.typeBentSlot_276][4] = I18n.translate(player.equipment_11e.get(EquipmentSlot.ACCESSORY));
+      } catch(final Exception ignored) {
+        this.damageTrackerEquips[player.typeBentSlot_276][0] = "";
+        this.damageTrackerEquips[player.typeBentSlot_276][1] = "";
+        this.damageTrackerEquips[player.typeBentSlot_276][2] = "";
+        this.damageTrackerEquips[player.typeBentSlot_276][3] = "";
+        this.damageTrackerEquips[player.typeBentSlot_276][4] = "";
+      }
+        if(this.isHardMode() || this.isHellMode()) {
+          if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
+            try {
+              this.shanaPreviousArrow[player.typeBentSlot_276] = player.equipment_11e.get(EquipmentSlot.WEAPON).getRegistryId();
+            } catch(final Exception ignored) {
+              this.shanaPreviousArrow[player.typeBentSlot_276] = null;
+            }
+          } else if(player.character.template instanceof Rose) {
+            roseSiphonMax[player.typeBentSlot_276] = player.stats.getStat(HP_STAT.get()).getMax();
+          } else if(player.character.template instanceof Haschel) {
+            if(gameState_800babc8.goods_19c.has(VIOLET_DRAGOON_SPIRIT.get())) {
+              this.haschelInPartyWithDragoon = true;
+            }
+          } else if(player.character.template instanceof Meru) {
+            this.meruIceShieldMax[player.typeBentSlot_276] = player.stats.getStat(HP_STAT.get()).getMax();
+            if(gameState_800babc8.goods_19c.has(BLUE_DRAGOON_SPIRIT.get())) {
+              this.meruInPartyWithDragoon = true;
+            }
           }
-        }
 
-        if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
-          if(this.whiteSilverDragoonPresent && this.isHardMode()) {
-            final int newHP = (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7);
-            final int newAT = (int)Math.round(player.stats.getStat(MAGIC_ATTACK_STAT.get()).get() * 0.5);
-            final int newMAT = (int)Math.round(player.stats.getStat(ATTACK_STAT.get()).get() * 0.5);
-            final int newDF = player.stats.getStat(MAGIC_DEFENSE_STAT.get()).get();
-            final int newMDF = player.stats.getStat(DEFENSE_STAT.get()).get();
-            final VitalsStat hp = player.stats.getStat(HP_STAT.get());
+          if(player.character.template instanceof Lavitz || player.character.template instanceof Albert) {
+            if(this.jadeDragoonPresent && this.isHardMode()) {
+              final int newHP = (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7);
+              final int newAT = (int)Math.round(player.stats.getStat(MAGIC_ATTACK_STAT.get()).get() * 0.5);
+              final int newMAT = (int)Math.round(player.stats.getStat(ATTACK_STAT.get()).get() * 0.5);
+              final int newDF = player.stats.getStat(MAGIC_DEFENSE_STAT.get()).get();
+              final int newMDF = player.stats.getStat(DEFENSE_STAT.get()).get();
+              final VitalsStat hp = player.stats.getStat(HP_STAT.get());
 
-            hp.setMaxRaw(newHP);
-            player.stats.getStat(ATTACK_STAT.get()).setRaw(newAT);
-            player.stats.getStat(MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
-            player.stats.getStat(DEFENSE_STAT.get()).setRaw(newDF);
-            player.stats.getStat(MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
-          } else {
-            this.whiteSilverDragoonPresent = true;
+              hp.setMaxRaw(newHP);
+              player.stats.getStat(ATTACK_STAT.get()).setRaw(newAT);
+              player.stats.getStat(MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
+              player.stats.getStat(DEFENSE_STAT.get()).setRaw(newDF);
+              player.stats.getStat(MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
+            } else {
+              this.jadeDragoonPresent = true;
+            }
           }
-        }
 
-        if(this.getEquipment("dragoon_modifier:phantom_shield", player, EquipmentSlot.ACCESSORY)) {
-          player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.75d));
-          player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.75d));
-        }
+          if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
+            if(this.whiteSilverDragoonPresent && this.isHardMode()) {
+              final int newHP = (int)Math.round(player.stats.getStat(HP_STAT.get()).getMax() * 0.7);
+              final int newAT = (int)Math.round(player.stats.getStat(MAGIC_ATTACK_STAT.get()).get() * 0.5);
+              final int newMAT = (int)Math.round(player.stats.getStat(ATTACK_STAT.get()).get() * 0.5);
+              final int newDF = player.stats.getStat(MAGIC_DEFENSE_STAT.get()).get();
+              final int newMDF = player.stats.getStat(DEFENSE_STAT.get()).get();
+              final VitalsStat hp = player.stats.getStat(HP_STAT.get());
 
-        if(this.getEquipment("dragoon_modifier:dragon_shield", player, EquipmentSlot.ACCESSORY)) {
-          player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.75d));
-        }
+              hp.setMaxRaw(newHP);
+              player.stats.getStat(ATTACK_STAT.get()).setRaw(newAT);
+              player.stats.getStat(MAGIC_ATTACK_STAT.get()).setRaw(newMAT);
+              player.stats.getStat(DEFENSE_STAT.get()).setRaw(newDF);
+              player.stats.getStat(MAGIC_DEFENSE_STAT.get()).setRaw(newMDF);
+            } else {
+              this.whiteSilverDragoonPresent = true;
+            }
+          }
 
-        if(this.getEquipment("dragoon_modifier:angel_scarf", player, EquipmentSlot.ACCESSORY)) {
-          player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.75d));
-        }
+          if(this.getEquipment("dragoon_modifier:phantom_shield", player, EquipmentSlot.ACCESSORY)) {
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.75d));
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.75d));
+          }
 
-        if(this.getEquipment("dragoon_modifier:armor_of_legend", player, EquipmentSlot.ARMOUR)) {
-          this.preventDeathCount[player.typeBentSlot_276] += 1;
-        }
+          if(this.getEquipment("dragoon_modifier:dragon_shield", player, EquipmentSlot.ACCESSORY)) {
+            player.stats.getStat(LodMod.DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.DEFENSE_STAT.get()).get() * 0.75d));
+          }
 
-        if(this.getEquipment("dragoon_modifier:legend_casque", player, EquipmentSlot.HELMET)) {
-          this.preventDeathCount[player.typeBentSlot_276] += 1;
-        }
+          if(this.getEquipment("dragoon_modifier:angel_scarf", player, EquipmentSlot.ACCESSORY)) {
+            player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).setRaw((int)Math.round(player.stats.getStat(LodMod.MAGIC_DEFENSE_STAT.get()).get() * 0.75d));
+          }
 
-        if(this.getEquipment("dragoon_modifier:firebrand", player, EquipmentSlot.WEAPON)) {
-          player.equipmentAttackElements_1c.clear();
-          player.equipmentAttackElements_1c.add(DIVINE_ELEMENT.get());
-          player.equipmentAttackElements_1c.add(FIRE_ELEMENT.get());
+          if(this.getEquipment("dragoon_modifier:armor_of_legend", player, EquipmentSlot.ARMOUR)) {
+            this.preventDeathCount[player.typeBentSlot_276] += 1;
+          }
+
+          if(this.getEquipment("dragoon_modifier:legend_casque", player, EquipmentSlot.HELMET)) {
+            this.preventDeathCount[player.typeBentSlot_276] += 1;
+          }
+
+          if(this.getEquipment("dragoon_modifier:firebrand", player, EquipmentSlot.WEAPON)) {
+            player.equipmentAttackElements_1c.clear();
+            player.equipmentAttackElements_1c.add(DIVINE_ELEMENT.get());
+            player.equipmentAttackElements_1c.add(FIRE_ELEMENT.get());
+          }
         }
       } else if(bent instanceof MonsterBattleEntity) {
         final MonsterBattleEntity monster = battleState_8006e398.monsterBents_e50[i].innerStruct_00;
@@ -2245,8 +2247,6 @@ public class DragoonModifier {
 
       this.updateDamageTracker(attack);
     }
-
-    //System.out.println("AFTER ATTACK EVENT: " + attack.damage);
   }
 
   @EventListener
@@ -2812,61 +2812,63 @@ public class DragoonModifier {
       renderText(text, 41, 6, this.hpFont);
     }
 
-    for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
-      final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c.get(i);
-      final BattleEntity27c bent = state.innerStruct_00;
-      if(bent instanceof final PlayerBattleEntity player) {
-        final Battle battle = ((Battle)currentEngineState_8004dd04);
-        if(player.character.template instanceof Lavitz || player.character.template instanceof Albert) {
-          this.renderCharacterBar(player, 0.0f, 1.0f, 0.0f, this.windMark[monster.typeBentSlot_276] == 4 ? 1.0f : this.windMark[monster.typeBentSlot_276] / 4.0f, false);
-        } else if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
-          final float r, g, b;
-          if(this.getEquipment("dragoon_modifier:fire_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 1.0f;
-            g = 0.0f;
-            b = 0.0f;
-          } else if(this.getEquipment("dragoon_modifier:water_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 0.0f;
-            g = 0.5f;
-            b = 1.0f;
-          } else if(this.getEquipment("dragoon_modifier:wind_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 0.0f;
-            g = 1.0f;
-            b = 0.0f;
-          } else if(this.getEquipment("dragoon_modifier:earth_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 0.5f;
-            g = 0.35f;
-            b = 0.25f;
-          } else if(this.getEquipment("dragoon_modifier:dark_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 0.0f;
-            g = 0.0f;
-            b = 0.5f;
-          } else if(this.getEquipment("dragoon_modifier:light_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 1.0f;
-            g = 1.0f;
-            b = 0.0f;
-          } else if(this.getEquipment("dragoon_modifier:thunder_arrow", player, EquipmentSlot.WEAPON)) {
-            r = 0.5f;
-            g = 0.0f;
-            b = 1.0f;
-          } else {
-            r = 0.0f;
-            g = 0.0f;
-            b = 0.0f;
-          }
+    if(this.isHardMode() || this.isHellMode()) {
+      for(int i = 0; i < battleState_8006e398.getAllBentCount(); i++) {
+        final ScriptState<? extends BattleEntity27c> state = battleState_8006e398.allBents_e0c.get(i);
+        final BattleEntity27c bent = state.innerStruct_00;
+        if(bent instanceof final PlayerBattleEntity player) {
+          final Battle battle = ((Battle)currentEngineState_8004dd04);
+          if(player.character.template instanceof Lavitz || player.character.template instanceof Albert) {
+            this.renderCharacterBar(player, 0.0f, 1.0f, 0.0f, this.windMark[monster.typeBentSlot_276] == 4 ? 1.0f : this.windMark[monster.typeBentSlot_276] / 4.0f, false);
+          } else if(player.character.template instanceof Shana || player.character.template instanceof Miranda) {
+            final float r, g, b;
+            if(this.getEquipment("dragoon_modifier:fire_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 1.0f;
+              g = 0.0f;
+              b = 0.0f;
+            } else if(this.getEquipment("dragoon_modifier:water_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 0.0f;
+              g = 0.5f;
+              b = 1.0f;
+            } else if(this.getEquipment("dragoon_modifier:wind_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 0.0f;
+              g = 1.0f;
+              b = 0.0f;
+            } else if(this.getEquipment("dragoon_modifier:earth_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 0.5f;
+              g = 0.35f;
+              b = 0.25f;
+            } else if(this.getEquipment("dragoon_modifier:dark_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 0.0f;
+              g = 0.0f;
+              b = 0.5f;
+            } else if(this.getEquipment("dragoon_modifier:light_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 1.0f;
+              g = 1.0f;
+              b = 0.0f;
+            } else if(this.getEquipment("dragoon_modifier:thunder_arrow", player, EquipmentSlot.WEAPON)) {
+              r = 0.5f;
+              g = 0.0f;
+              b = 1.0f;
+            } else {
+              r = 0.0f;
+              g = 0.0f;
+              b = 0.0f;
+            }
 
-          if(r + g + b != 0.0f) {
-            final float arrowPercent = (float)this.shanaArrowCount[player.typeBentSlot_276] / this.shanaMaxArrowCount[player.typeBentSlot_276];
-            this.renderCharacterBar(player, r, g, b, 1.0f, true);
-            this.renderCharacterBar(player, r, g, b, arrowPercent, false);
-            this.shanaDeffArrow[player.typeBentSlot_276] = true;
-          }
+            if(r + g + b != 0.0f) {
+              final float arrowPercent = (float)this.shanaArrowCount[player.typeBentSlot_276] / this.shanaMaxArrowCount[player.typeBentSlot_276];
+              this.renderCharacterBar(player, r, g, b, 1.0f, true);
+              this.renderCharacterBar(player, r, g, b, arrowPercent, false);
+              this.shanaDeffArrow[player.typeBentSlot_276] = true;
+            }
 
-          this.renderElementalArrows(player);
-        } else if(player.character.template instanceof Haschel && this.haschelInPartyWithDragoon) {
-          this.renderCharacterBar(player, 0.5f, 0.0f, 1.0f, thunderCharge[monster.typeBentSlot_276] == 10 ? 1.0f : thunderCharge[monster.typeBentSlot_276] / 10.0f, false);
-          if(staticCharge[player.typeBentSlot_276] > 0) {
-            this.renderCharacterBar(player, 0.0f, 0.8f, 1.0f, staticCharge[player.typeBentSlot_276] == 20 ? 1.0f : staticCharge[player.typeBentSlot_276] / 20.0f, true);
+            this.renderElementalArrows(player);
+          } else if(player.character.template instanceof Haschel && this.haschelInPartyWithDragoon) {
+            this.renderCharacterBar(player, 0.5f, 0.0f, 1.0f, thunderCharge[monster.typeBentSlot_276] == 10 ? 1.0f : thunderCharge[monster.typeBentSlot_276] / 10.0f, false);
+            if(staticCharge[player.typeBentSlot_276] > 0) {
+              this.renderCharacterBar(player, 0.0f, 0.8f, 1.0f, staticCharge[player.typeBentSlot_276] == 20 ? 1.0f : staticCharge[player.typeBentSlot_276] / 20.0f, true);
+            }
           }
         }
       }
