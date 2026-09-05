@@ -12,5 +12,5 @@ damage,sp,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,
 HIT,,,,,,,,,,,,,,,,,
 flags,totalFrames,overlayHitFrameOffset,totalSuccessFrames,damageMultiplier,sp,audioFile,isFinalHit,cameraMovementX,cameraMovementZ,cameraMovementTicks,hitDistanceFromTarget,framesToHitPosition,_0d,additionFailAnimationIndex,overlayStartingFrameOffset,additionSound1,additionSound2
-192,44,15,1,25,5,0,4,0,3,10,3,10,32,0,0,"5,2","0,0"
+192,8,2,3,75,30,36,0,5,0,1,0,19,32,0,11,"5,2","0,0"
 192,44,15,1,25,5,0,4,0,3,10,3,10,32,0,0,"8,15","3,13"
