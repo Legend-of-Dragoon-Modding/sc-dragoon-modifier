@@ -1894,7 +1894,7 @@ public class DragoonModifier {
 
                     if(this.getEquipment("dragoon_modifier:dragon_buster", player, EquipmentSlot.WEAPON)) {
                       final int spHeal = (int)Math.ceil(attack.damage * 0.01d);
-                      player.stats.getStat(SP_STAT.get()).setCurrent(spHeal + Math.min(50, heal));
+                      player.stats.getStat(SP_STAT.get()).setCurrent(player.stats.getStat(SP_STAT.get()).getCurrent() + Math.min(50, spHeal));
                       this.displayNumbers(6 + player.typeBentSlot_276, spHeal, 0, -24, 0.3f, 1.0333333f, 0.3f);
                     }
                   }
@@ -1917,7 +1917,7 @@ public class DragoonModifier {
 
                       if(this.getEquipment("dragoon_modifier:dragon_buster", player, EquipmentSlot.WEAPON)) {
                         final int spHeal = (int)Math.ceil(attack.damage * 0.01d);
-                        player.stats.getStat(SP_STAT.get()).setCurrent(spHeal + Math.min(50, heal));
+                        player.stats.getStat(SP_STAT.get()).setCurrent(player.stats.getStat(SP_STAT.get()).getCurrent() + Math.min(50, spHeal));
                         this.displayNumbers(6 + player.typeBentSlot_276, spHeal, 0, -24, 0.3f, 1.0333333f, 0.3f);
                       }
                     }
