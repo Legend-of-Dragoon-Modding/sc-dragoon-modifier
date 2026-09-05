@@ -23,7 +23,6 @@ import legend.game.characters.UnaryStatModConfig;
 import legend.game.characters.UnaryStatType;
 import legend.game.characters.VitalsStat;
 import legend.game.combat.Battle;
-import legend.game.combat.MonsterSpellRegistryEvent;
 import legend.game.combat.bent.AttackEvent;
 import legend.game.combat.bent.BattleEntity27c;
 import legend.game.combat.bent.BattleEntityStat;
@@ -61,6 +60,8 @@ import legend.game.modding.events.battle.BattleStartedEvent;
 import legend.game.modding.events.battle.DragonBlockStaffOffEvent;
 import legend.game.modding.events.battle.DragonBlockStaffOnEvent;
 import legend.game.modding.events.battle.EnemyRewardsEvent;
+import legend.game.modding.events.battle.LoadDeffEvent;
+import legend.game.modding.events.battle.LoadEnemyEvent;
 import legend.game.modding.events.battle.MonsterStatsEvent;
 import legend.game.modding.events.battle.RegisterBattleEntityStatsEvent;
 import legend.game.modding.events.battle.SpellStatsEvent;
@@ -73,15 +74,16 @@ import legend.game.modding.events.inventory.GiveItemEvent;
 import legend.game.modding.events.inventory.RepeatItemReturnEvent;
 import legend.game.modding.events.inventory.ShopContentsEvent;
 import legend.game.modding.events.inventory.ShopSellPriceEvent;
-import legend.game.modding.events.scripting.DrgnFileEvent;
 import legend.game.modding.events.submap.SubmapWarpEvent;
 import legend.game.saves.BoolConfigEntry;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
+import legend.game.scripting.ScriptFile;
 import legend.game.scripting.ScriptState;
 import legend.game.submap.SMap;
 import legend.game.types.EquipmentSlot;
 import legend.game.ui.GameOverlay;
+import legend.game.unpacker.Loader;
 import legend.lodmod.LodBattleActions;
 import legend.lodmod.LodConfig;
 import legend.lodmod.LodMod;
@@ -157,6 +159,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 
 import static legend.core.GameEngine.CONFIG;
@@ -220,7 +223,6 @@ public class DragoonModifier {
   public static final List<String[]> monsterStats = new ArrayList<>();
   public static final List<String[]> monstersRewardsStats = new ArrayList<>();
   public static final List<String[]> spells = new ArrayList<>();
-  public static final List<String[]> monsterSpells = new ArrayList<>();
   public static final List<String[]> shanaSpGain = new ArrayList<>();
 
   //Registars
@@ -628,21 +630,13 @@ public class DragoonModifier {
   @EventListener(priority = Priority.HIGHEST)
   public void spellRegistry(final SpellRegistryEvent event) {
     final List<String[]> spells = new ArrayList<>();
-    this.loadCsvIntoList(CONFIG.getConfig(DIFFICULTY.get()), spells, "player_spells.csv");
+    this.loadCsvIntoList(CONFIG.getConfig(DIFFICULTY.get()), spells, "spells.csv");
 
     for(final String[] spell : spells) {
-      event.register(id(spell[14]), TemplateCommon.getSpell(spell, true));
+      event.register(id(spell[14]), TemplateCommon.getSpell(spell));
     }
 
     GameEngine.loadLangOverrides(Path.of("mods", "dragoon_modifier", "lang", CONFIG.getConfig(DIFFICULTY.get())));
-  }
-
-  @EventListener(priority = Priority.HIGHEST)
-  public void monsterSpellRegistry(final MonsterSpellRegistryEvent event) {
-    this.loadCsvIntoList(CONFIG.getConfig(DIFFICULTY.get()), monsterSpells, "spells.csv");
-    for(final String[] spell : monsterSpells) {
-      event.register(id(spell[14]), TemplateCommon.getSpell(spell, false));
-    }
   }
 
   @EventListener(priority = Priority.HIGHEST)
@@ -1442,29 +1436,73 @@ public class DragoonModifier {
   @EventListener(priority = Priority.HIGHEST)
   public void activeSpell(final ActiveSpellEvent event) {
     if(event.bent instanceof final MonsterBattleEntity monster) {
-      if(!REGISTRIES.monsterSpells.getEntry(MOD_ID, event.registryId.entryId()).toString().isBlank()) {
-        event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, event.registryId.entryId()).get();
+      if(!REGISTRIES.spells.getEntry(MOD_ID, event.registryId.entryId()).toString().isBlank()) {
+        event.spell = REGISTRIES.spells.getEntry(MOD_ID, event.registryId.entryId()).get();
 
         if(this.isHardMode()) {
           if(monster.charId_272 == 283) { //Divine Dragon
             if("spell53".equals(event.registryId.entryId()))  { //Divine Dragon Ball
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "divine_dragon_ball").get();
+              this.damageOverride = 650d / 200d;
             } else if("spell116".equals(event.registryId.entryId())) { //Divine Dragon Cannon
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "divine_dragon_cannon").get();
+              this.damageOverride = 2000d / 800d;
+            }
+          } else if(monster.charId_272 == 295) { //Damia
+            if("wing_blaster".equals(event.registryId.entryId()))  { //Freezing Ring
+              this.damageOverride = 250d / 765d;
+            } else if("gaspless".equals(event.registryId.entryId())) { //Diamond Dust
+              this.damageOverride = 250d / 530d;
+            } else if("jade_dragon".equals(event.registryId.entryId())) { //Blue Sea Dragon
+              this.damageOverride = 800d / 1460d;
+            }
+          } else if(monster.charId_272 == 296) { //Syuveil
+            if("wing_blaster".equals(event.registryId.entryId()))  { //Wing Blaster
+              this.damageOverride = 100d / 440d;
+            } else if("gaspless".equals(event.registryId.entryId())) { //Gaspless
+              this.damageOverride = 400d / 990d;
+            } else if("jade_dragon".equals(event.registryId.entryId())) { //Jade Dragon
+              this.damageOverride = 300d / 1320d;
+            }
+          } else if(monster.charId_272 == 297) { //Belzac
+            if("wing_blaster".equals(event.registryId.entryId()))  { //Grand Stream
+              this.damageOverride = 175d / 675d;
+            } else if("gaspless".equals(event.registryId.entryId())) { //Meteor Strike
+              this.damageOverride = 350d / 1120d;
+            } else if("jade_dragon".equals(event.registryId.entryId())) { //Golden Dragon
+              this.damageOverride = 1000d / 2220d;
+            }
+          } else if(monster.charId_272 == 298) { //Kanzas
+            if("atomic_mind".equals(event.registryId.entryId()))  { //Atomic Mind
+              this.damageOverride = 225d / 330d;
+            } else if("thunder_kid".equals(event.registryId.entryId())) { //Thunder Kind
+              this.damageOverride = 300d / 660d;
+            } else if("thunder_god".equals(event.registryId.entryId())) { //Thunder God
+              this.damageOverride = 450d / 990d;
+            } else if("violet_dragon".equals(event.registryId.entryId())) { //Violet Dragon
+              this.damageOverride = 800d / 1495d;
             }
           } else if(monster.charId_272 == 352) { //Divine Dragon Ghost
             if("spell53".equals(event.registryId.entryId()))  { //Divine Dragon Ball
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "divine_dragon_ghost_ball").get();
+              this.damageOverride = 325d / 200d;
             } else if("spell55".equals(event.registryId.entryId())) { //Divine Dragon Cannon
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "divine_dragon_ghost_cannon").get();
+              this.damageOverride = 1000d / 400d;
             }
           } else if(monster.charId_272 == 363) { //Zackwell
             if("spell33".equals(event.registryId.entryId()))  { //Physical
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "zackwell_physical").get();
+              this.damageOverride = 150d / 100d;
             } else if("spell69".equals(event.registryId.entryId())) { //Fireball
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "zackwell_fireball").get();
+              this.damageOverride = 275d / 100d;
             } else if("spell124".equals(event.registryId.entryId())) { //Summon
-              event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, "zackwell_summon").get();
+              this.damageOverride = 400d / 300d;
+            }
+          } else if(monster.charId_272 == 387) { //Zieg
+            if("flameshot".equals(event.registryId.entryId())) {
+              this.damageOverride = 300d / 510d;
+            } else if("explosion".equals(event.registryId.entryId())) {
+              this.damageOverride = 200d / 340d;
+            } else if("final_burst".equals(event.registryId.entryId())) {
+              this.damageOverride = 600d / 765d;
+            } else if("red_eyed_dragon".equals(event.registryId.entryId())) {
+              this.damageOverride = 300d / 1020d;
             }
           }
         }
@@ -1480,8 +1518,6 @@ public class DragoonModifier {
   public void spellStats(final SpellStatsEvent event) {
     if(REGISTRIES.spells.hasEntry(id(event.spell.getRegistryId().entryId()))) {
       event.spell = REGISTRIES.spells.getEntry(MOD_ID, event.spell.getRegistryId().entryId()).get();
-    } else {
-      event.spell = REGISTRIES.monsterSpells.getEntry(MOD_ID, event.spell.getRegistryId().entryId()).get();
     }
   }
 
@@ -2353,20 +2389,27 @@ public class DragoonModifier {
   }
 
   @EventListener
-  public void drgnFile(final DrgnFileEvent event) {
-    if(this.isHardMode()) { //TODO fix lol
-      if(event.path.toString().contains("DRGN1.BIN\\285")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "285");
-      } else if(event.path.toString().contains("DRGN1.BIN\\286")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "286");
-      } else if(event.path.toString().contains("DRGN1.BIN\\344")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "344");
-      } else if(event.path.toString().contains("DRGN1.BIN\\388")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "388");
-      } else if(event.path.toString().contains("DRGN0.BIN\\5002")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "attacks", "5002");
-      } else if(event.path.toString().contains("DRGN0.BIN\\5004")) {
-        event.path = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "attacks", "5004");
+  public void deffEvent(final LoadDeffEvent event) {
+    if(this.isHardMode()) {
+      if(event.deff.toString().contains("DRGN0.BIN\\5002")) {
+        event.deff = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "attacks", "5002");
+      } else if(event.deff.toString().contains("DRGN0.BIN\\5004")) {
+        event.deff = Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "attacks", "5004");
+      }
+    }
+  }
+
+  @EventListener
+  public void loadEnemy(final LoadEnemyEvent event) {
+    if(this.isHardMode()) {
+      if(event.enemyId == 284) {
+        event.scriptFuture = Loader.loadFile(Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "285")).thenApply(data -> new ScriptFile("dragoon_modifier:monster" + event.enemyId, data.getBytes()));
+      } else if(event.enemyId == 285) {
+        event.scriptFuture = Loader.loadFile(Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "286")).thenApply(data -> new ScriptFile("dragoon_modifier:monster" + event.enemyId, data.getBytes()));
+      } else if(event.enemyId == 343) {
+        event.scriptFuture = Loader.loadFile(Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "344")).thenApply(data -> new ScriptFile("dragoon_modifier:monster" + event.enemyId, data.getBytes()));
+      } else if(event.enemyId == 387) {
+        event.scriptFuture = Loader.loadFile(Path.of(".", "mods", "dragoon_modifier", "Hard Mode", "scripts", "monsters", "388")).thenApply(data -> new ScriptFile("dragoon_modifier:monster" + event.enemyId, data.getBytes()));
       }
     }
   }

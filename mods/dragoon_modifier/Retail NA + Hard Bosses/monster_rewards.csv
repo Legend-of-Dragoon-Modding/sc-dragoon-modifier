@@ -10,7 +10,7 @@ EXP,Gold,Drop Rate,Item,Name
 4,6,40,dragoon_modifier:detonate_rock,Goblin
 180,48,2,dragoon_modifier:heavy_mace,Minotaur
 204,54,2,dragoon_modifier:spear_of_terror,Hyper Skeleton
-2250,255,8,dragoon_modifier:depetrifier,Basilisk
+150,51,2,dragoon_modifier:attack_badge,Basilisk
 84,30,2,dragoon_modifier:knight_shield,Flabby Troll
 12,12,8,dragoon_modifier:angels_prayer,Evil Spider
 40,18,8,dragoon_modifier:poison_needle,Spider Urchin
@@ -24,7 +24,7 @@ EXP,Gold,Drop Rate,Item,Name
 15,12,20,dragoon_modifier:spear,Merman
 70,18,8,dragoon_modifier:mind_purifier,Glare
 3,3,10,dragoon_modifier:healing_potion,Berserk Mouse
-2700,300,2,dragoon_modifier:knight_shield,Dragon Soldier
+180,60,2,dragoon_modifier:guard_badge,Dragon Soldier
 48,15,8,dragoon_modifier:stunning_hammer,Earth Shaker
 8,9,8,dragoon_modifier:healing_potion,Vampire Kiwi
 11,8,10,dragoon_modifier:body_purifier,Myconido
@@ -41,21 +41,21 @@ EXP,Gold,Drop Rate,Item,Name
 117,21,8,dragoon_modifier:healing_fog,Spring Hitter
 160,39,8,dragoon_modifier:healing_breeze,Guillotine
 143,30,8,dragoon_modifier:total_vanishing,Terminator
-0,600,100,dragoon_modifier:spirit_potion,OOPARTS
+0,120,100,dragoon_modifier:spirit_potion,OOPARTS
 81,24,8,dragoon_modifier:sun_rhapsody,Fairy
-90,36,2,dragoon_modifier:dancers_ring,Puck
+90,36,8,dragoon_modifier:spirit_potion,Puck
 11,9,8,dragoon_modifier:angels_prayer,Mole
 8,6,8,dragoon_modifier:healing_potion,Screaming Bat
 130,42,2,dragoon_modifier:platinum_collar,Succubus
 132,45,8,dragoon_modifier:stunning_hammer,Mammoth
-2025,210,2,dragoon_modifier:beast_fang,Metal Fang
+135,42,2,dragoon_modifier:titan_ring,MetalFang
 96,21,32,dragoon_modifier:rave_twister,Windy Weasel
 96,60,8,dragoon_modifier:attack_ball,Wounded Bear
 32,15,8,dragoon_modifier:mind_purifier,Erupting Chick
 64,24,8,dragoon_modifier:angels_prayer,Flying Rat
-3000,0,10,dragoon_modifier:rainbow_dress,Rainbow Bird
+3000,0,50,dragoon_modifier:rainbow_dress,Rainbow Bird
 20,12,32,dragoon_modifier:detonate_rock,Living Statue
-2475,120,8,dragoon_modifier:body_purifier,Madman
+165,24,2,dragoon_modifier:magical_ring,Madman
 120,36,2,dragoon_modifier:giganto_ring,Wildman
 17,15,32,dragoon_modifier:dark_mist,Gargoyle
 10,6,32,dragoon_modifier:spinning_gale,Crescent Bee
@@ -81,7 +81,7 @@ EXP,Gold,Drop Rate,Item,Name
 55,15,2,dragoon_modifier:energy_girdle,Berserker
 176,54,2,dragoon_modifier:sages_cloak,Professor
 638,84,24,dragoon_modifier:spectral_flash,Psyche Druid
-60,12,2,dragoon_modifier:bandits_ring,Gangster
+60,12,8,dragoon_modifier:spirit_potion,Gangster
 50,18,32,dragoon_modifier:pellet,Crafty Thief
 153,39,8,dragoon_modifier:mind_purifier,Undead
 60,21,2,dragoon_modifier:broad_sword,Skeleton
@@ -97,7 +97,7 @@ EXP,Gold,Drop Rate,Item,Name
 80,36,8,dragoon_modifier:depetrifier,Dark Elf
 100,27,8,dragoon_modifier:mind_purifier,Baby Dragon
 192,48,8,dragoon_modifier:panic_bell,Harpy
-162,51,2,dragoon_modifier:dancers_boots,Cute Cat
+162,51,8,dragoon_modifier:spirit_potion,Cute Cat
 32,24,2,dragoon_modifier:bemusing_arrow,Arrow Shooter
 14,6,8,dragoon_modifier:mind_purifier,Red Hot
 170,30,8,dragoon_modifier:midnight_terror,Specter
@@ -147,8 +147,8 @@ EXP,Gold,Drop Rate,Item,Name
 165,24,8,dragoon_modifier:body_purifier,Madman
 14,6,8,dragoon_modifier:mind_purifier,Red Hot
 14,6,8,dragoon_modifier:mind_purifier,Red Hot
-11,6,10,dragoon_modifier:body_purifier,Slime
-11,6,10,dragoon_modifier:body_purifier,Slime
+11,6,10,dragoon_modifier:body_purifier,Madman
+11,6,10,dragoon_modifier:body_purifier,Madman
 13,12,2,dragoon_modifier:spirit_cloak,Fire Spirit
 13,12,2,dragoon_modifier:spirit_cloak,Fire Spirit
 170,30,8,dragoon_modifier:midnight_terror,Specter
@@ -255,11 +255,11 @@ EXP,Gold,Drop Rate,Item,Name
 0,0,0,Nothing,Merchant
 0,0,0,Nothing,Master Tasman
 0,0,0,Nothing,Rose
-84,40,100,dragoon_modifier:burn_out,Commander
-20,3,100,dragoon_modifier:healing_potion,Knight of Sandora
+38,40,100,dragoon_modifier:burn_out,Commander
+2,3,100,dragoon_modifier:healing_potion,Knight of Sandora
 200,50,100,dragoon_modifier:healing_breeze,Sandora Elite
 0,0,100,dragoon_modifier:healing_potion,Hellena Warden
-0,0,100,dragoon_modifier:healing_potion,Auto Complete
+0,0,100,dragoon_modifier:healing_potion,Senior Warden
 300,50,100,dragoon_modifier:knight_shield,Fruegel
 2000,200,100,dragoon_modifier:gravity_grabber,Fruegel
 0,0,0,Nothing,Rodriguez
@@ -267,16 +267,16 @@ EXP,Gold,Drop Rate,Item,Name
 300,50,100,dragoon_modifier:power_wrist,Kongol
 2000,200,100,dragoon_modifier:wargod_calling,Kongol
 3000,200,0,Nothing,Emperor Doel
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Dragoon Doel
 0,0,0,Nothing,Lloyd
 12000,300,0,Nothing,Lloyd
-0,0,0,Nothing,Auto Complete
-0,0,0,Nothing,Auto Complete
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Missing
+0,0,0,Nothing,Missing
+0,0,0,Nothing,Sandora Elite
 0,0,100,dragoon_modifier:pellet,Crafty Thief
 0,0,100,dragoon_modifier:down_burst,Feyrbrand
 0,0,0,Nothing,???
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Dummy Lloyd
 0,0,0,Nothing,Crash
 7000,250,100,dragoon_modifier:frozen_jet,Regole
 0,0,0,Nothing,Tentacle
@@ -288,8 +288,8 @@ EXP,Gold,Drop Rate,Item,Name
 0,0,0,Nothing,Crash
 1200,100,100,dragoon_modifier:plate_mail,Greham
 0,0,100,dragoon_modifier:silver_stone,Shirley
-0,0,0,Nothing,Auto Complete
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Shana
+0,0,0,Nothing,Albert
 0,0,0,Nothing,Crash
 0,0,0,Nothing,Crash
 6000,200,0,Nothing,Lenus
@@ -319,41 +319,41 @@ EXP,Gold,Drop Rate,Item,Name
 0,0,0,Nothing,S Virage(body)
 0,0,0,Nothing,S Virage(arm)
 0,0,0,Nothing,Crash
-15000,300,0,Nothing,S Virage(head)
+15000,300,100,dragoon_modifier:legend_casque,S Virage(head)
 0,0,0,Nothing,S Virage(arm)
-0,0,0,Nothing,S Virage(body)
+0,0,100,dragoon_modifier:armor_of_legend,S Virage(body)
 0,0,0,Nothing,Freeze
 0,0,0,Nothing,Freeze
 1500,100,100,dragoon_modifier:bandits_ring,Drake the Bandit
-0,0,0,Nothing,Auto Complete
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Wire
+0,0,0,Nothing,Bursting Ball
 0,0,0,Nothing,Freeze
 2000,100,100,dragoon_modifier:sachet,Jiango
 0,0,0,Nothing,???
 0,0,0,Nothing,???
 400,50,100,dragoon_modifier:wargods_amulet,Urobolus
 800,100,100,dragoon_modifier:red-eye_stone,Fire Bird
-0,0,0,Nothing,Auto Complete
-9000,300,100,dragoon_modifier:spectral_flash,Grand Jewel
+0,0,0,Nothing,Volcano Ball
+9000,2000,100,dragoon_modifier:spectral_flash,Grand Jewel
 0,0,0,Nothing,Virage(head)
 0,0,0,Nothing,Virage(body)
 0,0,0,Nothing,Virage(arm)
-0,0,0,Nothing,Kamuys tree
+0,0,100,dragoon_modifier:smoke_ball,Kamuy's tree
 6000,200,100,dragoon_modifier:night_raid,Ghost Commander
 0,0,0,Nothing,Ghost Knight
 0,0,0,Nothing,Mazo
 8000,0,100,dragoon_modifier:darkness_stone,Kamuy
-20000,10000,100,dragoon_modifier:phantom_shield,Faust
+20000,20000,100,dragoon_modifier:phantom_shield,Faust
 0,0,0,Nothing,Faust
 11000,250,100,dragoon_modifier:brass_knuckle,Windigo
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Snow Cannon
 0,0,0,Nothing,Heart
-6000,200,0,Nothing,Polter Helm
-0,0,100,dragoon_modifier:smoke_ball,Polter Armor
+6000,800,0,dragoon_modifier:polter_helm,Polter Helm
+0,0,100,dragoon_modifier:polter_armor,Polter Armor
 0,0,100,dragoon_modifier:soul_eater,Polter Sword
-8000,2000,100,dragoon_modifier:flash_hall,Auto Complete
-6000,300,100,dragoon_modifier:frozen_jet,Auto Complete
-4000,200,100,dragoon_modifier:down_burst,Auto Complete
+8000,4000,100,dragoon_modifier:archangels_prayer,Divine Dragoon Ghost
+6000,300,100,dragoon_modifier:frozen_jet,Ghost Regole
+4000,200,100,dragoon_modifier:down_burst,GhostFB
 0,0,0,Nothing,Missing (Melbu Texture)
 0,0,0,Nothing,Missing (Tentacle Texture)
 0,0,0,Nothing,Lloyd & Melbu (Crash)
@@ -362,18 +362,18 @@ EXP,Gold,Drop Rate,Item,Name
 12000,300,0,Nothing,Vector
 0,0,0,Nothing,Selebus
 0,0,0,Nothing,Kubila
-0,0,100,dragoon_modifier:healing_rain,Auto Complete
+0,0,100,dragoon_modifier:healing_rain,Zackwell
 12000,300,100,dragoon_modifier:halberd,Lavitzs Spirit
 12000,300,100,dragoon_modifier:pretty_hammer,Last Kraken
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Cleone
 0,0,0,Nothing,Auto Complete
 13000,300,100,dragoon_modifier:healing_rain,Caterpillar
-0,0,100,dragoon_modifier:moon_serenade,Auto Complete
-0,0,100,dragoon_modifier:sun_rhapsody,Auto Complete
+0,0,100,dragoon_modifier:moon_serenade,Pupa
+0,0,100,dragoon_modifier:sun_rhapsody,Imago
 6000,0,0,Nothing,Death Rose
 0,0,0,Nothing,Auto Complete
 6000,0,0,Nothing,Claire
-0,0,0,Nothing,Auto Complete
+0,0,0,Nothing,Claire
 6000,0,100,dragoon_modifier:indoras_axe,Indora
 0,0,0,Nothing,Shadow Blade
 0,0,0,Nothing,Light Sword
@@ -382,7 +382,7 @@ EXP,Gold,Drop Rate,Item,Name
 0,0,0,Nothing,Michael (core)
 6000,0,0,Nothing,Dark Doel
 6000,0,0,Nothing,Archangel
-0,0,0,Nothing,Dragon Spirit
+0,0,100,dragoon_modifier:flash_hall,Dragon Spirit
 0,0,0,Nothing,Dragon Spirit
 0,0,0,Nothing,Dragon Spirit
 0,0,0,Nothing,Missing Shana

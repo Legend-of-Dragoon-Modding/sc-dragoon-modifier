@@ -66,7 +66,7 @@ public class CounterStanceMenu extends ListMenu {
     } else {
       DragoonModifier.kongolCounterStance[this.player.typeBentSlot_276] = true;
       DragoonModifier.kongolCounterStanceTurns[this.player.typeBentSlot_276] = 3;
-      this.player.stats.getStat(LodMod.SPEED_STAT.get()).addMod(DragoonModifier.COUNTER_STANCE_SLOWDOWN.getId(), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().flat((int)Math.floor(this.player.stats.getStat(LodMod.SPEED_STAT.get()).getRawWithEquipment() * (-66 / 100.0))).turns(3)));
+      this.player.stats.getStat(LodMod.SPEED_STAT.get()).addMod(DragoonModifier.COUNTER_STANCE_SLOWDOWN.getId(), LodMod.UNARY_STAT_MOD_TYPE.get().make(new UnaryStatModConfig().flat((int)Math.floor(this.player.stats.getStat(LodMod.SPEED_STAT.get()).getRawWithContributingMods() * (-66 / 100.0))).turns(3)));
     }
 
     this.flags_02 &= ~0x8;

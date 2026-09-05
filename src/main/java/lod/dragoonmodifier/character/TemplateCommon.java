@@ -206,7 +206,7 @@ public class TemplateCommon {
     return loadCSV("./mods/dragoon_modifier/" + GameEngine.CONFIG.getConfig(DIFFICULTY.get()) + "/addition_list.csv");
   }
 
-  public static RetailSpell getSpell(final String[] spell, final boolean player) {
+  public static RetailSpell getSpell(final String[] spell) {
     final int targetType = Integer.parseInt(spell[0]);
     final int flags = Integer.parseInt(spell[1]);
     final int specialEffect = Integer.parseInt(spell[2]);
@@ -221,25 +221,16 @@ public class TemplateCommon {
     final int _0b = Integer.parseInt(spell[11]);
     final int index = Integer.parseInt(spell[12]);
     final String battleStage = spell[13];
+    final String deffIndex = spell[17];
 
-    if(player) {
-      final String deffIndex = spell[17];
-
-      if(battleStage.isBlank()) {
-        if(!deffIndex.isBlank()) {
-          return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex));
-        } else {
-          return new RetailSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index);
-        }
+    if(battleStage.isBlank()) {
+      if(!deffIndex.isBlank()) {
+        return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex));
       } else {
-        return new DragonSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index, Integer.parseInt(battleStage));
+        return new RetailSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index);
       }
     } else {
-      if(battleStage.isBlank()) {
-        return new RetailSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index);
-      } else {
-        return new DragonSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index, Integer.parseInt(battleStage));
-      }
+      return new DragonSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index, Integer.parseInt(battleStage));
     }
   }
 
