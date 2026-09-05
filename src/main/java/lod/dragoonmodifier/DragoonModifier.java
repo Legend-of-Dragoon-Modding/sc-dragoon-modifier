@@ -542,6 +542,7 @@ public class DragoonModifier {
     event.gameState.charData_32c.clear();
 
     dart.level_12 = 1;
+    dart.dlevel_13 = 1;
     event.gameState.charData_32c.add(dart);
     event.gameState.charData_32c.add(lavitz);
     event.gameState.charData_32c.add(shana);
