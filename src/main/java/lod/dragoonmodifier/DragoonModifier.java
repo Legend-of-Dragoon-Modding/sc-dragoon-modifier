@@ -1754,7 +1754,8 @@ public class DragoonModifier {
                   attack.damage = (int)Math.round(attack.damage * boost);
 
                   if(this.shanaElementalShift && this.shanaElementalShiftMode == 3) {
-                    attack.damage *= 3.25;
+                    attack.damage *= 2.5;
+                    attack.damage = this.shanaElementalFieldElement1.adjustAttackingElementalDamage(attack.attackType, attack.damage, monster.element);
                   }
                 }
 
@@ -1846,8 +1847,17 @@ public class DragoonModifier {
                             }
                           }
                         } else if(bent.character.template instanceof Meru && this.meruInPartyWithDragoon && player.item_d4.getAttackElement() == WATER_ELEMENT.get()) {
+                          for(int x = 0; x < battleState_8006e398.alivePlayerBents_eac.size(); x++) {
+                            final ScriptState<? extends BattleEntity27c> statex = battleState_8006e398.alivePlayerBents_eac.get(i);
+                            final PlayerBattleEntity bentx = (PlayerBattleEntity)statex.innerStruct_00;
+                            if(bentx.character.template instanceof Shana || bentx.character.template instanceof Meru || bentx.character.template instanceof Miranda) {
+                              bent.stats.getStat(MP_STAT.get()).setCurrent(Math.min(bent.stats.getStat(MP_STAT.get()).getMax(), (bent.stats.getStat(MP_STAT.get()).getCurrent() + 20)));
+                              this.displayNumbers(6 + bent.typeBentSlot_276, 20, 0, -24, 0.56666666f, 0.53333336f, 1.0333333f);
+                            }
+                          }
                           this.meruIceShield[player.typeBentSlot_276] = (int)Math.min(this.meruIceShieldMax[player.typeBentSlot_276], Math.min(this.meruIceShieldMax[player.typeBentSlot_276] * 0.25 + this.meruIceShield[player.typeBentSlot_276], this.meruIceShield[player.typeBentSlot_276] + attack.damage * 0.1));
                           this.displayNumbers(6 + bent.typeBentSlot_276, this.meruIceShield[player.typeBentSlot_276], 0, -12, 1, 1, 1);
+
                         } else if(bent.character.template instanceof Kongol && player.item_d4.getAttackElement() == EARTH_ELEMENT.get()) {
                           this.protectionShield[bent.typeBentSlot_276] = (int)Math.min(player.stats.getStat(HP_STAT.get()).getMax() * 0.15 + this.protectionShield[bent.typeBentSlot_276], this.protectionShield[bent.typeBentSlot_276] + attack.damage * 0.1);
                           this.displayNumbers(6 + bent.typeBentSlot_276, this.protectionShield[player.typeBentSlot_276], 0, -12, 1.0333333f, 0.6666667f, 0.0f);
