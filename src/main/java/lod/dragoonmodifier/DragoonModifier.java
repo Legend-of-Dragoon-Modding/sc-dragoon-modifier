@@ -963,13 +963,15 @@ public class DragoonModifier {
       }
     }
 
-    if("lod:moon_equipment_shop".equals(shop[32]) && gameState_800babc8.scriptFlags2_bc.get(12, 12)) {
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "firebrand").get(), 5000));
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "jade_spear").get(), 5000));
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "elemental_arrow").get(), 5000));
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "overcharge_glove").get(), 5000));
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "magic_hammer").get(), 5000));
-      event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "giant_axe").get(), 5000));
+    if(this.isHardMode()) {
+      if("lod:moon_equipment_shop".equals(shop[32]) && gameState_800babc8.scriptFlags2_bc.get(12, 12)) {
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "firebrand").get(), 5000));
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "jade_spear").get(), 5000));
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "elemental_arrow").get(), 5000));
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "overcharge_glove").get(), 5000));
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "magic_hammer").get(), 5000));
+        event.contents.add(new ShopScreen.ShopEntry<>(REGISTRIES.equipment.getEntry(MOD_ID, "giant_axe").get(), 5000));
+      }
     }
   }
 
