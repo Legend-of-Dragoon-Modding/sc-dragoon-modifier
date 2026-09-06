@@ -2,6 +2,7 @@ package lod.dragoonmodifier.configs;
 
 import legend.core.GameEngine;
 import legend.core.IoHelper;
+import legend.core.lang.RawText;
 import legend.game.inventory.screens.controls.Dropdown;
 import legend.game.saves.ConfigCategory;
 import legend.game.saves.ConfigCollection;
@@ -21,7 +22,7 @@ public class DifficultyEntryConfig extends ConfigEntry<String> {
     super("Retail NA", ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY, str -> IoHelper.stringToBytes(str, 1), bytes -> IoHelper.stringFromBytes(bytes, 1, ""));
 
     this.setEditControl((current, gameState) -> {
-      final Dropdown dropdown = new Dropdown();
+      final Dropdown dropdown = new Dropdown<>((i, e) -> new RawText(e.toString()));
       final File[] modFolders = Path.of("./mods/dragoon_modifier/").toFile().listFiles(File::isDirectory);
       int i = 0;
       for(final File directory : modFolders) {
