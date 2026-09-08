@@ -177,6 +177,9 @@ import static legend.game.characters.CharacterData2c.CAN_BE_IN_PARTY;
 import static legend.game.characters.CharacterData2c.IN_PARTY;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
 import static legend.lodmod.LodGoods.BLUE_DRAGOON_SPIRIT;
+import static legend.lodmod.LodGoods.DIVINE_DRAGOON_SPIRIT;
+import static legend.lodmod.LodGoods.JADE_DRAGOON_SPIRIT;
+import static legend.lodmod.LodGoods.RED_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.VIOLET_DRAGOON_SPIRIT;
 import static legend.lodmod.LodMod.ATTACK_STAT;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
@@ -1275,15 +1278,15 @@ public class DragoonModifier {
         event.actions.put(DETRANSFORM_ACTION.get(), (event.actions.size() + 1) * 100 - 1);
       }
 
-      if(event.player.character.template instanceof Dart) {
+      if(event.player.character.template instanceof Dart && (gameState_800babc8.goods_19c.has(RED_DRAGOON_SPIRIT.get()) || gameState_800babc8.goods_19c.has(DIVINE_DRAGOON_SPIRIT.get())))  {
         event.actions.put(BURN_STACK_ACTION.get(), (event.actions.size() + 1) * 100);
-      } else if(event.player.character.template instanceof Lavitz || event.player.character.template instanceof Albert) {
+      } else if((event.player.character.template instanceof Lavitz || event.player.character.template instanceof Albert) && gameState_800babc8.goods_19c.has(JADE_DRAGOON_SPIRIT.get())) {
         event.actions.put(WIND_BARRIER_ACTION.get(), (event.actions.size() + 1) * 100);
       } else if(event.player.character.template instanceof Shana) {
         if(this.shanaPreviousArrow[event.player.typeBentSlot_276] != null) {
           event.actions.put(ELEMENTAL_QUIVER_ACTION.get(), (event.actions.size() + 1) * 100);
         }
-      } else if(event.player.character.template instanceof Rose) {
+      } else if(event.player.character.template instanceof Rose && gameState_800babc8.goods_19c.has(VIOLET_DRAGOON_SPIRIT.get())) {
         event.actions.put(SIPHON_ACTION.get(), (event.actions.size() + 1) * 100);
       } else if(event.player.character.template instanceof Haschel) {
         if(this.haschelInPartyWithDragoon) {
