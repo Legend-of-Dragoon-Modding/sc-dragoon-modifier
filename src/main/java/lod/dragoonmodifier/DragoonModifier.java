@@ -180,6 +180,7 @@ import static legend.lodmod.LodGoods.BLUE_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.DIVINE_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.JADE_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.RED_DRAGOON_SPIRIT;
+import static legend.lodmod.LodGoods.SILVER_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.VIOLET_DRAGOON_SPIRIT;
 import static legend.lodmod.LodMod.ATTACK_STAT;
 import static legend.lodmod.LodMod.DARK_ELEMENT;
@@ -1870,7 +1871,7 @@ public class DragoonModifier {
                   }
                 }
 
-                if(player.item_d4 != null && !player.isDragoon()) {
+                if(player.item_d4 != null && !player.isDragoon() && gameState_800babc8.goods_19c.has(SILVER_DRAGOON_SPIRIT.get())) {
                   final int sp = player.stats.getStat(SP_STAT.get()).getCurrent();
                   int gain = !this.shanaDeffArrow[player.typeBentSlot_276] ? 50 : player.dlevel_06 > 0 ? Integer.parseInt(shanaSpGain.getFirst()[player.dlevel_06 - 1]) : 0;
                   if(this.shanaDeffArrow[player.typeBentSlot_276]) {
