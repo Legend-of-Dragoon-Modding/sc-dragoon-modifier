@@ -177,6 +177,7 @@ import static legend.game.characters.CharacterData2c.CAN_BE_IN_PARTY;
 import static legend.game.characters.CharacterData2c.IN_PARTY;
 import static legend.game.combat.ui.BattleMenuStruct58.battleMenuIconMetrics_800fb674;
 import static legend.lodmod.LodGoods.BLUE_DRAGOON_SPIRIT;
+import static legend.lodmod.LodGoods.DARK_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.DIVINE_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.JADE_DRAGOON_SPIRIT;
 import static legend.lodmod.LodGoods.RED_DRAGOON_SPIRIT;
@@ -1287,7 +1288,7 @@ public class DragoonModifier {
         if(this.shanaPreviousArrow[event.player.typeBentSlot_276] != null) {
           event.actions.put(ELEMENTAL_QUIVER_ACTION.get(), (event.actions.size() + 1) * 100);
         }
-      } else if(event.player.character.template instanceof Rose && gameState_800babc8.goods_19c.has(VIOLET_DRAGOON_SPIRIT.get())) {
+      } else if(event.player.character.template instanceof Rose && gameState_800babc8.goods_19c.has(DARK_DRAGOON_SPIRIT.get())) {
         event.actions.put(SIPHON_ACTION.get(), (event.actions.size() + 1) * 100);
       } else if(event.player.character.template instanceof Haschel) {
         if(this.haschelInPartyWithDragoon) {
