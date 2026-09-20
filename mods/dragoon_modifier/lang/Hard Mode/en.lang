@@ -664,6 +664,10 @@ dragoon_modifier.items.archangels_prayer.name=Archangel's Prayer
 dragoon_modifier.items.archangels_prayer.description=Revitalizes and \nrecovers HP\n(repeat).
 dragoon_modifier.items.archangels_prayer.battle_description=Revitalizes full HP (rep)
 dragoon_modifier.items.archangels_prayer.use=
+dragoon_modifier.items.rock_fireflies.name=Rock Fireflies
+dragoon_modifier.items.rock_fireflies.description=Recovers HP\nand mp\nfor all.
+dragoon_modifier.items.rock_fireflies.battle_description=
+dragoon_modifier.items.rock_fireflies.use=
 
 # Spells
 dragoon_modifier.spells.flameshot.name=Flameshot

@@ -67,6 +67,7 @@ import legend.game.modding.events.battle.RegisterBattleEntityStatsEvent;
 import legend.game.modding.events.battle.SpellStatsEvent;
 import legend.game.modding.events.battle.StatDisplayEvent;
 import legend.game.modding.events.config.ConfigLoadedEvent;
+import legend.game.modding.events.config.ConfigUpdatedEvent;
 import legend.game.modding.events.gamestate.NewGameEvent;
 import legend.game.modding.events.input.InputPressedEvent;
 import legend.game.modding.events.inventory.GiveEquipmentEvent;
@@ -124,6 +125,7 @@ import lod.dragoonmodifier.character.Shana;
 import lod.dragoonmodifier.character.TemplateCommon;
 import lod.dragoonmodifier.configs.DamageTrackerConfig;
 import lod.dragoonmodifier.configs.DifficultyEntryConfig;
+import lod.dragoonmodifier.configs.LevelLockerConfig;
 import lod.dragoonmodifier.configs.MonsterHPBarConfig;
 import lod.dragoonmodifier.equips.DestroyerMaceEquipment;
 import lod.dragoonmodifier.equips.ItemArrowEquipment;
@@ -134,6 +136,7 @@ import lod.dragoonmodifier.events.ShanaElementArrowAttackEvent;
 import lod.dragoonmodifier.events.ShanaGetArrowCountEvent;
 import lod.dragoonmodifier.events.ShanaSwapArrowEvent;
 import lod.dragoonmodifier.items.DraModItemDeffPackage;
+import lod.dragoonmodifier.items.RockFirefliesItem;
 import lod.dragoonmodifier.menu.DetransformAction;
 import lod.dragoonmodifier.menu.EnhancementAction;
 import org.legendofdragoon.modloader.Mod;
@@ -229,6 +232,7 @@ public class DragoonModifier {
   public static final List<String[]> monstersRewardsStats = new ArrayList<>();
   public static final List<String[]> spells = new ArrayList<>();
   public static final List<String[]> shanaSpGain = new ArrayList<>();
+  public static final List<String[]> levelLocker = new ArrayList<>();
 
   //Registars
   public static final Registrar<CharacterTemplate, RegisterCharacterTemplatesEvent> CHARACTER_REGISTRAR = new Registrar<>(REGISTRIES.characterTemplates, DragoonModifier.MOD_ID);
@@ -261,6 +265,7 @@ public class DragoonModifier {
   public static final RegistryDelegate<DifficultyEntryConfig> DIFFICULTY = DRAMOD_CONFIG_REGISTRAR.register("difficulty", DifficultyEntryConfig::new);
   public static final RegistryDelegate<BoolConfigEntry> MONSTER_HP_BAR = DRAMOD_CONFIG_REGISTRAR.register("hp_bar", MonsterHPBarConfig::new);
   public static final RegistryDelegate<DamageTrackerConfig> DAMAGE_TRACKER = DRAMOD_CONFIG_REGISTRAR.register("damage_tracker", DamageTrackerConfig::new);
+  public static final RegistryDelegate<BoolConfigEntry> LEVEL_LOCKER = DRAMOD_CONFIG_REGISTRAR.register("level_locker", LevelLockerConfig::new);
 
   //Constants
   public static Obj ENHANCEMENT_OBJ;
@@ -470,6 +475,7 @@ public class DragoonModifier {
       this.loadCsvIntoList(difficulty, monstersRewardsStats, "monster_rewards.csv");
       this.loadCsvIntoList(difficulty, spells, "spells.csv");
       this.loadCsvIntoList(difficulty, shanaSpGain, "shana_sp_gain.csv");
+      this.loadCsvIntoList(difficulty, levelLocker, "level_locker.csv");
       this.csvLoaded = true;
       this.difficultyLoaded = difficulty;
       this.lockConfigs();
@@ -484,18 +490,26 @@ public class DragoonModifier {
 
   private void lockConfigs() {
     //TODO: Config CSV for all modes but it will throw array out of index anyways... but for future when a characters can have different max levels from each other.
+    if(this.isHardMode() || this.isHellMode()) {
+      CONFIG.setConfig(LodConfig.ITEM_STACK_SIZE.get(), 1);
+      CONFIG.lockConfig(LodConfig.ITEM_STACK_SIZE.get());
+      CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 32);
+      CONFIG.lockConfig(CoreMod.INVENTORY_SIZE_CONFIG.get());
+      CONFIG.setConfig(LodConfig.EXTENDED_DRAGOON_ACTIONS.get(), false);
+      CONFIG.lockConfig(LodConfig.EXTENDED_DRAGOON_ACTIONS.get());
+      CONFIG.setConfig(CoreMod.EQUIP_EFFECTS_IN_DRAGOON.get(), true);
+      CONFIG.lockConfig(CoreMod.EQUIP_EFFECTS_IN_DRAGOON.get());
+
+      CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), 60);
+      CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+      CONFIG.setConfig(LodConfig.MAX_DRAGOON_LEVEL.get(), 5);
+      CONFIG.lockConfig(LodConfig.MAX_DRAGOON_LEVEL.get());
+    }
+
     CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), 60);
-    CONFIG.setConfig(LodConfig.MAX_DRAGOON_LEVEL.get(), 5);
-    CONFIG.setConfig(LodConfig.ITEM_STACK_SIZE.get(), 1);
-    CONFIG.setConfig(CoreMod.INVENTORY_SIZE_CONFIG.get(), 32);
-    CONFIG.setConfig(LodConfig.EXTENDED_DRAGOON_ACTIONS.get(), false);
-    CONFIG.setConfig(CoreMod.EQUIP_EFFECTS_IN_DRAGOON.get(), true);
     CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+    CONFIG.setConfig(LodConfig.MAX_DRAGOON_LEVEL.get(), 5);
     CONFIG.lockConfig(LodConfig.MAX_DRAGOON_LEVEL.get());
-    CONFIG.lockConfig(LodConfig.ITEM_STACK_SIZE.get());
-    CONFIG.lockConfig(CoreMod.INVENTORY_SIZE_CONFIG.get());
-    CONFIG.lockConfig(LodConfig.EXTENDED_DRAGOON_ACTIONS.get());
-    CONFIG.lockConfig(CoreMod.EQUIP_EFFECTS_IN_DRAGOON.get());
   }
 
   private void levelUp(final CharacterData2c character, final int level) {
@@ -864,6 +878,8 @@ public class DragoonModifier {
             case "PsycheBombXItem":
               event.register(id(item[33].split(":")[1]), new PsycheBombXItem());
               break;
+            case "RockFirefliesItem":
+              event.register(id(item[33].split(":")[1]), new RockFirefliesItem());
             case "DraModShieldItem":
               //event.register(id(item[33].split(":")[1]), () -> new DraModShieldItem(this.getIconFromId(Integer.parseInt(item[19])), Integer.parseInt(item[24]), Integer.parseInt(item[34]), Boolean.parseBoolean(item[11]), Boolean.parseBoolean(item[12]), item[31]));
               break;
@@ -1053,11 +1069,41 @@ public class DragoonModifier {
       }
     }
   }
+
+  @EventListener
+  public void configUpdated(final ConfigUpdatedEvent event) {
+    if(event.config.getRegistryId() == LEVEL_LOCKER.getId()) {
+      if(CONFIG.getConfig(LEVEL_LOCKER.get())) {
+        CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), this.getLockLevel());
+        CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+      } else {
+        CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), 60);
+        CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+      }
+    }
+  }
+
+  public int getLockLevel() {
+    int lockLevel = 60;
+    if(gameState_800babc8 != null) {
+      for(int i = 0; i < levelLocker.size(); i++) {
+        if(gameState_800babc8.scriptFlags2_bc.get(Integer.parseInt(levelLocker.get(i)[0]), Integer.parseInt(levelLocker.get(i)[1]))) {
+          lockLevel = Integer.parseInt(levelLocker.get(i)[2]);
+        }
+      }
+    }
+    return lockLevel;
+  }
   //endregion
 
   //region Submap
   @EventListener
   public void submapWarp(final SubmapWarpEvent event) {
+    if(CONFIG.getConfig(LEVEL_LOCKER.get())) {
+      CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), this.getLockLevel());
+      CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+    }
+
     if(this.isHardMode() || this.isHellMode()) {
       if(gameState_800babc8.scriptFlags2_bc.get(0, 7)) {
         for(int i = 0; i < gameState_800babc8.charData_32c.size(); i++) {
@@ -2359,6 +2405,11 @@ public class DragoonModifier {
         throw new RuntimeException(e);
       }
     }
+
+    if(CONFIG.getConfig(LEVEL_LOCKER.get())) {
+      CONFIG.setConfig(LodConfig.MAX_LEVEL.get(), this.getLockLevel());
+      CONFIG.lockConfig(LodConfig.MAX_LEVEL.get());
+    }
   }
 
   public Equipment getEquipFromRegistry(final RegistryId id) {
@@ -3043,6 +3094,10 @@ public class DragoonModifier {
             event.add(new CombatantStruct1a8.ItemDrop(24, REGISTRIES.equipment.getEntry("dragoon_modifier:thunder_arrow").get()));
           } else {
             event.add(new CombatantStruct1a8.ItemDrop(24, this.getRandomElementArrow()));
+          }
+
+          if(submapCut_80052c30 == 48 || submapCut_80052c30 == 252 || submapCut_80052c30 == 264) {
+            event.add(new CombatantStruct1a8.ItemDrop(12, new ItemStack(REGISTRIES.items.getEntry("dragoon_modifier:rock_fireflies").get())));
           }
         }
 

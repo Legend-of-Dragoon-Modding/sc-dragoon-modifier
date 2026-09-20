@@ -9,7 +9,7 @@ Retail JP               - Japan region retail
 Retail NA + Hard Bosses - Hard Mode with North American region monster stats for non-bosses.
 Hard Mode               - Hard Mode with character enhancements, new equips, and items.
 
-Note Below this contains story spilers. 
+Note Below this contains story spoilers. 
 Hard Mode is intended for a second playthrough.
 Some gameplay elements of Hard Mode do not match retail.
 
@@ -45,7 +45,7 @@ Red-Eyed Dragon  - 4
 Divine DG Ball   - 3
 Divine DG Cannon - 3
 
-When Dart reachs the at or above the following Burn Stack amount he will heal MP.
+When Dart reaches the at or above the following Burn Stack amount he will heal MP.
  4 Burn Stacks - 10 MP
  8 Burn Stacks - 20 MP
 12 Burn Stacks - 30 MP
@@ -71,7 +71,7 @@ Wing Blaster - 1
 Gaspless     - 2
 Jade Dragon  - 3
 
-Lavitz and Albert thorugh the Enhancement Icon can activate the Wind Barrier at the cost of 10 MP per turn.
+Lavitz and Albert through the Enhancement Icon can activate the Wind Barrier at the cost of 10 MP per turn.
 When they are attacked when Wind Barrier is active the following will happen
 -Lavitz/Albert will heal 5 MP
 -One Wind Mark will be added to the enemy
@@ -125,7 +125,7 @@ When Elemental Shift and Elemental Field have a total of six arrows the Element 
 		Elemental Reaction - Shana/Miranda's next Elemental Arrow will provided the Elemental Reaction effect on the targeted enemy for three turns that are activated upon hitting the enemy. The element based on the reaction must be used.
 			Fire/Water - Vaporize   - The party will heal MP based on 0.8% of the damage dealt up to a maximum of 50 MP. 
 			Wind/Earth - Turbulence - The party will gain SP based on 1% of the damage dealt up to a maximum of 100 SP. If the character is in Dragoon forms the amount of turns in Dragoon will recalculate.
-			Dark/Light - Equilbirum - The party will heal based on 8% of the damage dealt.
+			Dark/Light - Equilibrium - The party will heal based on 8% of the damage dealt.
 	If there are three of the same element in the Elemental Shift and three of the same element but different than the ones in the Elemental Field, Shana/Miranda gains the Elemental Unity effect.
 		Elemental Unity - Shana/Miranda's Elemental Arrow of the same element of the two elements of Elemental Unity will provide bonuses to one of those two party members if present in the party.
 			Fire    - Dart will gain 1 Burn Stack per Fire Arrow.
@@ -135,13 +135,13 @@ When Elemental Shift and Elemental Field have a total of six arrows the Element 
 			Dark    - Rose will gain Siphon based on 20% of the damage dealt. 
 			Light   - Shana/Miranda will restore an additional 100 SP when Light Arrow is used and heal 5% of the damage dealt up to a maximum of 5% of Meru's HP.
 			Thunder - Thunder Arrow has an additional chance to apply another Thunder Charge to the enemy.
-	If none of the above conditions are met Shana/Miranda will temporarly not consume Elemental Arrows.
+	If none of the above conditions are met Shana/Miranda will temporarily not consume Elemental Arrows.
 When Elemental Shift is finished the Elemental Cooldown state begins where no arrows can be added to Elemental Field or Elemental Shift.
 When Elemental Cooldown is finished all Elemental Field and Shift arrows are cleared from the entire party.
 Only one Elemental Field and one Elemental Shift can exist at time.
 
 Elemental Arrows used are displayed below Shana/Miranda's section in the battle UI when attacking enemies on Shana/Miranda's turn..
-Elemental Arrow ammo left is displayed on the bottom bar of the character portait.
+Elemental Arrow ammo left is displayed on the bottom bar of the character portrait.
 
 ================
 = Rose         =
@@ -151,10 +151,10 @@ When Rose physically attacks an enemy or uses any attack in Dragoon she will con
 Rose will also heal a portion of the damage dealt.
 Rose can store the amount of Max HP she has at the start of battle as Siphon.
 Rose can activate Siphon Burst through the Enhancement Icon.
-Once acitvated the next attack will have the amount of Siphon added to the damage.
+Once activated the next attack will have the amount of Siphon added to the damage.
 
-The amount of Siphon stored is displayed on the bottom bar of the character portait.
-When a Siphon Burst is activated it will be displayed on the top bar of the character portait.
+The amount of Siphon stored is displayed on the bottom bar of the character portrait.
+When a Siphon Burst is activated it will be displayed on the top bar of the character portrait.
 
 ==================================
 = Haschel                        =
@@ -173,8 +173,8 @@ Haschel can carry 20 Static Charges at a time.
 Haschel when attacking an enemy will apply Thunder Charges equal to the amount of Static Charges up to a maximum of 10.
 Static Charges must be fully depleted.
 
-The amount of Thunder Charges is displayed on the bottom bar of the character portait when attacking a single monster.
-The amount of Static Charges is display on the top bar of the character portairt when attacking a single monster.
+The amount of Thunder Charges is displayed on the bottom bar of the character portrait when attacking a single monster.
+The amount of Static Charges is display on the top bar of the character portrait when attacking a single monster.
 
 ===========================
 = Meru                    =
@@ -224,7 +224,7 @@ Templar Shield     - Increase DF by 16            - Available in Feltz
 Wizard Shield      - Increase MDF by 14           - Available in Feltz
 Magicial Sollerets - Available in Wingly Forest
 Magical Chausses   - Increase Evasion by 15%      - Available in Wingly Forest
-Masterâ€™s Headband  - Gain 10 SP when attacked     - Available in Vellweb
+Master’s Headband  - Gain 10 SP when attacked     - Available in Vellweb
 Destroyer Mace     - Available in Rouge 
 Polter Helm        - Lose 2% HP per turn          - Reward for defating Polter Helm
                    - Increase Max HP by 15%
@@ -254,6 +254,7 @@ Magic Hammer       - Ultimate Weapon              - Available on Moon after Zieg
 Giant Axe          - Ultimate Weapon              - Available on Moon after Zieg
                    - Will randomly cast guard status on attack
 				   - Grants 1 extra turn of counterstance
+Rock Fireflies     - Fully recovers HP/MP and clears status effects for all. Only useable outside of battle. - Available in maps with Rock Fireflies.				   
 Archangel's Prayer - (Repeat Item) Fully recovers HP for an incapacitied ally. - Reward for defeating Divine Dragon Ghost
 
 ===========================================================================================================================================================

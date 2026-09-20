@@ -64,3 +64,4 @@ Target Type,Element,Damage,Power Defence,Power Magic Defence,Power Attack,Power 
 0,0,0,0,0,0,0,0,0,0,0,false,false,0,0,0,0,0,0,0,0,0,0,false,0, , ,,,4431,0,-1,false,dragoon_modifier:_,
 0,0,0,0,0,0,0,0,0,0,0,false,false,0,0,0,0,0,0,0,0,0,0,false,0,None, ,,,4433,0,-1,false,dragoon_modifier:_,
 8,0,0,0,0,0,0,0,0,0,0,false,false,0,0,0,0,0,0,36,0,100,16,false,15,Archangel's Prayer,Revitalizes and§recovers HP§(repeat).,Revitalizes full HP (rep),AngelsPrayerItem,archangels_prayer,0,-1,true,dragoon_modifier:archangels_prayer,
+90,0,0,0,0,0,0,0,0,0,0,false,false,0,0,0,0,0,0,46,0,100,0,false,10,Rock Fireflies,Recovers HP§and mp§for all.,,RockFirefliesItem,-1,0,-1,false,dragoon_modifier:rock_fireflies,
