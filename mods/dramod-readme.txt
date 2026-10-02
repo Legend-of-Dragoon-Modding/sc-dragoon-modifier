@@ -13,6 +13,17 @@ Note Below this contains story spoilers.
 Hard Mode is intended for a second playthrough.
 Some gameplay elements of Hard Mode do not match retail.
 
+===========
+= DraMenu =
+===========
+When you gain control of Dart in the first map you can go to Options>Gameplay>Click DraMenu button to gain access to special options.
+You can start all characters at level 1.
+You can add Dragoons from the start.
+
+Through DraMenu you can always
+Level sync the entire party's level based on the highest EXP character in the party.
+Add all characters to the party at any time.
+
 ===
 ===
 ===
