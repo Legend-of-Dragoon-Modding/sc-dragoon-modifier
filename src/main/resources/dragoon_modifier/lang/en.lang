@@ -35,6 +35,13 @@ dragoon_modifier.battle_actions.static_charge.name=Static Charge
 dragoon_modifier.battle_actions.wingly_magic.name=Enhanced Magic
 dragoon_modifier.battle_actions.counter_stance.name=Counter Stance
 dragoon_modifier.battle_actions.miranda_elemental_quiver.name=Elemental Quiver
+dragoon_modifier.config.dramenu.label=[DM] Dragoon Modifier Extras
+dragoon_modifier.config.multi_spd.label=[DM]Monster SPD Multi %%
+dragoon_modifier.config.multi_hp.label=[DM]Monster HP Multi %%
+dragoon_modifier.config.multi_at.label=[DM]Monster AT Multi %%
+dragoon_modifier.config.multi_mat.label=[DM]Monster MAT Multi %%
+dragoon_modifier.config.multi_df.label=[DM]Monster DF Multi %%
+dragoon_modifier.config.multi_mdf.label=[DM]Monster MDF Multi %%
 
 
 # Characters

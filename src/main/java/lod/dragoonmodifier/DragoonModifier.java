@@ -77,8 +77,11 @@ import legend.game.modding.events.inventory.ShopContentsEvent;
 import legend.game.modding.events.inventory.ShopSellPriceEvent;
 import legend.game.modding.events.submap.SubmapWarpEvent;
 import legend.game.saves.BoolConfigEntry;
+import legend.game.saves.ConfigCategory;
 import legend.game.saves.ConfigEntry;
 import legend.game.saves.ConfigRegistryEvent;
+import legend.game.saves.ConfigStorageLocation;
+import legend.game.saves.IntConfigEntry;
 import legend.game.scripting.ScriptFile;
 import legend.game.scripting.ScriptState;
 import legend.game.submap.SMap;
@@ -125,6 +128,7 @@ import lod.dragoonmodifier.character.Shana;
 import lod.dragoonmodifier.character.TemplateCommon;
 import lod.dragoonmodifier.configs.DamageTrackerConfig;
 import lod.dragoonmodifier.configs.DifficultyEntryConfig;
+import lod.dragoonmodifier.configs.DraMenuConfig;
 import lod.dragoonmodifier.configs.LevelLockerConfig;
 import lod.dragoonmodifier.configs.MonsterHPBarConfig;
 import lod.dragoonmodifier.equips.DestroyerMaceEquipment;
@@ -266,6 +270,13 @@ public class DragoonModifier {
   public static final RegistryDelegate<BoolConfigEntry> MONSTER_HP_BAR = DRAMOD_CONFIG_REGISTRAR.register("hp_bar", MonsterHPBarConfig::new);
   public static final RegistryDelegate<DamageTrackerConfig> DAMAGE_TRACKER = DRAMOD_CONFIG_REGISTRAR.register("damage_tracker", DamageTrackerConfig::new);
   public static final RegistryDelegate<BoolConfigEntry> LEVEL_LOCKER = DRAMOD_CONFIG_REGISTRAR.register("level_locker", LevelLockerConfig::new);
+  public static final RegistryDelegate<DraMenuConfig> DRAMENU = DRAMOD_CONFIG_REGISTRAR.register("dramenu", DraMenuConfig::new);
+  public static final RegistryDelegate<IntConfigEntry> MULTI_SPD = DRAMOD_CONFIG_REGISTRAR.register("multi_spd", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
+  public static final RegistryDelegate<IntConfigEntry> MULTI_HP = DRAMOD_CONFIG_REGISTRAR.register("multi_hp", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
+  public static final RegistryDelegate<IntConfigEntry> MULTI_AT = DRAMOD_CONFIG_REGISTRAR.register("multi_at", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
+  public static final RegistryDelegate<IntConfigEntry> MULTI_MAT = DRAMOD_CONFIG_REGISTRAR.register("multi_mat", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
+  public static final RegistryDelegate<IntConfigEntry> MULTI_DF = DRAMOD_CONFIG_REGISTRAR.register("multi_df", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
+  public static final RegistryDelegate<IntConfigEntry> MULTI_MDF = DRAMOD_CONFIG_REGISTRAR.register("multi_mdf", () -> new IntConfigEntry(100, 100, 999, ConfigStorageLocation.CAMPAIGN, ConfigCategory.GAMEPLAY));
 
   //Constants
   public static Obj ENHANCEMENT_OBJ;
@@ -2987,6 +2998,31 @@ public class DragoonModifier {
         event.elementalImmunityFlag.add(Element.fromFlag(Integer.parseInt(monsterStats.get(ovrId)[13])).get());
       }
       event.statusResistFlag = Integer.parseInt(monsterStats.get(ovrId)[14]);
+
+      if(CONFIG.getConfig(MULTI_SPD.get()) > 100) {
+        event.speed = (int)Math.round(event.speed * CONFIG.getConfig(MULTI_SPD.get()) / 100d);
+      }
+
+      if(CONFIG.getConfig(MULTI_HP.get()) > 100) {
+        event.maxHp = (int)Math.round(event.maxHp * CONFIG.getConfig(MULTI_HP.get()) / 100d);
+        event.hp = (int)Math.round(event.hp * CONFIG.getConfig(MULTI_HP.get()) / 100d);
+      }
+
+      if(CONFIG.getConfig(MULTI_AT.get()) > 100) {
+        event.attack = (int)Math.round(event.attack * CONFIG.getConfig(MULTI_SPD.get()) / 100d);
+      }
+
+      if(CONFIG.getConfig(MULTI_MAT.get()) > 100) {
+        event.magicAttack = (int)Math.round(event.magicAttack * CONFIG.getConfig(MULTI_SPD.get()) / 100d);
+      }
+
+      if(CONFIG.getConfig(MULTI_DF.get()) > 100) {
+        event.defence = (int)Math.round(event.defence * CONFIG.getConfig(MULTI_SPD.get()) / 100d);
+      }
+
+      if(CONFIG.getConfig(MULTI_MDF.get()) > 100) {
+        event.magicDefence = (int)Math.round(event.magicDefence * CONFIG.getConfig(MULTI_SPD.get()) / 100d);
+      }
 
       if(this.isHardMode()) {
         if(ovrId == 283) {
