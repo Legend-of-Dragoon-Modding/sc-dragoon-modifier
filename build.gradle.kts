@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "dragoon-modifier"
-version = "2.1-SNAPSHOT"
+version = "2.2-SNAPSHOT"
 
 java {
   sourceCompatibility = JavaVersion.VERSION_25
