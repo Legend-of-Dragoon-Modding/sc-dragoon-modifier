@@ -54,6 +54,7 @@ dragoon_modifier.character_templates.albert.name=Albert
 dragoon_modifier.character_templates.meru.name=Meru
 dragoon_modifier.character_templates.kongol.name=Kongol
 dragoon_modifier.character_templates.miranda.name=Miranda
+dragoon_modifier.character_templates.lloyd.name=Lloyd
 
 # Additions
 dragoon_modifier.additions.double_slash.name=Double Slash

@@ -3,4 +3,6 @@ Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
 20,dragoon_modifier:explosion,0,0,0,0,6000,Dart DLv2
 20,dragoon_modifier:final_burst,0,0,0,0,12000,Dart DLv3
 20,,0,0,0,0,20000,Dart DLv4
-20,dragoon_modifier:red_eyed_dragon,0,0,0,0,0,Dart DLv5
+20,dragoon_modifier:red_eyed_dragon,0,0,0,0,72000,Dart DLv5
+20,,0,0,0,0,108000,Dart DLv6
+20,dragoon_modifier:fire_attack,0,0,0,0,0,Dart DLv7

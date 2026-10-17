@@ -222,10 +222,12 @@ public class TemplateCommon {
     final int index = Integer.parseInt(spell[12]);
     final String battleStage = spell[13];
     final String deffIndex = spell[17];
+    final boolean forceElement = Boolean.parseBoolean(spell[18]);
+    final String forceTarget = spell[19];
 
     if(battleStage.isBlank()) {
       if(!deffIndex.isBlank()) {
-        return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex));
+        return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex), forceElement, !forceTarget.isBlank());
       } else {
         return new RetailSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index);
       }

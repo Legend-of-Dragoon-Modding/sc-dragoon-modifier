@@ -3,4 +3,6 @@ Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
 20,dragoon_modifier:blossom_storm,0,0,0,0,6000,Lavitz DLv2
 20,dragoon_modifier:gaspless,0,0,0,0,12000,Lavitz DLv3
 20,,0,0,0,0,20000,Lavitz DLv4
-20,dragoon_modifier:jade_dragon,0,0,0,0,0,Lavitz DLv5
+20,dragoon_modifier:jade_dragon,0,0,0,0,72000,Lavitz DLv5
+20,,0,0,0,0,108000,Lavitz DLv6
+20,dragoon_modifier:wind_attack,0,0,0,0,0,Lavitz DLv7

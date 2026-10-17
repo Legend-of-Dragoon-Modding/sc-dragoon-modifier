@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "dragoon-modifier"
-version = "2.2-SNAPSHOT"
+version = "2.3-SNAPSHOT"
 
 java {
   sourceCompatibility = JavaVersion.VERSION_25
@@ -33,6 +33,10 @@ repositories {
 }
 
 dependencies {
+  implementation(fileTree("libs") {
+    include("*.jar")
+  })
+
   implementation("legend:lod:snapshot") // Uncomment to use mavenLocal version of LoD engine (also comment out next line)
 //  implementation("com.github.Legend-of-Dragoon-Modding:Legend-of-Dragoon-Java:main-SNAPSHOT")
   implementation("com.opencsv:opencsv:5.9")
@@ -41,7 +45,7 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-core:2.24.3")
   implementation("com.google.code.findbugs:jsr305:3.0.2")
   implementation("com.github.JnCrMx:discord-game-sdk4j:v1.0.0")
-  api("org.legendofdragoon:mod-loader:4.3.3")
+  api("org.legendofdragoon:mod-loader:4.3.5")
   api("org.legendofdragoon:script-recompiler:0.7.11")
   api("org.legendofdragoon:mogul-dabas:0.0.1")
 }

@@ -3,4 +3,6 @@ Max MP,Spell Learned,AT,MAT,DF,MDF,EXP,Name
 20,dragoon_modifier:meteor_strike,0,0,0,0,2000,Kongol DLv2
 20,,0,0,0,0,12000,Kongol DLv3
 20,,0,0,0,0,20000,Kongol DLv4
-20,dragoon_modifier:golden_dragon,0,0,0,0,0,Kongol DLv5
+20,dragoon_modifier:golden_dragon,0,0,0,0,72000,Kongol DLv5
+20,,0,0,0,0,108000,Kongol DLv6
+20,dragoon_modifier:earth_attack,0,0,0,0,0,Kongol DLv7
