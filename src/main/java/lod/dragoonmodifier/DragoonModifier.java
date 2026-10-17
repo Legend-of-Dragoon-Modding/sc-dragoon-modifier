@@ -2190,7 +2190,7 @@ public class DragoonModifier {
                   }
                 }
 
-                if(this.kongolHitInCounterStance[player.typeBentSlot_276]) {
+                if(kongolCounterStanceTurns[player.typeBentSlot_276] > 0) {
                   attack.damage *= 0.6;
                 }
               }
