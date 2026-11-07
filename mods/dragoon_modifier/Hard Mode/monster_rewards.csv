@@ -348,7 +348,7 @@ EXP,Gold,Drop Rate,Item,Name
 11000,250,100,dragoon_modifier:brass_knuckle,Windigo
 0,0,0,Nothing,Snow Cannon
 0,0,0,Nothing,Heart
-6000,800,0,dragoon_modifier:polter_helm,Polter Helm
+6000,800,100,dragoon_modifier:polter_helm,Polter Helm
 0,0,100,dragoon_modifier:polter_armor,Polter Armor
 0,0,100,dragoon_modifier:soul_eater,Polter Sword
 8000,4000,100,dragoon_modifier:archangels_prayer,Divine Dragoon Ghost
