@@ -36,11 +36,31 @@ public class DifficultyEntryConfig extends ConfigEntry<String> {
           }
 
           if("Retail NA + Hard Bosses".equals(GameEngine.CONFIG.getConfig(DIFFICULTY.get())) && "Hard Mode".equals(directory.getName())) {
-            dropdown.addOption(directory.getName());
+            boolean added = false;
+
+            for(int x = 0; x < dropdown.getOptionCount(); x++) {
+              if("Hard Mode".equals(dropdown.getOption(x).toString())) {
+                added = true;
+              }
+            }
+
+            if(!added) {
+              dropdown.addOption(directory.getName());
+            }
           }
 
           if("Hard Mode".equals(GameEngine.CONFIG.getConfig(DIFFICULTY.get())) && "Retail NA + Hard Bosses".equals(directory.getName())) {
-            dropdown.addOption(directory.getName());
+            boolean added = false;
+
+            for(int x = 0; x < dropdown.getOptionCount(); x++) {
+              if("Retail NA + Hard Bosses".equals(dropdown.getOption(x).toString())) {
+                added = true;
+              }
+            }
+
+            if(!added) {
+              dropdown.addOption(directory.getName());
+            }
           }
 
           if(directory.getName().equals(gameState.getConfig(this))) {
