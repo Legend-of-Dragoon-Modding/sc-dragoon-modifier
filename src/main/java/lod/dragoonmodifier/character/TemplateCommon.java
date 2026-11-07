@@ -23,10 +23,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static lod.dragoonmodifier.DragoonModifier.DIFFICULTY;
 
 public class TemplateCommon {
+  private static final Pattern PATTERN = Pattern.compile("^\\d+$");
+
   public static List<String[]> loadCSV(final String path) {
     try(final FileReader fr = new FileReader(path, StandardCharsets.UTF_8);
         final CSVReader csv = new CSVReader(fr)) {
@@ -227,7 +230,11 @@ public class TemplateCommon {
 
     if(battleStage.isBlank()) {
       if(!deffIndex.isBlank()) {
-        return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex), forceElement, !forceTarget.isBlank());
+        if(PATTERN.matcher(deffIndex).matches()) {
+          return new DeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, Integer.parseInt(deffIndex), forceElement, !forceTarget.isBlank());
+        } else {
+          return new CustomDeffSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, deffIndex, forceElement, !forceTarget.isBlank());
+        }
       } else {
         return new RetailSpell(targetType, flags, specialEffect, damage, multi, accuracy, mp, statusChance, Element.fromFlag(elementFlag), statusType, buffType, _0b, index);
       }
