@@ -13,8 +13,10 @@ import legend.game.modding.coremod.CoreMod;
 import legend.game.types.EquipmentSlot;
 import legend.game.ui.GameOverlay;
 import legend.lodmod.LodGoods;
+import lod.dragoonmodifier.DragoonModifier;
 import org.jetbrains.annotations.NotNull;
 
+import static legend.core.GameEngine.CONFIG;
 import static legend.core.GameEngine.REGISTRIES;
 import static legend.game.FullScreenEffects.startFadeEffect;
 import static legend.game.Menus.deallocateRenderables;
@@ -62,8 +64,16 @@ public class DraMenu extends VerticalLayoutScreen {
       for(int i = 0; i < gameState_800babc8.charData_32c.size(); i++) {
         final CharacterData2c currentChar = gameState_800babc8.charData_32c.get(i);
         if(currentChar.partyFlags_04 > 0) {
-          while(highestInPartyEXP > currentChar.getXpToNextLevel()) {
+          boolean continueLoop = highestInPartyEXP > currentChar.getXpToNextLevel();
+          if(CONFIG.getConfig(DragoonModifier.LEVEL_LOCKER.get()) && currentChar.level_12 >= DragoonModifier.getLockLevel()) {
+            continueLoop = false;
+          }
+          while(continueLoop) {
             currentChar.applyLevelUp(null);
+            continueLoop = highestInPartyEXP > currentChar.getXpToNextLevel();
+            if(CONFIG.getConfig(DragoonModifier.LEVEL_LOCKER.get()) && currentChar.level_12 >= DragoonModifier.getLockLevel()) {
+              continueLoop = false;
+            }
           }
         }
       }
