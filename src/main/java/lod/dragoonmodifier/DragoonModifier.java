@@ -1702,7 +1702,7 @@ public class DragoonModifier {
             System.out.println("LEGACY SPELL MULTIPLIER: " + attack.damage);
             break;
           default:
-            attack.damage *= (int)(spell.damageMultiplier_03 / 100d);
+            attack.damage *= spell.damageMultiplier_03 / 100d;
             System.out.println("Spell Multiplier DMG: " + attack.damage);
         }
       } else if(attack.attackType == AttackType.ITEM_MAGIC) {
@@ -1720,7 +1720,8 @@ public class DragoonModifier {
             System.out.println("LEGACY ITEM MULTIPLIER: " + attack.damage);
             break;
           default:
-            attack.damage *= (int)(itemDamageMultiplier / 100d);
+
+            attack.damage *= itemDamageMultiplier / 100d;
             System.out.println("Item Multiplier DMG: " + attack.damage);
         }
       }
